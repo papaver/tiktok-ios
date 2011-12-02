@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D3623260D0F684500981E51 /* FifteenMinutesAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FifteenMinutesAppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
+		28C286E10D94DF7D0034E888 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* CouponViewController.m */; };
+		28F335F11007B36200424DE2 /* CouponViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* CouponViewController.xib */; };
+		2E1144D113946D7900D72753 /* LocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1144CF13946D7900D72753 /* LocationMapViewController.m */; };
+		2E1144D213946D7900D72753 /* LocationMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1144D013946D7900D72753 /* LocationMapViewController.xib */; };
+		2E1144E31394709700D72753 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1144E21394709700D72753 /* MapKit.framework */; };
+		2E1F721E13619BD700F947E3 /* CouponDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */; };
+		2E1F722F13619C2800F947E3 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */; };
+		2E63B8F21384EE5A00427FF9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E63B8F11384EE5A00427FF9 /* Location.m */; };
+		2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E081213936496008788C2 /* CoreLocation.framework */; };
+		2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E0814139364AF008788C2 /* CoreGraphics.framework */; };
+		2E6E082B139364C2008788C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082A139364C2008788C2 /* Foundation.framework */; };
+		2E6E082D139364D6008788C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082C139364D6008788C2 /* UIKit.framework */; };
+		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
+		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
+		2E821F90136C2DCB00507F66 /* FifteenMinutesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* FifteenMinutesApi.m */; };
+		2E90CC6D135F6BDC00EE2906 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC5C135F6BDC00EE2906 /* NSObject+JSON.m */; };
+		2E90CC6E135F6BDC00EE2906 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC5E135F6BDC00EE2906 /* SBJsonParser.m */; };
+		2E90CC6F135F6BDC00EE2906 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC60135F6BDC00EE2906 /* SBJsonStreamParser.m */; };
+		2E90CC70135F6BDC00EE2906 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC62135F6BDC00EE2906 /* SBJsonStreamParserAdapter.m */; };
+		2E90CC71135F6BDC00EE2906 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC64135F6BDC00EE2906 /* SBJsonStreamParserState.m */; };
+		2E90CC72135F6BDC00EE2906 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC66135F6BDC00EE2906 /* SBJsonStreamWriter.m */; };
+		2E90CC73135F6BDC00EE2906 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC68135F6BDC00EE2906 /* SBJsonStreamWriterState.m */; };
+		2E90CC74135F6BDC00EE2906 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC6A135F6BDC00EE2906 /* SBJsonTokeniser.m */; };
+		2E90CC75135F6BDC00EE2906 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC6C135F6BDC00EE2906 /* SBJsonWriter.m */; };
+		2E90CD0F135F77AD00EE2906 /* Coupon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E90CD0E135F77AD00EE2906 /* Coupon.png */; };
+		2E90CD13135F77B600EE2906 /* MerchantThumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E90CD12135F77B600EE2906 /* MerchantThumbnail.png */; };
+		2E986F15138DFCEE00A301BA /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationController.m */; };
+		2E98714B1393050000A301BA /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E98714A1393050000A301BA /* CheckinViewController.m */; };
+		2E98715A1393064A00A301BA /* CheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9871591393064A00A301BA /* CheckinViewController.xib */; };
+		2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBAC7931399D9BE001FD98D /* CoreData.framework */; };
+		2EC925FD13937AAF006B232B /* GreenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC925FC13937AAF006B232B /* GreenButton.png */; };
+		2EC9261F1393801B006B232B /* RedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC9261E1393801B006B232B /* RedButton.png */; };
+		2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */; };
+		3849B96A138F79C00033FA11 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3849B93A138F785A0033FA11 /* GHUnitIOS.framework */; };
+		3849B972138F7AB30033FA11 /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 3849B971138F7AB30033FA11 /* GHUnitIOSTestMain.m */; };
+		3849B980138F7E790033FA11 /* Example.m in Sources */ = {isa = PBXBuildFile; fileRef = 3849B97F138F7E790033FA11 /* Example.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D3623240D0F684500981E51 /* FifteenMinutesAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifteenMinutesAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* FifteenMinutesAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FifteenMinutesAppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* FifteenMinutes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FifteenMinutes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A0AAE50D9B0CCF005BE974 /* FifteenMinutes_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifteenMinutes_Prefix.pch; sourceTree = "<group>"; };
+		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		28C286DF0D94DF7D0034E888 /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
+		28C286E00D94DF7D0034E888 /* CouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
+		28F335F01007B36200424DE2 /* CouponViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponViewController.xib; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2E1144CE13946D7900D72753 /* LocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMapViewController.h; sourceTree = "<group>"; };
+		2E1144CF13946D7900D72753 /* LocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMapViewController.m; sourceTree = "<group>"; };
+		2E1144D013946D7900D72753 /* LocationMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LocationMapViewController.xib; path = Classes/LocationMapViewController.xib; sourceTree = "<group>"; };
+		2E1144E21394709700D72753 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponDetailViewController.xib; sourceTree = "<group>"; };
+		2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailViewController.h; sourceTree = "<group>"; };
+		2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
+		2E63B8961383889C00427FF9 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = Models/Location.h; sourceTree = "<group>"; };
+		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = Models/Location.m; sourceTree = "<group>"; };
+		2E6E081213936496008788C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2E6E0814139364AF008788C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2E6E082A139364C2008788C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2E6E082C139364D6008788C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Merchant.h; path = Models/Merchant.h; sourceTree = "<group>"; };
+		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Merchant.m; path = Models/Merchant.m; sourceTree = "<group>"; };
+		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Coupon.h; path = Models/Coupon.h; sourceTree = "<group>"; };
+		2E821F84136B1F2A00507F66 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Coupon.m; path = Models/Coupon.m; sourceTree = "<group>"; };
+		2E821F8E136C2DCB00507F66 /* FifteenMinutesApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifteenMinutesApi.h; sourceTree = "<group>"; };
+		2E821F8F136C2DCB00507F66 /* FifteenMinutesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FifteenMinutesApi.m; sourceTree = "<group>"; };
+		2E90CC5A135F6BDC00EE2906 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSON.h; path = ThirdParty/Json/JSON.h; sourceTree = "<group>"; };
+		2E90CC5B135F6BDC00EE2906 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+JSON.h"; path = "ThirdParty/Json/NSObject+JSON.h"; sourceTree = "<group>"; };
+		2E90CC5C135F6BDC00EE2906 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+JSON.m"; path = "ThirdParty/Json/NSObject+JSON.m"; sourceTree = "<group>"; };
+		2E90CC5D135F6BDC00EE2906 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonParser.h; path = ThirdParty/Json/SBJsonParser.h; sourceTree = "<group>"; };
+		2E90CC5E135F6BDC00EE2906 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonParser.m; path = ThirdParty/Json/SBJsonParser.m; sourceTree = "<group>"; };
+		2E90CC5F135F6BDC00EE2906 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParser.h; path = ThirdParty/Json/SBJsonStreamParser.h; sourceTree = "<group>"; };
+		2E90CC60135F6BDC00EE2906 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParser.m; path = ThirdParty/Json/SBJsonStreamParser.m; sourceTree = "<group>"; };
+		2E90CC61135F6BDC00EE2906 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAdapter.h; path = ThirdParty/Json/SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		2E90CC62135F6BDC00EE2906 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAdapter.m; path = ThirdParty/Json/SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		2E90CC63135F6BDC00EE2906 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserState.h; path = ThirdParty/Json/SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		2E90CC64135F6BDC00EE2906 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserState.m; path = ThirdParty/Json/SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		2E90CC65135F6BDC00EE2906 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriter.h; path = ThirdParty/Json/SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		2E90CC66135F6BDC00EE2906 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriter.m; path = ThirdParty/Json/SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		2E90CC67135F6BDC00EE2906 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterState.h; path = ThirdParty/Json/SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		2E90CC68135F6BDC00EE2906 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterState.m; path = ThirdParty/Json/SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		2E90CC69135F6BDC00EE2906 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonTokeniser.h; path = ThirdParty/Json/SBJsonTokeniser.h; sourceTree = "<group>"; };
+		2E90CC6A135F6BDC00EE2906 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonTokeniser.m; path = ThirdParty/Json/SBJsonTokeniser.m; sourceTree = "<group>"; };
+		2E90CC6B135F6BDC00EE2906 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = ThirdParty/Json/SBJsonWriter.h; sourceTree = "<group>"; };
+		2E90CC6C135F6BDC00EE2906 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = ThirdParty/Json/SBJsonWriter.m; sourceTree = "<group>"; };
+		2E90CD0E135F77AD00EE2906 /* Coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Coupon.png; path = Resources/Coupon.png; sourceTree = "<group>"; };
+		2E90CD12135F77B600EE2906 /* MerchantThumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MerchantThumbnail.png; path = Resources/MerchantThumbnail.png; sourceTree = "<group>"; };
+		2E986F13138DFCEE00A301BA /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
+		2E986F14138DFCEE00A301BA /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
+		2E9871491393050000A301BA /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
+		2E98714A1393050000A301BA /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
+		2E9871591393064A00A301BA /* CheckinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckinViewController.xib; sourceTree = "<group>"; };
+		2EBAC7931399D9BE001FD98D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2EC925FC13937AAF006B232B /* GreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenButton.png; path = Resources/GreenButton.png; sourceTree = "<group>"; };
+		2EC9261E1393801B006B232B /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedButton.png; path = Resources/RedButton.png; sourceTree = "<group>"; };
+		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		3849B93A138F785A0033FA11 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
+		3849B95D138F79770033FA11 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3849B95F138F79770033FA11 /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
+		3849B971138F7AB30033FA11 /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitIOSTestMain.m; sourceTree = "<group>"; };
+		3849B97F138F7E790033FA11 /* Example.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Example.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* FifteenMinutes-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FifteenMinutes-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */,
+				2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */,
+				2E6E082B139364C2008788C2 /* Foundation.framework in Frameworks */,
+				2E6E082D139364D6008788C2 /* UIKit.framework in Frameworks */,
+				2E1144E31394709700D72753 /* MapKit.framework in Frameworks */,
+				2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3849B95B138F79770033FA11 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3849B96A138F79C00033FA11 /* GHUnitIOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2E821F78136B1EAB00507F66 /* Models */,
+				2E90CC57135F6A3F00EE2906 /* ThirdParty */,
+				2E821F8E136C2DCB00507F66 /* FifteenMinutesApi.h */,
+				2E821F8F136C2DCB00507F66 /* FifteenMinutesApi.m */,
+				2E986F13138DFCEE00A301BA /* LocationController.h */,
+				2E986F14138DFCEE00A301BA /* LocationController.m */,
+				2E9871491393050000A301BA /* CheckinViewController.h */,
+				2E98714A1393050000A301BA /* CheckinViewController.m */,
+				28C286DF0D94DF7D0034E888 /* CouponViewController.h */,
+				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
+				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
+				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
+				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
+				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
+				1D3623240D0F684500981E51 /* FifteenMinutesAppDelegate.h */,
+				1D3623250D0F684500981E51 /* FifteenMinutesAppDelegate.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* FifteenMinutes.app */,
+				3849B95D138F79770033FA11 /* Test.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				3849B96F138F7A490033FA11 /* Unittests */,
+				2E63B8961383889C00427FF9 /* Entitlements.plist */,
+				8D1107310486CEB800E47090 /* FifteenMinutes-Info.plist */,
+				3849B95F138F79770033FA11 /* Test-Info.plist */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				28A0AAE50D9B0CCF005BE974 /* FifteenMinutes_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2E29AF211399E38100FB6AE2 /* images */,
+				2E29AF1F1399E37300FB6AE2 /* models */,
+				2E29AF201399E37B00FB6AE2 /* views */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2EBAC7931399D9BE001FD98D /* CoreData.framework */,
+				2E6E081213936496008788C2 /* CoreLocation.framework */,
+				2E6E0814139364AF008788C2 /* CoreGraphics.framework */,
+				2E6E082A139364C2008788C2 /* Foundation.framework */,
+				3849B93A138F785A0033FA11 /* GHUnitIOS.framework */,
+				2E1144E21394709700D72753 /* MapKit.framework */,
+				2E6E082C139364D6008788C2 /* UIKit.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E29AF1F1399E37300FB6AE2 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		2E29AF201399E37B00FB6AE2 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
+				2E9871591393064A00A301BA /* CheckinViewController.xib */,
+				28F335F01007B36200424DE2 /* CouponViewController.xib */,
+				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
+				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		2E29AF211399E38100FB6AE2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				2EC9261E1393801B006B232B /* RedButton.png */,
+				2EC925FC13937AAF006B232B /* GreenButton.png */,
+				2E90CD0E135F77AD00EE2906 /* Coupon.png */,
+				2E90CD12135F77B600EE2906 /* MerchantThumbnail.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		2E821F78136B1EAB00507F66 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2E821F83136B1F2A00507F66 /* Coupon.h */,
+				2E821F84136B1F2A00507F66 /* Coupon.m */,
+				2E821F80136B1F1500507F66 /* Merchant.h */,
+				2E821F81136B1F1500507F66 /* Merchant.m */,
+				2E63B8F01384EE5A00427FF9 /* Location.h */,
+				2E63B8F11384EE5A00427FF9 /* Location.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		2E90CC57135F6A3F00EE2906 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				2E90CC58135F6A5000EE2906 /* Json */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
+		2E90CC58135F6A5000EE2906 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				2E90CC5A135F6BDC00EE2906 /* JSON.h */,
+				2E90CC5B135F6BDC00EE2906 /* NSObject+JSON.h */,
+				2E90CC5C135F6BDC00EE2906 /* NSObject+JSON.m */,
+				2E90CC5D135F6BDC00EE2906 /* SBJsonParser.h */,
+				2E90CC5E135F6BDC00EE2906 /* SBJsonParser.m */,
+				2E90CC5F135F6BDC00EE2906 /* SBJsonStreamParser.h */,
+				2E90CC60135F6BDC00EE2906 /* SBJsonStreamParser.m */,
+				2E90CC61135F6BDC00EE2906 /* SBJsonStreamParserAdapter.h */,
+				2E90CC62135F6BDC00EE2906 /* SBJsonStreamParserAdapter.m */,
+				2E90CC63135F6BDC00EE2906 /* SBJsonStreamParserState.h */,
+				2E90CC64135F6BDC00EE2906 /* SBJsonStreamParserState.m */,
+				2E90CC65135F6BDC00EE2906 /* SBJsonStreamWriter.h */,
+				2E90CC66135F6BDC00EE2906 /* SBJsonStreamWriter.m */,
+				2E90CC67135F6BDC00EE2906 /* SBJsonStreamWriterState.h */,
+				2E90CC68135F6BDC00EE2906 /* SBJsonStreamWriterState.m */,
+				2E90CC69135F6BDC00EE2906 /* SBJsonTokeniser.h */,
+				2E90CC6A135F6BDC00EE2906 /* SBJsonTokeniser.m */,
+				2E90CC6B135F6BDC00EE2906 /* SBJsonWriter.h */,
+				2E90CC6C135F6BDC00EE2906 /* SBJsonWriter.m */,
+			);
+			name = Json;
+			sourceTree = "<group>";
+		};
+		3849B96F138F7A490033FA11 /* Unittests */ = {
+			isa = PBXGroup;
+			children = (
+				3849B971138F7AB30033FA11 /* GHUnitIOSTestMain.m */,
+				3849B97F138F7E790033FA11 /* Example.m */,
+			);
+			path = Unittests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* FifteenMinutes */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FifteenMinutes" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FifteenMinutes;
+			productName = FifteenMinutes;
+			productReference = 1D6058910D05DD3D006BFB54 /* FifteenMinutes.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3849B95C138F79770033FA11 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3849B962138F79780033FA11 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				3849B959138F79770033FA11 /* Resources */,
+				3849B95A138F79770033FA11 /* Sources */,
+				3849B95B138F79770033FA11 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Test;
+			productReference = 3849B95D138F79770033FA11 /* Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FifteenMinutes" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* FifteenMinutes */,
+				3849B95C138F79770033FA11 /* Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
+				28F335F11007B36200424DE2 /* CouponViewController.xib in Resources */,
+				2E90CD0F135F77AD00EE2906 /* Coupon.png in Resources */,
+				2E90CD13135F77B600EE2906 /* MerchantThumbnail.png in Resources */,
+				2E1F721E13619BD700F947E3 /* CouponDetailViewController.xib in Resources */,
+				2E98715A1393064A00A301BA /* CheckinViewController.xib in Resources */,
+				2EC925FD13937AAF006B232B /* GreenButton.png in Resources */,
+				2EC9261F1393801B006B232B /* RedButton.png in Resources */,
+				2E1144D213946D7900D72753 /* LocationMapViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3849B959138F79770033FA11 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* FifteenMinutesAppDelegate.m in Sources */,
+				28C286E10D94DF7D0034E888 /* CouponViewController.m in Sources */,
+				2E90CC6D135F6BDC00EE2906 /* NSObject+JSON.m in Sources */,
+				2E90CC6E135F6BDC00EE2906 /* SBJsonParser.m in Sources */,
+				2E90CC6F135F6BDC00EE2906 /* SBJsonStreamParser.m in Sources */,
+				2E90CC70135F6BDC00EE2906 /* SBJsonStreamParserAdapter.m in Sources */,
+				2E90CC71135F6BDC00EE2906 /* SBJsonStreamParserState.m in Sources */,
+				2E90CC72135F6BDC00EE2906 /* SBJsonStreamWriter.m in Sources */,
+				2E90CC73135F6BDC00EE2906 /* SBJsonStreamWriterState.m in Sources */,
+				2E90CC74135F6BDC00EE2906 /* SBJsonTokeniser.m in Sources */,
+				2E90CC75135F6BDC00EE2906 /* SBJsonWriter.m in Sources */,
+				2E1F722F13619C2800F947E3 /* CouponDetailViewController.m in Sources */,
+				2E821F82136B1F1500507F66 /* Merchant.m in Sources */,
+				2E821F85136B1F2A00507F66 /* Coupon.m in Sources */,
+				2E821F90136C2DCB00507F66 /* FifteenMinutesApi.m in Sources */,
+				2E63B8F21384EE5A00427FF9 /* Location.m in Sources */,
+				2E986F15138DFCEE00A301BA /* LocationController.m in Sources */,
+				2E98714B1393050000A301BA /* CheckinViewController.m in Sources */,
+				2E1144D113946D7900D72753 /* LocationMapViewController.m in Sources */,
+				2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3849B95A138F79770033FA11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3849B972138F7AB30033FA11 /* GHUnitIOSTestMain.m in Sources */,
+				3849B980138F7E790033FA11 /* Example.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FifteenMinutes_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				INFOPLIST_FILE = "FifteenMinutes-Info.plist";
+				PRODUCT_NAME = FifteenMinutes;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FifteenMinutes_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				INFOPLIST_FILE = "FifteenMinutes-Info.plist";
+				PRODUCT_NAME = FifteenMinutes;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3849B960138F79770033FA11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "Test-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Test;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		3849B961138F79770033FA11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
+				INFOPLIST_FILE = "Test-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Test;
+				SDKROOT = iphoneos;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FifteenMinutes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3849B962138F79780033FA11 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3849B960138F79770033FA11 /* Debug */,
+				3849B961138F79770033FA11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FifteenMinutes" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
