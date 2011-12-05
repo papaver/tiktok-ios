@@ -43,6 +43,12 @@
     // setup the checkin/checkout buttons
     self.checkinButton.hidden  = NO;
     self.checkoutButton.hidden = YES;
+
+    // request location authorization 
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        [self.locationController.locationManager startUpdatingLocation];
+    }
+
 }
 
 //------------------------------------------------------------------------------

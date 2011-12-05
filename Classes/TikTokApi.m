@@ -62,7 +62,7 @@ static NSData *s_device_token;
 
 + (NSString*) apiUrlPath
 {
-    return @"http://stormy-water-700.heroku.com/";
+    return @"http://electric-dusk-7349.herokuapp.com/";
 }
 
 //------------------------------------------------------------------------------
