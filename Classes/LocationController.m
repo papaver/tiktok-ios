@@ -1,9 +1,9 @@
 //
 //  LocationController.m
-//  fifteenMinutes
+//  TikTok
 //
 //  Created by Moiz Merchant on 5/25/11.
-//  Copyright 2011 Bunnies on Acid. All rights reserved.
+//  Copyright 2011 TikTok. All rights reserved.
 //
 
 //------------------------------------------------------------------------------

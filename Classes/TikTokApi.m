@@ -1,9 +1,9 @@
 //
 //  TikTokApi.m
-//  FifteenMinutes
+//  TikTok
 //
 //  Created by Moiz Merchant on 4/30/11.
-//  Copyright 2011 Bunnies on Acid. All rights reserved.
+//  Copyright 2011 TikTok. All rights reserved.
 //
 
 //------------------------------------------------------------------------------

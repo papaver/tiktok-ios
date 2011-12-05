@@ -105,7 +105,6 @@
 		2EC925FC13937AAF006B232B /* GreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenButton.png; path = Resources/GreenButton.png; sourceTree = "<group>"; };
 		2EC9261E1393801B006B232B /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedButton.png; path = Resources/RedButton.png; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		3849B95F138F79770033FA11 /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,7 +164,6 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				2E63B8961383889C00427FF9 /* Entitlements.plist */,
-				3849B95F138F79770033FA11 /* Test-Info.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";

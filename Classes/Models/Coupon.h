@@ -1,9 +1,9 @@
 //
 //  Coupon.h
-//  fifteenMinutes
+//  TikTok
 //
 //  Created by Moiz Merchant on 4/29/11.
-//  Copyright 2011 Bunnies on Acid. All rights reserved.
+//  Copyright 2011 TikTok. All rights reserved.
 //
 
 //------------------------------------------------------------------------------
