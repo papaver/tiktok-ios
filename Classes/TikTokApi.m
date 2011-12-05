@@ -1,6 +1,6 @@
 //
-//  FifteenMinutesApi.m
-//  fifteenMinutes
+//  TikTokApi.m
+//  FifteenMinutes
 //
 //  Created by Moiz Merchant on 4/30/11.
 //  Copyright 2011 Bunnies on Acid. All rights reserved.
@@ -10,7 +10,7 @@
 // imports 
 //------------------------------------------------------------------------------
 
-#import "FifteenMinutesApi.h"
+#import "TikTokApi.h"
 #import "Merchant.h"
 #import "Coupon.h"
 #import "Location.h"
@@ -19,7 +19,7 @@
 // interface implementation
 //------------------------------------------------------------------------------
 
-@implementation FifteenMinutesApi
+@implementation TikTokApi
 
 //------------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ static NSData *s_device_token;
     s_device_token = deviceToken;
     [s_device_token retain];
 
-    NSLog(@"15Api: Setting device token: %@", [s_device_token description]);
+    NSLog(@"TikTokApi: Setting device token: %@", [s_device_token description]);
 }
 
 //------------------------------------------------------------------------------
@@ -135,11 +135,11 @@ static NSData *s_device_token;
 
     // construct the checkin url path 
     NSString *url_path = [NSString stringWithFormat:@"%@/checkins", 
-        [FifteenMinutesApi apiUrlPath]];
+        [TikTokApi apiUrlPath]];
 
     // convert token data into a string
     NSString *deviceTokenStr = 
-        [[[FifteenMinutesApi deviceToken] description] stringByTrimmingCharactersInSet:
+        [[[TikTokApi deviceToken] description] stringByTrimmingCharactersInSet:
             [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 
     // setup the post data for the url
@@ -147,7 +147,7 @@ static NSData *s_device_token;
         deviceTokenStr, latitude, longitude];
 
     // attempt to checkin with the server
-    NSData* data = [FifteenMinutesApi httpQueryWithUrlPath:url_path 
+    NSData* data = [TikTokApi httpQueryWithUrlPath:url_path 
                                                   andPostData:post_data];
     NSLog(@"api data -> %s", (char*)[data bytes]);
 
@@ -173,18 +173,18 @@ static NSData *s_device_token;
 {
     // construct the checkin url path 
     NSString *url_path = [NSString stringWithFormat:@"%@/checkout", 
-        [FifteenMinutesApi apiUrlPath]];
+        [TikTokApi apiUrlPath]];
 
     // convert token data into a string
     NSString *deviceTokenStr = 
-        [[[FifteenMinutesApi deviceToken] description] stringByTrimmingCharactersInSet:
+        [[[TikTokApi deviceToken] description] stringByTrimmingCharactersInSet:
             [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 
     // setup the post data for the url
     NSString *post_data = [NSString stringWithFormat:@"token=%@", deviceTokenStr];
 
     // attempt to checkin with the server
-    [FifteenMinutesApi httpQueryWithUrlPath:url_path andPostData:post_data];
+    [TikTokApi httpQueryWithUrlPath:url_path andPostData:post_data];
 
     return YES;
 }
@@ -194,14 +194,14 @@ static NSData *s_device_token;
 - (NSMutableArray*) getActiveCoupons
 {
     // need the token as a string
-    NSString *deviceTokenStr = [[[[FifteenMinutesApi deviceToken] description]
+    NSString *deviceTokenStr = [[[[TikTokApi deviceToken] description]
         stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
         stringByReplacingOccurrencesOfString:@" " 
         withString:@"%20"];
 
     NSURL *url = [[[NSURL alloc] initWithString:
         [NSString stringWithFormat:@"%@/coupons?token=%@", 
-            [FifteenMinutesApi apiUrlPath], deviceTokenStr]] autorelease];
+            [TikTokApi apiUrlPath], deviceTokenStr]] autorelease];
 
     // query data from the server
     NSData *data = [[[NSData alloc] initWithContentsOfURL:url] autorelease];

@@ -10,10 +10,10 @@
 // imports 
 //------------------------------------------------------------------------------
 
-#import "FifteenMinutesAppDelegate.h"
+#import "TikTokAppDelegate.h"
 #import "CheckinViewController.h"
 #import "CouponViewController.h"
-#import "FifteenMinutesApi.h"
+#import "TikTokApi.h"
 
 //------------------------------------------------------------------------------
 // interface implementation
@@ -90,8 +90,8 @@
     NSLog(@"CheckinViewController: currentLocation: %@", [currentLocation description]);
 
     // use the api to contact the server and attempt to checkin
-    FifteenMinutesApi *api = [[FifteenMinutesApi new] autorelease];
-    api.managedContext     = [((FifteenMinutesAppDelegate*)[[UIApplication sharedApplication] delegate]) managedObjectContext];
+    TikTokApi *api = [[TikTokApi new] autorelease];
+    api.managedContext     = [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) managedObjectContext];
     self.checkinLocation   = [api checkInWithCurrentLocation:currentLocation];
 
     // start tracking the current location if checked in
@@ -124,7 +124,7 @@
     }
 
     // use the api to contact the server to checkout
-    FifteenMinutesApi *api = [[FifteenMinutesApi new] autorelease];
+    TikTokApi *api = [[TikTokApi new] autorelease];
     [api checkOut];
             
     // stop recieving location updates

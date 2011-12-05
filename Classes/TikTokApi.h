@@ -24,7 +24,7 @@
 // interface implementation 
 //------------------------------------------------------------------------------
 
-@interface FifteenMinutesApi : NSObject <SBJsonStreamParserAdapterDelegate>
+@interface TikTokApi : NSObject <SBJsonStreamParserAdapterDelegate>
 {
     SBJsonStreamParser        *m_parser;
     SBJsonStreamParserAdapter *m_adapter;

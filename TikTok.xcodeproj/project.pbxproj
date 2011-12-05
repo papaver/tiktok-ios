@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* FifteenMinutesAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FifteenMinutesAppDelegate.m */; };
+		1D3623260D0F684500981E51 /* TikTokAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* TikTokAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* CouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* CouponViewController.m */; };
@@ -24,7 +24,7 @@
 		2E6E082D139364D6008788C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082C139364D6008788C2 /* UIKit.framework */; };
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
-		2E821F90136C2DCB00507F66 /* FifteenMinutesApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* FifteenMinutesApi.m */; };
+		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
 		2E90CC6D135F6BDC00EE2906 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC5C135F6BDC00EE2906 /* NSObject+JSON.m */; };
 		2E90CC6E135F6BDC00EE2906 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC5E135F6BDC00EE2906 /* SBJsonParser.m */; };
 		2E90CC6F135F6BDC00EE2906 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E90CC60135F6BDC00EE2906 /* SBJsonStreamParser.m */; };
@@ -43,16 +43,13 @@
 		2EC925FD13937AAF006B232B /* GreenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC925FC13937AAF006B232B /* GreenButton.png */; };
 		2EC9261F1393801B006B232B /* RedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC9261E1393801B006B232B /* RedButton.png */; };
 		2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */; };
-		3849B96A138F79C00033FA11 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3849B93A138F785A0033FA11 /* GHUnitIOS.framework */; };
-		3849B972138F7AB30033FA11 /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 3849B971138F7AB30033FA11 /* GHUnitIOSTestMain.m */; };
-		3849B980138F7E790033FA11 /* Example.m in Sources */ = {isa = PBXBuildFile; fileRef = 3849B97F138F7E790033FA11 /* Example.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D3623240D0F684500981E51 /* FifteenMinutesAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifteenMinutesAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* FifteenMinutesAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FifteenMinutesAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* FifteenMinutes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FifteenMinutes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		28A0AAE50D9B0CCF005BE974 /* FifteenMinutes_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifteenMinutes_Prefix.pch; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* TikTokAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* TikTokAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokAppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* TikTok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikTok.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A0AAE50D9B0CCF005BE974 /* TikTok_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTok_Prefix.pch; sourceTree = "<group>"; };
 		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		28C286DF0D94DF7D0034E888 /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* CouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
@@ -76,8 +73,8 @@
 		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Merchant.m; path = Models/Merchant.m; sourceTree = "<group>"; };
 		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Coupon.h; path = Models/Coupon.h; sourceTree = "<group>"; };
 		2E821F84136B1F2A00507F66 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Coupon.m; path = Models/Coupon.m; sourceTree = "<group>"; };
-		2E821F8E136C2DCB00507F66 /* FifteenMinutesApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FifteenMinutesApi.h; sourceTree = "<group>"; };
-		2E821F8F136C2DCB00507F66 /* FifteenMinutesApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FifteenMinutesApi.m; sourceTree = "<group>"; };
+		2E821F8E136C2DCB00507F66 /* TikTokApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokApi.h; sourceTree = "<group>"; };
+		2E821F8F136C2DCB00507F66 /* TikTokApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokApi.m; sourceTree = "<group>"; };
 		2E90CC5A135F6BDC00EE2906 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSON.h; path = ThirdParty/Json/JSON.h; sourceTree = "<group>"; };
 		2E90CC5B135F6BDC00EE2906 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+JSON.h"; path = "ThirdParty/Json/NSObject+JSON.h"; sourceTree = "<group>"; };
 		2E90CC5C135F6BDC00EE2906 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+JSON.m"; path = "ThirdParty/Json/NSObject+JSON.m"; sourceTree = "<group>"; };
@@ -108,12 +105,7 @@
 		2EC925FC13937AAF006B232B /* GreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenButton.png; path = Resources/GreenButton.png; sourceTree = "<group>"; };
 		2EC9261E1393801B006B232B /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedButton.png; path = Resources/RedButton.png; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		3849B93A138F785A0033FA11 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnitIOS.framework; sourceTree = "<group>"; };
-		3849B95D138F79770033FA11 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3849B95F138F79770033FA11 /* Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
-		3849B971138F7AB30033FA11 /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitIOSTestMain.m; sourceTree = "<group>"; };
-		3849B97F138F7E790033FA11 /* Example.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Example.m; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* FifteenMinutes-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FifteenMinutes-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,14 +122,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3849B95B138F79770033FA11 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3849B96A138F79C00033FA11 /* GHUnitIOS.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -146,8 +130,8 @@
 			children = (
 				2E821F78136B1EAB00507F66 /* Models */,
 				2E90CC57135F6A3F00EE2906 /* ThirdParty */,
-				2E821F8E136C2DCB00507F66 /* FifteenMinutesApi.h */,
-				2E821F8F136C2DCB00507F66 /* FifteenMinutesApi.m */,
+				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
+				2E821F8F136C2DCB00507F66 /* TikTokApi.m */,
 				2E986F13138DFCEE00A301BA /* LocationController.h */,
 				2E986F14138DFCEE00A301BA /* LocationController.m */,
 				2E9871491393050000A301BA /* CheckinViewController.h */,
@@ -158,8 +142,8 @@
 				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
 				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
-				1D3623240D0F684500981E51 /* FifteenMinutesAppDelegate.h */,
-				1D3623250D0F684500981E51 /* FifteenMinutesAppDelegate.m */,
+				1D3623240D0F684500981E51 /* TikTokAppDelegate.h */,
+				1D3623250D0F684500981E51 /* TikTokAppDelegate.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -167,8 +151,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* FifteenMinutes.app */,
-				3849B95D138F79770033FA11 /* Test.app */,
+				1D6058910D05DD3D006BFB54 /* TikTok.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -181,9 +164,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				3849B96F138F7A490033FA11 /* Unittests */,
 				2E63B8961383889C00427FF9 /* Entitlements.plist */,
-				8D1107310486CEB800E47090 /* FifteenMinutes-Info.plist */,
 				3849B95F138F79770033FA11 /* Test-Info.plist */,
 			);
 			name = CustomTemplate;
@@ -192,7 +173,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				28A0AAE50D9B0CCF005BE974 /* FifteenMinutes_Prefix.pch */,
+				28A0AAE50D9B0CCF005BE974 /* TikTok_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -215,7 +196,6 @@
 				2E6E081213936496008788C2 /* CoreLocation.framework */,
 				2E6E0814139364AF008788C2 /* CoreGraphics.framework */,
 				2E6E082A139364C2008788C2 /* Foundation.framework */,
-				3849B93A138F785A0033FA11 /* GHUnitIOS.framework */,
 				2E1144E21394709700D72753 /* MapKit.framework */,
 				2E6E082C139364D6008788C2 /* UIKit.framework */,
 			);
@@ -300,21 +280,12 @@
 			name = Json;
 			sourceTree = "<group>";
 		};
-		3849B96F138F7A490033FA11 /* Unittests */ = {
-			isa = PBXGroup;
-			children = (
-				3849B971138F7AB30033FA11 /* GHUnitIOSTestMain.m */,
-				3849B97F138F7E790033FA11 /* Example.m */,
-			);
-			path = Unittests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* FifteenMinutes */ = {
+		1D6058900D05DD3D006BFB54 /* TikTok */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FifteenMinutes" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "TikTok" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -324,26 +295,9 @@
 			);
 			dependencies = (
 			);
-			name = FifteenMinutes;
+			name = TikTok;
 			productName = FifteenMinutes;
-			productReference = 1D6058910D05DD3D006BFB54 /* FifteenMinutes.app */;
-			productType = "com.apple.product-type.application";
-		};
-		3849B95C138F79770033FA11 /* Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3849B962138F79780033FA11 /* Build configuration list for PBXNativeTarget "Tests" */;
-			buildPhases = (
-				3849B959138F79770033FA11 /* Resources */,
-				3849B95A138F79770033FA11 /* Sources */,
-				3849B95B138F79770033FA11 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Tests;
-			productName = Test;
-			productReference = 3849B95D138F79770033FA11 /* Test.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* TikTok.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -351,7 +305,7 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FifteenMinutes" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TikTok" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -366,8 +320,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* FifteenMinutes */,
-				3849B95C138F79770033FA11 /* Tests */,
+				1D6058900D05DD3D006BFB54 /* TikTok */,
 			);
 		};
 /* End PBXProject section */
@@ -389,13 +342,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3849B959138F79770033FA11 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -404,7 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* FifteenMinutesAppDelegate.m in Sources */,
+				1D3623260D0F684500981E51 /* TikTokAppDelegate.m in Sources */,
 				28C286E10D94DF7D0034E888 /* CouponViewController.m in Sources */,
 				2E90CC6D135F6BDC00EE2906 /* NSObject+JSON.m in Sources */,
 				2E90CC6E135F6BDC00EE2906 /* SBJsonParser.m in Sources */,
@@ -418,21 +364,12 @@
 				2E1F722F13619C2800F947E3 /* CouponDetailViewController.m in Sources */,
 				2E821F82136B1F1500507F66 /* Merchant.m in Sources */,
 				2E821F85136B1F2A00507F66 /* Coupon.m in Sources */,
-				2E821F90136C2DCB00507F66 /* FifteenMinutesApi.m in Sources */,
+				2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */,
 				2E63B8F21384EE5A00427FF9 /* Location.m in Sources */,
 				2E986F15138DFCEE00A301BA /* LocationController.m in Sources */,
 				2E98714B1393050000A301BA /* CheckinViewController.m in Sources */,
 				2E1144D113946D7900D72753 /* LocationMapViewController.m in Sources */,
 				2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3849B95A138F79770033FA11 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3849B972138F7AB30033FA11 /* GHUnitIOSTestMain.m in Sources */,
-				3849B980138F7E790033FA11 /* Example.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,18 +383,15 @@
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = FifteenMinutes_Prefix.pch;
+				GCC_PREFIX_HEADER = TikTok_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				INFOPLIST_FILE = "FifteenMinutes-Info.plist";
-				PRODUCT_NAME = FifteenMinutes;
+				INFOPLIST_FILE = "TikTok-Info.plist";
+				PRODUCT_NAME = TikTok;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
@@ -469,79 +403,15 @@
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = FifteenMinutes_Prefix.pch;
+				GCC_PREFIX_HEADER = TikTok_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				INFOPLIST_FILE = "FifteenMinutes-Info.plist";
-				PRODUCT_NAME = FifteenMinutes;
+				INFOPLIST_FILE = "TikTok-Info.plist";
+				PRODUCT_NAME = TikTok;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		3849B960138F79770033FA11 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
-				INFOPLIST_FILE = "Test-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Test;
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		3849B961138F79770033FA11 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
-				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/UIKit.framework/Headers/UIKit.h";
-				INFOPLIST_FILE = "Test-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Test;
-				SDKROOT = iphoneos;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -575,32 +445,23 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "FifteenMinutes" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "TikTok" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		3849B962138F79780033FA11 /* Build configuration list for PBXNativeTarget "Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3849B960138F79770033FA11 /* Debug */,
-				3849B961138F79770033FA11 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FifteenMinutes" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TikTok" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

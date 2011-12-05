@@ -1,5 +1,5 @@
 //
-//  FifteenMinutesAppDelegate.m
+//  TikTokAppDelegate.m
 //  FifteenMinutes
 //
 //  Created by Moiz Merchant on 4/19/11.
@@ -10,14 +10,14 @@
 // imports
 //------------------------------------------------------------------------------
 
-#import "FifteenMinutesAppDelegate.h"
-#import "FifteenMinutesApi.h"
+#import "TikTokAppDelegate.h"
+#import "TikTokApi.h"
 
 //------------------------------------------------------------------------------
 // interface implemenation
 //------------------------------------------------------------------------------
 
-@implementation FifteenMinutesAppDelegate
+@implementation TikTokAppDelegate
 
 //------------------------------------------------------------------------------
 
@@ -170,7 +170,7 @@
 {
     NSLog(@"Notifications: Registering device, token: %@.", deviceToken);
 
-    [FifteenMinutesApi setDeviceToken:deviceToken];
+    [TikTokApi setDeviceToken:deviceToken];
 }
 
 //------------------------------------------------------------------------------
@@ -210,7 +210,7 @@
     application.applicationIconBadgeNumber = 0;
 
     // get list of available coupons
-    FifteenMinutesApi *api = [[FifteenMinutesApi new] autorelease];
+    TikTokApi *api = [[TikTokApi new] autorelease];
     api.managedContext = self.managedObjectContext;
     [api getActiveCoupons];
 }

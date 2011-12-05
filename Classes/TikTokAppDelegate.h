@@ -1,5 +1,5 @@
 //
-//  FifteenMinutesAppDelegate.h
+//  TikTokAppDelegate.h
 //  FifteenMinutes
 //
 //  Created by Moiz Merchant on 4/19/11.
@@ -17,7 +17,7 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface FifteenMinutesAppDelegate : NSObject <UIApplicationDelegate> 
+@interface TikTokAppDelegate : NSObject <UIApplicationDelegate> 
 {
     UIWindow               *m_window;
     UITabBarController     *m_tab_bar_controller;

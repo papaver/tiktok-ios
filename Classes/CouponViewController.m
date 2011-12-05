@@ -10,10 +10,10 @@
 // imports
 //------------------------------------------------------------------------------
 
-#import "FifteenMinutesAppDelegate.h"
+#import "TikTokAppDelegate.h"
 #import "CouponViewController.h"
 #import "CouponDetailViewController.h"
-#import "FifteenMinutesApi.h"
+#import "TikTokApi.h"
 #import "Merchant.h"
 #import "Coupon.h"
 
@@ -339,7 +339,7 @@
 {
     // -- temp --
     NSManagedObjectContext *managedObjectContext = 
-        [((FifteenMinutesAppDelegate*)[[UIApplication sharedApplication] delegate]) 
+        [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) 
         managedObjectContext];
 
     // check if controller already created
