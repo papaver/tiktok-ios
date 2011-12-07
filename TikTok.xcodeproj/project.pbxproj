@@ -40,6 +40,9 @@
 		2E98714B1393050000A301BA /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E98714A1393050000A301BA /* CheckinViewController.m */; };
 		2E98715A1393064A00A301BA /* CheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9871591393064A00A301BA /* CheckinViewController.xib */; };
 		2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBAC7931399D9BE001FD98D /* CoreData.framework */; };
+		2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */; };
+		2EC6724D148ED6F500AC5CDF /* TikTok-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */; };
+		2EC6725A148FF6EF00AC5CDF /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67259148FF6EF00AC5CDF /* Utilities.m */; };
 		2EC925FD13937AAF006B232B /* GreenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC925FC13937AAF006B232B /* GreenButton.png */; };
 		2EC9261F1393801B006B232B /* RedButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC9261E1393801B006B232B /* RedButton.png */; };
 		2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */; };
@@ -102,6 +105,10 @@
 		2E98714A1393050000A301BA /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
 		2E9871591393064A00A301BA /* CheckinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckinViewController.xib; sourceTree = "<group>"; };
 		2EBAC7931399D9BE001FD98D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = VancouverDowntownWalk.gpx; path = Resources/VancouverDowntownWalk.gpx; sourceTree = "<group>"; };
+		2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TikTok-Info.plist"; sourceTree = "<group>"; };
+		2EC67258148FF6EF00AC5CDF /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		2EC67259148FF6EF00AC5CDF /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		2EC925FC13937AAF006B232B /* GreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenButton.png; path = Resources/GreenButton.png; sourceTree = "<group>"; };
 		2EC9261E1393801B006B232B /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedButton.png; path = Resources/RedButton.png; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -129,6 +136,7 @@
 			children = (
 				2E821F78136B1EAB00507F66 /* Models */,
 				2E90CC57135F6A3F00EE2906 /* ThirdParty */,
+				2EC67252148FF6A400AC5CDF /* Utilities */,
 				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
 				2E821F8F136C2DCB00507F66 /* TikTokApi.m */,
 				2E986F13138DFCEE00A301BA /* LocationController.h */,
@@ -180,6 +188,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */,
+				2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */,
 				2E29AF211399E38100FB6AE2 /* images */,
 				2E29AF1F1399E37300FB6AE2 /* models */,
 				2E29AF201399E37B00FB6AE2 /* views */,
@@ -278,6 +288,15 @@
 			name = Json;
 			sourceTree = "<group>";
 		};
+		2EC67252148FF6A400AC5CDF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2EC67258148FF6EF00AC5CDF /* Utilities.h */,
+				2EC67259148FF6EF00AC5CDF /* Utilities.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -340,6 +359,8 @@
 				2EC925FD13937AAF006B232B /* GreenButton.png in Resources */,
 				2EC9261F1393801B006B232B /* RedButton.png in Resources */,
 				2E1144D213946D7900D72753 /* LocationMapViewController.xib in Resources */,
+				2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */,
+				2EC6724D148ED6F500AC5CDF /* TikTok-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +392,7 @@
 				2E98714B1393050000A301BA /* CheckinViewController.m in Sources */,
 				2E1144D113946D7900D72753 /* LocationMapViewController.m in Sources */,
 				2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */,
+				2EC6725A148FF6EF00AC5CDF /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,10 +446,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -436,11 +460,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

@@ -1,0 +1,351 @@
+<?xml version="1.0"?>
+<gpx creator="GPS Visualizer http://www.gpsvisualizer.com/" version="1.0" xmlns="http://www.topografix.com/GPX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+    <wpt lat="49.27697" lon="-123.01148">
+        <name>Head north on Carleton Ave toward Union St</name>
+        <desc>go 52m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/go.png</sym>
+    </wpt>
+    <wpt lat="49.27744" lon="-123.01147">
+        <name>Turn left onto Union St</name>
+        <desc>go 200m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27746" lon="-123.01424">
+        <name>Take the 1st right onto Gilmore Ave</name>
+        <desc>go 51m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27792" lon="-123.01424">
+        <name>Turn left toward MacDonald Ave</name>
+        <desc>go 150m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27794" lon="-123.01631">
+        <name>Take the 1st left onto MacDonald Ave</name>
+        <desc>go 50m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27749" lon="-123.01631">
+        <name>Take the 1st right onto Union St</name>
+        <desc>go 350m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27755" lon="-123.02108">
+        <name>Take the 2nd right onto Esmond Ave</name>
+        <desc>go 100m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27845" lon="-123.02108">
+        <name>Turn left onto Georgia St</name>
+        <desc>go 170m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.2785" lon="-123.02338">
+        <name>Turn right onto Boundary Rd N</name>
+        <desc>go 66m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27909" lon="-123.02338">
+        <name>Take the 1st left onto Turner St</name>
+        <desc>go 170m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27909" lon="-123.02571">
+        <name>Take the 1st left onto Kootenay St</name>
+        <desc>go 92m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27826" lon="-123.02571">
+        <name>Turn right onto Georgia St E</name>
+        <desc>go 400m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27826" lon="-123.03088">
+        <name>Turn left onto Cassiar St</name>
+        <desc>go 92m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27744" lon="-123.03077">
+        <name>Turn right onto Adanac St</name>
+        <desc>go 210m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.27746" lon="-123.0336">
+        <name>Turn right onto Rupert St</name>
+        <desc>go 300m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28021" lon="-123.0336">
+        <name>Turn left onto E Pender St</name>
+        <desc>go 190m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28021" lon="-123.03619">
+        <name>Take the 1st right onto Windermere St</name>
+        <desc>go 100m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28114" lon="-123.03618">
+        <name>Turn left onto E Hastings St E</name>
+        <desc>go 550m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28113" lon="-123.04407">
+        <name>Take the 2nd left onto Renfrew St</name>
+        <desc>go 100m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28019" lon="-123.04406">
+        <name>Take the 1st right onto E Pender St</name>
+        <desc>go 550m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28022" lon="-123.05195">
+        <name>Take the 3rd right onto Penticton St</name>
+        <desc>go 210m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28206" lon="-123.05191">
+        <name>Take the 2nd left onto Franklin St</name>
+        <desc>go 190m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28207" lon="-123.05459">
+        <name>Take the 1st left onto Kamloops St</name>
+        <desc>go 100m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28116" lon="-123.05459">
+        <name>Take the 1st right onto E Hastings St E</name>
+        <desc>go 150m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28117" lon="-123.05663">
+        <name>Take the 1st left onto Nanaimo St</name>
+        <desc>go 100m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28025" lon="-123.05663">
+        <name>Take the 1st right onto E Pender St</name>
+        <desc>go 650m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28025" lon="-123.0656">
+        <name>Turn right onto Victoria Dr</name>
+        <desc>go 210m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28213" lon="-123.06556">
+        <name>Take the 2nd left onto Franklin St</name>
+        <desc>go 350m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28219" lon="-123.07036">
+        <name>Take the 2nd left onto Commercial Dr</name>
+        <desc>go 210m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.2803" lon="-123.07046">
+        <name>Take the 2nd right onto E Pender St</name>
+        <desc>go 500m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28039" lon="-123.07711">
+        <name>Take the 3rd right onto Clark Dr</name>
+        <desc>go 110m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.2814" lon="-123.07708">
+        <name>Take the 1st left onto E Hastings St E (signs for BC-7A)</name>
+        <desc>go 160m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28116" lon="-123.07921">
+        <name>Take the 1st right onto Vernon Dr</name>
+        <desc>go 130m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28228" lon="-123.0792">
+        <name>Turn left onto Franklin St</name>
+        <desc>go 150m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28233" lon="-123.08126">
+        <name>Turn left onto Glen Dr</name>
+        <desc>go 150m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28101" lon="-123.08128">
+        <name>Take the 2nd right onto E Hastings St E</name>
+        <desc>go 600m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28116" lon="-123.08959">
+        <name>Take the 3rd left onto Heatley Ave</name>
+        <desc>go 110m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28021" lon="-123.08963">
+        <name>Take the 1st right onto E Pender St</name>
+        <desc>go 400m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28032" lon="-123.0954">
+        <name>Take the 3rd right onto Dunlevy Ave</name>
+        <desc>go 300m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28313" lon="-123.09531">
+        <name>Turn left at the 3rd cross street onto Powell St</name>
+        <desc>go 650m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28333" lon="-123.10401">
+        <name>Turn left onto Carrall St</name>
+        <desc>go 210m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28149" lon="-123.10433">
+        <name>Turn right onto W Hastings St</name>
+        <desc>go 650m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28403" lon="-123.11191">
+        <name>Turn left onto Richards St</name>
+        <desc>go 100m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.2834" lon="-123.11288">
+        <name>Take the 1st right onto W Pender St</name>
+        <desc>go 300m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28534" lon="-123.11581">
+        <name>Turn left onto Howe St</name>
+        <desc>go 350m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.28316" lon="-123.1191">
+        <name>Take the 2nd right onto W Georgia St/BC-1A N/BC-99 N</name>
+        <desc>go 50m</desc>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/pause.png</sym>
+    </wpt>
+    <wpt lat="49.277453" lon="-123.013226">
+        <name>Arrive at: Union St</name>
+        <sym>http://maps.gstatic.com/intl/en_us/mapfiles/kml/paddle/stop.png</sym>
+    </wpt>
+    <trk>
+        <name>Route</name>
+        <desc>Distance: 11.0km (about 41 mins)&lt;br/>Map data &#169;2011 Google, Sanborn</desc>
+        <trkseg>
+            <trkpt lat="49.27697" lon="-123.01148"></trkpt>
+            <trkpt lat="49.27744" lon="-123.01147"></trkpt>
+            <trkpt lat="49.27744" lon="-123.01147"></trkpt>
+            <trkpt lat="49.27746" lon="-123.01424"></trkpt>
+            <trkpt lat="49.27746" lon="-123.01424"></trkpt>
+            <trkpt lat="49.27792" lon="-123.01424"></trkpt>
+            <trkpt lat="49.27792" lon="-123.01424"></trkpt>
+            <trkpt lat="49.27794" lon="-123.01631"></trkpt>
+            <trkpt lat="49.27794" lon="-123.01631"></trkpt>
+            <trkpt lat="49.27749" lon="-123.01631"></trkpt>
+            <trkpt lat="49.27749" lon="-123.01631"></trkpt>
+            <trkpt lat="49.27755" lon="-123.02108"></trkpt>
+            <trkpt lat="49.27755" lon="-123.02108"></trkpt>
+            <trkpt lat="49.27845" lon="-123.02108"></trkpt>
+            <trkpt lat="49.27845" lon="-123.02108"></trkpt>
+            <trkpt lat="49.2785" lon="-123.02338"></trkpt>
+            <trkpt lat="49.2785" lon="-123.02338"></trkpt>
+            <trkpt lat="49.27909" lon="-123.02338"></trkpt>
+            <trkpt lat="49.27909" lon="-123.02338"></trkpt>
+            <trkpt lat="49.27909" lon="-123.02571"></trkpt>
+            <trkpt lat="49.27909" lon="-123.02571"></trkpt>
+            <trkpt lat="49.27826" lon="-123.02571"></trkpt>
+            <trkpt lat="49.27826" lon="-123.02571"></trkpt>
+            <trkpt lat="49.27826" lon="-123.03088"></trkpt>
+            <trkpt lat="49.27826" lon="-123.03088"></trkpt>
+            <trkpt lat="49.27776" lon="-123.03085"></trkpt>
+            <trkpt lat="49.27744" lon="-123.03077"></trkpt>
+            <trkpt lat="49.27744" lon="-123.03077"></trkpt>
+            <trkpt lat="49.27746" lon="-123.0336"></trkpt>
+            <trkpt lat="49.27746" lon="-123.0336"></trkpt>
+            <trkpt lat="49.28021" lon="-123.0336"></trkpt>
+            <trkpt lat="49.28021" lon="-123.0336"></trkpt>
+            <trkpt lat="49.28021" lon="-123.03619"></trkpt>
+            <trkpt lat="49.28021" lon="-123.03619"></trkpt>
+            <trkpt lat="49.28114" lon="-123.03618"></trkpt>
+            <trkpt lat="49.28114" lon="-123.03618"></trkpt>
+            <trkpt lat="49.28113" lon="-123.04407"></trkpt>
+            <trkpt lat="49.28113" lon="-123.04407"></trkpt>
+            <trkpt lat="49.28019" lon="-123.04406"></trkpt>
+            <trkpt lat="49.28019" lon="-123.04406"></trkpt>
+            <trkpt lat="49.28023" lon="-123.04673"></trkpt>
+            <trkpt lat="49.28022" lon="-123.05195"></trkpt>
+            <trkpt lat="49.28022" lon="-123.05195"></trkpt>
+            <trkpt lat="49.28206" lon="-123.05191"></trkpt>
+            <trkpt lat="49.28206" lon="-123.05191"></trkpt>
+            <trkpt lat="49.28207" lon="-123.05459"></trkpt>
+            <trkpt lat="49.28207" lon="-123.05459"></trkpt>
+            <trkpt lat="49.28116" lon="-123.05459"></trkpt>
+            <trkpt lat="49.28116" lon="-123.05459"></trkpt>
+            <trkpt lat="49.28117" lon="-123.05663"></trkpt>
+            <trkpt lat="49.28117" lon="-123.05663"></trkpt>
+            <trkpt lat="49.28025" lon="-123.05663"></trkpt>
+            <trkpt lat="49.28025" lon="-123.05663"></trkpt>
+            <trkpt lat="49.28026" lon="-123.05951"></trkpt>
+            <trkpt lat="49.28031" lon="-123.05979"></trkpt>
+            <trkpt lat="49.28031" lon="-123.06521"></trkpt>
+            <trkpt lat="49.28025" lon="-123.06536"></trkpt>
+            <trkpt lat="49.28025" lon="-123.0656"></trkpt>
+            <trkpt lat="49.28025" lon="-123.0656"></trkpt>
+            <trkpt lat="49.28213" lon="-123.06556"></trkpt>
+            <trkpt lat="49.28213" lon="-123.06556"></trkpt>
+            <trkpt lat="49.28219" lon="-123.07036"></trkpt>
+            <trkpt lat="49.28219" lon="-123.07036"></trkpt>
+            <trkpt lat="49.2803" lon="-123.07046"></trkpt>
+            <trkpt lat="49.2803" lon="-123.07046"></trkpt>
+            <trkpt lat="49.28039" lon="-123.07711"></trkpt>
+            <trkpt lat="49.28039" lon="-123.07711"></trkpt>
+            <trkpt lat="49.2814" lon="-123.07708"></trkpt>
+            <trkpt lat="49.2814" lon="-123.07708"></trkpt>
+            <trkpt lat="49.2814" lon="-123.07813"></trkpt>
+            <trkpt lat="49.28133" lon="-123.07859"></trkpt>
+            <trkpt lat="49.28116" lon="-123.07921"></trkpt>
+            <trkpt lat="49.28116" lon="-123.07921"></trkpt>
+            <trkpt lat="49.28228" lon="-123.0792"></trkpt>
+            <trkpt lat="49.28228" lon="-123.0792"></trkpt>
+            <trkpt lat="49.28233" lon="-123.08126"></trkpt>
+            <trkpt lat="49.28233" lon="-123.08126"></trkpt>
+            <trkpt lat="49.28101" lon="-123.08128"></trkpt>
+            <trkpt lat="49.28101" lon="-123.08128"></trkpt>
+            <trkpt lat="49.28116" lon="-123.08959"></trkpt>
+            <trkpt lat="49.28116" lon="-123.08959"></trkpt>
+            <trkpt lat="49.28021" lon="-123.08963"></trkpt>
+            <trkpt lat="49.28021" lon="-123.08963"></trkpt>
+            <trkpt lat="49.28032" lon="-123.0954"></trkpt>
+            <trkpt lat="49.28032" lon="-123.0954"></trkpt>
+            <trkpt lat="49.28219" lon="-123.09539"></trkpt>
+            <trkpt lat="49.28313" lon="-123.09531"></trkpt>
+            <trkpt lat="49.28313" lon="-123.09531"></trkpt>
+            <trkpt lat="49.28318" lon="-123.09968"></trkpt>
+            <trkpt lat="49.28328" lon="-123.10383"></trkpt>
+            <trkpt lat="49.28333" lon="-123.10401"></trkpt>
+            <trkpt lat="49.28333" lon="-123.10401"></trkpt>
+            <trkpt lat="49.28322" lon="-123.1042"></trkpt>
+            <trkpt lat="49.28297" lon="-123.10425"></trkpt>
+            <trkpt lat="49.28149" lon="-123.10433"></trkpt>
+            <trkpt lat="49.28149" lon="-123.10433"></trkpt>
+            <trkpt lat="49.282" lon="-123.1072"></trkpt>
+            <trkpt lat="49.28242" lon="-123.10931"></trkpt>
+            <trkpt lat="49.28253" lon="-123.10957"></trkpt>
+            <trkpt lat="49.28403" lon="-123.11191"></trkpt>
+            <trkpt lat="49.28403" lon="-123.11191"></trkpt>
+            <trkpt lat="49.2834" lon="-123.11288"></trkpt>
+            <trkpt lat="49.2834" lon="-123.11288"></trkpt>
+            <trkpt lat="49.28534" lon="-123.11581"></trkpt>
+            <trkpt lat="49.28534" lon="-123.11581"></trkpt>
+            <trkpt lat="49.28316" lon="-123.1191"></trkpt>
+            <trkpt lat="49.28316" lon="-123.1191"></trkpt>
+            <trkpt lat="49.28347" lon="-123.11959"></trkpt>
+        </trkseg>
+    </trk>
+</gpx>

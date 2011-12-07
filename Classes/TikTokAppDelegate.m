@@ -12,6 +12,7 @@
 
 #import "TikTokAppDelegate.h"
 #import "TikTokApi.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // interface implemenation
@@ -94,36 +95,12 @@
      applicationWillTerminate: when the user quits.
     */
 
-    //NSInteger UIInvalidBackgroundTask = 0;
+    NSLog(@"Application entered background state.");
 
-    //NSLog(@"Application entered background state.");
-    //NSAssert(self.bgTask == UIInvalidBackgroundTask, nil);
- 
-    /* local notification example 
-    bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [application endBackgroundTask:self.bgTask];
-            self.bgTask = UIInvalidBackgroundTask;
-        });
-    }];
- 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        while ([application backgroundTimeRemaining] > 1.0) {
-            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-            if (localNotif) {
-                localNotif.alertBody   = @"a message for you.";
-                localNotif.alertAction = @"Read Message";
-                localNotif.soundName   = UILocalNotificationDefaultSoundName; 
-                localNotif.applicationIconBadgeNumber = 1;
-                [application presentLocalNotificationNow:localNotif];
-                [localNotif release];
-                break;
-            }
-        }
-
-        [application endBackgroundTask:self.bgTask];
-        self.bgTask = UIInvalidBackgroundTask;
-    });
+    /* local notification example
+    [Utilities postLocalNotificationInBackgroundWithBody:@"App entered background"
+                                                  action:@"Read Message"
+                                         iconBadgeNumber:0];
     */
 }
 
