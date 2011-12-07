@@ -12,7 +12,7 @@
 
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
-#import "JSON.h"
+#import "SBJson.h"
 
 //------------------------------------------------------------------------------
 // forward declarations

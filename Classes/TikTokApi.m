@@ -106,7 +106,6 @@ static NSData *s_device_token;
         // setup the json parser
         self.parser          = [SBJsonStreamParser new];
         self.parser.delegate = self.adapter;
-        self.parser.multi    = YES;
 
         // initialize merchant array
         self.jsonData = [[NSMutableArray alloc] init];
