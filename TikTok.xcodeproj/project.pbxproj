@@ -76,33 +76,33 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2E1144CE13946D7900D72753 /* LocationMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationMapViewController.h; sourceTree = "<group>"; };
 		2E1144CF13946D7900D72753 /* LocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMapViewController.m; sourceTree = "<group>"; };
-		2E1144D013946D7900D72753 /* LocationMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LocationMapViewController.xib; path = Classes/LocationMapViewController.xib; sourceTree = "<group>"; };
+		2E1144D013946D7900D72753 /* LocationMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationMapViewController.xib; sourceTree = "<group>"; };
 		2E1144E21394709700D72753 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponDetailViewController.xib; sourceTree = "<group>"; };
 		2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailViewController.h; sourceTree = "<group>"; };
 		2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
 		2E63B8961383889C00427FF9 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
-		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = Models/Location.h; sourceTree = "<group>"; };
-		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = Models/Location.m; sourceTree = "<group>"; };
+		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		2E6E081213936496008788C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2E6E0814139364AF008788C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2E6E082A139364C2008788C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2E6E082C139364D6008788C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Merchant.h; path = Models/Merchant.h; sourceTree = "<group>"; };
-		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Merchant.m; path = Models/Merchant.m; sourceTree = "<group>"; };
-		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Coupon.h; path = Models/Coupon.h; sourceTree = "<group>"; };
-		2E821F84136B1F2A00507F66 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Coupon.m; path = Models/Coupon.m; sourceTree = "<group>"; };
+		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
+		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
+		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
+		2E821F84136B1F2A00507F66 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
 		2E821F8E136C2DCB00507F66 /* TikTokApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokApi.h; sourceTree = "<group>"; };
 		2E821F8F136C2DCB00507F66 /* TikTokApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokApi.m; sourceTree = "<group>"; };
-		2E90CD0E135F77AD00EE2906 /* Coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Coupon.png; path = Resources/Coupon.png; sourceTree = "<group>"; };
-		2E90CD12135F77B600EE2906 /* MerchantThumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MerchantThumbnail.png; path = Resources/MerchantThumbnail.png; sourceTree = "<group>"; };
+		2E90CD0E135F77AD00EE2906 /* Coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Coupon.png; sourceTree = "<group>"; };
+		2E90CD12135F77B600EE2906 /* MerchantThumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MerchantThumbnail.png; sourceTree = "<group>"; };
 		2E986F13138DFCEE00A301BA /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		2E986F14138DFCEE00A301BA /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		2E9871491393050000A301BA /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
 		2E98714A1393050000A301BA /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
 		2E9871591393064A00A301BA /* CheckinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckinViewController.xib; sourceTree = "<group>"; };
 		2EBAC7931399D9BE001FD98D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = VancouverDowntownWalk.gpx; path = Resources/VancouverDowntownWalk.gpx; sourceTree = "<group>"; };
+		2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VancouverDowntownWalk.gpx; sourceTree = "<group>"; };
 		2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TikTok-Info.plist"; sourceTree = "<group>"; };
 		2EC67258148FF6EF00AC5CDF /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		2EC67259148FF6EF00AC5CDF /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
@@ -157,8 +157,9 @@
 		2EC672AD1490008700AC5CDF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2EC672AF149000B100AC5CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		2EC925FC13937AAF006B232B /* GreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenButton.png; path = Resources/GreenButton.png; sourceTree = "<group>"; };
-		2EC9261E1393801B006B232B /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedButton.png; path = Resources/RedButton.png; sourceTree = "<group>"; };
+		2EC672B51490028500AC5CDF /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		2EC925FC13937AAF006B232B /* GreenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenButton.png; sourceTree = "<group>"; };
+		2EC9261E1393801B006B232B /* RedButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedButton.png; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,20 +187,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2EC672B41490026E00AC5CDF /* Controllers */,
 				2E821F78136B1EAB00507F66 /* Models */,
 				2EC67252148FF6A400AC5CDF /* Utilities */,
-				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
-				2E821F8F136C2DCB00507F66 /* TikTokApi.m */,
-				2E986F13138DFCEE00A301BA /* LocationController.h */,
-				2E986F14138DFCEE00A301BA /* LocationController.m */,
-				2E9871491393050000A301BA /* CheckinViewController.h */,
-				2E98714A1393050000A301BA /* CheckinViewController.m */,
-				28C286DF0D94DF7D0034E888 /* CouponViewController.h */,
-				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
-				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
-				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
-				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
-				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
 				1D3623240D0F684500981E51 /* TikTokAppDelegate.h */,
 				1D3623250D0F684500981E51 /* TikTokAppDelegate.m */,
 			);
@@ -241,13 +231,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2E29AF211399E38100FB6AE2 /* Images */,
+				2E29AF1F1399E37300FB6AE2 /* Models */,
+				2E29AF201399E37B00FB6AE2 /* Views */,
 				2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */,
 				2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */,
-				2E29AF211399E38100FB6AE2 /* images */,
-				2E29AF1F1399E37300FB6AE2 /* models */,
-				2E29AF201399E37B00FB6AE2 /* views */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -266,15 +256,15 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
-		2E29AF1F1399E37300FB6AE2 /* models */ = {
+		2E29AF1F1399E37300FB6AE2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */,
 			);
-			name = models;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		2E29AF201399E37B00FB6AE2 /* views */ = {
+		2E29AF201399E37B00FB6AE2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
@@ -283,10 +273,10 @@
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 			);
-			name = views;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		2E29AF211399E38100FB6AE2 /* images */ = {
+		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				2EC9261E1393801B006B232B /* RedButton.png */,
@@ -294,7 +284,7 @@
 				2E90CD0E135F77AD00EE2906 /* Coupon.png */,
 				2E90CD12135F77B600EE2906 /* MerchantThumbnail.png */,
 			);
-			name = images;
+			path = Images;
 			sourceTree = "<group>";
 		};
 		2E821F78136B1EAB00507F66 /* Models */ = {
@@ -307,12 +297,15 @@
 				2E63B8F01384EE5A00427FF9 /* Location.h */,
 				2E63B8F11384EE5A00427FF9 /* Location.m */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		2EC67252148FF6A400AC5CDF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2EC672B51490028500AC5CDF /* Macros.h */,
+				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
+				2E821F8F136C2DCB00507F66 /* TikTokApi.m */,
 				2EC67258148FF6EF00AC5CDF /* Utilities.h */,
 				2EC67259148FF6EF00AC5CDF /* Utilities.m */,
 			);
@@ -419,6 +412,23 @@
 				2EC672AF149000B100AC5CDF /* libz.dylib */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		2EC672B41490026E00AC5CDF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2E986F13138DFCEE00A301BA /* LocationController.h */,
+				2E986F14138DFCEE00A301BA /* LocationController.m */,
+				2E9871491393050000A301BA /* CheckinViewController.h */,
+				2E98714A1393050000A301BA /* CheckinViewController.m */,
+				28C286DF0D94DF7D0034E888 /* CouponViewController.h */,
+				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
+				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
+				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
+				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
+				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,7 +560,7 @@
 				GCC_PREFIX_HEADER = TikTok_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				INFOPLIST_FILE = "TikTok-Info.plist";
+				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
 				PRODUCT_NAME = TikTok;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -570,7 +580,7 @@
 				GCC_PREFIX_HEADER = TikTok_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				INFOPLIST_FILE = "TikTok-Info.plist";
+				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
 				PRODUCT_NAME = TikTok;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
