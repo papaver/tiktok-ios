@@ -29,9 +29,10 @@
 @synthesize headerView               = m_header_view;
 @synthesize fetchedCouponsController = m_fetched_coupons_controller;
 
+@synthesize backgroundView           = m_background_view;
+
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark View lifecycle
+#pragma mark - View lifecycle
 //------------------------------------------------------------------------------
 
 /**
@@ -40,6 +41,10 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+
+    // add the background view
+    self.view.backgroundColor = 
+        [UIColor colorWithPatternImage:[UIImage imageNamed:@"CouponTableBackground.png"]];
 }
 
 //------------------------------------------------------------------------------
@@ -47,7 +52,9 @@
 - (void) viewWillAppear:(BOOL)animated 
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
+    // [moiz] don't hide the navigation bar on top anymore..
+    //[self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 //------------------------------------------------------------------------------
@@ -64,6 +71,8 @@
 - (void) viewWillDisappear:(BOOL)animated 
 {
     [super viewWillDisappear:animated];
+
+    // [moiz] don't hide the navigation bar on top anymore..
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -89,12 +98,11 @@
 */
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Table view data source
+#pragma mark - Table view data source
 //------------------------------------------------------------------------------
 
 /**
- * Constructs the index path for the merchant. This will always corespond
+ * Constructs the index path for the merchant. This will always correspond
  * to the index into section 0, since there is only one section.
  */
 - (NSIndexPath*) getMerchantIndexPath:(NSUInteger)section
@@ -114,8 +122,16 @@
  */
 - (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView 
 {
+    // [moiz] we only have one section now... we also want to turn the header 
+    //  off, already forgot how to do that, sigh... working with multiple 
+    //  frameworks at the same time is mind numbing
+    
+    return 1;
+
+    /*
     NSInteger sections = [[self.fetchedCouponsController sections] count];
     return sections;
+    */
 }
 
 //------------------------------------------------------------------------------
@@ -233,7 +249,7 @@
 
     // update the coupon image
     UIImageView *imageView = (UIImageView*)[cell viewWithTag:1];
-    [imageView setImage:coupon.image];
+    //[imageView setImage:coupon.image];
         
     // update the coupon text
     UITextView *textView = (UITextView*)[cell viewWithTag:2];
@@ -262,8 +278,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Table view delegate
+#pragma mark - TableView Delegate
 //------------------------------------------------------------------------------
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath 
@@ -327,12 +342,13 @@
  */
 - (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return self.headerView.frame.size.height;
+    // [moiz] we are no longer using the header...
+    //return self.headerView.frame.size.height;
+    return 0;
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Fetched Results Controller
+#pragma mark - Fetched Results Controller
 //------------------------------------------------------------------------------
 
 - (NSFetchedResultsController*) fetchedCouponsController
@@ -369,7 +385,7 @@
     self.fetchedCouponsController = [[NSFetchedResultsController alloc] 
         initWithFetchRequest:request 
         managedObjectContext:managedObjectContext 
-          sectionNameKeyPath:@"startTime"
+          sectionNameKeyPath:nil
                    cacheName:@"coupon_table"];
     self.fetchedCouponsController.delegate = self;
 
@@ -384,8 +400,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Fetched Results Controller Delegates
+#pragma mark - Fetched Results Controller Delegates
 //------------------------------------------------------------------------------
 
 - (void) controllerWillChangeContent:(NSFetchedResultsController*)controller
@@ -450,8 +465,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Memory management
+#pragma mark - Memory Management
 //------------------------------------------------------------------------------
 
 - (void) didReceiveMemoryWarning 

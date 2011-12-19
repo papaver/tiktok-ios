@@ -15,6 +15,8 @@
 #import "CouponViewController.h"
 #import "TikTokApi.h"
 
+#import "Coupon.h"
+
 //------------------------------------------------------------------------------
 // interface implementation
 //------------------------------------------------------------------------------
@@ -29,8 +31,7 @@
 @synthesize checkinLocation    = m_checkin_location;
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark View lifecycle
+#pragma mark - View lifecycle
 //------------------------------------------------------------------------------
 
 - (void) viewDidLoad
@@ -42,13 +43,15 @@
 
     // setup the checkin/checkout buttons
     self.checkinButton.hidden  = NO;
-    self.checkoutButton.hidden = YES;
+    self.checkoutButton.hidden = NO;
+
+    [self.locationController.locationManager startUpdatingLocation];
 
     // request location authorization 
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-        [self.locationController.locationManager startUpdatingLocation];
+        //[self.locationController.locationManager startUpdatingLocation];
+        //[self.locationController.locationManager startMonitoringSignificantLocationChanges];
     }
-
 }
 
 //------------------------------------------------------------------------------
@@ -59,8 +62,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Memory management
+#pragma mark - Memory management
 //------------------------------------------------------------------------------
 
 - (void) didReceiveMemoryWarning 
@@ -79,8 +81,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Checkin
+#pragma mark - Checkin
 //------------------------------------------------------------------------------
 
 - (IBAction) checkIn:(id)sender
@@ -92,24 +93,52 @@
     }
 
     // get the current location of the user
+    /*
     CLLocation *currentLocation  = self.locationController.locationManager.location;
     NSLog(@"CheckinViewController: currentLocation: %@", [currentLocation description]);
+    if (currentLocation == nil) {
+        NSLog(@"CheckinViewController: failed to get current location.");
+        return;
+    }
+    */
+
+    // load the coupons into the database
+    TikTokApi *api = [[TikTokApi new] autorelease];
+    api.managedContext = [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) managedObjectContext];
+    [api getActiveCoupons];
 
     // use the api to contact the server and attempt to checkin
-    TikTokApi *api = [[TikTokApi new] autorelease];
-    api.managedContext     = [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) managedObjectContext];
-    self.checkinLocation   = [api checkInWithCurrentLocation:currentLocation];
+    //TikTokApi *api = [[TikTokApi new] autorelease];
+    //api.managedContext     = [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) managedObjectContext];
+    //self.checkinLocation   = [api checkInWithCurrentLocation:currentLocation];
 
     // start tracking the current location if checked in
-    if ([self isCheckedIn]) {
+    //if ([self isCheckedIn]) {
 
         // load up the coupon table view
         CouponViewController *couponViewController = [[[CouponViewController alloc] 
             initWithNibName:@"CouponViewController" bundle:nil] 
                 autorelease];
 
+        /*
         // start tracking location updates
-        [self.locationController.locationManager startUpdatingLocation];
+        //[self.locationController.locationManager startUpdatingLocation];
+
+        // create a region
+        CLLocationCoordinate2D coordinate = currentLocation.coordinate;
+        CLLocationDistance radius         = 2000.0f;      
+        CLRegion *region = [[[CLRegion alloc] 
+            initCircularRegionWithCenter:coordinate 
+                                  radius:radius 
+                              identifier:@"centera"] autorelease];
+
+        // add the region to the location manager
+        CLLocationAccuracy accuracy = 1000.0f;
+        [self.locationController.locationManager startMonitoringForRegion:region desiredAccuracy:accuracy];
+
+        NSLog(@"CheckinController: monitored regions: %@", 
+            self.locationController.locationManager.monitoredRegions);
+        */
 
         // pass the selected object to the new view controller.
         [self.navigationController pushViewController:couponViewController animated:YES];
@@ -117,7 +146,7 @@
         // swap out the buttons
         self.checkinButton.hidden  = YES;
         self.checkoutButton.hidden = NO;
-    } 
+    //} 
 }
 
 //------------------------------------------------------------------------------
@@ -154,8 +183,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark LocationControllerDelegate
+#pragma mark - LocationControllerDelegate
 //------------------------------------------------------------------------------
 
 - (void) locationUpdate:(CLLocation*)location

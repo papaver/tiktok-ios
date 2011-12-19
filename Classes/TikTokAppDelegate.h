@@ -14,6 +14,12 @@
 #import <UIKit/UIKit.h>
 
 //------------------------------------------------------------------------------
+// forward declarations
+//------------------------------------------------------------------------------
+
+@class StartupViewController;
+
+//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
@@ -22,6 +28,7 @@
     UIWindow               *m_window;
     UITabBarController     *m_tab_bar_controller;
     UINavigationController *m_navigation_controller;
+    StartupViewController  *m_startup_controller;
 
 @private
 
@@ -35,6 +42,7 @@
 @property (nonatomic, retain) IBOutlet UIWindow               *window;
 @property (nonatomic, retain) IBOutlet UITabBarController     *tabBarController;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, retain) IBOutlet StartupViewController  *startupController;
 
 @property (nonatomic, retain, readonly) NSManagedObjectContext       *managedObjectContext;
 @property (nonatomic, retain, readonly) NSManagedObjectModel         *managedObjectModel;

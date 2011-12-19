@@ -23,6 +23,8 @@
     UITableViewCell            *m_cell_view;
     UIView                     *m_header_view;
     NSFetchedResultsController *m_fetched_coupons_controller;
+
+    UIView                     *m_background_view;
 }
 
 //------------------------------------------------------------------------------
@@ -30,6 +32,8 @@
 @property (nonatomic, retain) IBOutlet UITableViewCell             *cellView;
 @property (nonatomic, retain) IBOutlet UIView                      *headerView;
 @property (nonatomic, retain)          NSFetchedResultsController  *fetchedCouponsController;
+
+@property (nonatomic, retain) IBOutlet UIView                      *backgroundView;
 
 //------------------------------------------------------------------------------
 

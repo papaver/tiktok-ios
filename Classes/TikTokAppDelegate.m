@@ -12,6 +12,7 @@
 
 #import "TikTokAppDelegate.h"
 #import "TikTokApi.h"
+#import "StartupViewController.h"
 #import "Utilities.h"
 
 //------------------------------------------------------------------------------
@@ -25,10 +26,10 @@
 @synthesize window               = m_window;
 @synthesize tabBarController     = m_tab_bar_controller;
 @synthesize navigationController = m_navigation_controller;
+@synthesize startupController    = m_startup_controller;
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Application lifecycle
+#pragma mark - Application lifecycle
 //------------------------------------------------------------------------------
 
 - (BOOL) application:(UIApplication*)application 
@@ -52,49 +53,42 @@
         application.applicationIconBadgeNumber = 0;
     }
     
-    // add the navigation controller's view to the window and display.
-    [self.window addSubview:self.tabBarController.view];
+    // add the startup controller to the main view
+    [self.window addSubview:self.startupController.view];
     [self.window makeKeyAndVisible];
 
     // configure navigation bar
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.translucent = YES;
-
-    // configure local/remote notifications
-    [application registerForRemoteNotificationTypes:
-        (UIRemoteNotificationTypeBadge | 
-         UIRemoteNotificationTypeSound |
-         UIRemoteNotificationTypeAlert)];
+    //self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    //self.navigationController.navigationBar.translucent = YES;
 
     return YES;
 }
 
 //------------------------------------------------------------------------------
 
+/**
+ * Sent when the application is about to move from active to inactive state. 
+ * This can occur for certain types of temporary interruptions (such as an 
+ * incoming phone call or SMS message) or when the user quits the application 
+ * and it begins the transition to the background state.
+ * Use this method to pause ongoing tasks, disable timers, and throttle down 
+ * OpenGL ES frame rates. Games should use this method to pause the game.
+ */
 - (void) applicationWillResignActive:(UIApplication*)application 
 {
-    /*
-     Sent when the application is about to move from active to inactive state. 
-     This can occur for certain types of temporary interruptions (such as an 
-     incoming phone call or SMS message) or when the user quits the application 
-     and it begins the transition to the background state.
-     Use this method to pause ongoing tasks, disable timers, and throttle down 
-     OpenGL ES frame rates. Games should use this method to pause the game.
-    */
 }
 
 //------------------------------------------------------------------------------
 
+/**
+ * Use this method to release shared resources, save user data, invalidate 
+ * timers, and store enough application state information to restore your 
+ * application to its current state in case it is terminated later. 
+ * If your application supports background execution, called instead of 
+ * applicationWillTerminate: when the user quits.
+ */
 - (void) applicationDidEnterBackground:(UIApplication*)application 
 {
-    /*
-     Use this method to release shared resources, save user data, invalidate 
-     timers, and store enough application state information to restore your 
-     application to its current state in case it is terminated later. 
-     If your application supports background execution, called instead of 
-     applicationWillTerminate: when the user quits.
-    */
-
     NSLog(@"Application entered background state.");
 
     /* local notification example
@@ -106,40 +100,38 @@
 
 //------------------------------------------------------------------------------
 
+/**
+ * Called as part of transition from the background to the inactive state: 
+ * here you can undo many of the changes made on entering the background.
+ */
 - (void) applicationWillEnterForeground:(UIApplication*)application 
 {
-    /*
-     Called as part of transition from the background to the inactive state: 
-     here you can undo many of the changes made on entering the background.
-    */
 }
 
 //------------------------------------------------------------------------------
 
+/**
+ * Restart any tasks that were paused (or not yet started) while the 
+ * application was inactive. If the application was previously in the 
+ * background, optionally refresh the user interface.
+ */
 - (void) applicationDidBecomeActive:(UIApplication*)application 
 {
-    /*
-     Restart any tasks that were paused (or not yet started) while the 
-     application was inactive. If the application was previously in the 
-     background, optionally refresh the user interface.
-    */
-
     NSLog(@"Application entered foreground state.");
 }
 
 //------------------------------------------------------------------------------
 
+/**
+ * Called when the application is about to terminate.
+ * See also applicationDidEnterBackground:.
+ */
 - (void) applicationWillTerminate:(UIApplication*)application 
 {
-    /*
-     Called when the application is about to terminate.
-     See also applicationDidEnterBackground:.
-    */
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Notifications
+#pragma mark - Notifications
 //------------------------------------------------------------------------------
 
 - (void) application:(UIApplication*)application 
@@ -147,7 +139,10 @@
 {
     NSLog(@"Notifications: Registering device, token: %@.", deviceToken);
 
-    [TikTokApi setDeviceToken:deviceToken];
+    // [moiz] this will probably change once we change the way devices are
+    //   tracked, using the notification device token doesn't seem to be the 
+    //   best idea
+    [m_startup_controller onDeviceTokenReceived:deviceToken];
 }
 
 //------------------------------------------------------------------------------
@@ -193,8 +188,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Core Data Stack
+#pragma mark - Core Data Stack
 //------------------------------------------------------------------------------
 
 /**
@@ -203,9 +197,8 @@
  */
 - (NSManagedObjectContext*) managedObjectContext
 {
-    if (m_managed_object_context != nil) {
-        return m_managed_object_context;
-    }
+    // lazy allocation
+    if (m_managed_object_context != nil)  return m_managed_object_context;
 
     // allocate the object context and attach it to the persistant storage
     NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
@@ -225,9 +218,8 @@
  */
 - (NSManagedObjectModel*) managedObjectModel
 {
-    if (m_managed_object_model != nil) {
-        return m_managed_object_model;
-    }
+    // lazy allocation
+    if (m_managed_object_model != nil)  return m_managed_object_model;
 
     // allocate a new model from the data model on disk
     NSString *model_path   = [[NSBundle mainBundle] pathForResource:@"DataModel" ofType:@"mom"];
@@ -246,34 +238,37 @@
  */
 - (NSPersistentStoreCoordinator*) persistentStoreCoordinator
 {
+    // lazy allocation
     if (m_persistent_store_coordinator != nil) {
         return m_persistent_store_coordinator;
     }
 
     // construct path to storage on disk
     NSURL *storage_url = [[self applicationDocumentsDirectory] 
-        URLByAppendingPathComponent:@"15Minutes.sqlite"];
+        URLByAppendingPathComponent:@"TikTok.sqlite"];
     NSLog(@"sqlite -> %@", storage_url);
 
-    // [-moiz] move this back into the if statement below
+    // [moiz][TEMP] move this back into the if statement below
     [[NSFileManager defaultManager] removeItemAtURL:storage_url error:nil];
 
     // allocate a persistant store coordinator, attached to the storage db
     NSError *error = nil;
     m_persistent_store_coordinator = [[NSPersistentStoreCoordinator alloc] 
         initWithManagedObjectModel:self.managedObjectModel];
-    bool result = [m_persistent_store_coordinator addPersistentStoreWithType:NSSQLiteStoreType 
-                                                               configuration:nil 
-                                                                         URL:storage_url 
-                                                                     options:nil 
-                                                                       error:&error];
+    bool result = [m_persistent_store_coordinator 
+        addPersistentStoreWithType:NSSQLiteStoreType 
+                     configuration:nil 
+                               URL:storage_url 
+                           options:nil 
+                             error:&error];
 
     // make sure the persistant store was setup properly
     if (!result) {
+
         /*
          * Typical reasons for an error here include:
          *  - The persistant store is not accessible.
-         *  - The schema forthe persistant store is incompatible with the 
+         *  - The schema for the persistant store is incompatible with the 
          *    current managed object model.
          *
          * If the persistant store is no accessible, there is typically 
@@ -307,8 +302,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Application's Documents directory
+#pragma mark - Application's Documents directory
 //------------------------------------------------------------------------------
 
 - (NSURL*) applicationDocumentsDirectory
@@ -319,16 +313,15 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Memory management
+#pragma mark - Memory management
 //------------------------------------------------------------------------------
 
+/**
+ * Free up as much memory as possible by purging cached data objects that can 
+ * be recreated (or reloaded from disk) later.
+ */
 - (void) applicationDidReceiveMemoryWarning:(UIApplication*)application 
 {
-    /*
-     Free up as much memory as possible by purging cached data objects that can 
-     be recreated (or reloaded from disk) later.
-    */
 }
 
 //------------------------------------------------------------------------------

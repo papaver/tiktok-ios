@@ -33,8 +33,7 @@
 static NSData *s_device_token;
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark statics
+#pragma mark - Statics
 //------------------------------------------------------------------------------
 
 + (NSData*) deviceToken
@@ -47,9 +46,7 @@ static NSData *s_device_token;
 + (void) setDeviceToken:(NSData*)deviceToken
 {
     // release current token if it exists
-    if (s_device_token != nil) {
-        [s_device_token release];
-    }
+    if (s_device_token != nil) [s_device_token release];
 
     // set new device token
     s_device_token = deviceToken;
@@ -90,8 +87,7 @@ static NSData *s_device_token;
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Object
+#pragma mark - Object
 //------------------------------------------------------------------------------
 
 - (id) init
@@ -133,7 +129,7 @@ static NSData *s_device_token;
     CLLocationDegrees longitude = location.coordinate.longitude;
 
     // construct the checkin url path 
-    NSString *url_path = [NSString stringWithFormat:@"%@/checkins", 
+    NSString *url_path = [NSString stringWithFormat:@"%@/register", 
         [TikTokApi apiUrlPath]];
 
     // convert token data into a string
@@ -147,7 +143,7 @@ static NSData *s_device_token;
 
     // attempt to checkin with the server
     NSData* data = [TikTokApi httpQueryWithUrlPath:url_path 
-                                                  andPostData:post_data];
+                                       andPostData:post_data];
     NSLog(@"api data -> %s", (char*)[data bytes]);
 
     // clear out the cache
@@ -204,7 +200,7 @@ static NSData *s_device_token;
 
     // query data from the server
     NSData *data = [[[NSData alloc] initWithContentsOfURL:url] autorelease];
-    NSLog(@"active coupons -> %s", (char*)[data bytes]);
+    //NSLog(@"active coupons -> %s", (char*)[data bytes]);
 
     // clear out the cache
     [self.jsonData removeAllObjects];
@@ -234,8 +230,7 @@ static NSData *s_device_token;
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Custom JSON Parserers
+#pragma mark - Custom JSON Parserers
 //------------------------------------------------------------------------------
 
 - (void) parseLocationData:(NSDictionary*)data
@@ -288,16 +283,15 @@ static NSData *s_device_token;
     // add coupon to merchant
     //[merchant addCouponObject:coupon];
 
-    NSLog(@"merchant: %@", merchant.name);
-    NSLog(@"coupon: %@", coupon.description);
+    //NSLog(@"merchant: %@", merchant.name);
+    //NSLog(@"coupon: %@", coupon.description);
 
     // save merchant in cache
     [self.jsonData addObject:merchant];
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark SBJsonStreamParserAdapterDelegate
+#pragma mark - SBJsonStreamParserAdapterDelegate
 //------------------------------------------------------------------------------
 
 /**
