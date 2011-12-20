@@ -37,8 +37,6 @@
 
 //------------------------------------------------------------------------------
 
-- (NSIndexPath*) getMerchantIndexPath:(NSUInteger)section;
-
 - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
 - (void) configureHeader:(UIView*)header atSection:(NSUInteger)section;
 

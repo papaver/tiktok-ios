@@ -17,6 +17,13 @@
 		2E1144E31394709700D72753 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1144E21394709700D72753 /* MapKit.framework */; };
 		2E1F721E13619BD700F947E3 /* CouponDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */; };
 		2E1F722F13619C2800F947E3 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */; };
+		2E5FEADB14A1106400B516FE /* Icon01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD514A1106300B516FE /* Icon01.png */; };
+		2E5FEADC14A1106400B516FE /* Icon01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD614A1106300B516FE /* Icon01@2x.png */; };
+		2E5FEADD14A1106400B516FE /* Icon02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD714A1106300B516FE /* Icon02.png */; };
+		2E5FEADE14A1106400B516FE /* Icon02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD814A1106400B516FE /* Icon02@2x.png */; };
+		2E5FEADF14A1106400B516FE /* Icon03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD914A1106400B516FE /* Icon03.png */; };
+		2E5FEAE014A1106400B516FE /* Icon03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEADA14A1106400B516FE /* Icon03@2x.png */; };
+		2E5FEAE414A115A000B516FE /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEAE314A115A000B516FE /* UIColor-Expanded.m */; };
 		2E63B8F21384EE5A00427FF9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E63B8F11384EE5A00427FF9 /* Location.m */; };
 		2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E081213936496008788C2 /* CoreLocation.framework */; };
 		2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E0814139364AF008788C2 /* CoreGraphics.framework */; };
@@ -101,6 +108,14 @@
 		2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponDetailViewController.xib; sourceTree = "<group>"; };
 		2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailViewController.h; sourceTree = "<group>"; };
 		2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
+		2E5FEAD514A1106300B516FE /* Icon01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon01.png; sourceTree = "<group>"; };
+		2E5FEAD614A1106300B516FE /* Icon01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon01@2x.png"; sourceTree = "<group>"; };
+		2E5FEAD714A1106300B516FE /* Icon02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon02.png; sourceTree = "<group>"; };
+		2E5FEAD814A1106400B516FE /* Icon02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon02@2x.png"; sourceTree = "<group>"; };
+		2E5FEAD914A1106400B516FE /* Icon03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon03.png; sourceTree = "<group>"; };
+		2E5FEADA14A1106400B516FE /* Icon03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon03@2x.png"; sourceTree = "<group>"; };
+		2E5FEAE214A115A000B516FE /* UIColor-Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-Expanded.h"; sourceTree = "<group>"; };
+		2E5FEAE314A115A000B516FE /* UIColor-Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor-Expanded.m"; sourceTree = "<group>"; };
 		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		2E6E081213936496008788C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -322,6 +337,12 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E5FEAD514A1106300B516FE /* Icon01.png */,
+				2E5FEAD614A1106300B516FE /* Icon01@2x.png */,
+				2E5FEAD714A1106300B516FE /* Icon02.png */,
+				2E5FEAD814A1106400B516FE /* Icon02@2x.png */,
+				2E5FEAD914A1106400B516FE /* Icon03.png */,
+				2E5FEADA14A1106400B516FE /* Icon03@2x.png */,
 				2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */,
 				2EB87EDE149FED8300F01C26 /* CouponTableBackground.png */,
 				2EB87EDF149FED8300F01C26 /* CouponTableBackground@2x.png */,
@@ -347,6 +368,15 @@
 				2EB87EDC149FEB1D00F01C26 /* TopNavBarLogo@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		2E5FEAE114A1157500B516FE /* UIColorUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				2E5FEAE214A115A000B516FE /* UIColor-Expanded.h */,
+				2E5FEAE314A115A000B516FE /* UIColor-Expanded.m */,
+			);
+			path = UIColorUtilities;
 			sourceTree = "<group>";
 		};
 		2E821F78136B1EAB00507F66 /* Models */ = {
@@ -379,6 +409,7 @@
 			children = (
 				2EC6725C148FFE5E00AC5CDF /* AsiHttpRequest */,
 				2EC6725D148FFE7000AC5CDF /* SBJson */,
+				2E5FEAE114A1157500B516FE /* UIColorUtilities */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -578,6 +609,12 @@
 				2EB87EE1149FED8300F01C26 /* CouponTableBackground@2x.png in Resources */,
 				2EB87EE4149FEED600F01C26 /* CellBackground@2x.png in Resources */,
 				2EB87EE5149FEED600F01C26 /* CellIcon@2x.png in Resources */,
+				2E5FEADB14A1106400B516FE /* Icon01.png in Resources */,
+				2E5FEADC14A1106400B516FE /* Icon01@2x.png in Resources */,
+				2E5FEADD14A1106400B516FE /* Icon02.png in Resources */,
+				2E5FEADE14A1106400B516FE /* Icon02@2x.png in Resources */,
+				2E5FEADF14A1106400B516FE /* Icon03.png in Resources */,
+				2E5FEAE014A1106400B516FE /* Icon03@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +660,7 @@
 				2EC672A7148FFFDC00AC5CDF /* ASINetworkQueue.m in Sources */,
 				2EC672AA1490000A00AC5CDF /* Reachability.m in Sources */,
 				2EB87EDA149FC07C00F01C26 /* StartupViewController.m in Sources */,
+				2E5FEAE414A115A000B516FE /* UIColor-Expanded.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

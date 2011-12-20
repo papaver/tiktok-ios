@@ -18,6 +18,18 @@
 #import "Coupon.h"
 
 //------------------------------------------------------------------------------
+// enums
+//------------------------------------------------------------------------------
+
+enum CouponTag {
+    kCouponTagIcon        = 1,
+    kCouponTagTitle       = 2,
+    kCouponTagExpireText  = 3,
+    kCouponTagExpireTimer = 4,
+    kCouponTagExpireColor = 5,
+};
+
+//------------------------------------------------------------------------------
 // interface implementation
 //------------------------------------------------------------------------------
 
@@ -42,7 +54,7 @@
 {
     [super viewDidLoad];
 
-    // add the background view
+    // [moiz] not sure if this is the best way to add a background to the table
     self.view.backgroundColor = 
         [UIColor colorWithPatternImage:[UIImage imageNamed:@"CouponTableBackground.png"]];
 }
@@ -73,7 +85,7 @@
     [super viewWillDisappear:animated];
 
     // [moiz] don't hide the navigation bar on top anymore..
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //[self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 //------------------------------------------------------------------------------
@@ -102,36 +114,12 @@
 //------------------------------------------------------------------------------
 
 /**
- * Constructs the index path for the merchant. This will always correspond
- * to the index into section 0, since there is only one section.
- */
-- (NSIndexPath*) getMerchantIndexPath:(NSUInteger)section
-{
-    NSUInteger indexes[2] = { section, 0 };
-    NSIndexPath *indexPath = [[[NSIndexPath alloc] 
-        initWithIndexes:indexes length:2] 
-        autorelease];
-
-    return indexPath;
-}
-
-//------------------------------------------------------------------------------
-
-/**
  * Customize the number of sections in the table view.
  */
 - (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView 
 {
-    // [moiz] we only have one section now... we also want to turn the header 
-    //  off, already forgot how to do that, sigh... working with multiple 
-    //  frameworks at the same time is mind numbing
-    
+    // currently all the coupons are grouped together in one section
     return 1;
-
-    /*
-    NSInteger sections = [[self.fetchedCouponsController sections] count];
-    return sections;
-    */
 }
 
 //------------------------------------------------------------------------------
@@ -154,6 +142,7 @@
  */ 
 - (CGFloat) tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
+    // use the height from the cell view prototype
     return self.cellView.contentView.frame.size.height;
 }
 
@@ -243,17 +232,92 @@
   */
 - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath
 {
+    UIColor *color_tik = [UIColor colorWithRed:(130.0 / 255.0) 
+                                         green:(179.0 / 255.0)
+                                          blue:( 79.0 / 255.0)
+                                         alpha:1.0f];
+
+    UIColor *color_tok = [UIColor colorWithRed:(211.0 / 255.0) 
+                                         green:( 61.0 / 255.0)
+                                          blue:( 61.0 / 255.0)
+                                         alpha:1.0f];
+
+    // use a random icon for now...
+    UIImage *image = nil;
+    switch (indexPath.row % 3) {
+        case 0:
+            image = [UIImage imageNamed:@"Icon01.png"];
+            break;
+        case 1:
+            image = [UIImage imageNamed:@"Icon02.png"];
+            break;
+        case 2:
+            image = [UIImage imageNamed:@"Icon03.png"];
+            break;
+    }
+
     // grab coupon at the given index path
     Coupon* coupon = [self.fetchedCouponsController 
         objectAtIndexPath:indexPath];
 
     // update the coupon image
-    UIImageView *imageView = (UIImageView*)[cell viewWithTag:1];
-    //[imageView setImage:coupon.image];
+    UIImageView *icon = (UIImageView*)[cell viewWithTag:kCouponTagIcon];
+    [icon setImage:image];
         
-    // update the coupon text
-    UITextView *textView = (UITextView*)[cell viewWithTag:2];
-    [textView setText:coupon.text];
+    // update the coupon title
+    UITextView *title = (UITextView*)[cell viewWithTag:kCouponTagTitle];
+    [title setText:coupon.text];
+
+    // [moiz] what to do about people changing the time on thier phones?
+
+    // check if the coupon has already expired
+    NSTimeInterval seconds = [coupon.endTime timeIntervalSinceNow];
+    bool isExpired         = seconds <= 0.0;
+    
+    // update the cell with the defaul expired info
+    if (isExpired) {
+
+        // update expire text
+        UITextView *expire_text = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
+        [expire_text setText:@"Offer has expired"];
+
+        // update expire timer
+        UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
+        [expire_timer setText:@"00:00"];
+
+        // update the coupon expire color
+        UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
+        expire_color.backgroundColor = color_tok;
+
+    // format the end time for the coupon
+    } else {
+
+        // setup date formatter
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        NSString *end_time = [formatter stringForObjectValue:coupon.endTime];
+
+        // update the coupon expire time
+        UITextView *expire_text = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
+        [expire_text setText:$string(@"Offer expires at %@", end_time)];
+
+        // update the coupon expire timer
+        NSUInteger secondsPerMinute = 60 * 60;
+        CGFloat minutes             = seconds / 60.0;
+        UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
+        [expire_timer setText:$string(@"%.2d:%.2d", (int)minutes / 60, (int)minutes % 60)];
+
+        // update the coupon expire color
+        UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
+        NSTimeInterval total_seconds = [coupon.endTime timeIntervalSinceDate:coupon.startTime];
+        CGFloat fraction             = 1.0 - (seconds / total_seconds);
+        NSLog(@"fraction: %f, %f", total_seconds, fraction);
+        expire_color.backgroundColor = [color_tik colorByInterpolatingToColor:color_tok
+                                                                   byFraction:fraction];
+ 
+        // cleanup
+        [formatter release];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -263,6 +327,7 @@
   */
 - (void) configureHeader:(UIView*)header atSection:(NSUInteger)section
 {
+    /*
     // get merchant at index
     Coupon* coupon = [self.fetchedCouponsController 
         objectAtIndexPath:[self getMerchantIndexPath:section]];
@@ -275,6 +340,7 @@
     // update the merchant name
     UILabel *label = (UILabel*)[header viewWithTag:2];
     [label setText:merchant.name];
+    */
 }
 
 //------------------------------------------------------------------------------
