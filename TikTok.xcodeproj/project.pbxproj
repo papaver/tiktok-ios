@@ -47,7 +47,6 @@
 		2EB87EE5149FEED600F01C26 /* CellIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */; };
 		2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBAC7931399D9BE001FD98D /* CoreData.framework */; };
 		2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */; };
-		2EC6724D148ED6F500AC5CDF /* TikTok-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */; };
 		2EC6725A148FF6EF00AC5CDF /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67259148FF6EF00AC5CDF /* Utilities.m */; };
 		2EC67278148FFEAD00AC5CDF /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67260148FFEAD00AC5CDF /* NSObject+SBJson.m */; };
 		2EC67279148FFEAD00AC5CDF /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67263148FFEAD00AC5CDF /* SBJsonParser.m */; };
@@ -102,7 +101,6 @@
 		2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponDetailViewController.xib; sourceTree = "<group>"; };
 		2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailViewController.h; sourceTree = "<group>"; };
 		2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
-		2E63B8961383889C00427FF9 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		2E6E081213936496008788C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -251,7 +249,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				2EB87EE814A0029700F01C26 /* TikTok.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				2EC6725B148FFE4500AC5CDF /* ThirdParty */,
@@ -259,7 +256,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				2EC672B3149000FB00AC5CDF /* Libraries */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				2E63B8961383889C00427FF9 /* Entitlements.plist */,
+				2EB87EE814A0029700F01C26 /* TikTok.entitlements */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -557,7 +554,6 @@
 				2E98715A1393064A00A301BA /* CheckinViewController.xib in Resources */,
 				2E1144D213946D7900D72753 /* LocationMapViewController.xib in Resources */,
 				2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */,
-				2EC6724D148ED6F500AC5CDF /* TikTok-Info.plist in Resources */,
 				2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */,
 				2EF0EBEA149D863500A68993 /* CellBackgroundTextPositioning.png in Resources */,
 				2EF0EBEB149D863500A68993 /* CellIcon.png in Resources */,
@@ -676,43 +672,6 @@
 			};
 			name = Release;
 		};
-		2EB87EE6149FFBD000F01C26 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos;
-			};
-			name = Distribution;
-		};
-		2EB87EE7149FFBD000F01C26 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = TikTok.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TikTok_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
-				PRODUCT_NAME = TikTok;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Distribution;
-		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -750,20 +709,18 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-				2EB87EE7149FFBD000F01C26 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Distribution;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "TikTok" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-				2EB87EE6149FFBD000F01C26 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Distribution;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
