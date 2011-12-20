@@ -118,9 +118,12 @@
     
     TikTokAppDelegate *appDelegate = (TikTokAppDelegate*)[[UIApplication sharedApplication] delegate];
 
-    // sync the coupons from the server
+    // register device and sync the coupons from the server
     TikTokApi *api = [[TikTokApi new] autorelease];
     api.managedContext = [appDelegate managedObjectContext];
+
+    CLLocation *location = [[[CLLocation alloc] initWithLatitude:0.0 longitude:0.0] autorelease];
+    [api checkInWithCurrentLocation:location];
     [api getActiveCoupons];
 
     // [moiz] this should really happen on another thread so the ui can run 
