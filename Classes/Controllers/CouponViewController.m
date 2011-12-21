@@ -12,10 +12,12 @@
 
 #import "TikTokAppDelegate.h"
 #import "CouponViewController.h"
+#import "CouponTableViewCell.h"
 #import "CouponDetailViewController.h"
 #import "TikTokApi.h"
 #import "Merchant.h"
 #import "Coupon.h"
+#import "UIDefaults.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -28,6 +30,17 @@ enum CouponTag {
     kCouponTagExpireTimer = 4,
     kCouponTagExpireColor = 5,
 };
+
+//------------------------------------------------------------------------------
+// interface definition 
+//------------------------------------------------------------------------------
+
+@interface CouponViewController ()
+    - (void) updateExpiration:(NSTimer*)timer;
+    - (void) configureExpiredCell:(UIView*)cell;
+    - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon;
+    - (UIColor*) getInterpolatedColor:(CGFloat)t;
+@end 
 
 //------------------------------------------------------------------------------
 // interface implementation
@@ -148,6 +161,39 @@ enum CouponTag {
 
 //------------------------------------------------------------------------------
 
+- (void) updateExpiration:(NSTimer*)timer
+{
+    CouponTableViewCell* cell = (CouponTableViewCell*)timer.userInfo;
+
+    // grab coupon at the given index path
+    Coupon *coupon = cell.coupon;
+    if (coupon == nil) return;
+
+    // only update the view if its visibile
+    UIView *view = [cell viewWithTag:kCouponTagExpireText];
+    CGRect rect  = [view convertRect:view.frame toView:self.view.superview];
+    bool visible = CGRectIntersectsRect(self.view.superview.frame, rect);
+    if (!visible) return;
+    //NSLog(@"rect: %@", [NSValue valueWithCGRect:rect]);
+    //NSLog(@"inbounds: %@", CGRectIntersectsRect(self.view.superview.frame, rect));
+
+    // check if the coupon has already expired
+    NSTimeInterval seconds = [coupon.endTime timeIntervalSinceNow];
+    bool isExpired         = seconds <= 0.0;
+
+    // [moiz] need to make sure that we know when its been
+    //  expired
+    
+    // update the cell to reflect the state of the coupon
+    if (isExpired) {
+        //[self configureExpiredCell:cell];
+    } else {
+        [self configureActiveCell:cell withCoupon:coupon];
+    }
+}
+
+//------------------------------------------------------------------------------
+
 /**
  * Customize the appearance of table view cells.
  */
@@ -157,10 +203,18 @@ enum CouponTag {
     static NSString *s_cell_id = @"coupon_cell";
     
     // only create as many coupons as are in view at the same time
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:s_cell_id];
+    CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:s_cell_id];
     if (cell == nil) {
         NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:self.cellView];
         cell = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+
+        [NSTimer scheduledTimerWithTimeInterval:1.0
+                                         target:self
+                                       selector:@selector(updateExpiration:)
+                                       userInfo:cell
+                                        repeats:YES];
+        NSLog(@"Cell created...");
     }
 
     // configure the cell 
@@ -227,22 +281,94 @@ enum CouponTag {
 
 //------------------------------------------------------------------------------
 
+- (UIColor*) getInterpolatedColor:(CGFloat)t
+{
+    UIColor *tik    = [UIDefaults getTikColor];
+    UIColor *yellow = [UIColor yellowColor];
+    UIColor *orange = [UIColor orangeColor];
+    UIColor *tok    = [UIDefaults getTokColor];
+
+    struct ColorTable {
+        CGFloat t, offset;
+        UIColor *start, *end;
+    } s_color_table[3] = {
+        { 0.33, 0.00, tik,    yellow },
+        { 0.66, 0.33, yellow, orange },
+        { 1.00, 0.66, orange, tok    },
+    };
+
+    NSUInteger index = 0;
+    for (; index < 3; ++index) {
+        if (t > s_color_table[index].t) continue;
+
+        UIColor *start = s_color_table[index].start;
+        UIColor *end   = s_color_table[index].end;
+        CGFloat new_t  = (t - s_color_table[index].offset) / 0.33;
+        return [start colorByInterpolatingToColor:end
+                                       byFraction:new_t];
+    }
+
+    return [UIColor blackColor];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) configureExpiredCell:(UIView*)cell
+{
+    const static CGFloat expired_alpha = 0.2;
+    static NSString *offerText   = @"Offer has expired";
+    static NSString *timerText   = @"00:00:00";
+
+    // update expire text
+    UITextView *expire_text = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
+    [expire_text setText:offerText];
+
+    // update expire timer
+    UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
+    [expire_timer setText:timerText];
+
+    // update the coupon expire color
+    UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
+    expire_color.backgroundColor = [UIDefaults getTokColor];
+
+    // update the cell opacity
+    for (UIView *view in cell.subviews) {
+        view.alpha = expired_alpha;
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
+{
+    NSTimeInterval seconds_left  = [coupon.endTime timeIntervalSinceNow];
+    NSTimeInterval total_seconds = [coupon.endTime timeIntervalSinceDate:coupon.startTime];
+    CGFloat minutes_left         = seconds_left / 60.0;
+    CGFloat t                    = 1.0 - (seconds_left / total_seconds);
+
+    // update the coupon expire timer
+    UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
+    [expire_timer setText:$string(@"%.2d:%.2d:%.2d", 
+        (int)minutes_left / 60, (int)minutes_left % 60, (int)seconds_left % 60)];
+
+    // update the coupon expire color
+    UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
+    expire_color.backgroundColor = [self getInterpolatedColor:t];
+
+    // update the cell opacity
+    for (UIView *view in cell.subviews) {
+        view.alpha = 1.0 - MIN(t, 0.6);
+    }
+}
+
+//------------------------------------------------------------------------------
+
 /**
   * Initializes cell with coupon information.
   */
-- (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath
+- (void) configureCell:(CouponTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
-    UIColor *color_tik = [UIColor colorWithRed:(130.0 / 255.0) 
-                                         green:(179.0 / 255.0)
-                                          blue:( 79.0 / 255.0)
-                                         alpha:1.0f];
-
-    UIColor *color_tok = [UIColor colorWithRed:(211.0 / 255.0) 
-                                         green:( 61.0 / 255.0)
-                                          blue:( 61.0 / 255.0)
-                                         alpha:1.0f];
-
-    // use a random icon for now...
+    // [moiz] use a random icon for now...
     UIImage *image = nil;
     switch (indexPath.row % 3) {
         case 0:
@@ -260,6 +386,9 @@ enum CouponTag {
     Coupon* coupon = [self.fetchedCouponsController 
         objectAtIndexPath:indexPath];
 
+    // set coupon on cell
+    cell.coupon = coupon;
+
     // update the coupon image
     UIImageView *icon = (UIImageView*)[cell viewWithTag:kCouponTagIcon];
     [icon setImage:image];
@@ -274,23 +403,11 @@ enum CouponTag {
     NSTimeInterval seconds = [coupon.endTime timeIntervalSinceNow];
     bool isExpired         = seconds <= 0.0;
     
-    // update the cell with the defaul expired info
+    // update the cell to reflect the state of the coupon
     if (isExpired) {
-
-        // update expire text
-        UITextView *expire_text = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
-        [expire_text setText:@"Offer has expired"];
-
-        // update expire timer
-        UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
-        [expire_timer setText:@"00:00"];
-
-        // update the coupon expire color
-        UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
-        expire_color.backgroundColor = color_tok;
-
-    // format the end time for the coupon
+        [self configureExpiredCell:cell];
     } else {
+        [self configureActiveCell:cell withCoupon:coupon];
 
         // setup date formatter
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -300,23 +417,6 @@ enum CouponTag {
         // update the coupon expire time
         UITextView *expire_text = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
         [expire_text setText:$string(@"Offer expires at %@", end_time)];
-
-        // update the coupon expire timer
-        NSUInteger secondsPerMinute = 60 * 60;
-        CGFloat minutes             = seconds / 60.0;
-        UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
-        [expire_timer setText:$string(@"%.2d:%.2d", (int)minutes / 60, (int)minutes % 60)];
-
-        // update the coupon expire color
-        UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
-        NSTimeInterval total_seconds = [coupon.endTime timeIntervalSinceDate:coupon.startTime];
-        CGFloat fraction             = 1.0 - (seconds / total_seconds);
-        NSLog(@"fraction: %f, %f", total_seconds, fraction);
-        expire_color.backgroundColor = [color_tik colorByInterpolatingToColor:color_tok
-                                                                   byFraction:fraction];
- 
-        // cleanup
-        [formatter release];
     }
 }
 

@@ -4,3 +4,6 @@
 [submodule "ThirdParty/SBJson"]
 	path = ThirdParty/SBJson
 	url = https://github.com/stig/json-framework.git
+[submodule "ThirdParty/UIColorUtilities"]
+	path = ThirdParty/UIColorUtilities
+	url = git@github.com:papaver/uicolor-utilities.git
