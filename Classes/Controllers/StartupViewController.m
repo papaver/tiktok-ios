@@ -34,6 +34,10 @@
 @implementation StartupViewController
 
 //------------------------------------------------------------------------------
+
+@synthesize physicsController = m_physics_controller;
+
+//------------------------------------------------------------------------------
 #pragma mark - View lifecycle
 //------------------------------------------------------------------------------
 
@@ -47,10 +51,10 @@
     NSLog(@"StartupController: viewDidLoad, setting up services...");
 
     // start location tracking
-    [self setupLocationTracking];
+    //[self setupLocationTracking];
 
     // register device for notifications
-    [self registerDevice];
+    //[self registerDevice];
 }
 
 //------------------------------------------------------------------------------
