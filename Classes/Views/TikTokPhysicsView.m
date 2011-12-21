@@ -1,8 +1,8 @@
 //
-//  StartupViewController.h
+//  TikTokPhysicsView.m
 //  TikTok
 //
-//  Created by Moiz Merchant on 12/19/11.
+//  Created by Moiz Merchant on 12/21/11.
 //  Copyright (c) 2011 TikTok. All rights reserved.
 //
 
@@ -10,27 +10,34 @@
 // imports 
 //------------------------------------------------------------------------------
 
-#import <UIKit/UIKit.h>
+#import "TikTokPhysicsView.h"
 #import "TikTokPhysicsViewController.h"
 
 //------------------------------------------------------------------------------
-// interface definition
+// interface implementation
 //------------------------------------------------------------------------------
 
-@interface StartupViewController : UIViewController
-{
-    TikTokPhysicsViewController *m_physics_controller;
-    NSOperationQueue*            m_operation_queue;
+@implementation TikTokPhysicsView
+
+//------------------------------------------------------------------------------
+
+@synthesize physicsController = m_physics_controller;
+
+//------------------------------------------------------------------------------
+
+- (BOOL) canBecomeFirstResponder
+{ 
+    return YES;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) IBOutlet TikTokPhysicsViewController *physicsController;
-@property (nonatomic, retain)          NSOperationQueue            *operationQueue;
-
-//------------------------------------------------------------------------------
-
-- (void) onDeviceTokenReceived:(NSData*)deviceToken;
+- (void) motionEnded:(UIEventSubtype)motion withEvent:(UIEvent*)event 
+{
+    if (event.type == UIEventSubtypeMotionShake) {
+        [self.physicsController shakeTikTok];
+    }
+}
 
 //------------------------------------------------------------------------------
 

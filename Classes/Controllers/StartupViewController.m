@@ -22,9 +22,11 @@
 //------------------------------------------------------------------------------
 
 @interface StartupViewController ()
+    - (void) startOperationsQueue;
     - (void) setupLocationTracking;
     - (void) registerDevice;
     - (void) syncCoupons;
+    - (void) displayCouponTableView;
 @end
 
 //------------------------------------------------------------------------------
@@ -36,6 +38,7 @@
 //------------------------------------------------------------------------------
 
 @synthesize physicsController = m_physics_controller;
+@synthesize operationQueue    = m_operation_queue;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -46,15 +49,10 @@
  */
 - (void) viewDidLoad
 {
-    [super viewDidLoad];
-
     NSLog(@"StartupController: viewDidLoad, setting up services...");
 
-    // start location tracking
-    //[self setupLocationTracking];
-
-    // register device for notifications
-    //[self registerDevice];
+    [super viewDidLoad];
+    [self startOperationsQueue];
 }
 
 //------------------------------------------------------------------------------
@@ -78,20 +76,25 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - Memory Management
+#pragma mark - Helper Functions
 //------------------------------------------------------------------------------
 
-/**
- *  Releases the view if it doesn't have a superview.
- *  Release any cached data, images, etc that aren't in use.
- */
-- (void) didReceiveMemoryWarning
+- (void) startOperationsQueue
 {
-    [super didReceiveMemoryWarning];
+    // create an operations queue
+    self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
+
+    // add location tracking operation
+    [self.operationQueue addOperationWithBlock:^{
+        [self setupLocationTracking];
+    }];
+
+    // register device for notifications
+    [self.operationQueue addOperationWithBlock:^{
+        [self registerDevice];
+    }];
 }
 
-//------------------------------------------------------------------------------
-#pragma mark - Helper Functions
 //------------------------------------------------------------------------------
 
 - (void) setupLocationTracking
@@ -129,15 +132,6 @@
     CLLocation *location = [[[CLLocation alloc] initWithLatitude:0.0 longitude:0.0] autorelease];
     [api checkInWithCurrentLocation:location];
     [api getActiveCoupons];
-
-    // [moiz] this should really happen on another thread so the ui can run 
-    //   while all the startup is happening in the background need to figure
-    //   out the best way to run stuff in side threads... can run all the startup
-    //   stuff at the same time then and just wait for all the thread to finish
-    //   before continuing
-
-    [self.view removeFromSuperview];
-    [appDelegate.window addSubview:appDelegate.navigationController.view];
 }
 
 //------------------------------------------------------------------------------
@@ -147,8 +141,54 @@
     // update the api with the device token
     [TikTokApi setDeviceToken:deviceToken];
 
-    // sync the coupons from the server
-    [self syncCoupons];
+    // create an operation block to sync the coupons
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        [self syncCoupons];
+    }];
+
+    // add completion handler
+    __block StartupViewController *controller = self; 
+    operation.completionBlock = ^{
+        [controller performSelectorOnMainThread:@selector(displayCouponTableView) 
+                                    withObject:NULL 
+                                 waitUntilDone:NO];
+    };
+
+    // add the block operation to the queue
+    [self.operationQueue addOperation:operation];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) displayCouponTableView
+{
+    // [moiz] see if we can add animation to this 
+    //  should turn off the physics stuff in the background at this point as well
+
+    TikTokAppDelegate *appDelegate = (TikTokAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [self.view removeFromSuperview];
+    [appDelegate.window addSubview:appDelegate.navigationController.view];
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Memory Management
+//------------------------------------------------------------------------------
+
+/**
+ *  Releases the view if it doesn't have a superview.
+ *  Release any cached data, images, etc that aren't in use.
+ */
+- (void) didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) dealloc
+{
+    [m_operation_queue release];
+    [super dealloc];
 }
 
 //------------------------------------------------------------------------------

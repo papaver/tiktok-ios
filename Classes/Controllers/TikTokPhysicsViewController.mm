@@ -27,9 +27,11 @@
 //------------------------------------------------------------------------------
 
 @interface TikTokPhysicsViewController ()
-    -(void) createPhysicsWorld;
-    -(void) addPhysicalBodyForView:(UIView*)physicalView;
-    -(void) updateWorld:(NSTimer*)timer;
+    - (void) createPhysicsWorld;
+    - (void) addPhysicalBodyForView:(UIView*)physicalView;
+    - (void) updateWorld:(NSTimer*)timer;
+    - (void) setHappyTikTok;
+    - (void) setShakenTikTok;
 @end
 
 //------------------------------------------------------------------------------
@@ -80,12 +82,46 @@
 
 //------------------------------------------------------------------------------
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self.view becomeFirstResponder];
+    [super viewWillAppear:animated];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self.view resignFirstResponder];
+    [super viewWillDisappear:animated];
+}
+
+//------------------------------------------------------------------------------
+
 /**
  * Return YES for supported orientations
  */
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+ 
+//------------------------------------------------------------------------------
+#pragma - Helper Functions
+//------------------------------------------------------------------------------
+
+- (void) setHappyTikTok
+{
+    self.tik.image = [UIImage imageNamed:@"Tik.png"];
+    self.tok.image = [UIImage imageNamed:@"Tok.png"];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setShakenTikTok
+{
+    self.tik.image = [UIImage imageNamed:@"TikShaken.png"];
+    self.tok.image = [UIImage imageNamed:@"TokShaken.png"];
 }
 
 //------------------------------------------------------------------------------
@@ -166,8 +202,8 @@
     // define the dynamic body fixture.
     b2FixtureDef fixtureDef;
     fixtureDef.shape       = &dynamic_box;
-    fixtureDef.density     = 3.0f;
-    fixtureDef.friction    = 0.3f;
+    fixtureDef.density     = 1.0f;
+    fixtureDef.friction    = 0.2f;
     fixtureDef.restitution = 0.8f;     // 0 is a lead ball, 1 is a super bouncy ball
     body->CreateFixture(&fixtureDef);
 
@@ -194,7 +230,7 @@
     // generally best to keep the time step and iterations fixed.
     m_world->Step(1.0f / 60.0f, velocity_iterations, position_iterations);
 
-    //Iterate over the bodies in the physics world
+    // iterate over the bodies in the physics world
     for (b2Body* body = m_world->GetBodyList(); body; body = body->GetNext()) {
         if (body->GetUserData() != NULL) {
             UIView *view = (UIView*)body->GetUserData();
@@ -206,8 +242,28 @@
 
             // update transform
             view.transform = CGAffineTransformMakeRotation(-body->GetAngle());
+
+            // check if they can be happy again
+            b2Vec2 linear_velocity = body->GetLinearVelocity();
+            if (linear_velocity.LengthSquared() < 1.0f) {
+                [self setHappyTikTok];
+            }
         }
     }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shakeTikTok
+{
+    NSLog(@"Shaking Tik n' Tok");
+
+    b2Body* body = m_world->GetBodyList();
+    body->ApplyLinearImpulse(b2Vec2(5000, 5000), body->GetWorldCenter());
+    body = body->GetNext();
+    body->ApplyLinearImpulse(b2Vec2(-5000, 5000), body->GetWorldCenter());
+
+    [self setShakenTikTok];
 }
 
 //------------------------------------------------------------------------------

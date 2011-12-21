@@ -77,6 +77,11 @@
 		2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E0814139364AF008788C2 /* CoreGraphics.framework */; };
 		2E6E082B139364C2008788C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082A139364C2008788C2 /* Foundation.framework */; };
 		2E6E082D139364D6008788C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082C139364D6008788C2 /* UIKit.framework */; };
+		2E7DBE1D14A25DC1002F6187 /* TikTokPhysicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */; };
+		2E7DBE2214A263E2002F6187 /* TikShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1E14A263E2002F6187 /* TikShaken.png */; };
+		2E7DBE2314A263E2002F6187 /* TikShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */; };
+		2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2014A263E2002F6187 /* TokShaken.png */; };
+		2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */; };
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
@@ -267,6 +272,12 @@
 		2E6E0814139364AF008788C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2E6E082A139364C2008788C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2E6E082C139364D6008788C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2E7DBE1B14A25DC1002F6187 /* TikTokPhysicsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokPhysicsView.h; sourceTree = "<group>"; };
+		2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokPhysicsView.m; sourceTree = "<group>"; };
+		2E7DBE1E14A263E2002F6187 /* TikShaken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikShaken.png; sourceTree = "<group>"; };
+		2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TikShaken@2x.png"; sourceTree = "<group>"; };
+		2E7DBE2014A263E2002F6187 /* TokShaken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokShaken.png; sourceTree = "<group>"; };
+		2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokShaken@2x.png"; sourceTree = "<group>"; };
 		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
 		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
@@ -501,8 +512,12 @@
 				2EB87EC5149FA96700F01C26 /* SplashProgressBar@2x.png */,
 				2EB87ED3149FAA2200F01C26 /* Tik.png */,
 				2EB87EC6149FA96700F01C26 /* Tik@2x.png */,
+				2E7DBE1E14A263E2002F6187 /* TikShaken.png */,
+				2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */,
 				2EB87EC7149FA96700F01C26 /* Tok.png */,
 				2EB87EC8149FA96700F01C26 /* Tok@2x.png */,
+				2E7DBE2014A263E2002F6187 /* TokShaken.png */,
+				2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */,
 				2EF0EBE2149D863500A68993 /* CellBackground.png */,
 				2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */,
 				2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */,
@@ -530,6 +545,8 @@
 			children = (
 				2E5FEAE914A1AD2700B516FE /* CouponTableViewCell.h */,
 				2E5FEAEA14A1AD2700B516FE /* CouponTableViewCell.m */,
+				2E7DBE1B14A25DC1002F6187 /* TikTokPhysicsView.h */,
+				2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -929,6 +946,10 @@
 				2E5FEADE14A1106400B516FE /* Icon02@2x.png in Resources */,
 				2E5FEADF14A1106400B516FE /* Icon03.png in Resources */,
 				2E5FEAE014A1106400B516FE /* Icon03@2x.png in Resources */,
+				2E7DBE2214A263E2002F6187 /* TikShaken.png in Resources */,
+				2E7DBE2314A263E2002F6187 /* TikShaken@2x.png in Resources */,
+				2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */,
+				2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1044,7 @@
 				2E5FEB7D14A1B77500B516FE /* b2WheelJoint.cpp in Sources */,
 				2E5FEB7E14A1B77500B516FE /* b2Rope.cpp in Sources */,
 				2E5FEB8214A1C16C00B516FE /* TikTokPhysicsViewController.mm in Sources */,
+				2E7DBE1D14A25DC1002F6187 /* TikTokPhysicsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

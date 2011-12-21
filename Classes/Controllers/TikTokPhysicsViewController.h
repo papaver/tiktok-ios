@@ -24,8 +24,8 @@ struct b2World;
 
 @interface TikTokPhysicsViewController : UIViewController
 {
-    UIView         *m_tik;
-    UIView         *m_tok;
+    UIImageView    *m_tik;
+    UIImageView    *m_tok;
     NSTimer        *m_timer;
 
     struct b2World *m_world;
@@ -33,9 +33,13 @@ struct b2World;
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) IBOutlet UIView  *tik;
-@property (nonatomic, retain) IBOutlet UIView  *tok;
-@property (nonatomic, retain)          NSTimer *timer;
+@property (nonatomic, retain) IBOutlet UIImageView *tik;
+@property (nonatomic, retain) IBOutlet UIImageView *tok;
+@property (nonatomic, retain)          NSTimer     *timer;
+
+//------------------------------------------------------------------------------
+
+- (void) shakeTikTok;
 
 //------------------------------------------------------------------------------
 

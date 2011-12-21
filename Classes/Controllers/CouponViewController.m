@@ -174,8 +174,6 @@ enum CouponTag {
     CGRect rect  = [view convertRect:view.frame toView:self.view.superview];
     bool visible = CGRectIntersectsRect(self.view.superview.frame, rect);
     if (!visible) return;
-    //NSLog(@"rect: %@", [NSValue valueWithCGRect:rect]);
-    //NSLog(@"inbounds: %@", CGRectIntersectsRect(self.view.superview.frame, rect));
 
     // check if the coupon has already expired
     NSTimeInterval seconds = [coupon.endTime timeIntervalSinceNow];
@@ -214,7 +212,6 @@ enum CouponTag {
                                        selector:@selector(updateExpiration:)
                                        userInfo:cell
                                         repeats:YES];
-        NSLog(@"Cell created...");
     }
 
     // configure the cell 
@@ -535,7 +532,7 @@ enum CouponTag {
                                                    
     // create a sort descriptor
     NSSortDescriptor *sortByStartDate = [[[NSSortDescriptor alloc] 
-        initWithKey:@"startTime" ascending:NO]
+        initWithKey:@"endTime" ascending:NO]
         autorelease];
     NSArray *sortDescriptors = [[[NSArray alloc] 
         initWithObjects:sortByStartDate, nil] 
