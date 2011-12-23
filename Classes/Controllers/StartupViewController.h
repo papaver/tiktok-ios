@@ -19,8 +19,8 @@
 
 @interface StartupViewController : UIViewController
 {
-    TikTokPhysicsViewController *m_physics_controller;
-    NSOperationQueue*            m_operation_queue;
+    TikTokPhysicsViewController *mPhysicsController;
+    NSOperationQueue*            mOperationQueue;
 }
 
 //------------------------------------------------------------------------------

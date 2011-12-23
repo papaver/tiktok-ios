@@ -109,13 +109,13 @@
 
 - (Coupon*) initWithJsonDictionary:(NSDictionary*)data
 { 
-    NSNumber *enable_time = [data objectForKey:@"enable_time_in_tvsec"];
-    NSNumber *expire_time = [data objectForKey:@"expiry_time_in_tvsec"];
+    NSNumber *enableTime = [data objectForKey:@"enable_time_in_tvsec"];
+    NSNumber *expireTime = [data objectForKey:@"expiry_time_in_tvsec"];
 
     self.imagePath = [data objectForKey:@"image_url"];
     self.text      = [data objectForKey:@"description"];
-    self.startTime = [NSDate dateWithTimeIntervalSince1970:enable_time.intValue];
-    self.endTime   = [NSDate dateWithTimeIntervalSince1970:expire_time.intValue];
+    self.startTime = [NSDate dateWithTimeIntervalSince1970:enableTime.intValue];
+    self.endTime   = [NSDate dateWithTimeIntervalSince1970:expireTime.intValue];
 
     return self;
 }

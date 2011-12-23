@@ -53,11 +53,11 @@ enum CouponTag {
 
 //------------------------------------------------------------------------------
 
-@synthesize cellView                 = m_cell_view;
-@synthesize headerView               = m_header_view;
-@synthesize fetchedCouponsController = m_fetched_coupons_controller;
+@synthesize cellView                 = mCellView;
+@synthesize headerView               = mHeaderView;
+@synthesize fetchedCouponsController = mFetchedCouponsController;
 
-@synthesize backgroundView           = m_background_view;
+@synthesize backgroundView           = mBackgroundView;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -205,10 +205,10 @@ enum CouponTag {
 - (UITableViewCell*) tableView:(UITableView*)tableView 
          cellForRowAtIndexPath:(NSIndexPath*)indexPath 
 {
-    static NSString *s_cell_id = @"coupon_cell";
+    static NSString *sCellId = @"coupon_cell";
     
     // only create as many coupons as are in view at the same time
-    CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:s_cell_id];
+    CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:sCellId];
     if (cell == nil) {
         NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:self.cellView];
         cell = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
@@ -295,7 +295,7 @@ enum CouponTag {
     struct ColorTable {
         CGFloat t, offset;
         UIColor *start, *end;
-    } s_color_table[3] = {
+    } sColorTable[3] = {
         { 0.33, 0.00, tik,    yellow },
         { 0.66, 0.33, yellow, orange },
         { 1.00, 0.66, orange, tok    },
@@ -303,13 +303,13 @@ enum CouponTag {
 
     NSUInteger index = 0;
     for (; index < 3; ++index) {
-        if (t > s_color_table[index].t) continue;
+        if (t > sColorTable[index].t) continue;
 
-        UIColor *start = s_color_table[index].start;
-        UIColor *end   = s_color_table[index].end;
-        CGFloat new_t  = (t - s_color_table[index].offset) / 0.33;
+        UIColor *start = sColorTable[index].start;
+        UIColor *end   = sColorTable[index].end;
+        CGFloat newT   = (t - sColorTable[index].offset) / 0.33;
         return [start colorByInterpolatingToColor:end
-                                       byFraction:new_t];
+                                       byFraction:newT];
     }
 
     return [UIColor blackColor];
@@ -319,25 +319,25 @@ enum CouponTag {
 
 - (void) configureExpiredCell:(UIView*)cell
 {
-    const static CGFloat expired_alpha = 0.2;
-    static NSString *offerText   = @"Offer has expired";
-    static NSString *timerText   = @"00:00:00";
+    const static CGFloat expiredAlpha = 0.2;
+    static NSString *offerText        = @"Offer has expired";
+    static NSString *timerText        = @"00:00:00";
 
     // update expire text
-    UITextView *expire_text = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
-    [expire_text setText:offerText];
+    UITextView *expireText = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
+    [expireText setText:offerText];
 
     // update expire timer
-    UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
-    [expire_timer setText:timerText];
+    UILabel *expireTime = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
+    [expireTime setText:timerText];
 
     // update the coupon expire color
-    UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
-    expire_color.backgroundColor = [UIDefaults getTokColor];
+    UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
+    expireColor.backgroundColor = [UIDefaults getTokColor];
 
     // update the cell opacity
     for (UIView *view in cell.subviews) {
-        view.alpha = expired_alpha;
+        view.alpha = expiredAlpha;
     }
 }
 
@@ -345,19 +345,19 @@ enum CouponTag {
 
 - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
 {
-    NSTimeInterval seconds_left  = [coupon.endTime timeIntervalSinceNow];
-    NSTimeInterval total_seconds = [coupon.endTime timeIntervalSinceDate:coupon.startTime];
-    CGFloat minutes_left         = seconds_left / 60.0;
-    CGFloat t                    = 1.0 - (seconds_left / total_seconds);
+    NSTimeInterval secondsLeft  = [coupon.endTime timeIntervalSinceNow];
+    NSTimeInterval totalSeconds = [coupon.endTime timeIntervalSinceDate:coupon.startTime];
+    CGFloat minutesLeft         = secondsLeft / 60.0;
+    CGFloat t                   = 1.0 - (secondsLeft / totalSeconds);
 
     // update the coupon expire timer
-    UILabel *expire_timer = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
-    [expire_timer setText:$string(@"%.2d:%.2d:%.2d", 
-        (int)minutes_left / 60, (int)minutes_left % 60, (int)seconds_left % 60)];
+    UILabel *expireTime = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
+    [expireTime setText:$string(@"%.2d:%.2d:%.2d", 
+        (int)minutesLeft / 60, (int)minutesLeft % 60, (int)secondsLeft % 60)];
 
     // update the coupon expire color
-    UIView *expire_color         = [cell viewWithTag:kCouponTagExpireColor];
-    expire_color.backgroundColor = [self getInterpolatedColor:t];
+    UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
+    expireColor.backgroundColor = [self getInterpolatedColor:t];
 
     // update the cell opacity
     for (UIView *view in cell.subviews) {
@@ -412,11 +412,11 @@ enum CouponTag {
         // setup date formatter
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
-        NSString *end_time = [formatter stringForObjectValue:coupon.endTime];
+        NSString *endTime = [formatter stringForObjectValue:coupon.endTime];
 
         // update the coupon expire time
-        UITextView *expire_text = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
-        [expire_text setText:$string(@"Offer expires at %@", end_time)];
+        UITextView *expireText = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
+        [expireText setText:$string(@"Offer expires at %@", endTime)];
     }
 }
 
@@ -561,8 +561,8 @@ enum CouponTag {
         managedObjectContext];
 
     // check if controller already created
-    if (m_fetched_coupons_controller) {
-        return m_fetched_coupons_controller;
+    if (mFetchedCouponsController) {
+        return mFetchedCouponsController;
     }
 
     // create an entity description object
@@ -593,12 +593,12 @@ enum CouponTag {
 
     // preform the fetch
     NSError *error = nil;
-    if (![m_fetched_coupons_controller performFetch:&error]) {
+    if (![mFetchedCouponsController performFetch:&error]) {
         NSLog(@"Fetching of coupons failed: %@, %@", error, [error userInfo]);
         abort();
     }
 
-    return m_fetched_coupons_controller;
+    return mFetchedCouponsController;
 }
 
 //------------------------------------------------------------------------------

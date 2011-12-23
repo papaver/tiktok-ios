@@ -20,11 +20,11 @@
 
 @interface CouponViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 {
-    UITableViewCell            *m_cell_view;
-    UIView                     *m_header_view;
-    NSFetchedResultsController *m_fetched_coupons_controller;
+    UITableViewCell            *mCellView;
+    UIView                     *mHeaderView;
+    NSFetchedResultsController *mFetchedCouponsController;
 
-    UIView                     *m_background_view;
+    UIView                     *mBackgroundView;
 }
 
 //------------------------------------------------------------------------------

@@ -22,30 +22,30 @@
 
 + (UIColor*) getTikColor
 {
-    static UIColor *tik_color = nil;
-    if (tik_color == nil) {
+    static UIColor *tikColor = nil;
+    if (tikColor == nil) {
         CGFloat red   = 130.0 / 255.0;
         CGFloat green = 179.0 / 255.0;
         CGFloat blue  =  79.0 / 255.0;
-        tik_color     = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
-        [tik_color retain];
+        tikColor      = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
+        [tikColor retain];
     }
-    return tik_color;
+    return tikColor;
 }
 
 //-----------------------------------------------------------------------------
 
 + (UIColor*) getTokColor
 {
-    static UIColor *tok_color = nil;
-    if (tok_color == nil) {
+    static UIColor *tokColor = nil;
+    if (tokColor == nil) {
         CGFloat red   = 211.0 / 255.0;
         CGFloat green =  61.0 / 255.0;
         CGFloat blue  =  61.0 / 255.0;
-        tok_color     = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
-        [tok_color retain];
+        tokColor      = [UIColor colorWithRed:red green:green blue:blue alpha:1.0f];
+        [tokColor retain];
     }
-    return tok_color;
+    return tokColor;
 }
 
 //-----------------------------------------------------------------------------

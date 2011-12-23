@@ -23,10 +23,10 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize window               = m_window;
-@synthesize tabBarController     = m_tab_bar_controller;
-@synthesize navigationController = m_navigation_controller;
-@synthesize startupController    = m_startup_controller;
+@synthesize window               = mWindow;
+@synthesize tabBarController     = mTabBarController;
+@synthesize navigationController = mNavigationController;
+@synthesize startupController    = mStartupController;
 
 //------------------------------------------------------------------------------
 #pragma mark - Application lifecycle
@@ -56,10 +56,6 @@
     // add the startup controller to the main view
     [self.window addSubview:self.startupController.view];
     [self.window makeKeyAndVisible];
-
-    // configure navigation bar
-    //self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    //self.navigationController.navigationBar.translucent = YES;
 
     return YES;
 }
@@ -128,6 +124,7 @@
  */
 - (void) applicationWillTerminate:(UIApplication*)application 
 {
+    NSLog(@"Application will terminate.");
 }
 
 //------------------------------------------------------------------------------
@@ -142,7 +139,7 @@
     // [moiz] this will probably change once we change the way devices are
     //   tracked, using the notification device token doesn't seem to be the 
     //   best idea
-    [m_startup_controller onDeviceTokenReceived:deviceToken];
+    [mStartupController onDeviceTokenReceived:deviceToken];
 }
 
 //------------------------------------------------------------------------------
@@ -198,16 +195,16 @@
 - (NSManagedObjectContext*) managedObjectContext
 {
     // lazy allocation
-    if (m_managed_object_context != nil)  return m_managed_object_context;
+    if (mManagedObjectContext != nil)  return mManagedObjectContext;
 
     // allocate the object context and attach it to the persistant storage
     NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
     if (coordinator != nil) {
-        m_managed_object_context = [[NSManagedObjectContext alloc] init]; 
-        [m_managed_object_context setPersistentStoreCoordinator:coordinator];
+        mManagedObjectContext = [[NSManagedObjectContext alloc] init]; 
+        [mManagedObjectContext setPersistentStoreCoordinator:coordinator];
     }
 
-    return m_managed_object_context;
+    return mManagedObjectContext;
 }
 
 //------------------------------------------------------------------------------
@@ -219,14 +216,14 @@
 - (NSManagedObjectModel*) managedObjectModel
 {
     // lazy allocation
-    if (m_managed_object_model != nil)  return m_managed_object_model;
+    if (mManagedObjectModel != nil)  return mManagedObjectModel;
 
     // allocate a new model from the data model on disk
-    NSString *model_path   = [[NSBundle mainBundle] pathForResource:@"DataModel" ofType:@"mom"];
-    NSURL *model_url       = [NSURL fileURLWithPath:model_path];
-    m_managed_object_model = [[NSManagedObjectModel alloc] initWithContentsOfURL:model_url];
+    NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"DataModel" ofType:@"mom"];
+    NSURL *modelUrl     = [NSURL fileURLWithPath:modelPath];
+    mManagedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelUrl];
 
-    return m_managed_object_model;
+    return mManagedObjectModel;
 }
 
 //------------------------------------------------------------------------------
@@ -239,26 +236,24 @@
 - (NSPersistentStoreCoordinator*) persistentStoreCoordinator
 {
     // lazy allocation
-    if (m_persistent_store_coordinator != nil) {
-        return m_persistent_store_coordinator;
-    }
+    if (mPersistantStoreCoordinator != nil) return mPersistantStoreCoordinator; 
 
     // construct path to storage on disk
-    NSURL *storage_url = [[self applicationDocumentsDirectory] 
+    NSURL *storageUrl = [[self applicationDocumentsDirectory] 
         URLByAppendingPathComponent:@"TikTok.sqlite"];
-    NSLog(@"sqlite -> %@", storage_url);
+    NSLog(@"sqlite -> %@", storageUrl);
 
     // [moiz][TEMP] move this back into the if statement below
-    [[NSFileManager defaultManager] removeItemAtURL:storage_url error:nil];
+    [[NSFileManager defaultManager] removeItemAtURL:storageUrl error:nil];
 
     // allocate a persistant store coordinator, attached to the storage db
     NSError *error = nil;
-    m_persistent_store_coordinator = [[NSPersistentStoreCoordinator alloc] 
+    mPersistantStoreCoordinator = [[NSPersistentStoreCoordinator alloc] 
         initWithManagedObjectModel:self.managedObjectModel];
-    bool result = [m_persistent_store_coordinator 
+    bool result = [mPersistantStoreCoordinator 
         addPersistentStoreWithType:NSSQLiteStoreType 
                      configuration:nil 
-                               URL:storage_url 
+                               URL:storageUrl 
                            options:nil 
                              error:&error];
 
@@ -298,7 +293,7 @@
         abort();
     }
 
-    return m_persistent_store_coordinator;
+    return mPersistantStoreCoordinator;
 }
 
 //------------------------------------------------------------------------------
@@ -328,13 +323,14 @@
 
 - (void) dealloc 
 {
-    [m_navigation_controller release];
-    [m_tab_bar_controller release];
-    [m_window release];
+    [mStartupController release];
+    [mNavigationController release];
+    [mTabBarController release];
+    [mWindow release];
 
-    [m_managed_object_context release];
-    [m_managed_object_model release];
-    [m_persistent_store_coordinator release];
+    [mManagedObjectContext release];
+    [mManagedObjectModel release];
+    [mPersistantStoreCoordinator release];
 
     [super dealloc];
 }

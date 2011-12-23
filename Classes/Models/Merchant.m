@@ -26,7 +26,7 @@
 @dynamic imagePath;
 @dynamic coupons;
 
-@synthesize image = m_image;
+@synthesize image = mImage;
 
 //------------------------------------------------------------------------------
 #pragma mark -
@@ -108,7 +108,7 @@
 
 - (UIImage*) image
 {
-    if (m_image == nil) {
+    if (mImage == nil) {
         id url         = [NSURL URLWithString:self.imagePath];
         NSData *bitmap = [NSData dataWithContentsOfURL:url];
 
@@ -116,12 +116,12 @@
         UIGraphicsBeginImageContext(size);
         UIImage *image = [UIImage imageWithData:bitmap];
         [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-        m_image = UIGraphicsGetImageFromCurrentImageContext();    
-        [m_image retain];
+        mImage = UIGraphicsGetImageFromCurrentImageContext();    
+        [mImage retain];
         UIGraphicsEndImageContext();
     }
 
-    return m_image;
+    return mImage;
 }
 
 //------------------------------------------------------------------------------

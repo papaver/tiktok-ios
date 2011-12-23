@@ -21,8 +21,8 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize locationManager = m_location_manager;
-@synthesize delegate        = m_delegate;
+@synthesize locationManager = mLocationManager;
+@synthesize delegate        = mDelegate;
 
 //------------------------------------------------------------------------------
 

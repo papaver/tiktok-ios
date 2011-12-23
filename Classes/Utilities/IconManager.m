@@ -32,10 +32,6 @@
 @implementation IconManager
 
 //------------------------------------------------------------------------------
-
-//@synthesize adapter = m_adapter;
-
-//------------------------------------------------------------------------------
 #pragma - Statics
 //------------------------------------------------------------------------------
 
@@ -206,12 +202,12 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
  */
 - (bool) createDirectory:(NSURL*)directory
 {
-    BOOL is_dir;
+    BOOL isDir;
     bool result = true;
-    NSFileManager *file_manager = [NSFileManager defaultManager]; 
-    if (![file_manager fileExistsAtPath:directory.path isDirectory:&is_dir]) {
+    NSFileManager *fileManager = [NSFileManager defaultManager]; 
+    if (![fileManager fileExistsAtPath:directory.path isDirectory:&isDir]) {
         NSLog(@"IconManager: creating dir: %@", directory.path);
-        result = [file_manager createDirectoryAtPath:directory.path 
+        result = [fileManager createDirectoryAtPath:directory.path 
                          withIntermediateDirectories:YES 
                                           attributes:nil 
                                                error:NULL];
@@ -248,7 +244,7 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
 {
     // [moiz] temp till dinos fixes the path name 
     NSArray *pathComponents = [imageUrl pathComponents];
-    NSString *imageName     =  [pathComponents objectAtIndex:pathComponents.count - 2];
+    NSString *imageName     = [pathComponents objectAtIndex:pathComponents.count - 2];
     return imageName;
 
     //return [imageUrl lastPathComponent];

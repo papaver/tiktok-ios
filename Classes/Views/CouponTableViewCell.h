@@ -25,7 +25,7 @@
 
 @interface CouponTableViewCell : UITableViewCell
 {
-    Coupon *m_coupon;
+    Coupon *mCoupon;
 }
 
 //------------------------------------------------------------------------------

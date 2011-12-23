@@ -24,11 +24,11 @@ struct b2World;
 
 @interface TikTokPhysicsViewController : UIViewController
 {
-    UIImageView    *m_tik;
-    UIImageView    *m_tok;
-    NSTimer        *m_timer;
+    UIImageView    *mTik;
+    UIImageView    *mTok;
+    NSTimer        *mTimer;
 
-    struct b2World *m_world;
+    struct b2World *mWorld;
 }
 
 //------------------------------------------------------------------------------

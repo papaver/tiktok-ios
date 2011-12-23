@@ -38,8 +38,8 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize physicsController = m_physics_controller;
-@synthesize operationQueue    = m_operation_queue;
+@synthesize physicsController = mPhysicsController;
+@synthesize operationQueue    = mOperationQueue;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -213,7 +213,7 @@
 
 - (void) dealloc
 {
-    [m_operation_queue release];
+    [mOperationQueue release];
     [super dealloc];
 }
 

@@ -24,7 +24,7 @@
 
 @interface TikTokPhysicsView : UIView
 {
-    TikTokPhysicsViewController *m_physics_controller;
+    TikTokPhysicsViewController *mPhysicsController;
 }
 
 //------------------------------------------------------------------------------

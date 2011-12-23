@@ -21,7 +21,7 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize physicsController = m_physics_controller;
+@synthesize physicsController = mPhysicsController;
 
 //------------------------------------------------------------------------------
 

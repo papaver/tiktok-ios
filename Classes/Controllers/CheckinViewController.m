@@ -25,10 +25,10 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize checkinButton      = m_checkin_button;
-@synthesize checkoutButton     = m_checkout_button;
-@synthesize locationController = m_location_controller;
-@synthesize checkinLocation    = m_checkin_location;
+@synthesize checkinButton      = mCheckinButton;
+@synthesize checkoutButton     = mCheckoutButton;
+@synthesize locationController = mLocationController;
+@synthesize checkinLocation    = mCheckinLocation;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -75,8 +75,8 @@
 
 - (void) dealloc
 {
-    if (m_checkin_location) { [m_checkin_location release]; }
-    [m_location_controller release];
+    if (mCheckinLocation) { [mCheckinLocation release]; }
+    [mLocationController release];
     [super dealloc];
 }
 
@@ -166,8 +166,8 @@
     [self.locationController.locationManager stopUpdatingLocation];
 
     // release the current location 
-    [m_checkin_location release];
-    m_checkin_location = nil;
+    [mCheckinLocation release];
+    mCheckinLocation = nil;
 
     // swap out the buttons
     self.checkinButton.hidden  = NO;

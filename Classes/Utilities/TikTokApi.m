@@ -23,14 +23,14 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize adapter        = m_adapter;
-@synthesize parser         = m_parser;
-@synthesize jsonData       = m_json_data;
-@synthesize managedContext = m_managed_context;
+@synthesize adapter        = mAdapter;
+@synthesize parser         = mParser;
+@synthesize jsonData       = mJsonData;
+@synthesize managedContext = mManagedContext;
 
 //------------------------------------------------------------------------------
 
-static NSData *s_device_token;
+static NSData *sDeviceToken;
 
 //------------------------------------------------------------------------------
 #pragma mark - Statics
@@ -38,7 +38,7 @@ static NSData *s_device_token;
 
 + (NSData*) deviceToken
 {
-    return s_device_token;
+    return sDeviceToken;
 }
 
 //------------------------------------------------------------------------------
@@ -46,13 +46,13 @@ static NSData *s_device_token;
 + (void) setDeviceToken:(NSData*)deviceToken
 {
     // release current token if it exists
-    if (s_device_token != nil) [s_device_token release];
+    if (sDeviceToken != nil) [sDeviceToken release];
 
     // set new device token
-    s_device_token = deviceToken;
-    [s_device_token retain];
+    sDeviceToken = deviceToken;
+    [sDeviceToken retain];
 
-    NSLog(@"TikTokApi: Setting device token: %@", [s_device_token description]);
+    NSLog(@"TikTokApi: Setting device token: %@", [sDeviceToken description]);
 }
 
 //------------------------------------------------------------------------------
@@ -64,17 +64,17 @@ static NSData *s_device_token;
 
 //------------------------------------------------------------------------------
 
-+ (NSData*) httpQueryWithUrlPath:(NSString*)url_path andPostData:(NSString*)post_data
++ (NSData*) httpQueryWithUrlPath:(NSString*)urlPath andPostData:(NSString*)postData
 {
-    NSLog(@"post data -> %@", post_data);
+    NSLog(@"post data -> %@", postData);
 
     // create a url object from the path
-    NSURL *url = [[[NSURL alloc] initWithString:url_path] autorelease];
+    NSURL *url = [[[NSURL alloc] initWithString:urlPath] autorelease];
 
     // setup the post data for the url
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[post_data dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[postData dataUsingEncoding:NSUTF8StringEncoding]];
 
     // retrive data
     NSURLResponse *response;
@@ -129,7 +129,7 @@ static NSData *s_device_token;
     CLLocationDegrees longitude = location.coordinate.longitude;
 
     // construct the checkin url path 
-    NSString *url_path = [NSString stringWithFormat:@"%@/register", 
+    NSString *urlPath = [NSString stringWithFormat:@"%@/register", 
         [TikTokApi apiUrlPath]];
 
     // convert token data into a string
@@ -138,19 +138,19 @@ static NSData *s_device_token;
             [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 
     // setup the post data for the url
-    NSString *post_data = [NSString stringWithFormat:@"token=%@&lat=%lf&long=%lf", 
+    NSString *postData = [NSString stringWithFormat:@"token=%@&lat=%lf&long=%lf", 
         deviceTokenStr, latitude, longitude];
 
     // attempt to checkin with the server
-    NSData* data = [TikTokApi httpQueryWithUrlPath:url_path 
-                                       andPostData:post_data];
+    NSData* data = [TikTokApi httpQueryWithUrlPath:urlPath 
+                                       andPostData:postData];
     NSLog(@"api data -> %s", (char*)[data bytes]);
 
     // clear out the cache
     [self.jsonData removeAllObjects];
 
     // set the parser for the incoming json data
-    m_parser_method = NSSelectorFromString(@"parseLocationData:");
+    mParserMethod = NSSelectorFromString(@"parseLocationData:");
 
     [self parseData:data];
 
@@ -167,7 +167,7 @@ static NSData *s_device_token;
 - (bool) checkOut
 {
     // construct the checkin url path 
-    NSString *url_path = [NSString stringWithFormat:@"%@/checkout", 
+    NSString *urlPath = [NSString stringWithFormat:@"%@/checkout", 
         [TikTokApi apiUrlPath]];
 
     // convert token data into a string
@@ -176,10 +176,10 @@ static NSData *s_device_token;
             [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 
     // setup the post data for the url
-    NSString *post_data = [NSString stringWithFormat:@"token=%@", deviceTokenStr];
+    NSString *postData = [NSString stringWithFormat:@"token=%@", deviceTokenStr];
 
     // attempt to checkin with the server
-    [TikTokApi httpQueryWithUrlPath:url_path andPostData:post_data];
+    [TikTokApi httpQueryWithUrlPath:urlPath andPostData:postData];
 
     return YES;
 }
@@ -206,7 +206,7 @@ static NSData *s_device_token;
     [self.jsonData removeAllObjects];
 
     // set the parser for the incoming json data
-    m_parser_method = NSSelectorFromString(@"parseCouponData:");
+    mParserMethod = NSSelectorFromString(@"parseCouponData:");
 
     [self parseData:data];
 
@@ -302,7 +302,7 @@ static NSData *s_device_token;
     NSLog(@"json: array found.");
 
     for (NSDictionary *data in array) {
-        [self performSelector:m_parser_method withObject:data];
+        [self performSelector:mParserMethod withObject:data];
     }
 }
 
@@ -315,7 +315,7 @@ static NSData *s_device_token;
 {
     NSLog(@"json: dictionary found.");
 
-    [self performSelector:m_parser_method withObject:dict];
+    [self performSelector:mParserMethod withObject:dict];
 }
 
 //------------------------------------------------------------------------------

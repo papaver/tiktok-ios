@@ -32,8 +32,8 @@
 
 @interface LocationController : NSObject <CLLocationManagerDelegate>
 {
-    CLLocationManager *m_location_manager;
-    id                 m_delegate;
+    CLLocationManager *mLocationManager;
+    id                 mDelegate;
 }
 
 //------------------------------------------------------------------------------

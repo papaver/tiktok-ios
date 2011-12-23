@@ -19,7 +19,7 @@
 
 @interface LocationMapViewController : UIViewController <MKMapViewDelegate>
 {
-    MKMapView *m_map_view;
+    MKMapView *mMapView;
 }
 
 //------------------------------------------------------------------------------

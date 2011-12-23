@@ -26,11 +26,11 @@
 
 @interface TikTokApi : NSObject <SBJsonStreamParserAdapterDelegate>
 {
-    SBJsonStreamParser        *m_parser;
-    SBJsonStreamParserAdapter *m_adapter;
-    NSMutableArray            *m_json_data;
-    SEL                        m_parser_method;
-    NSManagedObjectContext    *m_managed_context;
+    SBJsonStreamParser        *mParser;
+    SBJsonStreamParserAdapter *mAdapter;
+    NSMutableArray            *mJsonData;
+    SEL                        mParserMethod;
+    NSManagedObjectContext    *mManagedContext;
 }
 
 //------------------------------------------------------------------------------

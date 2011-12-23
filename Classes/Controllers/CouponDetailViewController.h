@@ -24,7 +24,7 @@
 
 @interface CouponDetailViewController : UIViewController 
 {
-    Coupon *m_coupon;
+    Coupon *mCoupon;
 }
 
 //------------------------------------------------------------------------------

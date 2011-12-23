@@ -20,10 +20,10 @@
 
 @interface CheckinViewController : UIViewController <LocationControllerDelegate>
 {
-    UIButton           *m_checkin_button;
-    UIButton           *m_checkout_button;
-    LocationController *m_location_controller;
-    Location           *m_checkin_location;
+    UIButton           *mCheckinButton;
+    UIButton           *mCheckoutButton;
+    LocationController *mLocationController;
+    Location           *mCheckinLocation;
 }
 
 //------------------------------------------------------------------------------

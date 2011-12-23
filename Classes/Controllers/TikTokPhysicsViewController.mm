@@ -42,9 +42,9 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize tik   = m_tik;
-@synthesize tok   = m_tok;
-@synthesize timer = m_timer;
+@synthesize tik   = mTik;
+@synthesize tok   = mTok;
+@synthesize timer = mTimer;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -58,8 +58,8 @@
     [self createPhysicsWorld];
 
     // add tik and tok to the world
-    [self addPhysicalBodyForView:m_tik];
-    [self addPhysicalBodyForView:m_tok];
+    [self addPhysicalBodyForView:mTik];
+    [self addPhysicalBodyForView:mTok];
 
     // setup a timer to run the main update loop
     CGFloat interval = 1.0 / 60.0;
@@ -137,11 +137,11 @@
     gravity.Set(0.0f, -9.81f);
 
     // do we want to let bodies sleep? this will speed up the physics sim
-    //bool do_sleep = true;
+    //bool doSleep = true;
 
     // construct a world object, which will hold and simulate the rigid bodies
-    m_world = new b2World(gravity);
-    m_world->SetContinuousPhysics(true);
+    mWorld = new b2World(gravity);
+    mWorld->SetContinuousPhysics(true);
 
     // define the ground body, bottom-left corner
     b2BodyDef groundBodyDef;
@@ -150,7 +150,7 @@
     // call the body factory which allocates memory for the ground body
     // from a pool and creates the ground box shape (also from a pool).
     // the body is also added to the world.
-    b2Body* groundBody = m_world->CreateBody(&groundBodyDef);
+    b2Body* groundBody = mWorld->CreateBody(&groundBodyDef);
 
     // define the ground box shape.
     b2EdgeShape groundBox;
@@ -184,8 +184,8 @@
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
 
-    CGPoint center         = physicalView.center;
-    CGPoint box_dimensions = CGPointMake(
+    CGPoint center        = physicalView.center;
+    CGPoint boxDimensions = CGPointMake(
         physicalView.bounds.size.width  / PTM_RATIO / 2.0,
         physicalView.bounds.size.height / PTM_RATIO / 2.0);
 
@@ -193,15 +193,15 @@
     bodyDef.userData = physicalView;
 
     // tell the physics world to create the body
-    b2Body *body = m_world->CreateBody(&bodyDef);
+    b2Body *body = mWorld->CreateBody(&bodyDef);
 
     // define another box shape for our dynamic body.
-    b2PolygonShape dynamic_box;
-    dynamic_box.SetAsBox(box_dimensions.x, box_dimensions.y);
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(boxDimensions.x, boxDimensions.y);
 
     // define the dynamic body fixture.
     b2FixtureDef fixtureDef;
-    fixtureDef.shape       = &dynamic_box;
+    fixtureDef.shape       = &dynamicBox;
     fixtureDef.density     = 1.0f;
     fixtureDef.friction    = 0.2f;
     fixtureDef.restitution = 0.8f;     // 0 is a lead ball, 1 is a super bouncy ball
@@ -223,15 +223,15 @@
     // you need to make an informed choice, the following URL is useful
     // http://gafferongames.com/game-physics/fix-your-timestep/
 
-    int32 velocity_iterations = 8;
-    int32 position_iterations = 1;
+    int32 velocityIterations = 8;
+    int32 positionIterations = 1;
 
     // instruct the world to perform a single step of simulation. It is
     // generally best to keep the time step and iterations fixed.
-    m_world->Step(1.0f / 60.0f, velocity_iterations, position_iterations);
+    mWorld->Step(1.0f / 60.0f, velocityIterations, positionIterations);
 
     // iterate over the bodies in the physics world
-    for (b2Body* body = m_world->GetBodyList(); body; body = body->GetNext()) {
+    for (b2Body* body = mWorld->GetBodyList(); body; body = body->GetNext()) {
         if (body->GetUserData() != NULL) {
             UIView *view = (UIView*)body->GetUserData();
 
@@ -244,8 +244,8 @@
             view.transform = CGAffineTransformMakeRotation(-body->GetAngle());
 
             // check if they can be happy again
-            b2Vec2 linear_velocity = body->GetLinearVelocity();
-            if (linear_velocity.LengthSquared() < 1.0f) {
+            b2Vec2 linearVelocity = body->GetLinearVelocity();
+            if (linearVelocity.LengthSquared() < 1.0f) {
                 [self setHappyTikTok];
             }
         }
@@ -258,7 +258,7 @@
 {
     NSLog(@"Shaking Tik n' Tok");
 
-    b2Body* body = m_world->GetBodyList();
+    b2Body* body = mWorld->GetBodyList();
     body->ApplyLinearImpulse(b2Vec2(5000, 5000), body->GetWorldCenter());
     body = body->GetNext();
     body->ApplyLinearImpulse(b2Vec2(-5000, 5000), body->GetWorldCenter());
@@ -283,7 +283,7 @@
 
 - (void) dealloc
 {
-    delete m_world;
+    delete mWorld;
     [self.timer invalidate];
     [super dealloc];
 }

@@ -25,16 +25,16 @@
 
 @interface TikTokAppDelegate : NSObject <UIApplicationDelegate> 
 {
-    UIWindow               *m_window;
-    UITabBarController     *m_tab_bar_controller;
-    UINavigationController *m_navigation_controller;
-    StartupViewController  *m_startup_controller;
+    UIWindow               *mWindow;
+    UITabBarController     *mTabBarController;
+    UINavigationController *mNavigationController;
+    StartupViewController  *mStartupController;
 
 @private
 
-    NSManagedObjectContext       *m_managed_object_context;
-    NSManagedObjectModel         *m_managed_object_model;
-    NSPersistentStoreCoordinator *m_persistent_store_coordinator;
+    NSManagedObjectContext       *mManagedObjectContext;
+    NSManagedObjectModel         *mManagedObjectModel;
+    NSPersistentStoreCoordinator *mPersistantStoreCoordinator;
 }
 
 //------------------------------------------------------------------------------

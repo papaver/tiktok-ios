@@ -25,7 +25,7 @@
 
 @interface Merchant : NSManagedObject 
 {
-    UIImage *m_image;
+    UIImage *mImage;
 }
 
 //------------------------------------------------------------------------------
