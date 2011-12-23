@@ -150,7 +150,7 @@
 							<object class="IBUIView" id="1045910739">
 								<reference key="NSNextResponder" ref="569878545"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{16, 16}, {104, 105}}</string>
+								<string key="NSFrame">{{16, 16}, {104, 104}}</string>
 								<reference key="NSSuperview" ref="569878545"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="345508113"/>
@@ -161,6 +161,7 @@
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">5</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
 									<integer value="256" key="IBUIAccessibilityTraits"/>
 								</object>
@@ -304,6 +305,7 @@
 								<reference key="NSNextKeyView" ref="1045910739"/>
 								<string key="NSReuseIdentifierKey">_NS:567</string>
 								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">4</int>
 								<int key="IBUITag">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -541,24 +543,25 @@
 						<int key="objectID">10</int>
 						<reference key="object" ref="242410823"/>
 						<reference key="parent" ref="797280367"/>
-						<string key="objectName">Coupon Image</string>
+						<string key="objectName">Icon Background</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">11</int>
 						<reference key="object" ref="345508113"/>
 						<reference key="parent" ref="797280367"/>
-						<string key="objectName">Coupon Text</string>
+						<string key="objectName">Title</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
 						<reference key="object" ref="530623947"/>
 						<reference key="parent" ref="797280367"/>
-						<string key="objectName">Coupon Text</string>
+						<string key="objectName">Expire Text</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">17</int>
 						<reference key="object" ref="133151720"/>
 						<reference key="parent" ref="797280367"/>
+						<string key="objectName">Expire Time</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">18</int>
@@ -584,11 +587,13 @@
 						<int key="objectID">28</int>
 						<reference key="object" ref="1045910739"/>
 						<reference key="parent" ref="797280367"/>
+						<string key="objectName">Color Timer</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">29</int>
 						<reference key="object" ref="14529683"/>
 						<reference key="parent" ref="797280367"/>
+						<string key="objectName">Icon</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">14</int>

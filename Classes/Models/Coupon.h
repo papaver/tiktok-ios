@@ -25,7 +25,6 @@
 
 @interface Coupon : NSManagedObject 
 {
-    UIImage *m_image;
 }
 
 //------------------------------------------------------------------------------
@@ -36,8 +35,6 @@
 @property (nonatomic, retain) NSDate   *startTime;
 @property (nonatomic, retain) NSDate   *endTime;
 @property (nonatomic, retain) Merchant *merchant;
-
-@property (nonatomic, retain, readonly) UIImage *image;
 
 //------------------------------------------------------------------------------
 
@@ -52,7 +49,7 @@
  * exist, it will be added to the context and saved into the store.
  */
 + (Coupon*) getOrCreateCouponWithJsonData:(NSDictionary*)data 
-                                 fromContext:(NSManagedObjectContext*)context;
+                              fromContext:(NSManagedObjectContext*)context;
 
 /**
  * Initialize the coupon object with the given json data.

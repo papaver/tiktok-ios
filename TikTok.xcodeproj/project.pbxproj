@@ -82,6 +82,7 @@
 		2E7DBE2314A263E2002F6187 /* TikShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */; };
 		2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2014A263E2002F6187 /* TokShaken.png */; };
 		2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */; };
+		2E7DBE2814A3AF2B002F6187 /* IconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2714A3AF2B002F6187 /* IconManager.m */; };
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
@@ -278,6 +279,8 @@
 		2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TikShaken@2x.png"; sourceTree = "<group>"; };
 		2E7DBE2014A263E2002F6187 /* TokShaken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokShaken.png; sourceTree = "<group>"; };
 		2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokShaken@2x.png"; sourceTree = "<group>"; };
+		2E7DBE2614A3AF2B002F6187 /* IconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconManager.h; sourceTree = "<group>"; };
+		2E7DBE2714A3AF2B002F6187 /* IconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconManager.m; sourceTree = "<group>"; };
 		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
 		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
@@ -722,6 +725,8 @@
 			isa = PBXGroup;
 			children = (
 				2EC672B51490028500AC5CDF /* Macros.h */,
+				2E7DBE2614A3AF2B002F6187 /* IconManager.h */,
+				2E7DBE2714A3AF2B002F6187 /* IconManager.m */,
 				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
 				2E821F8F136C2DCB00507F66 /* TikTokApi.m */,
 				2E5FEAE514A14B6500B516FE /* UIDefaults.h */,
@@ -1045,6 +1050,7 @@
 				2E5FEB7E14A1B77500B516FE /* b2Rope.cpp in Sources */,
 				2E5FEB8214A1C16C00B516FE /* TikTokPhysicsViewController.mm in Sources */,
 				2E7DBE1D14A25DC1002F6187 /* TikTokPhysicsView.m in Sources */,
+				2E7DBE2814A3AF2B002F6187 /* IconManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

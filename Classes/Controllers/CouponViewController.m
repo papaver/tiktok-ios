@@ -11,12 +11,13 @@
 //------------------------------------------------------------------------------
 
 #import "TikTokAppDelegate.h"
+#import "Coupon.h"
 #import "CouponViewController.h"
 #import "CouponTableViewCell.h"
 #import "CouponDetailViewController.h"
-#import "TikTokApi.h"
+#import "IconManager.h"
 #import "Merchant.h"
-#import "Coupon.h"
+#import "TikTokApi.h"
 #import "UIDefaults.h"
 
 //------------------------------------------------------------------------------
@@ -40,6 +41,8 @@ enum CouponTag {
     - (void) configureExpiredCell:(UIView*)cell;
     - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon;
     - (UIColor*) getInterpolatedColor:(CGFloat)t;
+    - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
+    - (void) loadImagesForOnscreenRows;
 @end 
 
 //------------------------------------------------------------------------------
@@ -70,6 +73,10 @@ enum CouponTag {
     // [moiz] not sure if this is the best way to add a background to the table
     self.view.backgroundColor = 
         [UIColor colorWithPatternImage:[UIImage imageNamed:@"CouponTableBackground.png"]];
+
+    // test icon manager
+    IconManager *iconManager = [IconManager getInstance];
+    [iconManager deleteAllImages];
 }
 
 //------------------------------------------------------------------------------
@@ -365,20 +372,6 @@ enum CouponTag {
   */
 - (void) configureCell:(CouponTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
-    // [moiz] use a random icon for now...
-    UIImage *image = nil;
-    switch (indexPath.row % 3) {
-        case 0:
-            image = [UIImage imageNamed:@"Icon01.png"];
-            break;
-        case 1:
-            image = [UIImage imageNamed:@"Icon02.png"];
-            break;
-        case 2:
-            image = [UIImage imageNamed:@"Icon03.png"];
-            break;
-    }
-
     // grab coupon at the given index path
     Coupon* coupon = [self.fetchedCouponsController 
         objectAtIndexPath:indexPath];
@@ -386,13 +379,23 @@ enum CouponTag {
     // set coupon on cell
     cell.coupon = coupon;
 
-    // update the coupon image
-    UIImageView *icon = (UIImageView*)[cell viewWithTag:kCouponTagIcon];
-    [icon setImage:image];
-        
     // update the coupon title
     UITextView *title = (UITextView*)[cell viewWithTag:kCouponTagTitle];
     [title setText:coupon.text];
+
+    // check if image is available
+    IconManager *iconManager = [IconManager getInstance];
+    NSURL *imageUrl          = [NSURL URLWithString:coupon.imagePath];
+    UIImage *image           = [iconManager getImage:imageUrl];
+    UIImageView *imageView   = (UIImageView*)[cell viewWithTag:kCouponTagIcon];
+    if (image) {
+        [imageView setImage:image];
+    } else {
+        [imageView setImage:[UIImage imageNamed:@"Icon01.png"]];
+        if (!self.tableView.dragging && !self.tableView.decelerating) {
+            [self requestImageForCoupon:coupon atIndexPath:indexPath];
+        }
+    }
 
     // [moiz] what to do about people changing the time on thier phones?
 
@@ -505,9 +508,45 @@ enum CouponTag {
  */
 - (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
 {
-    // [moiz] we are no longer using the header...
-    //return self.headerView.frame.size.height;
-    return 0;
+    // no headers should be visible
+    return 0.0;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath
+{
+    IconManager *iconManager = [IconManager getInstance];
+    NSURL *imageUrl          = [NSURL URLWithString:coupon.imagePath];
+
+    // submit the request to retrive the image and update the cell
+    [iconManager requestImage:imageUrl 
+        withCompletionHandler:^(UIImage* image, NSError *error) {
+            if (image != nil) {
+                UITableViewCell *cell  = [self.tableView cellForRowAtIndexPath:indexPath];
+                UIImageView *imageView = (UIImageView*)[cell viewWithTag:kCouponTagIcon];
+                [imageView setImage:image];
+            } else if (error) {
+                NSLog(@"CouponViewController: Failed to load image: %@", error);
+            }
+        }];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) loadImagesForOnscreenRows
+{
+    NSArray *visibleIndices  = [self.tableView indexPathsForVisibleRows];
+    IconManager *iconManager = [IconManager getInstance];
+
+    [visibleIndices enumerateObjectsUsingBlock:
+        ^(NSIndexPath *indexPath, NSUInteger index, BOOL *stop) {
+            Coupon *coupon = [self.fetchedCouponsController objectAtIndexPath:indexPath];
+            UIImage *image = [iconManager getImage:[NSURL URLWithString:coupon.imagePath]];
+            if (image == nil) {
+                [self requestImageForCoupon:coupon atIndexPath:indexPath];
+            }
+        }];
 }
 
 //------------------------------------------------------------------------------
@@ -625,6 +664,24 @@ enum CouponTag {
 - (void) controllerDidChangeContent:(NSFetchedResultsController*)controller 
 {
     [self.tableView endUpdates];
+}
+
+//-----------------------------------------------------------------------------
+#pragma mark - ScrollView Delegates
+//-----------------------------------------------------------------------------
+
+- (void) scrollViewDidEndDragging:(UIScrollView*)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate) {
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) scrollViewDidEndDecelerating:(UIScrollView*)scrollView
+{
+    [self loadImagesForOnscreenRows];
 }
 
 //------------------------------------------------------------------------------

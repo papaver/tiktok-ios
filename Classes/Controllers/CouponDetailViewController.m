@@ -65,8 +65,8 @@
     [label setText:self.coupon.merchant.name];
 
     // update the coupon image
-    UIImageView *imageView = (UIImageView*)[self.view viewWithTag:2];
-    [imageView setImage:self.coupon.image];
+    //UIImageView *imageView = (UIImageView*)[self.view viewWithTag:2];
+    //[imageView setImage:self.coupon.image];
         
     // update the coupon text
     UITextView *textView = (UITextView*)[self.view viewWithTag:3];

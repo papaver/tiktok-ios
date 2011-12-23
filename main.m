@@ -6,12 +6,20 @@
 //  Copyright 2011 TikTok. All rights reserved.
 //
 
+//------------------------------------------------------------------------------
+// imports 
+//------------------------------------------------------------------------------
+
 #import <UIKit/UIKit.h>
 
-int main(int argc, char *argv[]) {
-    
+//------------------------------------------------------------------------------
+// main 
+//------------------------------------------------------------------------------
+
+int main(int argc, char *argv[]) 
+{    
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
+    int value = UIApplicationMain(argc, argv, nil, nil);
     [pool release];
-    return retVal;
+    return value;
 }

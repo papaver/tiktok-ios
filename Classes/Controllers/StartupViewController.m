@@ -26,7 +26,8 @@
     - (void) setupLocationTracking;
     - (void) registerDevice;
     - (void) syncCoupons;
-    - (void) displayCouponTableView;
+    - (void) startTimer;
+    - (void) displayCouponTableView:(NSTimer*)timer;
 @end
 
 //------------------------------------------------------------------------------
@@ -53,6 +54,19 @@
 
     [super viewDidLoad];
     [self startOperationsQueue];
+
+    // start progress bar animation
+    UIView *progressView  = [self.view viewWithTag:1];
+    CGRect frame          = progressView.frame;
+    progressView.frame    = CGRectMake(frame.origin.x, frame.origin.y, 
+                                       0.0, frame.size.height);
+
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:10.0];
+    [UIView setAnimationDelay:0.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    progressView.frame = frame;
+    [UIView commitAnimations];
 }
 
 //------------------------------------------------------------------------------
@@ -149,18 +163,30 @@
     // add completion handler
     __block StartupViewController *controller = self; 
     operation.completionBlock = ^{
-        [controller performSelectorOnMainThread:@selector(displayCouponTableView) 
+        [controller performSelectorOnMainThread:@selector(startTimer) 
                                     withObject:NULL 
                                  waitUntilDone:NO];
     };
 
-    // add the block operation to the queue
+    // add the sync operation to the queue
     [self.operationQueue addOperation:operation];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) displayCouponTableView
+- (void) startTimer
+{
+    // [moiz] temp to show off physics tikntok shake
+    [NSTimer scheduledTimerWithTimeInterval:7.0
+                                     target:self 
+                                   selector:@selector(displayCouponTableView:) 
+                                   userInfo:nil 
+                                    repeats:YES];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) displayCouponTableView:(NSTimer*)timer
 {
     // [moiz] see if we can add animation to this 
     //  should turn off the physics stuff in the background at this point as well

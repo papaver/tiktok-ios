@@ -28,11 +28,8 @@
 @dynamic endTime;
 @dynamic merchant;
 
-@synthesize image = m_image;
-
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Static methods
+#pragma mark - Static methods
 //------------------------------------------------------------------------------
 
 + (Coupon*) getCouponByName:(NSString*)name 
@@ -107,8 +104,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark methods
+#pragma mark - methods
 //------------------------------------------------------------------------------
 
 - (Coupon*) initWithJsonDictionary:(NSDictionary*)data
@@ -122,26 +118,6 @@
     self.endTime   = [NSDate dateWithTimeIntervalSince1970:expire_time.intValue];
 
     return self;
-}
-
-//------------------------------------------------------------------------------
-
-- (UIImage*) image
-{
-    if (m_image == nil) {
-        id url         = [NSURL URLWithString:self.imagePath];
-        NSData *bitmap = [NSData dataWithContentsOfURL:url];
-
-        CGSize size = CGSizeMake(280, 280); 
-        UIGraphicsBeginImageContext(size);
-        UIImage *image = [UIImage imageWithData:bitmap];
-        [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-        m_image = UIGraphicsGetImageFromCurrentImageContext();    
-        [m_image retain];
-        UIGraphicsEndImageContext();
-    }
-
-    return m_image;
 }
 
 //------------------------------------------------------------------------------
