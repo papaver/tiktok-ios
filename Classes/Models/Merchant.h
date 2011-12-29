@@ -25,17 +25,20 @@
 
 @interface Merchant : NSManagedObject 
 {
-    UIImage *mImage;
 }
 
 //------------------------------------------------------------------------------
 
 @property (nonatomic, retain) NSNumber *merchantId;
 @property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *tagline;
+@property (nonatomic, retain) NSString *category;
+@property (nonatomic, retain) NSString *details;
 @property (nonatomic, retain) NSString *imagePath;
+@property (nonatomic, retain) NSString *twitterUrl;
+@property (nonatomic, retain) NSString *facebookUrl;
+@property (nonatomic, retain) NSString *websiteUrl;
 @property (nonatomic, retain) NSSet    *coupons;
-
-@property (nonatomic, retain, readonly) UIImage *image;
 
 //------------------------------------------------------------------------------
 

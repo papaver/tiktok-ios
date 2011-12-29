@@ -85,8 +85,8 @@ enum CouponTag {
 {
     [super viewWillAppear:animated];
 
-    // [moiz] don't hide the navigation bar on top anymore..
-    //[self.navigationController setNavigationBarHidden:YES animated:YES];
+    // hide navigation toolbar
+    [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 //------------------------------------------------------------------------------
@@ -100,13 +100,12 @@ enum CouponTag {
 
 //------------------------------------------------------------------------------
 
+/*
 - (void) viewWillDisappear:(BOOL)animated 
 {
     [super viewWillDisappear:animated];
-
-    // [moiz] don't hide the navigation bar on top anymore..
-    //[self.navigationController setNavigationBarHidden:NO animated:YES];
 }
+*/
 
 //------------------------------------------------------------------------------
 
@@ -212,7 +211,7 @@ enum CouponTag {
     if (cell == nil) {
         NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:self.cellView];
         cell = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        cell.selectionStyle  = UITableViewCellSelectionStyleBlue;
 
         [NSTimer scheduledTimerWithTimeInterval:1.0
                                          target:self
@@ -335,10 +334,11 @@ enum CouponTag {
     UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
     expireColor.backgroundColor = [UIDefaults getTokColor];
 
-    // update the cell opacity
+    /* update the cell opacity
     for (UIView *view in cell.subviews) {
         view.alpha = expiredAlpha;
     }
+    */
 }
 
 //------------------------------------------------------------------------------
@@ -359,10 +359,11 @@ enum CouponTag {
     UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
     expireColor.backgroundColor = [self getInterpolatedColor:t];
 
-    // update the cell opacity
+    /* update the cell opacity
     for (UIView *view in cell.subviews) {
         view.alpha = 1.0 - MIN(t, 0.6);
     }
+    */
 }
 
 //------------------------------------------------------------------------------

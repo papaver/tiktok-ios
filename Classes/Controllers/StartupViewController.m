@@ -192,8 +192,7 @@
     //  should turn off the physics stuff in the background at this point as well
 
     TikTokAppDelegate *appDelegate = (TikTokAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [self.view removeFromSuperview];
-    [appDelegate.window addSubview:appDelegate.navigationController.view];
+    appDelegate.window.rootViewController = appDelegate.navigationController;
 }
 
 //------------------------------------------------------------------------------

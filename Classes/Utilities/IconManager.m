@@ -93,6 +93,7 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
     __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:imageUrl];
     [request setCompletionBlock:^{
         UIImage *image = [UIImage imageWithData:[request responseData]];
+        image = [UIImage imageWithCGImage:[image CGImage] scale:2.0 orientation:UIImageOrientationUp];
         [mImages setValue:image forKey:imageName];
 
         // run handler
@@ -137,8 +138,14 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
     NSURL *fileUrl = 
         [[self getOrCreateIconDirectory] URLByAppendingPathComponent:imageName];
 
-    NSError *error = nil;
+    // make sure path exists 
     NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:fileUrl.path isDirectory:(BOOL[]){YES}]) {
+        return;
+    }
+
+    // attempt to delete image
+    NSError *error = nil;
     [fileManager removeItemAtPath:fileUrl.path error:&error];
     if (error) {
         NSLog(@"IconManager: failed to delete image '%@': %@", fileUrl, error);
@@ -151,9 +158,15 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
 {
     NSLog(@"IconManager: purging all images.");
 
-    NSError *error = nil;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // make sure path exists 
     NSURL *iconDirectory       = [self getIconDirectory];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:iconDirectory.path isDirectory:(BOOL[]){YES}]) {
+        return;
+    }
+
+    // attempt to delete images
+    NSError *error       = nil;
     [fileManager removeItemAtPath:iconDirectory.path error:&error];
     if (error) {
         NSLog(@"IconManager: failed to delete icon directory '%@': %@", 

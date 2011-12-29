@@ -23,10 +23,14 @@
 
 @dynamic merchantId;
 @dynamic name;
+@dynamic tagline;
+@dynamic category;
+@dynamic details;
 @dynamic imagePath;
+@dynamic twitterUrl;
+@dynamic facebookUrl;
+@dynamic websiteUrl;
 @dynamic coupons;
-
-@synthesize image = mImage;
 
 //------------------------------------------------------------------------------
 #pragma mark -
@@ -52,7 +56,7 @@
     NSError *error = nil;
     NSArray *array = [context executeFetchRequest:request error:&error];
     if (error) {
-        NSLog(@"failed to query context for merchant: %@", error);
+        NSLog(@"Merchant: failed to query context,  %@", error);
         return nil;
     }
 
@@ -80,12 +84,12 @@
     [merchant initWithJsonDictionary:data];
 
     // -- debug --
-    NSLog(@"new merchant created: %@", merchant.name);
+    NSLog(@"Merchant: created %@", merchant.name);
 
     // save the object to store
     NSError *error = nil;
     if (![context save:&error]) {
-        NSLog(@"merchant save failed: %@", error);
+        NSLog(@"Merchant: save failed, %@", error);
     }
 
     return merchant;
@@ -101,27 +105,14 @@
     self.name      = [data objectForKey:@"name"];
     self.imagePath = [data objectForKey:@"image_url"];
 
+    self.tagline     = @"Tag this line";
+    self.category    = @"Pub";
+    self.details     = @"I hurt myself today to see if I still feel, i focus on the pain the only thing thats real, the needle tears a hole, the old familiar sting, i try to kill it all away but i remember everything, what have i become, my sweetest friend, everyone i know goes away in the end, and you could have it all, my empire of dirt, i will let you down, i will make you hurt";
+    self.twitterUrl  = @"http://www.twitter.com/tiktok";
+    self.facebookUrl = @"http://www.facebook.com/tiktok";
+    self.websiteUrl  = @"http://www.tiktok.com";
+
     return self;
-}
-
-//------------------------------------------------------------------------------
-
-- (UIImage*) image
-{
-    if (mImage == nil) {
-        id url         = [NSURL URLWithString:self.imagePath];
-        NSData *bitmap = [NSData dataWithContentsOfURL:url];
-
-        CGSize size = CGSizeMake(20, 20); 
-        UIGraphicsBeginImageContext(size);
-        UIImage *image = [UIImage imageWithData:bitmap];
-        [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-        mImage = UIGraphicsGetImageFromCurrentImageContext();    
-        [mImage retain];
-        UIGraphicsEndImageContext();
-    }
-
-    return mImage;
 }
 
 //------------------------------------------------------------------------------

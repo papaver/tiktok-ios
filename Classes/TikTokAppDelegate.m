@@ -53,9 +53,8 @@
         application.applicationIconBadgeNumber = 0;
     }
     
-    // add the startup controller to the main view
-    [self.window addSubview:self.startupController.view];
-    [self.window makeKeyAndVisible];
+    // hide navigation toolbar
+    [self.navigationController setToolbarHidden:YES animated:NO];
 
     return YES;
 }

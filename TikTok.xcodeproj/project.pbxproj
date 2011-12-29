@@ -134,6 +134,38 @@
 		2EC672AE1490008700AC5CDF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AD1490008700AC5CDF /* SystemConfiguration.framework */; };
 		2EC672B0149000B100AC5CDF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AF149000B100AC5CDF /* libz.dylib */; };
 		2EC672B2149000C500AC5CDF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */; };
+		2EE857DF14AA4FF0008055AD /* CouponDetailBackgroundTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DB14AA4FF0008055AD /* CouponDetailBackgroundTexture.png */; };
+		2EE857E014AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DC14AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png */; };
+		2EE857E114AA4FF0008055AD /* CouponDetailBackgroundTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DD14AA4FF0008055AD /* CouponDetailBackgroundTitle.png */; };
+		2EE857E214AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DE14AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png */; };
+		2EE857EB14AA59D4008055AD /* ShareFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E314AA59D4008055AD /* ShareFacebook.png */; };
+		2EE857EC14AA59D4008055AD /* ShareFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E414AA59D4008055AD /* ShareFacebook@2x.png */; };
+		2EE857ED14AA59D4008055AD /* ShareGooglePlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E514AA59D4008055AD /* ShareGooglePlus.png */; };
+		2EE857EE14AA59D4008055AD /* ShareGooglePlus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E614AA59D4008055AD /* ShareGooglePlus@2x.png */; };
+		2EE857EF14AA59D4008055AD /* ShareSMS.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E714AA59D4008055AD /* ShareSMS.png */; };
+		2EE857F014AA59D4008055AD /* ShareSMS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E814AA59D4008055AD /* ShareSMS@2x.png */; };
+		2EE857F114AA59D4008055AD /* ShareTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E914AA59D4008055AD /* ShareTwitter.png */; };
+		2EE857F214AA59D4008055AD /* ShareTwitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857EA14AA59D4008055AD /* ShareTwitter@2x.png */; };
+		2EE857F514AA611B008055AD /* CouponTimerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F314AA611B008055AD /* CouponTimerBackground.png */; };
+		2EE857F614AA611B008055AD /* CouponTimerBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F414AA611B008055AD /* CouponTimerBackground@2x.png */; };
+		2EE857FB14AA668F008055AD /* CompanyInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F714AA668F008055AD /* CompanyInfo.png */; };
+		2EE857FC14AA668F008055AD /* CompanyInfo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F814AA668F008055AD /* CompanyInfo@2x.png */; };
+		2EE857FD14AA668F008055AD /* ViewOtherDeals.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F914AA668F008055AD /* ViewOtherDeals.png */; };
+		2EE857FE14AA668F008055AD /* ViewOtherDeals@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857FA14AA668F008055AD /* ViewOtherDeals@2x.png */; };
+		2EE8580114AA8B50008055AD /* RedeemBarItemButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */; };
+		2EE8580214AA8B50008055AD /* RedeemBarItemButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */; };
+		2EE8580B14ABAA08008055AD /* ButtonFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580314ABAA08008055AD /* ButtonFacebook.png */; };
+		2EE8580C14ABAA08008055AD /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580414ABAA08008055AD /* ButtonFacebook@2x.png */; };
+		2EE8580D14ABAA08008055AD /* ButtonTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580514ABAA08008055AD /* ButtonTwitter.png */; };
+		2EE8580E14ABAA08008055AD /* ButtonTwitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580614ABAA08008055AD /* ButtonTwitter@2x.png */; };
+		2EE8580F14ABAA08008055AD /* ButtonWebsite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580714ABAA08008055AD /* ButtonWebsite.png */; };
+		2EE8581014ABAA08008055AD /* ButtonWebsite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580814ABAA08008055AD /* ButtonWebsite@2x.png */; };
+		2EE8581114ABAA08008055AD /* CompanyBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580914ABAA08008055AD /* CompanyBackground.png */; };
+		2EE8581214ABAA08008055AD /* CompanyBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580A14ABAA08008055AD /* CompanyBackground@2x.png */; };
+		2EE8581414ABABAD008055AD /* MerchantViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581314ABABAD008055AD /* MerchantViewController.xib */; };
+		2EE8581714ABABBB008055AD /* MerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8581614ABABBB008055AD /* MerchantViewController.m */; };
+		2EE8581B14ABF2F8008055AD /* Barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581914ABF2F8008055AD /* Barcode.png */; };
+		2EE8581C14ABF2F8008055AD /* Barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581A14ABF2F8008055AD /* Barcode@2x.png */; };
 		2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */; };
 		2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE2149D863500A68993 /* CellBackground.png */; };
 		2EF0EBEA149D863500A68993 /* CellBackgroundTextPositioning.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */; };
@@ -151,7 +183,6 @@
 		1D6058910D05DD3D006BFB54 /* TikTok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TikTok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A0AAE50D9B0CCF005BE974 /* TikTok_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTok_Prefix.pch; sourceTree = "<group>"; };
 		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28C286DF0D94DF7D0034E888 /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* CouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponViewController.m; sourceTree = "<group>"; };
 		28F335F01007B36200424DE2 /* CouponViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponViewController.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -368,6 +399,40 @@
 		2EC672AF149000B100AC5CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2EC672B51490028500AC5CDF /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		2EE857DB14AA4FF0008055AD /* CouponDetailBackgroundTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CouponDetailBackgroundTexture.png; sourceTree = "<group>"; };
+		2EE857DC14AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailBackgroundTexture@2x.png"; sourceTree = "<group>"; };
+		2EE857DD14AA4FF0008055AD /* CouponDetailBackgroundTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CouponDetailBackgroundTitle.png; sourceTree = "<group>"; };
+		2EE857DE14AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailBackgroundTitle@2x.png"; sourceTree = "<group>"; };
+		2EE857E314AA59D4008055AD /* ShareFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareFacebook.png; sourceTree = "<group>"; };
+		2EE857E414AA59D4008055AD /* ShareFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareFacebook@2x.png"; sourceTree = "<group>"; };
+		2EE857E514AA59D4008055AD /* ShareGooglePlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareGooglePlus.png; sourceTree = "<group>"; };
+		2EE857E614AA59D4008055AD /* ShareGooglePlus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareGooglePlus@2x.png"; sourceTree = "<group>"; };
+		2EE857E714AA59D4008055AD /* ShareSMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareSMS.png; sourceTree = "<group>"; };
+		2EE857E814AA59D4008055AD /* ShareSMS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareSMS@2x.png"; sourceTree = "<group>"; };
+		2EE857E914AA59D4008055AD /* ShareTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareTwitter.png; sourceTree = "<group>"; };
+		2EE857EA14AA59D4008055AD /* ShareTwitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareTwitter@2x.png"; sourceTree = "<group>"; };
+		2EE857F314AA611B008055AD /* CouponTimerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CouponTimerBackground.png; sourceTree = "<group>"; };
+		2EE857F414AA611B008055AD /* CouponTimerBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponTimerBackground@2x.png"; sourceTree = "<group>"; };
+		2EE857F714AA668F008055AD /* CompanyInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompanyInfo.png; sourceTree = "<group>"; };
+		2EE857F814AA668F008055AD /* CompanyInfo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CompanyInfo@2x.png"; sourceTree = "<group>"; };
+		2EE857F914AA668F008055AD /* ViewOtherDeals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ViewOtherDeals.png; sourceTree = "<group>"; };
+		2EE857FA14AA668F008055AD /* ViewOtherDeals@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ViewOtherDeals@2x.png"; sourceTree = "<group>"; };
+		2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemBarItemButton.png; sourceTree = "<group>"; };
+		2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemBarItemButton@2x.png"; sourceTree = "<group>"; };
+		2EE8580314ABAA08008055AD /* ButtonFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonFacebook.png; sourceTree = "<group>"; };
+		2EE8580414ABAA08008055AD /* ButtonFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonFacebook@2x.png"; sourceTree = "<group>"; };
+		2EE8580514ABAA08008055AD /* ButtonTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonTwitter.png; sourceTree = "<group>"; };
+		2EE8580614ABAA08008055AD /* ButtonTwitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonTwitter@2x.png"; sourceTree = "<group>"; };
+		2EE8580714ABAA08008055AD /* ButtonWebsite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonWebsite.png; sourceTree = "<group>"; };
+		2EE8580814ABAA08008055AD /* ButtonWebsite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonWebsite@2x.png"; sourceTree = "<group>"; };
+		2EE8580914ABAA08008055AD /* CompanyBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompanyBackground.png; sourceTree = "<group>"; };
+		2EE8580A14ABAA08008055AD /* CompanyBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CompanyBackground@2x.png"; sourceTree = "<group>"; };
+		2EE8581314ABABAD008055AD /* MerchantViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MerchantViewController.xib; sourceTree = "<group>"; };
+		2EE8581514ABABBB008055AD /* MerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantViewController.h; sourceTree = "<group>"; };
+		2EE8581614ABABBB008055AD /* MerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantViewController.m; sourceTree = "<group>"; };
+		2EE8581814ABAC35008055AD /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
+		2EE8581914ABF2F8008055AD /* Barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Barcode.png; sourceTree = "<group>"; };
+		2EE8581A14ABF2F8008055AD /* Barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Barcode@2x.png"; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2EF0EBE2149D863500A68993 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackground.png; sourceTree = "<group>"; };
 		2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackgroundTextPositioning.png; sourceTree = "<group>"; };
@@ -489,6 +554,7 @@
 				28F335F01007B36200424DE2 /* CouponViewController.xib */,
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
+				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
 				2EB87ED9149FC07C00F01C26 /* StartupViewController.xib */,
 			);
 			path = Views;
@@ -497,12 +563,43 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2EE8581914ABF2F8008055AD /* Barcode.png */,
+				2EE8581A14ABF2F8008055AD /* Barcode@2x.png */,
+				2EE8580314ABAA08008055AD /* ButtonFacebook.png */,
+				2EE8580414ABAA08008055AD /* ButtonFacebook@2x.png */,
+				2EE8580514ABAA08008055AD /* ButtonTwitter.png */,
+				2EE8580614ABAA08008055AD /* ButtonTwitter@2x.png */,
+				2EE8580714ABAA08008055AD /* ButtonWebsite.png */,
+				2EE8580814ABAA08008055AD /* ButtonWebsite@2x.png */,
+				2EE8580914ABAA08008055AD /* CompanyBackground.png */,
+				2EE8580A14ABAA08008055AD /* CompanyBackground@2x.png */,
+				2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */,
+				2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */,
+				2EE857F714AA668F008055AD /* CompanyInfo.png */,
+				2EE857F814AA668F008055AD /* CompanyInfo@2x.png */,
+				2EE857F914AA668F008055AD /* ViewOtherDeals.png */,
+				2EE857FA14AA668F008055AD /* ViewOtherDeals@2x.png */,
+				2EE857F314AA611B008055AD /* CouponTimerBackground.png */,
+				2EE857F414AA611B008055AD /* CouponTimerBackground@2x.png */,
+				2EE857E314AA59D4008055AD /* ShareFacebook.png */,
+				2EE857E414AA59D4008055AD /* ShareFacebook@2x.png */,
+				2EE857E514AA59D4008055AD /* ShareGooglePlus.png */,
+				2EE857E614AA59D4008055AD /* ShareGooglePlus@2x.png */,
+				2EE857E714AA59D4008055AD /* ShareSMS.png */,
+				2EE857E814AA59D4008055AD /* ShareSMS@2x.png */,
+				2EE857E914AA59D4008055AD /* ShareTwitter.png */,
+				2EE857EA14AA59D4008055AD /* ShareTwitter@2x.png */,
+				2EE857DB14AA4FF0008055AD /* CouponDetailBackgroundTexture.png */,
+				2EE857DC14AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png */,
+				2EE857DD14AA4FF0008055AD /* CouponDetailBackgroundTitle.png */,
+				2EE857DE14AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png */,
 				2E5FEAD514A1106300B516FE /* Icon01.png */,
 				2E5FEAD614A1106300B516FE /* Icon01@2x.png */,
 				2E5FEAD714A1106300B516FE /* Icon02.png */,
 				2E5FEAD814A1106400B516FE /* Icon02@2x.png */,
 				2E5FEAD914A1106400B516FE /* Icon03.png */,
 				2E5FEADA14A1106400B516FE /* Icon03@2x.png */,
+				2EF0EBE4149D863500A68993 /* CellIcon.png */,
 				2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */,
 				2EB87EDE149FED8300F01C26 /* CouponTableBackground.png */,
 				2EB87EDF149FED8300F01C26 /* CouponTableBackground@2x.png */,
@@ -524,7 +621,6 @@
 				2EF0EBE2149D863500A68993 /* CellBackground.png */,
 				2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */,
 				2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */,
-				2EF0EBE4149D863500A68993 /* CellIcon.png */,
 				2EF0EBE5149D863500A68993 /* CellIconTextPositioning.png */,
 				2EF0EBE6149D863500A68993 /* InitalLoadingSplash.png */,
 				2EF0EBE7149D863500A68993 /* SplashPage.png */,
@@ -844,16 +940,18 @@
 		2EC672B41490026E00AC5CDF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2E986F13138DFCEE00A301BA /* LocationController.h */,
-				2E986F14138DFCEE00A301BA /* LocationController.m */,
 				2E9871491393050000A301BA /* CheckinViewController.h */,
 				2E98714A1393050000A301BA /* CheckinViewController.m */,
-				28C286DF0D94DF7D0034E888 /* CouponViewController.h */,
+				2EE8581814ABAC35008055AD /* CouponViewController.h */,
 				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
 				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
 				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
+				2E986F13138DFCEE00A301BA /* LocationController.h */,
+				2E986F14138DFCEE00A301BA /* LocationController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
 				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
+				2EE8581514ABABBB008055AD /* MerchantViewController.h */,
+				2EE8581614ABABBB008055AD /* MerchantViewController.m */,
 				2EB87ED7149FC07C00F01C26 /* StartupViewController.h */,
 				2EB87ED8149FC07C00F01C26 /* StartupViewController.m */,
 				2E5FEB7F14A1C16C00B516FE /* TikTokPhysicsViewController.h */,
@@ -955,6 +1053,37 @@
 				2E7DBE2314A263E2002F6187 /* TikShaken@2x.png in Resources */,
 				2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */,
 				2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */,
+				2EE857DF14AA4FF0008055AD /* CouponDetailBackgroundTexture.png in Resources */,
+				2EE857E014AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png in Resources */,
+				2EE857E114AA4FF0008055AD /* CouponDetailBackgroundTitle.png in Resources */,
+				2EE857E214AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png in Resources */,
+				2EE857EB14AA59D4008055AD /* ShareFacebook.png in Resources */,
+				2EE857EC14AA59D4008055AD /* ShareFacebook@2x.png in Resources */,
+				2EE857ED14AA59D4008055AD /* ShareGooglePlus.png in Resources */,
+				2EE857EE14AA59D4008055AD /* ShareGooglePlus@2x.png in Resources */,
+				2EE857EF14AA59D4008055AD /* ShareSMS.png in Resources */,
+				2EE857F014AA59D4008055AD /* ShareSMS@2x.png in Resources */,
+				2EE857F114AA59D4008055AD /* ShareTwitter.png in Resources */,
+				2EE857F214AA59D4008055AD /* ShareTwitter@2x.png in Resources */,
+				2EE857F514AA611B008055AD /* CouponTimerBackground.png in Resources */,
+				2EE857F614AA611B008055AD /* CouponTimerBackground@2x.png in Resources */,
+				2EE857FB14AA668F008055AD /* CompanyInfo.png in Resources */,
+				2EE857FC14AA668F008055AD /* CompanyInfo@2x.png in Resources */,
+				2EE857FD14AA668F008055AD /* ViewOtherDeals.png in Resources */,
+				2EE857FE14AA668F008055AD /* ViewOtherDeals@2x.png in Resources */,
+				2EE8580114AA8B50008055AD /* RedeemBarItemButton.png in Resources */,
+				2EE8580214AA8B50008055AD /* RedeemBarItemButton@2x.png in Resources */,
+				2EE8580B14ABAA08008055AD /* ButtonFacebook.png in Resources */,
+				2EE8580C14ABAA08008055AD /* ButtonFacebook@2x.png in Resources */,
+				2EE8580D14ABAA08008055AD /* ButtonTwitter.png in Resources */,
+				2EE8580E14ABAA08008055AD /* ButtonTwitter@2x.png in Resources */,
+				2EE8580F14ABAA08008055AD /* ButtonWebsite.png in Resources */,
+				2EE8581014ABAA08008055AD /* ButtonWebsite@2x.png in Resources */,
+				2EE8581114ABAA08008055AD /* CompanyBackground.png in Resources */,
+				2EE8581214ABAA08008055AD /* CompanyBackground@2x.png in Resources */,
+				2EE8581414ABABAD008055AD /* MerchantViewController.xib in Resources */,
+				2EE8581B14ABF2F8008055AD /* Barcode.png in Resources */,
+				2EE8581C14ABF2F8008055AD /* Barcode@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,6 +1180,7 @@
 				2E5FEB8214A1C16C00B516FE /* TikTokPhysicsViewController.mm in Sources */,
 				2E7DBE1D14A25DC1002F6187 /* TikTokPhysicsView.m in Sources */,
 				2E7DBE2814A3AF2B002F6187 /* IconManager.m in Sources */,
+				2EE8581714ABABBB008055AD /* MerchantViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

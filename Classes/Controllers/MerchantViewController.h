@@ -1,5 +1,5 @@
 //
-//  CouponDetailViewController.h
+//  MerchantViewController.h
 //  TikTok
 //
 //  Created by Moiz Merchant on 4/22/11.
@@ -16,29 +16,26 @@
 // forward declarations
 //------------------------------------------------------------------------------
 
-@class Coupon;
+@class Merchant;
 
 //------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface CouponDetailViewController : UIViewController 
+@interface MerchantViewController : UIViewController 
 {
-    Coupon          *mCoupon;
-    UIView          *mBarcodeView;
-    UIBarButtonItem *mRedeemButton;
+    Merchant *mMerchant;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain)          Coupon          *coupon;
-@property (nonatomic, retain) IBOutlet UIView          *barcodeView;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *redeemButton;
+@property (nonatomic, retain) Merchant *merchant;
 
 //------------------------------------------------------------------------------
 
-- (IBAction) merchantDetails:(id)sender;
-- (IBAction) redeemCoupon:(id)sender;
+- (IBAction) clickTwitter:(id)sender;
+- (IBAction) clickFacebook:(id)sender;
+- (IBAction) clickWebsite:(id)sender;
 
 //------------------------------------------------------------------------------
 
