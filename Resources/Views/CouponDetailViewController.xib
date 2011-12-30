@@ -204,7 +204,7 @@
 											<object class="IBUILabel" id="174635878">
 												<reference key="NSNextResponder" ref="748122704"/>
 												<int key="NSvFlags">264</int>
-												<string key="NSFrame">{{3, 76}, {104, 30}}</string>
+												<string key="NSFrame">{{6, 76}, {101, 30}}</string>
 												<reference key="NSSuperview" ref="748122704"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="456547583"/>
@@ -279,7 +279,7 @@
 											<int key="type">2</int>
 											<double key="pointSize">15</double>
 										</object>
-										<object class="NSFont" key="IBUIFont" id="774451395">
+										<object class="NSFont" key="IBUIFont" id="326069129">
 											<string key="NSName">Helvetica-Bold</string>
 											<double key="NSSize">15</double>
 											<int key="NSfFlags">16</int>
@@ -342,7 +342,7 @@
 											<string key="NSResourceName">ShareSMS.png</string>
 										</object>
 										<reference key="IBUIFontDescription" ref="664946631"/>
-										<reference key="IBUIFont" ref="774451395"/>
+										<reference key="IBUIFont" ref="326069129"/>
 									</object>
 									<object class="IBUIButton" id="395863857">
 										<reference key="NSNextResponder" ref="966368696"/>
@@ -367,7 +367,7 @@
 											<string key="NSResourceName">ShareTwitter.png</string>
 										</object>
 										<reference key="IBUIFontDescription" ref="664946631"/>
-										<reference key="IBUIFont" ref="774451395"/>
+										<reference key="IBUIFont" ref="326069129"/>
 									</object>
 									<object class="IBUIButton" id="1052749490">
 										<reference key="NSNextResponder" ref="966368696"/>
@@ -392,7 +392,7 @@
 											<string key="NSResourceName">ShareFacebook.png</string>
 										</object>
 										<reference key="IBUIFontDescription" ref="664946631"/>
-										<reference key="IBUIFont" ref="774451395"/>
+										<reference key="IBUIFont" ref="326069129"/>
 									</object>
 									<object class="IBUIButton" id="491528921">
 										<reference key="NSNextResponder" ref="966368696"/>
@@ -417,7 +417,7 @@
 											<string key="NSResourceName">ShareGooglePlus.png</string>
 										</object>
 										<reference key="IBUIFontDescription" ref="664946631"/>
-										<reference key="IBUIFont" ref="774451395"/>
+										<reference key="IBUIFont" ref="326069129"/>
 									</object>
 								</object>
 								<string key="NSFrame">{{4, 188}, {320, 178}}</string>

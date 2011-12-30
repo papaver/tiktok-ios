@@ -72,6 +72,15 @@
 
 //------------------------------------------------------------------------------
 
+- (void) setColor:(UIColor*)color
+{
+    if (mColor) [mColor release];
+    mColor = [color retain];
+    [self setNeedsDisplay];
+}
+
+//------------------------------------------------------------------------------
+
 - (void) drawRect:(CGRect)rect
 {
     [self drawGradient:rect];

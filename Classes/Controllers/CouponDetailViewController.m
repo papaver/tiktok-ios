@@ -82,17 +82,6 @@ enum CouponDetailTag
 //------------------------------------------------------------------------------
 
 /**
- * Implement loadView to create a view hierarchy programmatically, without 
- * using a nib.
- * /
-- (void) loadView 
-{
-}
-*/
-
-//------------------------------------------------------------------------------
-
-/**
  * Implement viewDidLoad to do additional setup after loading the view, 
  * typically from a nib.
  */
@@ -165,6 +154,8 @@ enum CouponDetailTag
 */
 
 //------------------------------------------------------------------------------
+#pragma - Properties
+//------------------------------------------------------------------------------
 
 - (void) setCoupon:(Coupon*)coupon
 {
@@ -188,16 +179,10 @@ enum CouponDetailTag
                              target:nil 
                              action:nil];
 
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, 0, 280, 100);
-    [button setImage:[UIImage imageNamed:@"RedeemBarItemButton.png"] forState:UIControlStateNormal];
-    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-
     // set the items in the toolbar
     self.toolbarItems = $array(
         flexibleSpaceButton, 
         self.redeemButton, 
-        //barButtonItem,
         flexibleSpaceButton,
         nil);
 
@@ -230,7 +215,7 @@ enum CouponDetailTag
 
     // text expire timer
     UILabel *expire = (UILabel*)[self.view viewWithTag:kTagTextTime];
-    expire.text     = $string(@"Offer expires at %@", [self.coupon getExpirationTime]);
+    expire.text     = $string(@"Offer expires at %@.", [self.coupon getExpirationTime]);
 }
 
 //------------------------------------------------------------------------------

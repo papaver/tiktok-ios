@@ -15,6 +15,7 @@
 #import "CouponViewController.h"
 #import "CouponTableViewCell.h"
 #import "CouponDetailViewController.h"
+#import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
 #import "TikTokApi.h"
@@ -25,11 +26,12 @@
 //------------------------------------------------------------------------------
 
 enum CouponTag {
-    kCouponTagIcon        = 1,
-    kCouponTagTitle       = 2,
-    kCouponTagExpireText  = 3,
-    kCouponTagExpireTimer = 4,
-    kCouponTagExpireColor = 5,
+    kTagIcon         = 1,
+    kTagTitle        = 2,
+    kTagTextTime     = 3,
+    kTagTextTimer    = 4,
+    kTagColorTimer   = 5,
+    kTagIconActivity = 6
 };
 
 //------------------------------------------------------------------------------
@@ -38,9 +40,12 @@ enum CouponTag {
 
 @interface CouponViewController ()
     - (void) updateExpiration:(NSTimer*)timer;
+    - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
     - (void) configureExpiredCell:(UIView*)cell;
     - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon;
-    - (UIColor*) getInterpolatedColor:(CGFloat)t;
+    - (void) updateActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon;
+    - (void) setIcon:(UIImage*)image forCell:(UIView*)cell;
+    - (void) setupIconForCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath withCoupon:(Coupon*)coupon;
     - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
     - (void) loadImagesForOnscreenRows;
 @end 
@@ -54,10 +59,7 @@ enum CouponTag {
 //------------------------------------------------------------------------------
 
 @synthesize cellView                 = mCellView;
-@synthesize headerView               = mHeaderView;
 @synthesize fetchedCouponsController = mFetchedCouponsController;
-
-@synthesize backgroundView           = mBackgroundView;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -74,7 +76,11 @@ enum CouponTag {
     self.view.backgroundColor = 
         [UIColor colorWithPatternImage:[UIImage imageNamed:@"CouponTableBackground.png"]];
 
-    // test icon manager
+    // patch font in cell
+    UILabel *timer = (UILabel*)[self.cellView viewWithTag:kTagTextTimer];
+    timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
+
+    // [moiz] purge files 
     IconManager *iconManager = [IconManager getInstance];
     [iconManager deleteAllImages];
 }
@@ -167,37 +173,6 @@ enum CouponTag {
 
 //------------------------------------------------------------------------------
 
-- (void) updateExpiration:(NSTimer*)timer
-{
-    CouponTableViewCell* cell = (CouponTableViewCell*)timer.userInfo;
-
-    // grab coupon at the given index path
-    Coupon *coupon = cell.coupon;
-    if (coupon == nil) return;
-
-    // only update the view if its visibile
-    UIView *view = [cell viewWithTag:kCouponTagExpireText];
-    CGRect rect  = [view convertRect:view.frame toView:self.view.superview];
-    bool visible = CGRectIntersectsRect(self.view.superview.frame, rect);
-    if (!visible) return;
-
-    // check if the coupon has already expired
-    NSTimeInterval seconds = [coupon.endTime timeIntervalSinceNow];
-    bool isExpired         = seconds <= 0.0;
-
-    // [moiz] need to make sure that we know when its been
-    //  expired
-    
-    // update the cell to reflect the state of the coupon
-    if (isExpired) {
-        //[self configureExpiredCell:cell];
-    } else {
-        [self configureActiveCell:cell withCoupon:coupon];
-    }
-}
-
-//------------------------------------------------------------------------------
-
 /**
  * Customize the appearance of table view cells.
  */
@@ -212,12 +187,6 @@ enum CouponTag {
         NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:self.cellView];
         cell = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
         cell.selectionStyle  = UITableViewCellSelectionStyleBlue;
-
-        [NSTimer scheduledTimerWithTimeInterval:1.0
-                                         target:self
-                                       selector:@selector(updateExpiration:)
-                                       userInfo:cell
-                                        repeats:YES];
     }
 
     // configure the cell 
@@ -283,56 +252,92 @@ enum CouponTag {
 }
 
 //------------------------------------------------------------------------------
+#pragma mark - Cell Configuration
+//------------------------------------------------------------------------------
 
-- (UIColor*) getInterpolatedColor:(CGFloat)t
+/**
+  * Initializes cell with coupon information.
+  */
+- (void) configureCell:(CouponTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
-    UIColor *tik    = [UIDefaults getTikColor];
-    UIColor *yellow = [UIColor yellowColor];
-    UIColor *orange = [UIColor orangeColor];
-    UIColor *tok    = [UIDefaults getTokColor];
+    // grab coupon at the given index path
+    Coupon* coupon = [self.fetchedCouponsController objectAtIndexPath:indexPath];
 
-    struct ColorTable {
-        CGFloat t, offset;
-        UIColor *start, *end;
-    } sColorTable[3] = {
-        { 0.33, 0.00, tik,    yellow },
-        { 0.66, 0.33, yellow, orange },
-        { 1.00, 0.66, orange, tok    },
-    };
+    // set coupon on cell
+    cell.coupon = coupon;
 
-    NSUInteger index = 0;
-    for (; index < 3; ++index) {
-        if (t > sColorTable[index].t) continue;
+    // invaliate the timer
+    [cell.timer invalidate];
 
-        UIColor *start = sColorTable[index].start;
-        UIColor *end   = sColorTable[index].end;
-        CGFloat newT   = (t - sColorTable[index].offset) / 0.33;
-        return [start colorByInterpolatingToColor:end
-                                       byFraction:newT];
+    // update the coupon title
+    UITextView *title = (UITextView*)[cell viewWithTag:kTagTitle];
+    [title setText:coupon.title];
+
+    // setup icon
+    [self setupIconForCell:cell atIndexPath:indexPath withCoupon:coupon];
+
+    // update the cell to reflect the state of the coupon
+    if ([coupon isExpired]) {
+        [self configureExpiredCell:cell];
+    } else {
+        [self configureActiveCell:cell withCoupon:coupon];
+
+        // create update loop for timers
+        cell.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                      target:self
+                                                    selector:@selector(updateExpiration:)
+                                                    userInfo:cell
+                                                     repeats:YES];
     }
-
-    return [UIColor blackColor];
 }
+
+
+//------------------------------------------------------------------------------
+
+- (void) updateExpiration:(NSTimer*)timer
+{
+    CouponTableViewCell* cell = (CouponTableViewCell*)timer.userInfo;
+
+    // grab coupon at the given index path
+    Coupon *coupon = cell.coupon;
+    if (coupon == nil) return;
+
+    /* only update the view if its visibile
+    UIView *view = [cell viewWithTag:kTagTextTime];
+    CGRect rect  = [view convertRect:view.frame toView:self.view.superview];
+    bool visible = CGRectIntersectsRect(self.view.superview.frame, rect);
+    if (!visible) return;
+    */
+
+    // update the cell to reflect the state of the coupon
+    if ([coupon isExpired]) {
+        [self configureExpiredCell:cell];
+        [timer invalidate];
+    } else {
+        [self configureActiveCell:cell withCoupon:coupon];
+    }
+}
+
 
 //------------------------------------------------------------------------------
 
 - (void) configureExpiredCell:(UIView*)cell
 {
     const static CGFloat expiredAlpha = 0.3;
-    static NSString *offerText        = @"Offer has expired";
+    static NSString *offerText        = @"Offer has expired.";
     static NSString *timerText        = @"00:00:00";
 
-    // update expire text
-    UITextView *expireText = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
-    [expireText setText:offerText];
+    // expire text
+    UILabel *textTime = (UILabel*)[cell viewWithTag:kTagTextTime];
+    textTime.text     = offerText;
 
-    // update expire timer
-    UILabel *expireTime = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
-    [expireTime setText:timerText];
+    // expire timer
+    UILabel *textTimer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
+    textTimer.text     = timerText;
 
-    // update the coupon expire color
-    UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
-    expireColor.backgroundColor = [UIDefaults getTokColor];
+    // color timer
+    GradientView *color = (GradientView*)[cell viewWithTag:kTagColorTimer];
+    color.color         = [UIDefaults getTokColor];
 
     // update the cell opacity
     for (UIView *view in cell.subviews) {
@@ -344,101 +349,70 @@ enum CouponTag {
 
 - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
 {
-    NSTimeInterval secondsLeft  = [coupon.endTime timeIntervalSinceNow];
-    NSTimeInterval totalSeconds = [coupon.endTime timeIntervalSinceDate:coupon.startTime];
-    CGFloat minutesLeft         = secondsLeft / 60.0;
-    CGFloat t                   = 1.0 - (secondsLeft / totalSeconds);
-
-    // update the coupon expire timer
-    UILabel *expireTime = (UILabel*)[cell viewWithTag:kCouponTagExpireTimer];
-    [expireTime setText:$string(@"%.2d:%.2d:%.2d", 
-        (int)minutesLeft / 60, (int)minutesLeft % 60, (int)secondsLeft % 60)];
-
-    // update the coupon expire color
-    UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
-    expireColor.backgroundColor = [self getInterpolatedColor:t];
-
+    // fix the opacity
     for (UIView *view in cell.subviews) {
         view.alpha = 1.0;
     }
+
+    // expire time
+    UILabel *expire = (UILabel*)[cell viewWithTag:kTagTextTime];
+    expire.text     = $string(@"Offer expires at %@", [coupon getExpirationTime]);
+
+    // configure the timers
+    [self updateActiveCell:cell withCoupon:coupon];
 }
 
 //------------------------------------------------------------------------------
 
-/**
-  * Initializes cell with coupon information.
-  */
-- (void) configureCell:(CouponTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
+- (void) updateActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
 {
-    // grab coupon at the given index path
-    Coupon* coupon = [self.fetchedCouponsController 
-        objectAtIndexPath:indexPath];
+    // color timer
+    GradientView *color = (GradientView*)[cell viewWithTag:kTagColorTimer];
+    color.color         = [coupon getColor];
 
-    // set coupon on cell
-    cell.coupon = coupon;
+    // text timer
+    UILabel *label = (UILabel*)[cell viewWithTag:kTagTextTimer];
+    label.text     = [coupon getExpirationTimer];
+}
 
-    // update the coupon title
-    UITextView *title = (UITextView*)[cell viewWithTag:kCouponTagTitle];
-    [title setText:coupon.title];
+//------------------------------------------------------------------------------
 
-    // check if image is available
+- (void) setupIconForCell:(UIView*)cell 
+              atIndexPath:(NSIndexPath*)indexPath 
+               withCoupon:(Coupon*)coupon
+{
     IconManager *iconManager = [IconManager getInstance];
     NSURL *imageUrl          = [NSURL URLWithString:coupon.imagePath];
-    UIImage *image           = [iconManager getImage:imageUrl];
-    UIImageView *imageView   = (UIImageView*)[cell viewWithTag:kCouponTagIcon];
-    if (image) {
-        [imageView setImage:image];
-    } else {
-        [imageView setImage:[UIImage imageNamed:@"Icon01.png"]];
-        if (!self.tableView.dragging && !self.tableView.decelerating) {
-            [self requestImageForCoupon:coupon atIndexPath:indexPath];
-        }
-    }
+    __block UIImage *image   = [iconManager getImage:imageUrl];
 
-    // [moiz] what to do about people changing the time on thier phones?
+    // set merchant icon
+    [self setIcon:image forCell:cell];
 
-    // check if the coupon has already expired
-    NSTimeInterval seconds = [coupon.endTime timeIntervalSinceNow];
-    bool isExpired         = seconds <= 0.0;
-    
-    // update the cell to reflect the state of the coupon
-    if (isExpired) {
-        [self configureExpiredCell:cell];
-    } else {
-        [self configureActiveCell:cell withCoupon:coupon];
-
-        // setup date formatter
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-        NSString *endTime = [formatter stringForObjectValue:coupon.endTime];
-
-        // update the coupon expire time
-        UITextView *expireText = (UITextView*)[cell viewWithTag:kCouponTagExpireText];
-        [expireText setText:$string(@"Offer expires at %@", endTime)];
+    // load image from server if table is not moving
+    if (!image && !self.tableView.dragging && !self.tableView.decelerating) {
+        [self requestImageForCoupon:coupon atIndexPath:indexPath];
     }
 }
 
 //------------------------------------------------------------------------------
 
-/**
-  * Initializes header with coupon information.
-  */
-- (void) configureHeader:(UIView*)header atSection:(NSUInteger)section
+- (void) setIcon:(UIImage*)image forCell:(UIView*)cell
 {
-    /*
-    // get merchant at index
-    Coupon* coupon = [self.fetchedCouponsController 
-        objectAtIndexPath:[self getMerchantIndexPath:section]];
-    Merchant *merchant = coupon.merchant;
+    UIImageView *icon                  
+        = (UIImageView*)[cell viewWithTag:kTagIcon];
+    UIActivityIndicatorView *spinner 
+        = (UIActivityIndicatorView*)[cell viewWithTag:kTagIconActivity];
 
-    // update the merchant icon
-    UIImageView *imageView = (UIImageView*)[header viewWithTag:1];
-    [imageView setImage:merchant.image];
+    // update icon 
+    icon.image  = image;
+    icon.hidden = image == nil;
 
-    // update the merchant name
-    UILabel *label = (UILabel*)[header viewWithTag:2];
-    [label setText:merchant.name];
-    */
+    // update spinner
+    if (image) {
+        [spinner stopAnimating];
+    } else {
+        [spinner startAnimating];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -465,39 +439,10 @@ enum CouponTag {
 
 /**
  * Customize the appearance of the table header.
- */
 - (UIView*) tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
 {
-    // we have to do this because the unarchiving breaks when a new section
-    //  is automatically added by the fetcher :|
-    NSData *archivedData       = [NSKeyedArchiver archivedDataWithRootObject:self.headerView];
-    UIView *headerTemplate     = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
-    UIImageView *imageTemplate = (UIImageView*)[headerTemplate viewWithTag:1];
-    UILabel *labelTemplate     = (UILabel*)[headerTemplate viewWithTag:2];
-
-    // allocate a new header
-    UIView *header = 
-        [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)] autorelease];
-    header.backgroundColor = headerTemplate.backgroundColor;
-
-    // setup merchant image
-    UIImageView *image = [[[UIImageView alloc] initWithFrame:imageTemplate.frame] autorelease];
-    image.tag          = imageTemplate.tag;
-    [header addSubview:image];
-
-    // setup merchant label
-    UILabel *label        = [[[UILabel alloc] initWithFrame:labelTemplate.frame] autorelease];
-    label.font            = labelTemplate.font;
-    label.tag             = labelTemplate.tag;
-    label.backgroundColor = headerTemplate.backgroundColor;
-    label.textColor       = labelTemplate.textColor;
-    [header addSubview:label];
-
-    // configure the header
-    [self configureHeader:header atSection:section];
-
-    return header;
 }
+*/
 
 //------------------------------------------------------------------------------
 
@@ -520,10 +465,9 @@ enum CouponTag {
     // submit the request to retrive the image and update the cell
     [iconManager requestImage:imageUrl 
         withCompletionHandler:^(UIImage* image, NSError *error) {
-            if (image != nil) {
-                UITableViewCell *cell  = [self.tableView cellForRowAtIndexPath:indexPath];
-                UIImageView *imageView = (UIImageView*)[cell viewWithTag:kCouponTagIcon];
-                [imageView setImage:image];
+            if (image) {
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                [self setIcon:image forCell:cell];
             } else if (error) {
                 NSLog(@"CouponViewController: Failed to load image: %@", error);
             }
@@ -707,6 +651,8 @@ enum CouponTag {
 
 - (void) dealloc 
 {
+    [mFetchedCouponsController release];
+    [mCellView release];
     [super dealloc];
 }
 

@@ -276,7 +276,7 @@ static NSData *sDeviceToken;
     NSLog(@"parsed merchant: %@", merchant ? merchant.name : @"nil");
 
     // create coupon from json
-    Coupon *coupon = 
+    //Coupon *coupon = 
         [Coupon getOrCreateCouponWithJsonData:data 
                                   fromContext:self.managedContext];
     

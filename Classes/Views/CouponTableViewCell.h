@@ -25,12 +25,14 @@
 
 @interface CouponTableViewCell : UITableViewCell
 {
-    Coupon *mCoupon;
+    Coupon  *mCoupon;
+    NSTimer *mTimer;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) Coupon *coupon;
+@property (nonatomic, retain) Coupon  *coupon;
+@property (nonatomic, retain) NSTimer *timer;
 
 //------------------------------------------------------------------------------
 
