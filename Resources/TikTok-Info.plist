@@ -32,5 +32,9 @@
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NeutraDisp-BoldAlt.otf</string>
+	</array>
 </dict>
 </plist>

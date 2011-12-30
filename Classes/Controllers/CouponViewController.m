@@ -318,7 +318,7 @@ enum CouponTag {
 
 - (void) configureExpiredCell:(UIView*)cell
 {
-    const static CGFloat expiredAlpha = 0.2;
+    const static CGFloat expiredAlpha = 0.3;
     static NSString *offerText        = @"Offer has expired";
     static NSString *timerText        = @"00:00:00";
 
@@ -334,11 +334,10 @@ enum CouponTag {
     UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
     expireColor.backgroundColor = [UIDefaults getTokColor];
 
-    /* update the cell opacity
+    // update the cell opacity
     for (UIView *view in cell.subviews) {
         view.alpha = expiredAlpha;
     }
-    */
 }
 
 //------------------------------------------------------------------------------
@@ -359,11 +358,9 @@ enum CouponTag {
     UIView *expireColor         = [cell viewWithTag:kCouponTagExpireColor];
     expireColor.backgroundColor = [self getInterpolatedColor:t];
 
-    /* update the cell opacity
     for (UIView *view in cell.subviews) {
-        view.alpha = 1.0 - MIN(t, 0.6);
+        view.alpha = 1.0;
     }
-    */
 }
 
 //------------------------------------------------------------------------------
@@ -382,7 +379,7 @@ enum CouponTag {
 
     // update the coupon title
     UITextView *title = (UITextView*)[cell viewWithTag:kCouponTagTitle];
-    [title setText:coupon.text];
+    [title setText:coupon.title];
 
     // check if image is available
     IconManager *iconManager = [IconManager getInstance];

@@ -25,6 +25,7 @@
 @interface CouponDetailViewController : UIViewController 
 {
     Coupon          *mCoupon;
+    NSTimer         *mTimer;
     UIView          *mBarcodeView;
     UIBarButtonItem *mRedeemButton;
 }
@@ -32,6 +33,7 @@
 //------------------------------------------------------------------------------
 
 @property (nonatomic, retain)          Coupon          *coupon;
+@property (nonatomic, retain)          NSTimer         *timer;
 @property (nonatomic, retain) IBOutlet UIView          *barcodeView;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *redeemButton;
 
@@ -39,6 +41,11 @@
 
 - (IBAction) merchantDetails:(id)sender;
 - (IBAction) redeemCoupon:(id)sender;
+
+- (IBAction) shareMail:(id)sender;
+- (IBAction) shareTwitter:(id)sender;
+- (IBAction) shareFacebook:(id)sender;
+- (IBAction) shareGooglePlus:(id)sender;
 
 //------------------------------------------------------------------------------
 

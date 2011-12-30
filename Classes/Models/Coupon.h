@@ -30,11 +30,12 @@
 //------------------------------------------------------------------------------
 
 @property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *text;
+@property (nonatomic, retain) NSString *details;
 @property (nonatomic, retain) NSString *imagePath;
 @property (nonatomic, retain) NSDate   *startTime;
 @property (nonatomic, retain) NSDate   *endTime;
 @property (nonatomic, retain) Merchant *merchant;
+@property (nonatomic, assign) BOOL      wasRedeemed;
 
 //------------------------------------------------------------------------------
 
@@ -55,6 +56,26 @@
  * Initialize the coupon object with the given json data.
  */
 - (Coupon*) initWithJsonDictionary:(NSDictionary*)data;
+
+/**
+ * Returns true if coupon no longer has time left.
+ */
+- (BOOL) isExpired;
+
+/**
+ * Returns the color representing the time left on the coupon.
+ */
+- (UIColor*) getColor;
+
+/**
+ * Returns the a formated string of the expiration time in am/pm.
+ */
+- (NSString*) getExpirationTime;
+
+/**
+ * Returns the a formated string of the expiration time as a timer.
+ */
+- (NSString*) getExpirationTimer;
 
 //------------------------------------------------------------------------------
 

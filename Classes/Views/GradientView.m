@@ -38,10 +38,10 @@
 - (void) initialize
 {
     self.color               = [UIColor orangeColor];
-    self.border              = 10.0;
+    self.border              = 6.0;
     self.layer.shadowColor   = [[UIColor blackColor] CGColor];
-    self.layer.shadowOffset  = CGSizeMake(3.0f, 3.0f);
-    self.layer.shadowOpacity = 0.4f;
+    self.layer.shadowOffset  = CGSizeMake(2.0f, 2.0f);
+    self.layer.shadowOpacity = 0.2f;
 }
 
 //------------------------------------------------------------------------------
@@ -89,12 +89,12 @@
 
     // create the gradient colors by moving up and down the sat and brightness
     UIColor *startColor   = [UIColor colorWithHue:hue 
-                                       saturation:saturation - 0.1
-                                       brightness:brightness 
+                                       saturation:saturation + 0.02
+                                       brightness:brightness + 0.03
                                             alpha:1.0];
     UIColor *endColor = [UIColor colorWithHue:hue 
-                                   saturation:saturation + 0.2 
-                                   brightness:brightness + 0.2 
+                                       saturation:saturation - 0.02
+                                       brightness:brightness - 0.03
                                         alpha:1.0];
 
     // setup gradient data

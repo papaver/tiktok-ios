@@ -11,9 +11,11 @@
 //------------------------------------------------------------------------------
 
 #import "CouponDetailViewController.h"
-#import "MerchantViewController.h"
-#import "Merchant.h"
 #import "Coupon.h"
+#import "GradientView.h"
+#import "IconManager.h"
+#import "Merchant.h"
+#import "MerchantViewController.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -23,7 +25,13 @@ enum CouponDetailTag
 {
     kTagBarcodeView  = 1,
     kTagContentView  = 2,
-    kTagRedeemButton = 3
+    kTagTitle        = 3,
+    kTagDetails      = 4,
+    kTagIcon         = 5,
+    kTagIconActivity = 6,
+    kTagColorTimer   = 7,
+    kTagTextTimer    = 8,
+    kTagTextTime     = 9
 };
 
 //------------------------------------------------------------------------------
@@ -33,6 +41,12 @@ enum CouponDetailTag
 @interface CouponDetailViewController ()
     - (void) setupToolbar;
     - (void) setupCouponDetails;
+    - (void) setupIcon;
+    - (void) setIcon:(UIImage*)image;
+    - (void) arrangeSubviewsForRedeemedCouponWithAnimation:(bool)animated;
+    - (void) resetSubviews;
+    - (void) startTimer;
+    - (void) updateTimers;
 @end
 
 //------------------------------------------------------------------------------
@@ -44,6 +58,7 @@ enum CouponDetailTag
 //------------------------------------------------------------------------------
 
 @synthesize coupon       = mCoupon;
+@synthesize timer        = mTimer;
 @synthesize barcodeView  = mBarcodeView;
 @synthesize redeemButton = mRedeemButton;
 
@@ -84,13 +99,15 @@ enum CouponDetailTag
 - (void) viewDidLoad 
 {
     [super viewDidLoad];
-    [self setupToolbar];
-    [self setupCouponDetails];
 
     // add barcode view to the view and hide, do this so it shows up seperately
     // in interface designer and is easier to manage
     [self.view addSubview:self.barcodeView];
     self.barcodeView.hidden = YES;
+
+    // correct font on timer
+    UILabel *timer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
+    timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
 }
 
 //------------------------------------------------------------------------------
@@ -98,7 +115,21 @@ enum CouponDetailTag
 - (void) viewWillAppear:(BOOL)animated 
 {
     [super viewWillAppear:animated];
-    [self.navigationController setToolbarHidden:NO animated:YES];
+    [self setupCouponDetails];
+
+    // don't add redeem button if coupon is expired or already activated
+    if (self.coupon.wasRedeemed) {
+        [self arrangeSubviewsForRedeemedCouponWithAnimation:false];
+    } else if (![self.coupon isExpired]) {
+        [self setupToolbar];
+    } else {
+        [self resetSubviews];
+    }
+
+    // setup an update loop to for the color/text timers
+    if (!self.coupon.isExpired) {
+        [self startTimer];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -116,6 +147,9 @@ enum CouponDetailTag
 {
     [super viewWillDisappear:animated];
     [self.navigationController setToolbarHidden:YES animated:YES];
+
+    // stop timer 
+    [self.timer invalidate];
 }
 
 //------------------------------------------------------------------------------
@@ -129,6 +163,15 @@ enum CouponDetailTag
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+//------------------------------------------------------------------------------
+
+- (void) setCoupon:(Coupon*)coupon
+{
+    if (mCoupon) [mCoupon release];
+    mCoupon = [coupon retain];
+    [self setupCouponDetails];
+}
 
 //------------------------------------------------------------------------------
 #pragma - Setup
@@ -166,9 +209,101 @@ enum CouponDetailTag
 
 - (void) setupCouponDetails
 {
-    // [moiz] setup will differ depending on if the coupon has been redeemed 
-    //   or not may also want to do the setup during the setting of the coupon
-    //   maybe? doing it on view load seems a little hacky?
+    // title
+    UITextView *title = (UITextView*)[self.view viewWithTag:kTagTitle];
+    title.text        = self.coupon.title;
+
+    // details
+    UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];
+    details.text        = self.coupon.details;
+
+    // icon
+    [self setupIcon];
+
+    // color timer
+    GradientView *color = (GradientView*)[self.view viewWithTag:kTagColorTimer];
+    color.color         = [self.coupon getColor];
+
+    // text timer
+    UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
+    label.text     = [self.coupon getExpirationTimer];
+
+    // text expire timer
+    UILabel *expire = (UILabel*)[self.view viewWithTag:kTagTextTime];
+    expire.text     = $string(@"Offer expires at %@", [self.coupon getExpirationTime]);
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupIcon
+{
+    IconManager *iconManager = [IconManager getInstance];
+    NSURL *imageUrl          = [NSURL URLWithString:self.coupon.imagePath];
+    __block UIImage *image   = [iconManager getImage:imageUrl];
+
+    // set merchant icon
+    [self setIcon:image];
+
+    // load image from server if not available
+    if (!image) {
+        [iconManager requestImage:imageUrl 
+            withCompletionHandler:^(UIImage* image, NSError *error) {
+                if (image != nil) {
+                    [self setIcon:image];
+                } else if (error) {
+                    NSLog(@"MerchantViewController: Failed to load image, %@", error);
+                }
+            }];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setIcon:(UIImage*)image
+{
+    UIImageView *icon                  
+        = (UIImageView*)[self.view viewWithTag:kTagIcon];
+    UIActivityIndicatorView *spinner 
+        = (UIActivityIndicatorView*)[self.view viewWithTag:kTagIconActivity];
+
+    // update icon 
+    icon.image  = image;
+    icon.hidden = image == nil;
+
+    // update spinner
+    if (image) {
+        [spinner stopAnimating];
+    } else {
+        [spinner startAnimating];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) startTimer
+{
+    // setup timer
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(updateTimers)
+                                                userInfo:nil
+                                                 repeats:YES];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateTimers
+{
+    // color timer
+    GradientView *color = (GradientView*)[self.view viewWithTag:kTagColorTimer];
+    color.color         = [self.coupon getColor];
+
+    // text timer
+    UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
+    label.text     = [self.coupon getExpirationTimer];
+
+    // kill timer if coupon is expired
+    if ([self.coupon isExpired]) [self.timer invalidate];
 }
 
 //------------------------------------------------------------------------------
@@ -192,12 +327,45 @@ enum CouponDetailTag
 
 - (IBAction) redeemCoupon:(id)sender
 {
+    [self arrangeSubviewsForRedeemedCouponWithAnimation:true];
+    self.coupon.wasRedeemed = YES;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) resetSubviews
+{
     // grab subviews
     __block UIView *barcodeView  = [self.view viewWithTag:kTagBarcodeView];
     __block UIView *contentView  = [self.view viewWithTag:kTagContentView];
+
+    // already in default state if barcode is hidden
+    if (barcodeView.hidden) return;
+
+    // hide barcode
+    barcodeView.hidden = YES;
+
+    // position contentview back to original position
+    CGRect barcodeFrame          = barcodeView.frame;
+    CGRect contentViewFrameNew   = contentView.frame;
+    contentViewFrameNew.origin.x = barcodeFrame.origin.x;
+    contentViewFrameNew.origin.y = barcodeFrame.origin.y;
+    contentView.frame            = contentViewFrameNew;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) arrangeSubviewsForRedeemedCouponWithAnimation:(bool)animated
+{
+    // grab subviews
+    __block UIView *barcodeView  = [self.view viewWithTag:kTagBarcodeView];
+    __block UIView *contentView  = [self.view viewWithTag:kTagContentView];
+
+    // already configured correctly if barcode is visible
+    if (!barcodeView.hidden) return;
     
     // make sure barcode view is visible
-    self.barcodeView.hidden = NO;
+    barcodeView.hidden = NO;
 
     // grab the current values of the views
     CGRect contentFrame = contentView.frame;
@@ -225,14 +393,49 @@ enum CouponDetailTag
     scrollView.contentSize   = scrollSizeNew;
 
     // animate new views into place
-    [UIView animateWithDuration:0.4 animations:^{
+    void (^animationBlock)(void) = ^{
         contentView.frame      = contentFrameNew;
         self.barcodeView.frame = barcodeFrameNew;
-    }];
-
-    // hide the toolbar
-    [self.navigationController setToolbarHidden:YES animated:YES];
+    };
+    
+    // update the subviews
+    if (animated) {
+        [UIView animateWithDuration:0.4 animations:animationBlock];
+        [self.navigationController setToolbarHidden:YES animated:YES];
+    } else {
+        animationBlock();
+        [self.navigationController setToolbarHidden:YES animated:NO];
+    }
 }
+
+//------------------------------------------------------------------------------
+
+- (IBAction) shareMail:(id)sender
+{
+    NSLog(@"share mail");
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) shareTwitter:(id)sender
+{
+    NSLog(@"share twitter");
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) shareFacebook:(id)sender
+{
+    NSLog(@"share facebook");
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) shareGooglePlus:(id)sender
+{
+    NSLog(@"share googleplus");
+}
+
 
 //------------------------------------------------------------------------------
 #pragma - Memory Management
@@ -260,6 +463,11 @@ enum CouponDetailTag
 
 - (void) dealloc 
 {
+    [mTimer invalidate];
+    [mTimer release];
+    [mRedeemButton release];
+    [mBarcodeView release];
+    [mCoupon release];
     [super dealloc];
 }
 
