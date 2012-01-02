@@ -382,7 +382,7 @@ enum CouponTag {
                withCoupon:(Coupon*)coupon
 {
     IconManager *iconManager = [IconManager getInstance];
-    NSURL *imageUrl          = [NSURL URLWithString:coupon.imagePath];
+    NSURL *imageUrl          = [NSURL URLWithString:coupon.iconUrl];
     __block UIImage *image   = [iconManager getImage:imageUrl];
 
     // set merchant icon
@@ -460,7 +460,7 @@ enum CouponTag {
 - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath
 {
     IconManager *iconManager = [IconManager getInstance];
-    NSURL *imageUrl          = [NSURL URLWithString:coupon.imagePath];
+    NSURL *imageUrl          = [NSURL URLWithString:coupon.iconUrl];
 
     // submit the request to retrive the image and update the cell
     [iconManager requestImage:imageUrl 
@@ -484,7 +484,7 @@ enum CouponTag {
     [visibleIndices enumerateObjectsUsingBlock:
         ^(NSIndexPath *indexPath, NSUInteger index, BOOL *stop) {
             Coupon *coupon = [self.fetchedCouponsController objectAtIndexPath:indexPath];
-            UIImage *image = [iconManager getImage:[NSURL URLWithString:coupon.imagePath]];
+            UIImage *image = [iconManager getImage:[NSURL URLWithString:coupon.iconUrl]];
             if (image == nil) {
                 [self requestImageForCoupon:coupon atIndexPath:indexPath];
             }

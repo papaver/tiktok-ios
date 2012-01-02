@@ -22,9 +22,11 @@
 
 //------------------------------------------------------------------------------
 
+@dynamic couponId;
 @dynamic title;
 @dynamic details;
-@dynamic imagePath;
+@dynamic iconId;
+@dynamic iconUrl;
 @dynamic startTime;
 @dynamic endTime;
 @dynamic wasRedeemed;
@@ -34,7 +36,7 @@
 #pragma mark - Static methods
 //------------------------------------------------------------------------------
 
-+ (Coupon*) getCouponByName:(NSString*)name 
++ (Coupon*) getCouponById:(NSNumber*)couponId
                 fromContext:(NSManagedObjectContext*)context
 {
     // grab the coupon description
@@ -46,7 +48,8 @@
     [request setEntity:description];
 
     // setup the request to lookup the specific coupon by name
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"details == %@", name];
+    NSPredicate *predicate = 
+        [NSPredicate predicateWithFormat:@"couponId == %@", couponId];
     [request setPredicate:predicate];
 
     // return the coupon if it already exists in the context
@@ -68,8 +71,8 @@
                               fromContext:(NSManagedObjectContext*)context
 {
     // check if coupon already exists in the store
-    NSString *name = [data objectForKey:@"description"];
-    Coupon *coupon = [Coupon getCouponByName:name fromContext:context];
+    NSNumber *couponId = [data objectForKey:@"id"];
+    Coupon *coupon = [Coupon getCouponById:couponId fromContext:context];
     if (coupon != nil) {
         return coupon;
     }
@@ -114,12 +117,13 @@
     NSNumber *enableTime = [data objectForKey:@"enable_time_in_tvsec"];
     NSNumber *expireTime = [data objectForKey:@"expiry_time_in_tvsec"];
 
-    self.imagePath   = [data objectForKey:@"image_url"];
-    self.title       = [data objectForKey:@"description"];
+    self.couponId    = [data objectForKey:@"id"];
+    self.details     = [data objectForKey:@"description"];
+    self.title       = [data objectForKey:@"headline"];
     self.startTime   = [NSDate dateWithTimeIntervalSince1970:enableTime.intValue];
     self.endTime     = [NSDate dateWithTimeIntervalSince1970:expireTime.intValue];
-
-    self.details     = @"its been a while since i've seen you smile, but now your back again, came into my room and saw my girl, you asked her how long its been, she said a year and you shook your head, said im suprised its gone that long, people say how beautiful how sweet how kind, your perfect youve got nothing to hide, but i for one have seen the sun and the bitch youve locked up inside";
+    self.iconId      = [data objectForKey:@"icon_uid"];
+    self.iconUrl     = [data objectForKey:@"icon_url"];
     self.wasRedeemed = NO;
 
     return self;

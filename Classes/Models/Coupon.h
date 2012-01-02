@@ -29,9 +29,11 @@
 
 //------------------------------------------------------------------------------
 
+@property (nonatomic, retain) NSNumber *couponId;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *details;
-@property (nonatomic, retain) NSString *imagePath;
+@property (nonatomic, retain) NSNumber *iconId;
+@property (nonatomic, retain) NSString *iconUrl;
 @property (nonatomic, retain) NSDate   *startTime;
 @property (nonatomic, retain) NSDate   *endTime;
 @property (nonatomic, retain) Merchant *merchant;
@@ -42,7 +44,7 @@
 /**
  * Query the context for a coupon by name.  
  */
-+ (Coupon*) getCouponByName:(NSString*)name 
++ (Coupon*) getCouponById:(NSNumber*)couponId 
                 fromContext:(NSManagedObjectContext*)context;
 
 /**

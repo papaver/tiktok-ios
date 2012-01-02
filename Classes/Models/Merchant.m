@@ -26,7 +26,8 @@
 @dynamic tagline;
 @dynamic category;
 @dynamic details;
-@dynamic imagePath;
+@dynamic iconId;
+@dynamic iconUrl;
 @dynamic twitterUrl;
 @dynamic facebookUrl;
 @dynamic websiteUrl;
@@ -102,8 +103,9 @@
 
 - (Merchant*) initWithJsonDictionary:(NSDictionary*)data
 {
-    self.name      = [data objectForKey:@"name"];
-    self.imagePath = [data objectForKey:@"image_url"];
+    self.name    = [data objectForKey:@"name"];
+    self.iconId  = [data objectForKey:@"icon_uid"];
+    self.iconUrl = [data objectForKey:@"icon_url"];
 
     self.tagline     = @"Tag this line";
     self.category    = @"Pub";

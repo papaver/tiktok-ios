@@ -255,12 +255,7 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
     
 - (NSString*) getImageName:(NSURL*)imageUrl
 {
-    // [moiz] temp till dinos fixes the path name 
-    NSArray *pathComponents = [imageUrl pathComponents];
-    NSString *imageName     = [pathComponents objectAtIndex:pathComponents.count - 2];
-    return imageName;
-
-    //return [imageUrl lastPathComponent];
+    return [imageUrl lastPathComponent];
 }
 
 //------------------------------------------------------------------------------
