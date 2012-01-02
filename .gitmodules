@@ -7,3 +7,6 @@
 [submodule "ThirdParty/UIColorUtilities"]
 	path = ThirdParty/UIColorUtilities
 	url = git@github.com:papaver/uicolor-utilities.git
+[submodule "ThirdParty/Facebook"]
+	path = ThirdParty/Facebook
+	url = https://github.com/facebook/facebook-ios-sdk.git
