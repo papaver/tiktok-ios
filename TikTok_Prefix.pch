@@ -14,5 +14,6 @@
     #import <MapKit/MapKit.h>
     #import <UIKit/UIKit.h>
     #import "Macros.h"
+    #import "TestFlight.h"
     #import "UIColor-Expanded.h"
 #endif

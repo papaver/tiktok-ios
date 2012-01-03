@@ -141,6 +141,7 @@
 		2EE5D43514B25D5200D0539C /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5D42E14B25D5200D0539C /* FBDialog.m */; };
 		2EE5D43614B25D5200D0539C /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5D43014B25D5200D0539C /* FBLoginDialog.m */; };
 		2EE5D43714B25D5200D0539C /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5D43214B25D5200D0539C /* FBRequest.m */; };
+		2EE5D43C14B373CD00D0539C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EE5D43B14B373CD00D0539C /* libTestFlight.a */; };
 		2EE857DF14AA4FF0008055AD /* CouponDetailBackgroundTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DB14AA4FF0008055AD /* CouponDetailBackgroundTexture.png */; };
 		2EE857E014AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DC14AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png */; };
 		2EE857E114AA4FF0008055AD /* CouponDetailBackgroundTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DD14AA4FF0008055AD /* CouponDetailBackgroundTitle.png */; };
@@ -420,6 +421,8 @@
 		2EE5D43114B25D5200D0539C /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
 		2EE5D43214B25D5200D0539C /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
 		2EE5D43814B25F2F00D0539C /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		2EE5D43A14B3736A00D0539C /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		2EE5D43B14B373CD00D0539C /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		2EE857DB14AA4FF0008055AD /* CouponDetailBackgroundTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CouponDetailBackgroundTexture.png; sourceTree = "<group>"; };
 		2EE857DC14AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailBackgroundTexture@2x.png"; sourceTree = "<group>"; };
 		2EE857DD14AA4FF0008055AD /* CouponDetailBackgroundTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CouponDetailBackgroundTitle.png; sourceTree = "<group>"; };
@@ -480,6 +483,7 @@
 				2EC672AE1490008700AC5CDF /* SystemConfiguration.framework in Frameworks */,
 				2E6E082D139364D6008788C2 /* UIKit.framework in Frameworks */,
 				2EC672B0149000B100AC5CDF /* libz.dylib in Frameworks */,
+				2EE5D43C14B373CD00D0539C /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,6 +869,7 @@
 				2E5FEAEF14A1B75800B516FE /* Box2D */,
 				2EE5D42714B25CED00D0539C /* Facebook */,
 				2EC6725D148FFE7000AC5CDF /* SBJson */,
+				2EE5D43914B3734A00D0539C /* TestFlight */,
 				2E5FEAE114A1157500B516FE /* UIColorUtilities */,
 			);
 			path = ThirdParty;
@@ -958,9 +963,10 @@
 		2EC672B3149000FB00AC5CDF /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2EE5D43B14B373CD00D0539C /* libTestFlight.a */,
 				2EC672AF149000B100AC5CDF /* libz.dylib */,
 			);
-			name = Libraries;
+			path = Libraries;
 			sourceTree = "<group>";
 		};
 		2EC672B41490026E00AC5CDF /* Controllers */ = {
@@ -1017,6 +1023,14 @@
 				2EE5D42C14B25D5200D0539C /* FBDialog.bundle */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		2EE5D43914B3734A00D0539C /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				2EE5D43A14B3736A00D0539C /* TestFlight.h */,
+			);
+			path = TestFlight;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1269,6 +1283,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"",
+				);
 				PRODUCT_NAME = TikTok;
 				PROVISIONING_PROFILE = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
@@ -1289,6 +1307,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"",
+				);
 				PRODUCT_NAME = TikTok;
 				PROVISIONING_PROFILE = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
@@ -1328,6 +1350,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"",
+				);
 				PRODUCT_NAME = TikTok;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

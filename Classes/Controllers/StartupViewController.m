@@ -67,6 +67,9 @@
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     progressView.frame = frame;
     [UIView commitAnimations];
+
+    // tag testflight checkpoint
+    [TestFlight passCheckpoint:@"Startup Controller"];
 }
 
 //------------------------------------------------------------------------------

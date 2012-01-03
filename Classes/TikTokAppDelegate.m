@@ -16,6 +16,14 @@
 #import "Utilities.h"
 
 //------------------------------------------------------------------------------
+// statics
+//------------------------------------------------------------------------------
+
+// [moiz] should this live in a app defaults file?
+static NSString *sTestFlightToken = 
+    @"1f8e200ed8fc4819d70c48616a561f9d_NTA2ODMyMDEyLTAxLTAyIDE5OjU3OjE1LjIwMDk5NQ";
+
+//------------------------------------------------------------------------------
 // interface implemenation
 //------------------------------------------------------------------------------
 
@@ -55,6 +63,9 @@
     
     // hide navigation toolbar
     [self.navigationController setToolbarHidden:YES animated:NO];
+
+    // start up test flight
+    [TestFlight takeOff:sTestFlightToken];
 
     return YES;
 }

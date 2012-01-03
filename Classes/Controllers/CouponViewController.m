@@ -80,9 +80,12 @@ enum CouponTag {
     UILabel *timer = (UILabel*)[self.cellView viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
 
-    // [moiz] purge files 
+    // [moiz::temp] purge files 
     IconManager *iconManager = [IconManager getInstance];
     [iconManager deleteAllImages];
+
+    // tag testflight checkpoint
+    [TestFlight passCheckpoint:@"Coupon Table Controller"];
 }
 
 //------------------------------------------------------------------------------
