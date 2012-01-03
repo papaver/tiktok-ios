@@ -18,6 +18,7 @@
 //------------------------------------------------------------------------------
 
 @class Merchant;
+@class IconData;
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -29,15 +30,16 @@
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) NSNumber *couponId;
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *details;
-@property (nonatomic, retain) NSNumber *iconId;
-@property (nonatomic, retain) NSString *iconUrl;
-@property (nonatomic, retain) NSDate   *startTime;
-@property (nonatomic, retain) NSDate   *endTime;
-@property (nonatomic, retain) Merchant *merchant;
-@property (nonatomic, assign) BOOL      wasRedeemed;
+@property (nonatomic, retain)   NSNumber *couponId;
+@property (nonatomic, retain)   NSString *title;
+@property (nonatomic, retain)   NSString *details;
+@property (nonatomic, retain)   NSNumber *iconId;
+@property (nonatomic, retain)   NSString *iconUrl;
+@property (nonatomic, readonly) IconData *iconData;
+@property (nonatomic, retain)   NSDate   *startTime;
+@property (nonatomic, retain)   NSDate   *endTime;
+@property (nonatomic, retain)   Merchant *merchant;
+@property (nonatomic, assign)   BOOL      wasRedeemed;
 
 //------------------------------------------------------------------------------
 

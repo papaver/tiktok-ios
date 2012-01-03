@@ -223,15 +223,14 @@ enum CouponDetailTag
 - (void) setupIcon
 {
     IconManager *iconManager = [IconManager getInstance];
-    NSURL *imageUrl          = [NSURL URLWithString:self.coupon.iconUrl];
-    __block UIImage *image   = [iconManager getImage:imageUrl];
+    __block UIImage *image   = [iconManager getImage:self.coupon.iconData];
 
     // set merchant icon
     [self setIcon:image];
 
     // load image from server if not available
     if (!image) {
-        [iconManager requestImage:imageUrl 
+        [iconManager requestImage:self.coupon.iconData 
             withCompletionHandler:^(UIImage* image, NSError *error) {
                 if (image != nil) {
                     [self setIcon:image];

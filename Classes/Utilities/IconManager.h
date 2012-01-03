@@ -13,6 +13,12 @@
 #import <Foundation/Foundation.h>
 
 //------------------------------------------------------------------------------
+// forward declarations
+//------------------------------------------------------------------------------
+
+@class IconData;
+
+//------------------------------------------------------------------------------
 // interface implementation 
 //------------------------------------------------------------------------------
 
@@ -31,24 +37,24 @@
 /**
  * Returns image if availble in the memory cache.
  */
-- (UIImage*) getImage:(NSURL*)imageUrl;
+- (UIImage*) getImage:(IconData*)iconData;
 
 /**
  * Checks file system for cached image, if not availble downloads image from the 
  * internet.
  */
-- (void) requestImage:(NSURL*)imageUrl 
+- (void) requestImage:(IconData*)iconData 
 withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler;
 
 /**
  * Stop existing image request.
  */
-- (void) cancelImageRequest:(NSURL*)imageUrl;
+- (void) cancelImageRequest:(IconData*)iconData;
 
 /**
  * Delete image from filesystem.
  */
-- (void) deleteImage:(NSURL*)imageUrl;
+- (void) deleteImage:(IconData*)iconData;
 
 /**
  * Delete image directory from filesystem.

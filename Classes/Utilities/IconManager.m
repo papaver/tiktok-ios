@@ -12,6 +12,8 @@
 
 #import "IconManager.h"
 #import "ASIHTTPRequest.h"
+#import "IconData.h"
+#import "IconRequest.h"
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -22,7 +24,7 @@
     - (NSURL*) getIconDirectory;
     - (bool) createDirectory:(NSURL*)directory;
     - (NSURL*) getOrCreateIconDirectory;
-    - (NSString*) getImageName:(NSURL*)imageUrl;
+    - (NSString*) getImageName:(IconData*)iconData;
 @end
 
 //------------------------------------------------------------------------------
@@ -48,9 +50,9 @@
 #pragma - Public Api
 //------------------------------------------------------------------------------
 
-- (UIImage*) getImage:(NSURL*)imageUrl
+- (UIImage*) getImage:(IconData*)iconData
 {
-    NSString *imageName = [self getImageName:imageUrl];
+    NSString *imageName = [self getImageName:iconData];
 
     // check if image already exists in memory cache
     UIImage* image = [mImages valueForKey:imageName];
@@ -74,30 +76,37 @@
 
 //------------------------------------------------------------------------------
 
-- (void) requestImage:(NSURL*)imageUrl 
+- (void) requestImage:(IconData*)iconData 
 withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
 {
-    NSLog(@"Requesting image: %@", imageUrl);
+    NSLog(@"Requesting image: %@", iconData.iconUrl);
 
-    // [moiz] would be nice to figure out a way to allow managing multiple 
-    //  requests somehow, not sure how useful this really is though
-
-    __block NSString *imageName = [self getImageName:imageUrl];
+    __block NSString *imageName = [self getImageName:iconData];
 
     // check if request for image already exists
     if ([mImageRequests valueForKey:imageName]) {
+        IconRequest *iconRequest = [mImageRequests objectForKey:imageName];
+        [iconRequest.handlers addObject:[handler copy]];
         return;
     }
 
     // submit a web request to grab the data
-    __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:imageUrl];
+    __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:iconData.iconUrl];
     [request setCompletionBlock:^{
         UIImage *image = [UIImage imageWithData:[request responseData]];
         image = [UIImage imageWithCGImage:[image CGImage] scale:2.0 orientation:UIImageOrientationUp];
         [mImages setValue:image forKey:imageName];
 
-        // run handler
-        handler(image, nil);
+        // save image to the filesystem
+        NSURL *fileUrl = [[self getOrCreateIconDirectory] 
+            URLByAppendingPathComponent:imageName];
+        [UIImagePNGRepresentation(image) writeToFile:fileUrl.path atomically:YES];
+
+        // run handlers
+        IconRequest *iconRequest = [mImageRequests objectForKey:imageName];
+        for (void (^imageHandler)(UIImage*, NSError*) in iconRequest.handlers) {
+            imageHandler(image, nil);
+        }
 
         // cleanup
         [mImageRequests removeObjectForKey:imageName];
@@ -105,7 +114,12 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
 
     // setup fail block
     [request setFailedBlock:^{
-        handler(nil, [request error]);
+        IconRequest *iconRequest = [mImageRequests objectForKey:imageName];
+        for (void (^imageHandler)(UIImage*, NSError*) in iconRequest.handlers) {
+            imageHandler(nil, [request error]);
+        }
+
+        // cleanup
         [mImageRequests removeObjectForKey:imageName];
     }];
 
@@ -113,28 +127,32 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
     [request startAsynchronous];
 
     // cache request 
-    [mImageRequests setValue:request forKey:imageName];
+    IconRequest *iconRequest = [[IconRequest alloc] init];
+    iconRequest.request = request;
+    [iconRequest.handlers addObject:[handler copy]];
+    [mImageRequests setValue:iconRequest forKey:imageName];
+    [iconRequest release];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) cancelImageRequest:(NSURL*)imageUrl
+- (void) cancelImageRequest:(IconData*)iconData
 {
-    __block NSString *imageName = [self getImageName:imageUrl];
+    __block NSString *imageName = [self getImageName:iconData];
 
     // check if request for image already exists
-    ASIHTTPRequest *request = [mImageRequests valueForKey:imageName];
-    if (request) {
-        [request clearDelegatesAndCancel];
+    IconRequest *iconRequest = [mImageRequests valueForKey:imageName];
+    if (iconRequest) {
+        [iconRequest.request clearDelegatesAndCancel];
         [mImageRequests removeObjectForKey:imageName];
     }
 }
 
 //------------------------------------------------------------------------------
 
-- (void) deleteImage:(NSURL*)imageUrl
+- (void) deleteImage:(IconData*)iconData
 {
-    NSString *imageName = [self getImageName:imageUrl];
+    NSString *imageName = [self getImageName:iconData];
     NSURL *fileUrl = 
         [[self getOrCreateIconDirectory] URLByAppendingPathComponent:imageName];
 
@@ -253,9 +271,9 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
 
 //------------------------------------------------------------------------------
     
-- (NSString*) getImageName:(NSURL*)imageUrl
+- (NSString*) getImageName:(IconData*)iconData
 {
-    return [imageUrl lastPathComponent];
+    return $string(@"%@", iconData.iconId);
 }
 
 //------------------------------------------------------------------------------

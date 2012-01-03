@@ -18,6 +18,7 @@
 //------------------------------------------------------------------------------
 
 @class Coupon;
+@class IconData;
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -29,17 +30,18 @@
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) NSNumber *merchantId;
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSString *tagline;
-@property (nonatomic, retain) NSString *category;
-@property (nonatomic, retain) NSString *details;
-@property (nonatomic, retain) NSString *iconId;
-@property (nonatomic, retain) NSString *iconUrl;
-@property (nonatomic, retain) NSString *twitterUrl;
-@property (nonatomic, retain) NSString *facebookUrl;
-@property (nonatomic, retain) NSString *websiteUrl;
-@property (nonatomic, retain) NSSet    *coupons;
+@property (nonatomic, retain)   NSNumber *merchantId;
+@property (nonatomic, retain)   NSString *name;
+@property (nonatomic, retain)   NSString *tagline;
+@property (nonatomic, retain)   NSString *category;
+@property (nonatomic, retain)   NSString *details;
+@property (nonatomic, retain)   NSNumber *iconId;
+@property (nonatomic, retain)   NSString *iconUrl;
+@property (nonatomic, readonly) IconData *iconData;
+@property (nonatomic, retain)   NSString *twitterUrl;
+@property (nonatomic, retain)   NSString *facebookUrl;
+@property (nonatomic, retain)   NSString *websiteUrl;
+@property (nonatomic, retain)   NSSet    *coupons;
 
 //------------------------------------------------------------------------------
 

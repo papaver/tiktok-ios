@@ -132,15 +132,14 @@ enum MerchantTags
 - (void) setupIcon
 {
     IconManager *iconManager = [IconManager getInstance];
-    NSURL *imageUrl          = [NSURL URLWithString:self.merchant.iconUrl];
-    __block UIImage *image   = [iconManager getImage:imageUrl];
+    __block UIImage *image   = [iconManager getImage:self.merchant.iconData];
 
     // set merchant icon
     [self setIcon:image];
 
     // load image from server if not available
     if (!image) {
-        [iconManager requestImage:imageUrl 
+        [iconManager requestImage:self.merchant.iconData 
             withCompletionHandler:^(UIImage* image, NSError *error) {
                 if (image != nil) {
                     [self setIcon:image];
