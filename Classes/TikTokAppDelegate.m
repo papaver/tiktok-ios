@@ -11,17 +11,11 @@
 //------------------------------------------------------------------------------
 
 #import "TikTokAppDelegate.h"
+#import "Constants.h"
+#import "FacebookManager.h"
 #import "TikTokApi.h"
 #import "StartupViewController.h"
 #import "Utilities.h"
-
-//------------------------------------------------------------------------------
-// statics
-//------------------------------------------------------------------------------
-
-// [moiz] should this live in a app defaults file?
-static NSString *sTestFlightToken = 
-    @"1f8e200ed8fc4819d70c48616a561f9d_NTA2ODMyMDEyLTAxLTAyIDE5OjU3OjE1LjIwMDk5NQ";
 
 //------------------------------------------------------------------------------
 // interface implemenation
@@ -65,7 +59,7 @@ static NSString *sTestFlightToken =
     [self.navigationController setToolbarHidden:YES animated:NO];
 
     // start up test flight
-    [TestFlight takeOff:sTestFlightToken];
+    [TestFlight takeOff:TESTFLIGHT_API_KEY];
 
     return YES;
 }
@@ -304,6 +298,38 @@ static NSString *sTestFlightToken =
     }
 
     return mPersistantStoreCoordinator;
+}
+
+//------------------------------------------------------------------------------
+#pragma - Handle Url
+//------------------------------------------------------------------------------
+
+/**
+ * For 4.2+ support
+ */
+- (BOOL) application:(UIApplication*)application 
+            openURL:(NSURL*)url
+  sourceApplication:(NSString*)sourceApplication 
+         annotation:(id)annotation 
+{
+    // facebook
+    if ([sourceApplication isEqualToString:@"com.facebook.Facebook"]) {
+        FacebookManager* facebookManager = [FacebookManager getInstance];
+        return [facebookManager.facebook handleOpenURL:url];
+    }
+    return YES;
+}
+
+//------------------------------------------------------------------------------
+
+- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)url 
+{
+    // facebook
+    if ([[url absoluteString] hasPrefix:$string(@"fb%@",FACEBOOK_API_KEY)]) {
+        FacebookManager* facebookManager = [FacebookManager getInstance];
+        return [facebookManager.facebook handleOpenURL:url];
+    }
+    return YES;
 }
 
 //------------------------------------------------------------------------------
