@@ -56,7 +56,7 @@
     [self startOperationsQueue];
 
     // start progress bar animation
-    UIView *progressView  = [self.view viewWithTag:1];
+    UIView *progressView  = [self.view viewWithTag:3];
     CGRect frame          = progressView.frame;
     progressView.frame    = CGRectMake(frame.origin.x, frame.origin.y, 
                                        0.0, frame.size.height);
@@ -184,7 +184,7 @@
                                      target:self 
                                    selector:@selector(displayCouponTableView:) 
                                    userInfo:nil 
-                                    repeats:YES];
+                                    repeats:NO];
 }
 
 //------------------------------------------------------------------------------
@@ -196,6 +196,7 @@
 
     TikTokAppDelegate *appDelegate = (TikTokAppDelegate*)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = appDelegate.navigationController;
+    [self.physicsController stopWorld];
 }
 
 //------------------------------------------------------------------------------

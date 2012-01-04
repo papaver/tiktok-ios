@@ -57,4 +57,32 @@
 
 //-----------------------------------------------------------------------------
 
++ (void) printHierarchyForView:(UIView*)view withHeader:(NSString*)header
+{
+    // print out the current view information
+
+    NSLog(@"%@%@ - %@ - %d", header, view, 
+        [NSValue valueWithCGRect:view.frame], [view isFirstResponder]);
+
+    // extend the header
+    NSString *childHeader = [NSString stringWithFormat:@" %@", header];
+
+    // print out the children
+    NSArray *subviews = view.subviews;
+    NSUInteger count  = subviews.count;
+    for (NSUInteger index = 0; index < count; ++index) {
+        UIView *childView = [subviews objectAtIndex:index];
+        [Utilities printHierarchyForView:childView withHeader:childHeader];
+    }
+}
+
+//-----------------------------------------------------------------------------
+
++ (void) printHierarchyForView:(UIView*)view
+{
+    [Utilities printHierarchyForView:view withHeader:@""];
+}
+
+//-----------------------------------------------------------------------------
+
 @end

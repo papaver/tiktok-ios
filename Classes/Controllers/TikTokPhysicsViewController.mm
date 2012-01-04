@@ -23,6 +23,16 @@
 #define PTM_RATIO 16
 
 //------------------------------------------------------------------------------
+// enums
+//------------------------------------------------------------------------------
+
+enum kViewTag
+{
+    kTagTik = 1,
+    kTagTok = 2,
+};
+
+//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
@@ -42,8 +52,6 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize tik   = mTik;
-@synthesize tok   = mTok;
 @synthesize timer = mTimer;
 
 //------------------------------------------------------------------------------
@@ -53,21 +61,6 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-
-    // setup the box2d physics world 
-    [self createPhysicsWorld];
-
-    // add tik and tok to the world
-    [self addPhysicalBodyForView:mTik];
-    [self addPhysicalBodyForView:mTok];
-
-    // setup a timer to run the main update loop
-    CGFloat interval = 1.0 / 60.0;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:interval 
-                                                  target:self 
-                                                selector:@selector(updateWorld:) 
-                                                userInfo:nil 
-                                                 repeats:YES];
 }
 
 //------------------------------------------------------------------------------
@@ -84,16 +77,16 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    [self.view becomeFirstResponder];
     [super viewWillAppear:animated];
+    [self.view becomeFirstResponder];
 }
 
 //------------------------------------------------------------------------------
 
 - (void) viewWillDisappear:(BOOL)animated
 {
-    [self.view resignFirstResponder];
     [super viewWillDisappear:animated];
+    [self.view resignFirstResponder];
 }
 
 //------------------------------------------------------------------------------
@@ -107,21 +100,62 @@
 }
  
 //------------------------------------------------------------------------------
+#pragma - Public Api
+//------------------------------------------------------------------------------
+
+- (void) startWorld
+{
+    // make sure simulation hasn't already started
+    if (mWorld) return;
+
+    // setup the box2d physics world 
+    [self createPhysicsWorld];
+
+    // add tik and tok to the world
+    UIView *tik = [self.view viewWithTag:kTagTik];
+    UIView *tok = [self.view viewWithTag:kTagTok];
+    [self addPhysicalBodyForView:tik];
+    [self addPhysicalBodyForView:tok];
+
+    // setup a timer to run the main update loop
+    CGFloat interval = 1.0 / 60.0;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:interval 
+                                                  target:self 
+                                                selector:@selector(updateWorld:) 
+                                                userInfo:nil 
+                                                 repeats:YES];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) stopWorld
+{
+    if (!mWorld) delete mWorld;
+    mWorld = NULL;
+    [self.timer invalidate];
+    [self.timer release];
+}
+
+//------------------------------------------------------------------------------
 #pragma - Helper Functions
 //------------------------------------------------------------------------------
 
 - (void) setHappyTikTok
 {
-    self.tik.image = [UIImage imageNamed:@"Tik.png"];
-    self.tok.image = [UIImage imageNamed:@"Tok.png"];
+    UIImageView *tik = (UIImageView*)[self.view viewWithTag:kTagTik];
+    UIImageView *tok = (UIImageView*)[self.view viewWithTag:kTagTok];
+    tik.image        = [UIImage imageNamed:@"Tik.png"]; 
+    tok.image        = [UIImage imageNamed:@"Tok.png"]; 
 }
 
 //------------------------------------------------------------------------------
 
 - (void) setShakenTikTok
 {
-    self.tik.image = [UIImage imageNamed:@"TikShaken.png"];
-    self.tok.image = [UIImage imageNamed:@"TokShaken.png"];
+    UIImageView *tik = (UIImageView*)[self.view viewWithTag:kTagTik];
+    UIImageView *tok = (UIImageView*)[self.view viewWithTag:kTagTok];
+    tik.image        = [UIImage imageNamed:@"TikShaken.png"]; 
+    tok.image        = [UIImage imageNamed:@"TokShaken.png"]; 
 }
 
 //------------------------------------------------------------------------------
@@ -258,11 +292,16 @@
 {
     NSLog(@"Shaking Tik n' Tok");
 
+    // setup the world
+    [self startWorld];
+
+    // add impulse 
     b2Body* body = mWorld->GetBodyList();
     body->ApplyLinearImpulse(b2Vec2(5000, 5000), body->GetWorldCenter());
     body = body->GetNext();
     body->ApplyLinearImpulse(b2Vec2(-5000, 5000), body->GetWorldCenter());
 
+    // update images
     [self setShakenTikTok];
 }
 
@@ -276,6 +315,7 @@
  */
 - (void) didReceiveMemoryWarning
 {
+    [self stopWorld];
     [super didReceiveMemoryWarning];
 }
 
@@ -283,8 +323,7 @@
 
 - (void) dealloc
 {
-    delete mWorld;
-    [self.timer invalidate];
+    [self stopWorld];
     [super dealloc];
 }
 

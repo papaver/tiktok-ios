@@ -30,6 +30,12 @@
                                             action:(NSString*)action
                                    iconBadgeNumber:(NSUInteger)iconBadgeNumber;
 
+/**
+ * Prints out the view hierarchy for the main application window with the 
+ * associated frames for all the views.
+ */
++ (void) printHierarchyForView:(UIView*)view;
+
 //-----------------------------------------------------------------------------
 
 @end

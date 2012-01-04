@@ -61,6 +61,9 @@
     // start up test flight
     [TestFlight takeOff:TESTFLIGHT_API_KEY];
 
+    // we need this to allow events to propagate through properly
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
