@@ -91,10 +91,10 @@
     }
 
     // create a new coupon object
-    coupon = (Coupon*)[NSEntityDescription 
+    coupon = [[NSEntityDescription 
         insertNewObjectForEntityForName:@"Coupon" 
-                 inManagedObjectContext:context];
-    [coupon initWithJsonDictionary:data];
+                 inManagedObjectContext:context]
+                initWithJsonDictionary:data];
     coupon.merchant = merchant;
 
     // -- debug --

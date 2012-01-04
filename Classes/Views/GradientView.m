@@ -127,6 +127,10 @@
     // draw the gradient
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextDrawLinearGradient(context, gradient, start, end, 0);
+
+    // release gradient
+    CGGradientRelease(gradient);
+    CGColorSpaceRelease(colorSpace);
 }
 
 //------------------------------------------------------------------------------

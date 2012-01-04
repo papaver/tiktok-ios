@@ -80,10 +80,10 @@
     }
 
     // create a new merchant object
-    merchant = (Merchant*)[NSEntityDescription 
+    merchant = [[NSEntityDescription 
         insertNewObjectForEntityForName:@"Merchant" 
-                 inManagedObjectContext:context];
-    [merchant initWithJsonDictionary:data];
+                 inManagedObjectContext:context]
+                initWithJsonDictionary:data];
 
     // -- debug --
     NSLog(@"Merchant: created %@", merchant.name);

@@ -72,10 +72,6 @@ enum CouponTag {
 {
     [super viewDidLoad];
 
-    // [moiz] not sure if this is the best way to add a background to the table
-    self.view.backgroundColor = 
-        [UIColor colorWithPatternImage:[UIImage imageNamed:@"CouponTableBackground.png"]];
-
     // patch font in cell
     UILabel *timer = (UILabel*)[self.cellView viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
@@ -526,11 +522,11 @@ enum CouponTag {
     request.sortDescriptors = sortDescriptors;
 
     // create a results controller from the request
-    self.fetchedCouponsController = [[NSFetchedResultsController alloc] 
+    self.fetchedCouponsController = [[[NSFetchedResultsController alloc] 
         initWithFetchRequest:request 
         managedObjectContext:managedObjectContext 
           sectionNameKeyPath:nil
-                   cacheName:@"coupon_table"];
+                   cacheName:@"coupon_table"] autorelease];
     self.fetchedCouponsController.delegate = self;
 
     // preform the fetch
@@ -651,6 +647,7 @@ enum CouponTag {
 
 - (void) dealloc 
 {
+    mFetchedCouponsController.delegate = nil;
     [mFetchedCouponsController release];
     [mCellView release];
     [super dealloc];

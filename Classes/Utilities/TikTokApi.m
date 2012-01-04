@@ -114,9 +114,12 @@ static NSData *sDeviceToken;
 
 - (void) dealloc
 {
-    [self.adapter  release];
-    [self.parser   release];
-    [self.jsonData release];
+    mAdapter.delegate = nil;
+    mParser.delegate  = nil;
+
+    [mAdapter  release];
+    [mParser   release];
+    [mJsonData release];
 
     [super dealloc];
 }
