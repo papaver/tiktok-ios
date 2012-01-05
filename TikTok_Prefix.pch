@@ -13,7 +13,8 @@
     #import <Foundation/Foundation.h>
     #import <MapKit/MapKit.h>
     #import <UIKit/UIKit.h>
+    #import "UIColor-Expanded.h"
+    #import "UIDevice+GUID.h"
     #import "Macros.h"
     #import "TestFlight.h"
-    #import "UIColor-Expanded.h"
 #endif
