@@ -10,11 +10,11 @@
 // imports
 //------------------------------------------------------------------------------
 
-#import "TikTokAppDelegate.h"
 #import "Coupon.h"
 #import "CouponViewController.h"
 #import "CouponTableViewCell.h"
 #import "CouponDetailViewController.h"
+#import "Database.h"
 #import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
@@ -493,19 +493,16 @@ enum CouponTag {
 
 - (NSFetchedResultsController*) fetchedCouponsController
 {
-    // -- temp --
-    NSManagedObjectContext *managedObjectContext = 
-        [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) 
-        managedObjectContext];
-
     // check if controller already created
     if (mFetchedCouponsController) {
         return mFetchedCouponsController;
     }
 
+    NSManagedObjectContext *context = [[Database getInstance] context];
+
     // create an entity description object
     NSEntityDescription *description = [NSEntityDescription 
-        entityForName:@"Coupon" inManagedObjectContext:managedObjectContext];
+        entityForName:@"Coupon" inManagedObjectContext:context];
                                                    
     // create a sort descriptor
     NSSortDescriptor *sortByStartDate = [[[NSSortDescriptor alloc] 
@@ -524,7 +521,7 @@ enum CouponTag {
     // create a results controller from the request
     self.fetchedCouponsController = [[[NSFetchedResultsController alloc] 
         initWithFetchRequest:request 
-        managedObjectContext:managedObjectContext 
+        managedObjectContext:context 
           sectionNameKeyPath:nil
                    cacheName:@"coupon_table"] autorelease];
     self.fetchedCouponsController.delegate = self;

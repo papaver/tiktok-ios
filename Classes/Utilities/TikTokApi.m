@@ -11,9 +11,23 @@
 //------------------------------------------------------------------------------
 
 #import "TikTokApi.h"
-#import "Merchant.h"
+#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 #import "Coupon.h"
-#import "Location.h"
+#import "Database.h"
+#import "Merchant.h"
+#import "Utilities.h"
+
+//------------------------------------------------------------------------------
+// interface definition
+//------------------------------------------------------------------------------
+
+@interface TikTokApi ()
+    + (NSString*) apiUrlPath;
+    - (void) parseData:(NSData*)data;
+    - (void) parseRegistrationId:(NSDictionary*)data;
+    - (void) parseCouponData:(NSDictionary*)data;
+@end
 
 //------------------------------------------------------------------------------
 // interface implementation
@@ -23,67 +37,19 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize adapter        = mAdapter;
-@synthesize parser         = mParser;
-@synthesize jsonData       = mJsonData;
-@synthesize managedContext = mManagedContext;
-
-//------------------------------------------------------------------------------
-
-static NSData *sDeviceToken;
+@synthesize adapter           = mAdapter;
+@synthesize parser            = mParser;
+@synthesize jsonData          = mJsonData;
+@synthesize completionHandler = mCompletionHandler;
+@synthesize errorHandler      = mErrorHandler;
 
 //------------------------------------------------------------------------------
 #pragma mark - Statics
 //------------------------------------------------------------------------------
 
-+ (NSData*) deviceToken
-{
-    return sDeviceToken;
-}
-
-//------------------------------------------------------------------------------
-
-+ (void) setDeviceToken:(NSData*)deviceToken
-{
-    // release current token if it exists
-    if (sDeviceToken != nil) [sDeviceToken release];
-
-    // set new device token
-    sDeviceToken = deviceToken;
-    [sDeviceToken retain];
-
-    NSLog(@"TikTokApi: Setting device token: %@", [sDeviceToken description]);
-}
-
-//------------------------------------------------------------------------------
-
 + (NSString*) apiUrlPath
 {
     return @"http://electric-dusk-7349.herokuapp.com/";
-}
-
-//------------------------------------------------------------------------------
-
-+ (NSData*) httpQueryWithUrlPath:(NSString*)urlPath andPostData:(NSString*)postData
-{
-    NSLog(@"post data -> %@", postData);
-
-    // create a url object from the path
-    NSURL *url = [[[NSURL alloc] initWithString:urlPath] autorelease];
-
-    // setup the post data for the url
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[postData dataUsingEncoding:NSUTF8StringEncoding]];
-
-    // retrive data
-    NSURLResponse *response;
-    NSError *error;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request 
-                                         returningResponse:&response 
-                                                     error:&error];
-
-    return data;
 }
 
 //------------------------------------------------------------------------------
@@ -126,94 +92,100 @@ static NSData *sDeviceToken;
 
 //------------------------------------------------------------------------------
 
-- (Location*) checkInWithCurrentLocation:(CLLocation*)location
-{
-    CLLocationDegrees latitude  = location.coordinate.latitude;
-    CLLocationDegrees longitude = location.coordinate.longitude;
-
-    // construct the checkin url path 
-    NSString *urlPath = [NSString stringWithFormat:@"%@/register", 
-        [TikTokApi apiUrlPath]];
-
-    // convert token data into a string
-    NSString *deviceTokenStr = 
-        [[[TikTokApi deviceToken] description] stringByTrimmingCharactersInSet:
-            [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-
-    // setup the post data for the url
-    NSString *postData = [NSString stringWithFormat:@"token=%@&lat=%lf&long=%lf", 
-        deviceTokenStr, latitude, longitude];
-
-    // attempt to checkin with the server
-    NSData* data = [TikTokApi httpQueryWithUrlPath:urlPath 
-                                       andPostData:postData];
-    NSLog(@"api data -> %s", (char*)[data bytes]);
-
-    // clear out the cache
-    [self.jsonData removeAllObjects];
-
-    // set the parser for the incoming json data
-    mParserMethod = NSSelectorFromString(@"parseLocationData:");
-
-    [self parseData:data];
-
-    // return location if found
-    if (self.jsonData.count != 0) {
-        return [self.jsonData objectAtIndex:0];
-    } else {
-        return nil;
-    }
-}
-
-//------------------------------------------------------------------------------
-
-- (bool) checkOut
+- (void) registerDevice:(NSString*)deviceId
 {
     // construct the checkin url path 
-    NSString *urlPath = [NSString stringWithFormat:@"%@/checkout", 
-        [TikTokApi apiUrlPath]];
-
-    // convert token data into a string
-    NSString *deviceTokenStr = 
-        [[[TikTokApi deviceToken] description] stringByTrimmingCharactersInSet:
-            [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-
-    // setup the post data for the url
-    NSString *postData = [NSString stringWithFormat:@"token=%@", deviceTokenStr];
-
-    // attempt to checkin with the server
-    [TikTokApi httpQueryWithUrlPath:urlPath andPostData:postData];
-
-    return YES;
-}
-
-//------------------------------------------------------------------------------
-
-- (NSMutableArray*) getActiveCoupons
-{
-    // need the token as a string
-    NSString *deviceTokenStr = [[[[TikTokApi deviceToken] description]
-        stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]]
-        stringByReplacingOccurrencesOfString:@" " 
-        withString:@"%20"];
-
     NSURL *url = [[[NSURL alloc] initWithString:
-        [NSString stringWithFormat:@"%@/coupons?token=%@", 
-            [TikTokApi apiUrlPath], deviceTokenStr]] autorelease];
+        $string(@"%@/register?uuid=%@", [TikTokApi apiUrlPath], deviceId)] 
+        autorelease];
 
-    // query data from the server
-    NSData *data = [[[NSData alloc] initWithContentsOfURL:url] autorelease];
-    //NSLog(@"active coupons -> %s", (char*)[data bytes]);
+    // setup the async request
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setCompletionBlock:^{
+
+        // parse data
+        mParserMethod = NSSelectorFromString(@"parseRegistrationId:");
+        [self parseData:[request responseData]];
+
+        // run handler
+        if (self.completionHandler) self.completionHandler(request);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to register deviceId: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // clear out the cache
+    [self.jsonData removeAllObjects];
+ 
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) registerNotificationToken:(NSString*)token
+{
+    // construct the checkin url path 
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        autorelease];
+
+    // need the token as a string
+    NSString *tokenTrimmed = [token stringByTrimmingCharactersInSet:
+        [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+
+    // setup the async request
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setRequestMethod:@"PUT"];
+    [request setPostValue:tokenTrimmed forKey:@"token"];
+    [request setCompletionBlock:^{
+        if (self.completionHandler) self.completionHandler(request);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to register notification token: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) syncActiveCoupons
+{
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/consumers/%@/coupons", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        autorelease];
 
     // clear out the cache
     [self.jsonData removeAllObjects];
 
-    // set the parser for the incoming json data
-    mParserMethod = NSSelectorFromString(@"parseCouponData:");
+    // setup the async request
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setCompletionBlock:^{
 
-    [self parseData:data];
+        // parse data
+        mParserMethod = NSSelectorFromString(@"parseCouponData:");
+        [self parseData:[request responseData]];
 
-    return self.jsonData;
+        // run completion handler
+        if (self.completionHandler) self.completionHandler(request);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to sync coupons: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+ 
+    // initiate the request
+    [request startAsynchronous];
 }
 
 //------------------------------------------------------------------------------
@@ -236,38 +208,25 @@ static NSData *sDeviceToken;
 #pragma mark - Custom JSON Parserers
 //------------------------------------------------------------------------------
 
-- (void) parseLocationData:(NSDictionary*)data
+- (void) parseRegistrationId:(NSDictionary*)data
 {
-    // parse the location data
-    NSDictionary *locationData = [data objectForKey:@"checkin_point"];
-    Location *location = 
-        [Location getOrCreateLocationWithJsonData:locationData 
-                                      fromContext:self.managedContext];
-
-    // skip out if we can't retrive a location from the checkin
-    if (location == nil) {
-        NSLog(@"failed to parse location on checkin.");
-        return;
-    }
-
-    // -- debug --
-    NSLog(@"parsed location: %@", location ? location.name : @"nil");
-
-    // parse the coupon data
-    for (NSDictionary *couponData in [data objectForKey:@"coupons"]) {
-        [self parseCouponData:couponData];
-    }
+    NSLog(@"data -> %@", data);
+    NSNumber *customerId = [data objectForKey:@"id"];
+    NSLog(@"parsed customer id: %@", customerId);
+    [self.jsonData addObject:$string(@"%@", customerId)];
 }
 
 //------------------------------------------------------------------------------
 
 - (void) parseCouponData:(NSDictionary*)data
 {
+    NSManagedObjectContext *context = [[Database getInstance] context];
+
     // create merchant from json 
     NSDictionary *merchantData = [data objectForKey:@"merchant"];
     Merchant *merchant = 
         [Merchant getOrCreateMerchantWithJsonData:merchantData 
-                                      fromContext:self.managedContext];
+                                      fromContext:context];
 
     // skip out if we can't retrive a merchant from the checkin
     if (merchant == nil) {
@@ -281,13 +240,10 @@ static NSData *sDeviceToken;
     // create coupon from json
     //Coupon *coupon = 
         [Coupon getOrCreateCouponWithJsonData:data 
-                                  fromContext:self.managedContext];
+                                  fromContext:context];
     
     // add coupon to merchant
     //[merchant addCouponObject:coupon];
-
-    //NSLog(@"merchant: %@", merchant.name);
-    //NSLog(@"coupon: %@", coupon.description);
 
     // save merchant in cache
     [self.jsonData addObject:merchant];
@@ -303,7 +259,7 @@ static NSData *sDeviceToken;
 - (void) parser:(SBJsonStreamParser*)parser foundArray:(NSArray*)array
 {
     NSLog(@"json: array found.");
-
+    NSLog(@"data -> %@", array);
     for (NSDictionary *data in array) {
         [self performSelector:mParserMethod withObject:data];
     }
@@ -317,7 +273,7 @@ static NSData *sDeviceToken;
 - (void) parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary*)dict
 {
     NSLog(@"json: dictionary found.");
-
+    NSLog(@"data -> %@", dict);
     [self performSelector:mParserMethod withObject:dict];
 }
 

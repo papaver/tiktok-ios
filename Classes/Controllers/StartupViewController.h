@@ -14,23 +14,25 @@
 #import "TikTokPhysicsViewController.h"
 
 //------------------------------------------------------------------------------
+// typedefs
+//------------------------------------------------------------------------------
+
+typedef void (^StartupCompletionHandler)(void);
+
+//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
 @interface StartupViewController : UIViewController
 {
     TikTokPhysicsViewController *mPhysicsController;
-    NSOperationQueue*            mOperationQueue;
+    StartupCompletionHandler     mCompletionHandler;
 }
 
 //------------------------------------------------------------------------------
 
 @property (nonatomic, retain) IBOutlet TikTokPhysicsViewController *physicsController;
-@property (nonatomic, retain)          NSOperationQueue            *operationQueue;
-
-//------------------------------------------------------------------------------
-
-- (void) onDeviceTokenReceived:(NSData*)deviceToken;
+@property (nonatomic, copy)            StartupCompletionHandler     completionHandler;
 
 //------------------------------------------------------------------------------
 

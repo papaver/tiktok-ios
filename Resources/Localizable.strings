@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  TikTok
+
+  Created by Moiz Merchant on 1/5/12.
+  Copyright (c) 2012 TikTok. All rights reserved.
+*/
+
+"TITLE_NETWORK_ERROR"          = "Network Error";
+"MESSAGE_DEVICEID_REG_FAILURE" = "There seems to be an error with the network. Unable to register your device with our server. Please try again later.";

@@ -18,7 +18,13 @@
 // forward declarations
 //------------------------------------------------------------------------------
 
-@class Location;
+@class ASIHTTPRequest;
+
+//------------------------------------------------------------------------------
+// typedefs
+//------------------------------------------------------------------------------
+
+typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 
 //------------------------------------------------------------------------------
 // interface implementation 
@@ -26,32 +32,27 @@
 
 @interface TikTokApi : NSObject <SBJsonStreamParserAdapterDelegate>
 {
-    SBJsonStreamParser        *mParser;
-    SBJsonStreamParserAdapter *mAdapter;
-    NSMutableArray            *mJsonData;
-    SEL                        mParserMethod;
-    NSManagedObjectContext    *mManagedContext;
+    SBJsonStreamParser         *mParser;
+    SBJsonStreamParserAdapter  *mAdapter;
+    NSMutableArray             *mJsonData;
+    SEL                         mParserMethod;
+    TikTokApiCompletionHandler  mCompletionHandler;
+    TikTokApiCompletionHandler  mErrorHandler;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) SBJsonStreamParser        *parser;
-@property (nonatomic, retain) SBJsonStreamParserAdapter *adapter;
-@property (nonatomic, retain) NSMutableArray            *jsonData;
-@property (nonatomic, retain) NSManagedObjectContext    *managedContext;
+@property (nonatomic, retain) SBJsonStreamParser         *parser;
+@property (nonatomic, retain) SBJsonStreamParserAdapter  *adapter;
+@property (nonatomic, retain) NSMutableArray             *jsonData;
+@property (nonatomic, copy)   TikTokApiCompletionHandler  completionHandler;
+@property (nonatomic, copy)   TikTokApiCompletionHandler  errorHandler;
 
 //------------------------------------------------------------------------------
 
-+ (void) setDeviceToken:(NSData*)deviceToken;
-
-- (Location*) checkInWithCurrentLocation:(CLLocation*)location;
-- (bool) checkOut;
-
-- (NSMutableArray*) getActiveCoupons;
-
-- (void) parseData:(NSData*)data;
-- (void) parseLocationData:(NSDictionary*)data;
-- (void) parseCouponData:(NSDictionary*)data;
+- (void) registerDevice:(NSString*)deviceId;
+- (void) registerNotificationToken:(NSString*)token;
+- (void) syncActiveCoupons;
 
 //------------------------------------------------------------------------------
 

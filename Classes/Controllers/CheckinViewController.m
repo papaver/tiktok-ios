@@ -103,9 +103,9 @@
     */
 
     // load the coupons into the database
-    TikTokApi *api = [[TikTokApi new] autorelease];
-    api.managedContext = [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) managedObjectContext];
-    [api getActiveCoupons];
+    //TikTokApi *api = [[TikTokApi new] autorelease];
+    //api.managedContext = [((TikTokAppDelegate*)[[UIApplication sharedApplication] delegate]) managedObjectContext];
+    //[api getActiveCoupons];
 
     // use the api to contact the server and attempt to checkin
     //TikTokApi *api = [[TikTokApi new] autorelease];
@@ -159,8 +159,8 @@
     }
 
     // use the api to contact the server to checkout
-    TikTokApi *api = [[TikTokApi new] autorelease];
-    [api checkOut];
+    //TikTokApi *api = [[TikTokApi new] autorelease];
+    //[api checkOut];
             
     // stop recieving location updates
     [self.locationController.locationManager stopUpdatingLocation];
