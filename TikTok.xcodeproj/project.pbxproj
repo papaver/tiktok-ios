@@ -19,6 +19,8 @@
 		2E1F722F13619C2800F947E3 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */; };
 		2E201E4314B67FF0001E9051 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4214B67FF0001E9051 /* Localizable.strings */; };
 		2E201E4614B7AC17001E9051 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E201E4514B7AC17001E9051 /* Database.m */; };
+		2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4714BB58EB001E9051 /* RedeemedSash.png */; };
+		2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */; };
 		2E5FEADB14A1106400B516FE /* Icon01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD514A1106300B516FE /* Icon01.png */; };
 		2E5FEADC14A1106400B516FE /* Icon01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD614A1106300B516FE /* Icon01@2x.png */; };
 		2E5FEADD14A1106400B516FE /* Icon02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD714A1106300B516FE /* Icon02.png */; };
@@ -212,6 +214,8 @@
 		2E201E4214B67FF0001E9051 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2E201E4414B7AC17001E9051 /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		2E201E4514B7AC17001E9051 /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
+		2E201E4714BB58EB001E9051 /* RedeemedSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemedSash.png; sourceTree = "<group>"; };
+		2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemedSash@2x.png"; sourceTree = "<group>"; };
 		2E5FEAD514A1106300B516FE /* Icon01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon01.png; sourceTree = "<group>"; };
 		2E5FEAD614A1106300B516FE /* Icon01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon01@2x.png"; sourceTree = "<group>"; };
 		2E5FEAD714A1106300B516FE /* Icon02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon02.png; sourceTree = "<group>"; };
@@ -628,6 +632,8 @@
 				2EE8580A14ABAA08008055AD /* CompanyBackground@2x.png */,
 				2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */,
 				2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */,
+				2E201E4714BB58EB001E9051 /* RedeemedSash.png */,
+				2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */,
 				2EE857F714AA668F008055AD /* CompanyInfo.png */,
 				2EE857F814AA668F008055AD /* CompanyInfo@2x.png */,
 				2EE857F914AA668F008055AD /* ViewOtherDeals.png */,
@@ -1207,6 +1213,8 @@
 				2EE5D42214AE38E500D0539C /* NeutraDisp-BoldAlt.otf in Resources */,
 				2EE5D43414B25D5200D0539C /* FBDialog.bundle in Resources */,
 				2E201E4314B67FF0001E9051 /* Localizable.strings in Resources */,
+				2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */,
+				2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

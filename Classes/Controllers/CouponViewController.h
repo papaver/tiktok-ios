@@ -18,15 +18,19 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface CouponViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface CouponViewController : UIViewController <NSFetchedResultsControllerDelegate, 
+                                                    UITableViewDelegate, 
+                                                    UITableViewDataSource>
 {
     UITableViewCell            *mCellView;
+    UITableView                *mTableView;
     NSFetchedResultsController *mFetchedCouponsController;
 }
 
 //------------------------------------------------------------------------------
 
 @property (nonatomic, retain) IBOutlet UITableViewCell             *cellView;
+@property (nonatomic, retain) IBOutlet UITableView                 *tableView;
 @property (nonatomic, retain)          NSFetchedResultsController  *fetchedCouponsController;
 
 //------------------------------------------------------------------------------

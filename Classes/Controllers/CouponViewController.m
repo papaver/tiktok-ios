@@ -31,7 +31,10 @@ enum CouponTag {
     kTagTextTime     = 3,
     kTagTextTimer    = 4,
     kTagColorTimer   = 5,
-    kTagIconActivity = 6
+    kTagIconActivity = 6,
+    kTagRedeemedSash = 7,
+    kTagCompanyName  = 8,
+    kTagBackground   = 9
 };
 
 //------------------------------------------------------------------------------
@@ -59,6 +62,7 @@ enum CouponTag {
 //------------------------------------------------------------------------------
 
 @synthesize cellView                 = mCellView;
+@synthesize tableView                = mTableView;
 @synthesize fetchedCouponsController = mFetchedCouponsController;
 
 //------------------------------------------------------------------------------
@@ -74,7 +78,7 @@ enum CouponTag {
 
     // patch font in cell
     UILabel *timer = (UILabel*)[self.cellView viewWithTag:kTagTextTimer];
-    timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
+    timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:19];
 
     // [moiz::temp] purge files 
     IconManager *iconManager = [IconManager getInstance];
@@ -90,8 +94,9 @@ enum CouponTag {
 {
     [super viewWillAppear:animated];
 
-    // hide navigation toolbar
-    [self.navigationController setToolbarHidden:YES animated:YES];
+    // deselect selected rows
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 //------------------------------------------------------------------------------
@@ -268,12 +273,20 @@ enum CouponTag {
     // invaliate the timer
     [cell.timer invalidate];
 
-    // update the coupon title
-    UITextView *title = (UITextView*)[cell viewWithTag:kTagTitle];
-    [title setText:coupon.title];
+    // update the company name
+    UILabel *company = (UILabel*)[cell viewWithTag:kTagCompanyName];
+    [company setText:[coupon.merchant.name uppercaseString]];
+
+    // update the coupon headline
+    UILabel *headline = (UILabel*)[cell viewWithTag:kTagTitle];
+    [headline setText:[coupon.title capitalizedString]];
 
     // setup icon
     [self setupIconForCell:cell atIndexPath:indexPath withCoupon:coupon];
+
+    // configure redeemed sash
+    UIImageView* sash = (UIImageView*)[cell viewWithTag:kTagRedeemedSash];
+    sash.hidden       = !coupon.wasRedeemed;
 
     // update the cell to reflect the state of the coupon
     if ([coupon isExpired]) {
@@ -310,8 +323,10 @@ enum CouponTag {
 
     // update the cell to reflect the state of the coupon
     if ([coupon isExpired]) {
-        [self configureExpiredCell:cell];
         [timer invalidate];
+        [UIView animateWithDuration:0.25 animations:^{
+            [self configureExpiredCell:cell];
+        }];
     } else {
         [self configureActiveCell:cell withCoupon:coupon];
     }
@@ -322,17 +337,21 @@ enum CouponTag {
 
 - (void) configureExpiredCell:(UIView*)cell
 {
-    const static CGFloat expiredAlpha = 0.3;
-    static NSString *offerText        = @"Offer has expired.";
-    static NSString *timerText        = @"00:00:00";
+    const static CGFloat expiredAlpha = 0.4;
+    static NSString *offerText        = @"Offer is no longer available.";
+    static NSString *timerText        = @"TIMES UP!";
+
+    // disable user interaction
+    cell.userInteractionEnabled = NO;
 
     // expire text
-    UILabel *textTime = (UILabel*)[cell viewWithTag:kTagTextTime];
-    textTime.text     = offerText;
+    UILabel *textTime  = (UILabel*)[cell viewWithTag:kTagTextTime];
+    textTime.text      = offerText;
+    textTime.textColor = [UIColor redColor];
 
     // expire timer
-    UILabel *textTimer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
-    textTimer.text     = timerText;
+    UILabel *textTimer  = (UILabel*)[cell viewWithTag:kTagTextTimer];
+    textTimer.text      = timerText;
 
     // color timer
     GradientView *color = (GradientView*)[cell viewWithTag:kTagColorTimer];
@@ -340,7 +359,9 @@ enum CouponTag {
 
     // update the cell opacity
     for (UIView *view in cell.subviews) {
-        view.alpha = expiredAlpha;
+        if (view.tag != kTagBackground) {
+            view.alpha = expiredAlpha;
+        }
     }
 }
 
@@ -348,14 +369,20 @@ enum CouponTag {
 
 - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
 {
+    // enable user interaction
+    cell.userInteractionEnabled = YES;
+
     // fix the opacity
     for (UIView *view in cell.subviews) {
-        view.alpha = 1.0;
+        if (view.tag != kTagBackground) {
+            view.alpha = 1.0;
+        }
     }
 
     // expire time
-    UILabel *expire = (UILabel*)[cell viewWithTag:kTagTextTime];
-    expire.text     = $string(@"Offer expires at %@", [coupon getExpirationTime]);
+    UILabel *expire  = (UILabel*)[cell viewWithTag:kTagTextTime];
+    expire.text      = $string(@"Offer expires at %@", [coupon getExpirationTime]);
+    expire.textColor = [(UILabel*)[self.cellView viewWithTag:kTagTextTime] textColor];
 
     // configure the timers
     [self updateActiveCell:cell withCoupon:coupon];
@@ -419,6 +446,8 @@ enum CouponTag {
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath 
 {
+    // [moiz] this should be cached in some way, causes animation hitch eveytime
+    //  it loads...
     CouponDetailViewController *detailViewController = [[CouponDetailViewController alloc] 
         initWithNibName:@"CouponDetailViewController" bundle:nil];
 
@@ -646,6 +675,7 @@ enum CouponTag {
 {
     mFetchedCouponsController.delegate = nil;
     [mFetchedCouponsController release];
+    [mTableView release];
     [mCellView release];
     [super dealloc];
 }
