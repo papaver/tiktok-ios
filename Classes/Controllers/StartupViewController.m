@@ -23,6 +23,7 @@
     - (void) runStartupProcess;
     - (void) setupLocationTracking;
     - (void) registerDevice;
+    - (void) validateRegistration;
     - (void) registerNotifications;
     - (void) syncCoupons;
 @end
@@ -56,7 +57,7 @@
     if (!customerId) { 
         [self registerDevice];
     } else {
-        [self runStartupProcess];
+        [self validateRegistration];
     }
 }
 
@@ -127,11 +128,10 @@
             // allow the startup process to continue
             [self runStartupProcess];
             
-        // prompt user of registration failure
+        // something went horibbily wrong...
         } else {
-            NSString *title   = NSLocalizedString(@"TITLE_NETWORK_ERROR", nil);
-            NSString *message = NSLocalizedString(@"MESSAGE_DEVICEID_REG_FAILURE", nil);
-            [Utilities displaySimpleAlertWithTitle:title andMessage:message]; 
+            [Utilities displaySimpleAlertWithTitle:@"Registration Error" 
+                                        andMessage:[[request error] description]]; 
         }
     };
 
@@ -144,6 +144,44 @@
 
     // register the device with the server
     [api registerDevice:newDeviceId];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) validateRegistration
+{
+    NSLog(@"StartupController: validating registration with server...");
+
+    // setup an instance of the tiktok api to check registration
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+
+    // setup a completion handler 
+    api.completionHandler = ^(ASIHTTPRequest* request) { 
+
+        // allow the startup process to continue
+        if (request.responseStatusCode == 200) {
+            [self runStartupProcess];
+            
+        // rerun registration process if server no longer registered
+        } else {
+
+            // clean up existing keychain and cahced data and 
+            // re-register with the server
+            [Utilities clearDeviceId];
+            [Utilities clearConsumerId];
+            [self registerDevice];
+        }
+    };
+
+    // alert user of registration check failure?
+    api.errorHandler = ^(ASIHTTPRequest* request) { 
+        NSString *title   = NSLocalizedString(@"TITLE_NETWORK_ERROR", nil);
+        NSString *message = NSLocalizedString(@"MESSAGE_DEVICEID_REG_FAILURE", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message]; 
+    };
+
+    // validate registration with server
+    [api validateRegistration];
 }
 
 //------------------------------------------------------------------------------

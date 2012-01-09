@@ -126,6 +126,32 @@
 
 //------------------------------------------------------------------------------
 
+- (void) validateRegistration
+{
+    // construct the checkin url path 
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/consumers/%@/registered", [TikTokApi apiUrlPath], 
+            [Utilities getConsumerId])] 
+        autorelease];
+
+    // setup the async request
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setCompletionBlock:^{
+        if (self.completionHandler) self.completionHandler(request);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed validate device registration: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
 - (void) registerNotificationToken:(NSString*)token
 {
     // construct the checkin url path 

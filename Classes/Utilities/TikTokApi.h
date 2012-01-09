@@ -51,6 +51,7 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 //------------------------------------------------------------------------------
 
 - (void) registerDevice:(NSString*)deviceId;
+- (void) validateRegistration;
 - (void) registerNotificationToken:(NSString*)token;
 - (void) syncActiveCoupons;
 
