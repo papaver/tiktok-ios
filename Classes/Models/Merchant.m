@@ -24,7 +24,10 @@
 
 @dynamic merchantId;
 @dynamic name;
-@dynamic tagline;
+@dynamic address;
+@dynamic latitude;
+@dynamic longitude;
+@dynamic phone;
 @dynamic category;
 @dynamic details;
 @dynamic iconId;
@@ -113,16 +116,19 @@
 
 - (Merchant*) initWithJsonDictionary:(NSDictionary*)data
 {
-    self.name    = [data objectForKey:@"name"];
-    self.iconId  = [data objectForKey:@"icon_uid"];
-    self.iconUrl = [data objectForKey:@"icon_url"];
+    self.name        = [data objectForKey:@"name"];
+    self.address     = [data objectForKey:@"full_address"];
+    self.latitude    = [data objectForKey:@"latitude"];
+    self.longitude   = [data objectForKey:@"longitude"];
+    self.phone       = [data objectForKey:@"phone_number"];
+    self.details     = [data objectForKey:@"description"];
+    self.iconId      = [data objectForKey:@"icon_uid"];
+    self.iconUrl     = [data objectForKey:@"icon_url"];
+    self.websiteUrl  = [data objectForKey:@"web_url"];
+    self.facebookUrl = [data objectForKey:@"facebook_url"];
+    self.twitterUrl  = [data objectForKey:@"twitter_url"];
 
-    self.tagline     = @"Tag this line";
     self.category    = @"Pub";
-    self.details     = @"I hurt myself today to see if I still feel, i focus on the pain the only thing thats real, the needle tears a hole, the old familiar sting, i try to kill it all away but i remember everything, what have i become, my sweetest friend, everyone i know goes away in the end, and you could have it all, my empire of dirt, i will let you down, i will make you hurt";
-    self.twitterUrl  = @"http://www.twitter.com/tiktok";
-    self.facebookUrl = @"http://www.facebook.com/tiktok";
-    self.websiteUrl  = @"http://www.tiktok.com";
 
     return self;
 }

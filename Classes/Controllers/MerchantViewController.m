@@ -112,8 +112,8 @@ enum MerchantTags
     title.text     = self.merchant.name;
 
     // tagline
-    UILabel *tagline = (UILabel*)[self.view viewWithTag:kTagTagline];
-    tagline.text     = self.merchant.tagline;
+    //UILabel *tagline = (UILabel*)[self.view viewWithTag:kTagTagline];
+   // tagline.text     = self.merchant.tagline;
 
     // category
     UILabel *category = (UILabel*)[self.view viewWithTag:kTagCategory];

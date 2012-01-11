@@ -10,6 +10,7 @@
 // imports
 //------------------------------------------------------------------------------
 
+#import <QuartzCore/QuartzCore.h>
 #import "CouponDetailViewController.h"
 #import "Coupon.h"
 #import "GradientView.h"
@@ -23,15 +24,20 @@
 
 enum CouponDetailTag
 {
-    kTagBarcodeView  = 1,
-    kTagContentView  = 2,
-    kTagTitle        = 3,
-    kTagDetails      = 4,
-    kTagIcon         = 5,
-    kTagIconActivity = 6,
-    kTagColorTimer   = 7,
-    kTagTextTimer    = 8,
-    kTagTextTime     = 9
+    kTagScrollView     = 14,
+    kTagTitleBar       = 11,
+    kTagTitle          =  3,
+    kTagContentView    =  2,
+    kTagIcon           =  5,
+    kTagIconActivity   =  6,
+    kTagColorTimer     =  7,
+    kTagTextTimer      =  8,
+    kTagTextTime       =  9,
+    kTagMap            = 10,
+    kTagCompanyName    = 12,
+    kTagCompanyAddress = 13,
+    kTagDetails        =  4,
+    kTagBarcodeView    =  1,
 };
 
 //------------------------------------------------------------------------------
@@ -39,10 +45,12 @@ enum CouponDetailTag
 //------------------------------------------------------------------------------
 
 @interface CouponDetailViewController ()
+    - (void) addShadows;
     - (void) setupToolbar;
     - (void) setupCouponDetails;
     - (void) setupIcon;
     - (void) setIcon:(UIImage*)image;
+    - (void) setupMap;
     - (void) arrangeSubviewsForRedeemedCouponWithAnimation:(bool)animated;
     - (void) resetSubviews;
     - (void) startTimer;
@@ -91,8 +99,15 @@ enum CouponDetailTag
 
     // add barcode view to the view and hide, do this so it shows up seperately
     // in interface designer and is easier to manage
-    [self.view addSubview:self.barcodeView];
+    UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:kTagScrollView];
+    [scrollView addSubview:self.barcodeView];
     self.barcodeView.hidden = YES;
+
+    // setup toolbar
+    [self setupToolbar];
+
+    // add nice little shadow details
+    [self addShadows];
 
     // correct font on timer
     UILabel *timer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
@@ -110,7 +125,7 @@ enum CouponDetailTag
     if (self.coupon.wasRedeemed) {
         [self arrangeSubviewsForRedeemedCouponWithAnimation:false];
     } else if (![self.coupon isExpired]) {
-        [self setupToolbar];
+        [self.navigationController setToolbarHidden:NO animated:YES];
     } else {
         [self resetSubviews];
     }
@@ -162,32 +177,58 @@ enum CouponDetailTag
     if (mCoupon) [mCoupon release];
     mCoupon = [coupon retain];
     [self setupCouponDetails];
+
+    // fix up scroll view to account for text view content
+    UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:kTagScrollView];
+    UITextView *textView     = (UITextView*)[self.view viewWithTag:kTagDetails];
+    CGSize contentSize       = scrollView.contentSize;
+    contentSize.height       = textView.frame.origin.y + textView.contentSize.height + 60;
+    scrollView.contentSize   = contentSize;
 }
 
 //------------------------------------------------------------------------------
 #pragma - Setup
 //------------------------------------------------------------------------------
 
+- (void) addShadows
+{
+    // map view
+    UIView *titleView             = [self.view viewWithTag:15];
+    titleView.layer.shadowColor   = [[UIColor blackColor] CGColor];
+    titleView.layer.shadowOffset  = CGSizeMake(2.0f, 2.0f);
+    titleView.layer.shadowOpacity = 0.2f;
+
+    // map view
+    UIView *mapView             = [[self.view viewWithTag:kTagMap] superview];
+    mapView.layer.shadowColor   = [[UIColor blackColor] CGColor];
+    mapView.layer.shadowOffset  = CGSizeMake(2.0f, 2.0f);
+    mapView.layer.shadowOpacity = 0.2f;
+}
+
+//------------------------------------------------------------------------------
+
 - (void) setupToolbar
 {
-    // show navigation toolbar
-    [self.navigationController setToolbarHidden:NO animated:YES];
-
     // create a flexible spacer
     UIBarButtonItem *flexibleSpaceButton = [[UIBarButtonItem alloc]
         initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace 
                              target:nil 
                              action:nil];
 
+    // create a bar button
+    UIBarButtonItem *barButtonItem = 
+        [[UIBarButtonItem alloc] initWithCustomView:self.redeemButton];
+     
     // set the items in the toolbar
     self.toolbarItems = $array(
         flexibleSpaceButton, 
-        self.redeemButton, 
+        barButtonItem,
         flexibleSpaceButton,
         nil);
 
     // cleanup 
     [flexibleSpaceButton release];
+    [barButtonItem release];
 }
 
 //------------------------------------------------------------------------------
@@ -196,7 +237,7 @@ enum CouponDetailTag
 {
     // title
     UITextView *title = (UITextView*)[self.view viewWithTag:kTagTitle];
-    title.text        = self.coupon.title;
+    title.text        = [self.coupon.title capitalizedString];
 
     // details
     UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];
@@ -205,6 +246,17 @@ enum CouponDetailTag
     // icon
     [self setupIcon];
 
+    // map
+    [self setupMap];
+    
+    // merchant name
+    UILabel *name = (UILabel*)[self.view viewWithTag:kTagCompanyName];
+    name.text     = [self.coupon.merchant.name uppercaseString];
+
+    // merchant address
+    UILabel *address = (UILabel*)[self.view viewWithTag:kTagCompanyAddress];
+    address.text     = self.coupon.merchant.address;
+    
     // color timer
     GradientView *color = (GradientView*)[self.view viewWithTag:kTagColorTimer];
     color.color         = [self.coupon getColor];
@@ -212,10 +264,6 @@ enum CouponDetailTag
     // text timer
     UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
     label.text     = [self.coupon getExpirationTimer];
-
-    // text expire timer
-    UILabel *expire = (UILabel*)[self.view viewWithTag:kTagTextTime];
-    expire.text     = $string(@"Offer expires at %@.", [self.coupon getExpirationTime]);
 }
 
 //------------------------------------------------------------------------------
@@ -260,6 +308,30 @@ enum CouponDetailTag
     } else {
         [spinner startAnimating];
     }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupMap
+{
+    // center map 
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude  = [self.coupon.merchant.latitude doubleValue];
+    coordinate.longitude = [self.coupon.merchant.longitude doubleValue];
+    MKMapView *map       = (MKMapView*)[self.view viewWithTag:kTagMap];
+    map.centerCoordinate = coordinate;
+
+    // set zoom
+    MKCoordinateRegion viewRegion =
+        MKCoordinateRegionMakeWithDistance(coordinate, 100, 100);
+    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];                
+    [map setRegion:adjustedRegion animated:NO]; 
+
+    // add pin 
+    MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
+    pin.coordinate         = coordinate;
+    [map addAnnotation:pin];
+    [pin release];
 }
 
 //------------------------------------------------------------------------------
@@ -320,8 +392,9 @@ enum CouponDetailTag
 - (void) resetSubviews
 {
     // grab subviews
-    __block UIView *barcodeView  = [self.view viewWithTag:kTagBarcodeView];
-    __block UIView *contentView  = [self.view viewWithTag:kTagContentView];
+    UIView *titleView    = [self.view viewWithTag:kTagTitleBar];
+    UIView *barcodeView  = [self.view viewWithTag:kTagBarcodeView];
+    UIView *contentView  = [self.view viewWithTag:kTagContentView];
 
     // already in default state if barcode is hidden
     if (barcodeView.hidden) return;
@@ -330,11 +403,14 @@ enum CouponDetailTag
     barcodeView.hidden = YES;
 
     // position contentview back to original position
-    CGRect barcodeFrame          = barcodeView.frame;
-    CGRect contentViewFrameNew   = contentView.frame;
-    contentViewFrameNew.origin.x = barcodeFrame.origin.x;
-    contentViewFrameNew.origin.y = barcodeFrame.origin.y;
-    contentView.frame            = contentViewFrameNew;
+    CGRect barcodeFrame            = barcodeView.frame;
+    CGRect titleViewFrameNew       = titleView.frame;
+    CGRect contentViewFrameNew     = contentView.frame;
+    contentViewFrameNew.origin.x   = barcodeFrame.origin.x;
+    contentViewFrameNew.origin.y   = barcodeFrame.origin.y;
+    contentView.frame              = contentViewFrameNew;
+    titleViewFrameNew.size.height -= barcodeFrame.size.height;
+    titleView.frame                = titleViewFrameNew;
 }
 
 //------------------------------------------------------------------------------
@@ -342,8 +418,9 @@ enum CouponDetailTag
 - (void) arrangeSubviewsForRedeemedCouponWithAnimation:(bool)animated
 {
     // grab subviews
-    __block UIView *barcodeView  = [self.view viewWithTag:kTagBarcodeView];
-    __block UIView *contentView  = [self.view viewWithTag:kTagContentView];
+    __block UIView *titleView        = [self.view viewWithTag:kTagTitleBar];
+    __block UIView *barcodeView      = [self.view viewWithTag:kTagBarcodeView];
+    __block UIView *contentView      = [self.view viewWithTag:kTagContentView];
 
     // already configured correctly if barcode is visible
     if (!barcodeView.hidden) return;
@@ -355,31 +432,37 @@ enum CouponDetailTag
     CGRect contentFrame = contentView.frame;
     CGRect barcodeFrame = self.barcodeView.frame;
     CGSize barcodeSize  = self.barcodeView.frame.size;
+    CGRect titleFrame   = titleView.frame;
 
-    // position the barcode view at content view origin and null out height
-    barcodeFrame.origin.x    = contentFrame.origin.x;
-    barcodeFrame.origin.y    = contentFrame.origin.y;
+    // calculate the title bar height
+    __block CGRect titleFrameNew = titleFrame;
+    titleFrameNew.size.height   += barcodeSize.height;
+
+    // position the barcode view at title bar bottom and null out height
+    barcodeFrame.origin.x    = titleFrame.origin.x; 
+    barcodeFrame.origin.y    = titleFrame.origin.y + titleFrame.size.height;;
     barcodeFrame.size.height = 0.1;
     barcodeView.frame        = barcodeFrame;
 
     // calculate the new position for the content view
     __block CGRect contentFrameNew = contentFrame;
     contentFrameNew.origin.y      += barcodeSize.height;
-
-    // calcuate the new size for the 
+    
+        // calcuate the new size for the barcode
     __block CGRect barcodeFrameNew = barcodeFrame;
     barcodeFrameNew.size.height    = barcodeSize.height;
 
-    // calculate the new scroll view height
-    UIScrollView *scrollView = (UIScrollView*)self.view;
-    CGSize scrollSizeNew     = scrollView.frame.size;
-    scrollSizeNew.height    += barcodeSize.height;
-    scrollView.contentSize   = scrollSizeNew;
+    // fix up scroll view to account for text view content
+    UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:kTagScrollView];
+    CGSize contentSize       = scrollView.contentSize;
+    contentSize.height      += barcodeSize.height;
+    scrollView.contentSize   = contentSize;
 
     // animate new views into place
     void (^animationBlock)(void) = ^{
-        contentView.frame      = contentFrameNew;
-        self.barcodeView.frame = barcodeFrameNew;
+        contentView.frame = contentFrameNew;
+        barcodeView.frame = barcodeFrameNew;
+        titleView.frame   = titleFrameNew;
     };
     
     // update the subviews

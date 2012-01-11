@@ -15,6 +15,10 @@
 		2E1144D113946D7900D72753 /* LocationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1144CF13946D7900D72753 /* LocationMapViewController.m */; };
 		2E1144D213946D7900D72753 /* LocationMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1144D013946D7900D72753 /* LocationMapViewController.xib */; };
 		2E1144E31394709700D72753 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1144E21394709700D72753 /* MapKit.framework */; };
+		2E1158B814BBEEEB00659367 /* ShareMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158B614BBEEEA00659367 /* ShareMore.png */; };
+		2E1158B914BBEEEB00659367 /* ShareMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158B714BBEEEB00659367 /* ShareMore@2x.png */; };
+		2E1158BC14BBF56200659367 /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158BA14BBF56200659367 /* Arrow.png */; };
+		2E1158BD14BBF56200659367 /* Arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158BB14BBF56200659367 /* Arrow@2x.png */; };
 		2E1F721E13619BD700F947E3 /* CouponDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */; };
 		2E1F722F13619C2800F947E3 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */; };
 		2E201E4314B67FF0001E9051 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4214B67FF0001E9051 /* Localizable.strings */; };
@@ -87,6 +91,8 @@
 		2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2014A263E2002F6187 /* TokShaken.png */; };
 		2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */; };
 		2E7DBE2814A3AF2B002F6187 /* IconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2714A3AF2B002F6187 /* IconManager.m */; };
+		2E802E5A14BCFCF500F741B6 /* ArrowHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */; };
+		2E802E5B14BCFCF500F741B6 /* ArrowHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */; };
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
@@ -184,6 +190,7 @@
 		2EE8581714ABABBB008055AD /* MerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8581614ABABBB008055AD /* MerchantViewController.m */; };
 		2EE8581B14ABF2F8008055AD /* Barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581914ABF2F8008055AD /* Barcode.png */; };
 		2EE8581C14ABF2F8008055AD /* Barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581A14ABF2F8008055AD /* Barcode@2x.png */; };
+		2EEC685914BD094D006AC9F7 /* UIToolbarSized.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */; };
 		2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */; };
 		2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE2149D863500A68993 /* CellBackground.png */; };
 		2EF0EBEA149D863500A68993 /* CellBackgroundTextPositioning.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */; };
@@ -208,6 +215,10 @@
 		2E1144CF13946D7900D72753 /* LocationMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationMapViewController.m; sourceTree = "<group>"; };
 		2E1144D013946D7900D72753 /* LocationMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationMapViewController.xib; sourceTree = "<group>"; };
 		2E1144E21394709700D72753 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2E1158B614BBEEEA00659367 /* ShareMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareMore.png; sourceTree = "<group>"; };
+		2E1158B714BBEEEB00659367 /* ShareMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareMore@2x.png"; sourceTree = "<group>"; };
+		2E1158BA14BBF56200659367 /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
+		2E1158BB14BBF56200659367 /* Arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow@2x.png"; sourceTree = "<group>"; };
 		2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponDetailViewController.xib; sourceTree = "<group>"; };
 		2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailViewController.h; sourceTree = "<group>"; };
 		2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
@@ -335,6 +346,8 @@
 		2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokShaken@2x.png"; sourceTree = "<group>"; };
 		2E7DBE2614A3AF2B002F6187 /* IconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconManager.h; sourceTree = "<group>"; };
 		2E7DBE2714A3AF2B002F6187 /* IconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconManager.m; sourceTree = "<group>"; };
+		2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowHighlight.png; sourceTree = "<group>"; };
+		2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowHighlight@2x.png"; sourceTree = "<group>"; };
 		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
 		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
@@ -484,6 +497,8 @@
 		2EE8581814ABAC35008055AD /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
 		2EE8581914ABF2F8008055AD /* Barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Barcode.png; sourceTree = "<group>"; };
 		2EE8581A14ABF2F8008055AD /* Barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Barcode@2x.png"; sourceTree = "<group>"; };
+		2EEC685714BD094D006AC9F7 /* UIToolbarSized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIToolbarSized.h; sourceTree = "<group>"; };
+		2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIToolbarSized.m; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2EF0EBE2149D863500A68993 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackground.png; sourceTree = "<group>"; };
 		2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackgroundTextPositioning.png; sourceTree = "<group>"; };
@@ -620,6 +635,12 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */,
+				2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */,
+				2E1158BA14BBF56200659367 /* Arrow.png */,
+				2E1158BB14BBF56200659367 /* Arrow@2x.png */,
+				2E1158B614BBEEEA00659367 /* ShareMore.png */,
+				2E1158B714BBEEEB00659367 /* ShareMore@2x.png */,
 				2EE8581914ABF2F8008055AD /* Barcode.png */,
 				2EE8581A14ABF2F8008055AD /* Barcode@2x.png */,
 				2EE8580314ABAA08008055AD /* ButtonFacebook.png */,
@@ -707,6 +728,8 @@
 				2EE5D41E14AD356700D0539C /* GradientView.m */,
 				2E7DBE1B14A25DC1002F6187 /* TikTokPhysicsView.h */,
 				2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */,
+				2EEC685714BD094D006AC9F7 /* UIToolbarSized.h */,
+				2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1215,6 +1238,12 @@
 				2E201E4314B67FF0001E9051 /* Localizable.strings in Resources */,
 				2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */,
 				2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */,
+				2E1158B814BBEEEB00659367 /* ShareMore.png in Resources */,
+				2E1158B914BBEEEB00659367 /* ShareMore@2x.png in Resources */,
+				2E1158BC14BBF56200659367 /* Arrow.png in Resources */,
+				2E1158BD14BBF56200659367 /* Arrow@2x.png in Resources */,
+				2E802E5A14BCFCF500F741B6 /* ArrowHighlight.png in Resources */,
+				2E802E5B14BCFCF500F741B6 /* ArrowHighlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,6 +1352,7 @@
 				2EE5D44D14B6252B00D0539C /* UIDevice+GUID.m in Sources */,
 				2EE5D45014B65CD500D0539C /* KeychainUtilities.m in Sources */,
 				2E201E4614B7AC17001E9051 /* Database.m in Sources */,
+				2EEC685914BD094D006AC9F7 /* UIToolbarSized.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
