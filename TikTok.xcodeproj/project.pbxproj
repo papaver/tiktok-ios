@@ -80,6 +80,7 @@
 		2E5FEB7D14A1B77500B516FE /* b2WheelJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEB4D14A1B77500B516FE /* b2WheelJoint.cpp */; };
 		2E5FEB7E14A1B77500B516FE /* b2Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEB5014A1B77500B516FE /* b2Rope.cpp */; };
 		2E5FEB8214A1C16C00B516FE /* TikTokPhysicsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEB8014A1C16C00B516FE /* TikTokPhysicsViewController.mm */; };
+		2E6314FF14BE3885001B1D78 /* UILabelExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6314FE14BE3885001B1D78 /* UILabelExt.m */; };
 		2E63B8F21384EE5A00427FF9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E63B8F11384EE5A00427FF9 /* Location.m */; };
 		2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E081213936496008788C2 /* CoreLocation.framework */; };
 		2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E0814139364AF008788C2 /* CoreGraphics.framework */; };
@@ -91,6 +92,7 @@
 		2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2014A263E2002F6187 /* TokShaken.png */; };
 		2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */; };
 		2E7DBE2814A3AF2B002F6187 /* IconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2714A3AF2B002F6187 /* IconManager.m */; };
+		2E7E881A14BE1ADE00B28101 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7E881914BE1ADE00B28101 /* libicucore.dylib */; };
 		2E802E5A14BCFCF500F741B6 /* ArrowHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */; };
 		2E802E5B14BCFCF500F741B6 /* ArrowHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */; };
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
@@ -332,6 +334,8 @@
 		2E5FEB5114A1B77500B516FE /* b2Rope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Rope.h; sourceTree = "<group>"; };
 		2E5FEB7F14A1C16C00B516FE /* TikTokPhysicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokPhysicsViewController.h; sourceTree = "<group>"; };
 		2E5FEB8014A1C16C00B516FE /* TikTokPhysicsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TikTokPhysicsViewController.mm; sourceTree = "<group>"; };
+		2E6314FD14BE3885001B1D78 /* UILabelExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabelExt.h; sourceTree = "<group>"; };
+		2E6314FE14BE3885001B1D78 /* UILabelExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelExt.m; sourceTree = "<group>"; };
 		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		2E6E081213936496008788C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -346,6 +350,7 @@
 		2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokShaken@2x.png"; sourceTree = "<group>"; };
 		2E7DBE2614A3AF2B002F6187 /* IconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconManager.h; sourceTree = "<group>"; };
 		2E7DBE2714A3AF2B002F6187 /* IconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconManager.m; sourceTree = "<group>"; };
+		2E7E881914BE1ADE00B28101 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowHighlight.png; sourceTree = "<group>"; };
 		2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowHighlight@2x.png"; sourceTree = "<group>"; };
 		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
@@ -515,6 +520,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E7E881A14BE1ADE00B28101 /* libicucore.dylib in Frameworks */,
 				2EE5D45214B65DF700D0539C /* Security.framework in Frameworks */,
 				2EC672AC1490006800AC5CDF /* CFNetwork.framework in Frameworks */,
 				2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */,
@@ -558,6 +564,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				2E7E881914BE1ADE00B28101 /* libicucore.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				2EC6725B148FFE4500AC5CDF /* ThirdParty */,
@@ -728,6 +735,8 @@
 				2EE5D41E14AD356700D0539C /* GradientView.m */,
 				2E7DBE1B14A25DC1002F6187 /* TikTokPhysicsView.h */,
 				2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */,
+				2E6314FD14BE3885001B1D78 /* UILabelExt.h */,
+				2E6314FE14BE3885001B1D78 /* UILabelExt.m */,
 				2EEC685714BD094D006AC9F7 /* UIToolbarSized.h */,
 				2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */,
 			);
@@ -1353,6 +1362,7 @@
 				2EE5D45014B65CD500D0539C /* KeychainUtilities.m in Sources */,
 				2E201E4614B7AC17001E9051 /* Database.m in Sources */,
 				2EEC685914BD094D006AC9F7 /* UIToolbarSized.m in Sources */,
+				2E6314FF14BE3885001B1D78 /* UILabelExt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

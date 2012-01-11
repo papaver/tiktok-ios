@@ -20,12 +20,14 @@
 
 enum MerchantTags 
 {
+    kTagCategory     = 5,
     kTagName         = 1,
-    kTagTagline      = 2,
     kTagIcon         = 3,
     kTagIconActivity = 4,
-    kTagCategory     = 5,
     kTagDetails      = 6,
+    kTagAddress      = 7,
+    kTagPhone        = 8,
+    kTagWebsite      = 9,
 };
 
 //------------------------------------------------------------------------------
@@ -33,6 +35,7 @@ enum MerchantTags
 //------------------------------------------------------------------------------
 
 @interface MerchantViewController ()
+    - (void) setupGestureRecognizers;
     - (void) setupMerchantDetails;
     - (void) setupIcon;
     - (void) setIcon:(UIImage*)image;
@@ -56,12 +59,12 @@ enum MerchantTags
 /**
  * Implement viewDidLoad to do additional setup after loading the view, 
  * typically from a nib.
- * /
+ */
 - (void) viewDidLoad 
 {
     [super viewDidLoad];
+    [self setupGestureRecognizers];
 }
-*/
 
 //------------------------------------------------------------------------------
 
@@ -105,20 +108,58 @@ enum MerchantTags
 #pragma - Setup
 //------------------------------------------------------------------------------
 
+- (void) setupGestureRecognizers
+{
+    UILabel *address = (UILabel*)[self.view viewWithTag:kTagAddress]; 
+    UILabel *phone   = (UILabel*)[self.view viewWithTag:kTagPhone]; 
+    UILabel *website = (UILabel*)[self.view viewWithTag:kTagWebsite]; 
+
+    UITapGestureRecognizer* addressTap = 
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAddress:)];
+    UITapGestureRecognizer* phoneTap = 
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPhone:)];
+    UITapGestureRecognizer* websiteTap = 
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickWebsite:)];
+
+    [address setUserInteractionEnabled:YES];
+    [address addGestureRecognizer:addressTap];
+    [phone setUserInteractionEnabled:YES];
+    [phone addGestureRecognizer:phoneTap];
+    [website setUserInteractionEnabled:YES];
+    [website addGestureRecognizer:websiteTap];
+}
+
+//------------------------------------------------------------------------------
+
 - (void) setupMerchantDetails
 {
-    // name
-    UILabel *title = (UILabel*)[self.view viewWithTag:kTagName];
-    title.text     = self.merchant.name;
-
-    // tagline
-    //UILabel *tagline = (UILabel*)[self.view viewWithTag:kTagTagline];
-   // tagline.text     = self.merchant.tagline;
-
     // category
     UILabel *category = (UILabel*)[self.view viewWithTag:kTagCategory];
-    category.text     = $string(@"Category: %@", self.merchant.category);
+    category.text     = self.merchant.category;
     
+    // name
+    UILabel *name = (UILabel*)[self.view viewWithTag:kTagName];
+    name.text     = [self.merchant.name uppercaseString];
+
+    // address
+    UILabel *address   = (UILabel*)[self.view viewWithTag:kTagAddress]; 
+    NSRange firstComma = [self.merchant.address rangeOfString:@", "];
+    address.text     = [self.merchant.address 
+        stringByReplacingOccurrencesOfString:@", " 
+                                  withString:@",\n" 
+                                     options:NSCaseInsensitiveSearch 
+                                       range:NSMakeRange(0, firstComma.location + 2)];
+
+    // phone number
+    UILabel *phone = (UILabel*)[self.view viewWithTag:kTagPhone]; 
+    phone.text     = self.merchant.phone;
+
+    // website
+    UILabel *website = (UILabel*)[self.view viewWithTag:kTagWebsite]; 
+    website.text     = [self.merchant.websiteUrl
+        stringByReplacingOccurrencesOfString:@"http://" 
+                                  withString:@""];
+
     // details
     UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];
     details.text        = self.merchant.details;
@@ -202,16 +243,42 @@ enum MerchantTags
 
 //------------------------------------------------------------------------------
 
-- (IBAction) clickTwitter:(id)sender
+- (IBAction) clickAddress:(id)sender
 {
-    [self presentWebsite:self.merchant.twitterUrl];
+    NSString *address = [self.merchant.address
+        stringByReplacingOccurrencesOfString:@" " 
+                                  withString:@"%20"];
+    NSString *mapPath = $string(@"http://maps.google.com/maps?q=%@", address);
+    NSURL *mapUrl = [NSURL URLWithString:mapPath];
+    [[UIApplication sharedApplication] openURL:mapUrl];
 }
 
 //------------------------------------------------------------------------------
 
-- (IBAction) clickFacebook:(id)sender
+- (IBAction) clickPhone:(id)sender
 {
-    [self presentWebsite:self.merchant.facebookUrl];
+    // construct message for verify phone call
+    NSString *title   = $string(@"Calling %@", self.merchant.name);
+    NSString *message = $string(@"Make call to %@?", self.merchant.phone);
+
+    // display alert window
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        NSURL *phoneUrl = [NSURL URLWithString:$string(@"tel:%@", self.merchant.phone)];
+        [[UIApplication sharedApplication] openURL:phoneUrl];
+    }
 }
 
 //------------------------------------------------------------------------------
