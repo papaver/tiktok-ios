@@ -152,6 +152,7 @@
 		2EC672AE1490008700AC5CDF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AD1490008700AC5CDF /* SystemConfiguration.framework */; };
 		2EC672B0149000B100AC5CDF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AF149000B100AC5CDF /* libz.dylib */; };
 		2EC672B2149000C500AC5CDF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */; };
+		2EE4563A14BF9BA500EDD04B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE4563914BF9BA500EDD04B /* Icon.png */; };
 		2EE5D41F14AD356700D0539C /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5D41E14AD356700D0539C /* GradientView.m */; };
 		2EE5D42214AE38E500D0539C /* NeutraDisp-BoldAlt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2EE5D42114AE38E500D0539C /* NeutraDisp-BoldAlt.otf */; };
 		2EE5D43314B25D5200D0539C /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5D42A14B25D5200D0539C /* Facebook.m */; };
@@ -455,6 +456,7 @@
 		2EC672AF149000B100AC5CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2EC672B51490028500AC5CDF /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		2EE4563914BF9BA500EDD04B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		2EE5D41D14AD356700D0539C /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
 		2EE5D41E14AD356700D0539C /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
 		2EE5D42114AE38E500D0539C /* NeutraDisp-BoldAlt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NeutraDisp-BoldAlt.otf"; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 				2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */,
 				2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */,
 				2E201E4214B67FF0001E9051 /* Localizable.strings */,
+				2EE4563914BF9BA500EDD04B /* Icon.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1280,6 +1283,7 @@
 				2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */,
 				2E6A9EE614BE7BCA00AA4B7B /* ConnectFacebook@2x.png in Resources */,
 				2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */,
+				2EE4563A14BF9BA500EDD04B /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
