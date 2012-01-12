@@ -82,6 +82,10 @@
 		2E5FEB8214A1C16C00B516FE /* TikTokPhysicsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEB8014A1C16C00B516FE /* TikTokPhysicsViewController.mm */; };
 		2E6314FF14BE3885001B1D78 /* UILabelExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6314FE14BE3885001B1D78 /* UILabelExt.m */; };
 		2E63B8F21384EE5A00427FF9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E63B8F11384EE5A00427FF9 /* Location.m */; };
+		2E6A9EE114BE5F5000AA4B7B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */; };
+		2E6A9EE214BE5F5000AA4B7B /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */; };
+		2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */; };
+		2E6A9EE614BE7BCA00AA4B7B /* ConnectFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */; };
 		2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E081213936496008788C2 /* CoreLocation.framework */; };
 		2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E0814139364AF008788C2 /* CoreGraphics.framework */; };
 		2E6E082B139364C2008788C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082A139364C2008788C2 /* Foundation.framework */; };
@@ -92,7 +96,6 @@
 		2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2014A263E2002F6187 /* TokShaken.png */; };
 		2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */; };
 		2E7DBE2814A3AF2B002F6187 /* IconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2714A3AF2B002F6187 /* IconManager.m */; };
-		2E7E881A14BE1ADE00B28101 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7E881914BE1ADE00B28101 /* libicucore.dylib */; };
 		2E802E5A14BCFCF500F741B6 /* ArrowHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */; };
 		2E802E5B14BCFCF500F741B6 /* ArrowHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */; };
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
@@ -101,6 +104,9 @@
 		2E986F15138DFCEE00A301BA /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationController.m */; };
 		2E98714B1393050000A301BA /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E98714A1393050000A301BA /* CheckinViewController.m */; };
 		2E98715A1393064A00A301BA /* CheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9871591393064A00A301BA /* CheckinViewController.xib */; };
+		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
+		2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */; };
+		2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */; };
 		2EB87EC9149FA96700F01C26 /* InitalLoadingSplash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */; };
 		2EB87ECA149FA96700F01C26 /* LoadingPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC2149FA96700F01C26 /* LoadingPage.png */; };
 		2EB87ECB149FA96700F01C26 /* LoadingPage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */; };
@@ -338,6 +344,11 @@
 		2E6314FE14BE3885001B1D78 /* UILabelExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelExt.m; sourceTree = "<group>"; };
 		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		2E6A9EDE14BE5F5000AA4B7B /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConnectFacebook.png; sourceTree = "<group>"; };
+		2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConnectFacebook@2x.png"; sourceTree = "<group>"; };
 		2E6E081213936496008788C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2E6E0814139364AF008788C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2E6E082A139364C2008788C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -350,7 +361,6 @@
 		2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokShaken@2x.png"; sourceTree = "<group>"; };
 		2E7DBE2614A3AF2B002F6187 /* IconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconManager.h; sourceTree = "<group>"; };
 		2E7DBE2714A3AF2B002F6187 /* IconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconManager.m; sourceTree = "<group>"; };
-		2E7E881914BE1ADE00B28101 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowHighlight.png; sourceTree = "<group>"; };
 		2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowHighlight@2x.png"; sourceTree = "<group>"; };
 		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
@@ -364,6 +374,11 @@
 		2E9871491393050000A301BA /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
 		2E98714A1393050000A301BA /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
 		2E9871591393064A00A301BA /* CheckinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckinViewController.xib; sourceTree = "<group>"; };
+		2EA168F914BF4C310099B1F1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		2EA168FA14BF4C310099B1F1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderPickerViewController.h; sourceTree = "<group>"; };
+		2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenderPickerViewController.m; sourceTree = "<group>"; };
+		2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenderPickerViewController.xib; sourceTree = "<group>"; };
 		2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InitalLoadingSplash@2x.png"; sourceTree = "<group>"; };
 		2EB87EC2149FA96700F01C26 /* LoadingPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoadingPage.png; sourceTree = "<group>"; };
 		2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoadingPage@2x.png"; sourceTree = "<group>"; };
@@ -520,7 +535,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E7E881A14BE1ADE00B28101 /* libicucore.dylib in Frameworks */,
 				2EE5D45214B65DF700D0539C /* Security.framework in Frameworks */,
 				2EC672AC1490006800AC5CDF /* CFNetwork.framework in Frameworks */,
 				2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */,
@@ -564,7 +578,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				2E7E881914BE1ADE00B28101 /* libicucore.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				2EC6725B148FFE4500AC5CDF /* ThirdParty */,
@@ -632,9 +645,11 @@
 				2E9871591393064A00A301BA /* CheckinViewController.xib */,
 				28F335F01007B36200424DE2 /* CouponViewController.xib */,
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
+				2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
 				2EB87ED9149FC07C00F01C26 /* StartupViewController.xib */,
+				2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -642,6 +657,8 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */,
+				2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */,
 				2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */,
 				2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */,
 				2E1158BA14BBF56200659367 /* Arrow.png */,
@@ -928,6 +945,8 @@
 				2EE5D43814B25F2F00D0539C /* JSON.h */,
 				2EE5D44E14B65CD400D0539C /* KeychainUtilities.h */,
 				2EE5D44F14B65CD500D0539C /* KeychainUtilities.m */,
+				2EA168F914BF4C310099B1F1 /* Settings.h */,
+				2EA168FA14BF4C310099B1F1 /* Settings.m */,
 				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
 				2E821F8F136C2DCB00507F66 /* TikTokApi.m */,
 				2E5FEAE514A14B6500B516FE /* UIDefaults.h */,
@@ -1054,6 +1073,8 @@
 				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
 				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
 				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
+				2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */,
+				2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */,
 				2E986F13138DFCEE00A301BA /* LocationController.h */,
 				2E986F14138DFCEE00A301BA /* LocationController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
@@ -1064,6 +1085,8 @@
 				2EB87ED8149FC07C00F01C26 /* StartupViewController.m */,
 				2E5FEB7F14A1C16C00B516FE /* TikTokPhysicsViewController.h */,
 				2E5FEB8014A1C16C00B516FE /* TikTokPhysicsViewController.mm */,
+				2E6A9EDE14BE5F5000AA4B7B /* SettingsViewController.h */,
+				2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1253,6 +1276,10 @@
 				2E1158BD14BBF56200659367 /* Arrow@2x.png in Resources */,
 				2E802E5A14BCFCF500F741B6 /* ArrowHighlight.png in Resources */,
 				2E802E5B14BCFCF500F741B6 /* ArrowHighlight@2x.png in Resources */,
+				2E6A9EE214BE5F5000AA4B7B /* SettingsViewController.xib in Resources */,
+				2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */,
+				2E6A9EE614BE7BCA00AA4B7B /* ConnectFacebook@2x.png in Resources */,
+				2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1363,6 +1390,9 @@
 				2E201E4614B7AC17001E9051 /* Database.m in Sources */,
 				2EEC685914BD094D006AC9F7 /* UIToolbarSized.m in Sources */,
 				2E6314FF14BE3885001B1D78 /* UILabelExt.m in Sources */,
+				2E6A9EE114BE5F5000AA4B7B /* SettingsViewController.m in Sources */,
+				2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */,
+				2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

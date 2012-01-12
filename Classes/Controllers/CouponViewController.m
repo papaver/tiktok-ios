@@ -21,6 +21,8 @@
 #import "TikTokApi.h"
 #import "UIDefaults.h"
 
+#import "SettingsViewController.h"
+
 //------------------------------------------------------------------------------
 // enums
 //------------------------------------------------------------------------------
@@ -51,6 +53,7 @@ enum CouponTag {
     - (void) setupIconForCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath withCoupon:(Coupon*)coupon;
     - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
     - (void) loadImagesForOnscreenRows;
+    - (void) handleSettings;
 @end 
 
 //------------------------------------------------------------------------------
@@ -76,6 +79,9 @@ enum CouponTag {
 {
     [super viewDidLoad];
 
+    // set title
+    self.title = @"Deals";
+
     // patch font in cell
     UILabel *timer = (UILabel*)[self.cellView viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:19];
@@ -86,6 +92,12 @@ enum CouponTag {
 
     // tag testflight checkpoint
     [TestFlight passCheckpoint:@"Coupon Table Controller"];
+
+    // add settings option
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"
+        style:UIBarButtonItemStylePlain target:self action:@selector(handleSettings)];
+    self.navigationItem.rightBarButtonItem = settingsButton;
+    [settingsButton release];
 }
 
 //------------------------------------------------------------------------------
@@ -649,23 +661,39 @@ enum CouponTag {
 }
 
 //------------------------------------------------------------------------------
+#pragma - Events
+//------------------------------------------------------------------------------
+
+- (void) handleSettings
+{
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] 
+        initWithNibName:@"SettingsViewController" bundle:nil];
+
+    // pass the selected object to the new view controller.
+    [self.navigationController pushViewController:settingsViewController animated:YES];
+    [settingsViewController release];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Memory Management
 //------------------------------------------------------------------------------
 
+/**
+ * Releases the view if it doesn't have a superview.
+ */
 - (void) didReceiveMemoryWarning 
 {
-    // releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // relinquish ownership any cached data, images, etc that aren't in use.
 }
 
 //------------------------------------------------------------------------------
 
+/**
+ * Relinquish ownership of anything that can be recreated in viewDidLoad 
+ * or on demand.
+ */
 - (void) viewDidUnload 
 {
-    // relinquish ownership of anything that can be recreated in viewDidLoad 
-    //  or on demand.
     // for example: self.myOutlet = nil;
 }
 

@@ -97,6 +97,9 @@ enum CouponDetailTag
 {
     [super viewDidLoad];
 
+    // set title 
+    self.title = @"Deal";
+
     // add barcode view to the view and hide, do this so it shows up seperately
     // in interface designer and is easier to manage
     UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:kTagScrollView];

@@ -64,6 +64,9 @@ enum MerchantTags
 {
     [super viewDidLoad];
     [self setupGestureRecognizers];
+
+    // setup title
+    self.title = @"Merchant";
 }
 
 //------------------------------------------------------------------------------
@@ -231,6 +234,7 @@ enum MerchantTags
     controller.view                   = webView;
     controller.modalTransitionStyle   = UIModalTransitionStyleCoverVertical;
     controller.modalPresentationStyle = UIModalPresentationFullScreen;
+    controller.title                  = self.merchant.name;
 
     // present the webview, should this be done modally?
     //[self presentModalViewController:controller animated:YES];
