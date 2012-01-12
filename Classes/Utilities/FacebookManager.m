@@ -60,7 +60,19 @@
 }
 
 //-----------------------------------------------------------------------------
-#pragma - methods
+#pragma - Public Api
+//-----------------------------------------------------------------------------
+
+- (void) authorizeWithSucessHandler:(FacebookConnectSuccessHandler)handler
+{
+    if (![self.facebook isSessionValid]) {
+        mSuccessHandler = [handler copy];
+        [self.facebook authorize:nil];
+    }
+}
+
+//-----------------------------------------------------------------------------
+#pragma - Methods
 //-----------------------------------------------------------------------------
 
 - (void) loadFacebookData
@@ -103,6 +115,11 @@
 - (void) fbDidLogin 
 {
     [self saveFacebookData];
+    mSuccessHandler();
+
+    // release handler
+    [mSuccessHandler release];
+    mSuccessHandler = nil;
 }
 
 //-----------------------------------------------------------------------------
@@ -118,6 +135,7 @@
 
 - (void) dealloc
 {
+    [mSuccessHandler release];
     [mFacebook release];
     [super dealloc];
 }

@@ -20,12 +20,19 @@
 @class Facebook;
 
 //-----------------------------------------------------------------------------
+// typedefs
+//-----------------------------------------------------------------------------
+
+typedef void (^FacebookConnectSuccessHandler)(void);
+
+//-----------------------------------------------------------------------------
 // interface definition
 //-----------------------------------------------------------------------------
 
 @interface FacebookManager : NSObject <FBSessionDelegate>
 {
-    Facebook *mFacebook;
+    Facebook                      *mFacebook;
+    FacebookConnectSuccessHandler  mSuccessHandler;
 }
 
 //-----------------------------------------------------------------------------
@@ -38,6 +45,11 @@
  * Gets the global instance of the facebook manager.
  */
 + (FacebookManager*) getInstance;
+
+/**
+ * Authorize app to connect with facebook.
+ */
+- (void) authorizeWithSucessHandler:(FacebookConnectSuccessHandler)handler;
 
 //-----------------------------------------------------------------------------
 

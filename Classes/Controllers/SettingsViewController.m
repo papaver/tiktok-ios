@@ -34,7 +34,8 @@ enum TableRows
 enum ViewTags
 {
     kTagNameField  = 1,
-    kTagEmailField = 1
+    kTagEmailField = 1,
+    kTagFacebook   = 2,
 };
 
 //------------------------------------------------------------------------------
@@ -84,6 +85,18 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
+- (void) viewWillAppear:(BOOL)animated 
+{
+    [super viewWillAppear:animated];
+
+    // set correct state on facebook connect button
+    FacebookManager *manager = [FacebookManager getInstance];
+    UIButton *facebookButton = (UIButton*)[self.view viewWithTag:kTagFacebook];
+    facebookButton.enabled   = ![manager.facebook isSessionValid];
+}
+
+//------------------------------------------------------------------------------
+
 /**
  * Override to allow orientations other than the default portrait orientation.
  * /
@@ -120,7 +133,10 @@ enum ViewTags
 {
     FacebookManager *manager = [FacebookManager getInstance];
     if (![manager.facebook isSessionValid]) {
-        [manager.facebook authorize:nil];
+        [manager authorizeWithSucessHandler:^{
+            UIButton *facebookButton = (UIButton*)[self.view viewWithTag:kTagFacebook];
+            facebookButton.enabled   = NO;
+        }];
     }
 }
 
