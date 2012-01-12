@@ -97,9 +97,6 @@
                 initWithJsonDictionary:data];
     coupon.merchant = merchant;
 
-    // -- debug --
-    NSLog(@"new coupon created: %@", coupon.title);
-
     // save the object to store
     NSError *error = nil;
     if (![context save:&error]) {

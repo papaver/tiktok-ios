@@ -26,6 +26,7 @@
     - (void) validateRegistration;
     - (void) registerNotifications;
     - (void) syncCoupons;
+    - (void) progressBar:(NSTimer*)timer;
 @end
 
 //------------------------------------------------------------------------------
@@ -59,6 +60,13 @@
     } else {
         [self validateRegistration];
     }
+
+    // start fake progress bar timer
+    mTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 
+                                              target:self 
+                                            selector:@selector(progressBar:) 
+                                            userInfo:nil 
+                                             repeats:YES];
 }
 
 //------------------------------------------------------------------------------
@@ -225,6 +233,19 @@
 }
 
 //------------------------------------------------------------------------------
+
+- (void) progressBar:(NSTimer*)timer
+{
+    UIProgressView *progressBar = (UIProgressView*)[self.view viewWithTag:3];
+    progressBar.progress       += 0.01;
+
+    // kill timer
+    if (progressBar.progress >= 1.0) {
+        [mTimer invalidate];
+    }
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Memory Management
 //------------------------------------------------------------------------------
 
@@ -241,6 +262,9 @@
 
 - (void) dealloc
 {
+    [mTimer invalidate];
+    [mTimer release];
+    [mPhysicsController release];
     [mCompletionHandler release];
     [super dealloc];
 }

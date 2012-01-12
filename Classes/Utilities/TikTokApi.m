@@ -71,6 +71,9 @@
 
         // initialize merchant array
         self.jsonData = [[NSMutableArray alloc] init];
+
+        // setup the job queue
+        mQueue = dispatch_queue_create("com.tiktok.tiktok.api", NULL);
     }
 
     return self;
@@ -80,6 +83,8 @@
 
 - (void) dealloc
 {
+    dispatch_release(mQueue);
+     
     mAdapter.delegate = nil;
     mParser.delegate  = nil;
 
@@ -197,11 +202,15 @@
     [request setCompletionBlock:^{
 
         // parse data
-        mParserMethod = NSSelectorFromString(@"parseCouponData:");
-        [self parseData:[request responseData]];
+        dispatch_async(mQueue, ^(void) {
+            mParserMethod = NSSelectorFromString(@"parseCouponData:");
+            [self parseData:[request responseData]];
 
-        // run completion handler
-        if (self.completionHandler) self.completionHandler(request);
+            // run handler
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (self.completionHandler) self.completionHandler(request);
+            });
+        });  
     }];
 
     // set error handler
@@ -236,9 +245,8 @@
 
 - (void) parseRegistrationId:(NSDictionary*)data
 {
-    NSLog(@"data -> %@", data);
     NSNumber *customerId = [data objectForKey:@"id"];
-    NSLog(@"parsed customer id: %@", customerId);
+    NSLog(@"TikTokApi: parsed customer id -> %@", customerId);
     [self.jsonData addObject:$string(@"%@", customerId)];
 }
 
@@ -260,17 +268,10 @@
         return;
     }
 
-    // -- debug --
-    NSLog(@"parsed merchant: %@", merchant ? merchant.name : @"nil");
-
     // create coupon from json
-    //Coupon *coupon = 
-        [Coupon getOrCreateCouponWithJsonData:data 
-                                  fromContext:context];
+    [Coupon getOrCreateCouponWithJsonData:data 
+                              fromContext:context];
     
-    // add coupon to merchant
-    //[merchant addCouponObject:coupon];
-
     // save merchant in cache
     [self.jsonData addObject:merchant];
 }
@@ -284,8 +285,7 @@
  */
 - (void) parser:(SBJsonStreamParser*)parser foundArray:(NSArray*)array
 {
-    NSLog(@"json: array found.");
-    NSLog(@"data -> %@", array);
+    //NSLog(@"json: array found.");
     for (NSDictionary *data in array) {
         [self performSelector:mParserMethod withObject:data];
     }
@@ -298,8 +298,7 @@
  */
 - (void) parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary*)dict
 {
-    NSLog(@"json: dictionary found.");
-    NSLog(@"data -> %@", dict);
+    //NSLog(@"json: dictionary found.");
     [self performSelector:mParserMethod withObject:dict];
 }
 

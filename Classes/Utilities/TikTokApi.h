@@ -12,6 +12,7 @@
 
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
+#import <dispatch/dispatch.h>
 #import "SBJson.h"
 
 //------------------------------------------------------------------------------
@@ -38,6 +39,7 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
     SEL                         mParserMethod;
     TikTokApiCompletionHandler  mCompletionHandler;
     TikTokApiCompletionHandler  mErrorHandler;
+    dispatch_queue_t            mQueue;
 }
 
 //------------------------------------------------------------------------------

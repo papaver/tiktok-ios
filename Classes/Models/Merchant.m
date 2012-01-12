@@ -88,9 +88,6 @@
                  inManagedObjectContext:context]
                 initWithJsonDictionary:data];
 
-    // -- debug --
-    NSLog(@"Merchant: created %@", merchant.name);
-
     // save the object to store
     NSError *error = nil;
     if (![context save:&error]) {
