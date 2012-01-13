@@ -40,15 +40,17 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
     TikTokApiCompletionHandler  mCompletionHandler;
     TikTokApiCompletionHandler  mErrorHandler;
     dispatch_queue_t            mQueue;
+    NSManagedObjectContext     *mManagedObjectContext;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) SBJsonStreamParser         *parser;
-@property (nonatomic, retain) SBJsonStreamParserAdapter  *adapter;
-@property (nonatomic, retain) NSMutableArray             *jsonData;
-@property (nonatomic, copy)   TikTokApiCompletionHandler  completionHandler;
-@property (nonatomic, copy)   TikTokApiCompletionHandler  errorHandler;
+@property (nonatomic, retain)           SBJsonStreamParser         *parser;
+@property (nonatomic, retain)           SBJsonStreamParserAdapter  *adapter;
+@property (nonatomic, retain)           NSMutableArray             *jsonData;
+@property (nonatomic, copy)             TikTokApiCompletionHandler  completionHandler;
+@property (nonatomic, copy)             TikTokApiCompletionHandler  errorHandler;
+@property (nonatomic, retain, readonly) NSManagedObjectContext     *context;
 
 //------------------------------------------------------------------------------
 

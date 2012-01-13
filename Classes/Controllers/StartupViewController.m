@@ -12,6 +12,7 @@
 
 #import "StartupViewController.h"
 #import "ASIHTTPRequest.h"
+#import "Database.h"
 #import "TikTokApi.h"
 #import "Utilities.h"
 
@@ -26,6 +27,7 @@
     - (void) validateRegistration;
     - (void) registerNotifications;
     - (void) syncCoupons;
+    - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) progressBar:(NSTimer*)timer;
 @end
 
@@ -228,8 +230,27 @@
         if (self.completionHandler) self.completionHandler();
     };
 
+    // add a notification to allow syncing the contexts..
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(syncManagedObjects:)
+                               name:NSManagedObjectContextDidSaveNotification
+                             object:api.context];
+
     // sync coupons
     [api syncActiveCoupons];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) syncManagedObjects:(NSNotification*)notification
+{
+    Database *database = [Database getInstance];
+    [database.context mergeChangesFromContextDidSaveNotification:notification];
+
+    // remove self from notification center
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter removeObserver:self];
 }
 
 //------------------------------------------------------------------------------

@@ -92,7 +92,30 @@
     [mParser   release];
     [mJsonData release];
 
+    [mManagedObjectContext release];
+
     [super dealloc];
+}
+
+//------------------------------------------------------------------------------
+
+/**
+ * Returns the managed object context for the application.  If the context
+ * doesn't exist, it is created and bound to the persistant store coordinator.
+ */
+- (NSManagedObjectContext*) context
+{
+    // lazy allocation
+    if (mManagedObjectContext != nil)  return mManagedObjectContext;
+
+    // allocate the object context and attach it to the persistant storage
+    Database *database    = [Database getInstance];
+    if (database.context != nil) {
+        mManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType]; 
+        [mManagedObjectContext setPersistentStoreCoordinator:database.coordinator];
+    }
+
+    return mManagedObjectContext;
 }
 
 //------------------------------------------------------------------------------
@@ -194,9 +217,6 @@
         $string(@"%@/consumers/%@/coupons", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
         autorelease];
 
-    // clear out the cache
-    [self.jsonData removeAllObjects];
-
     // setup the async request
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setCompletionBlock:^{
@@ -206,6 +226,11 @@
             mParserMethod = NSSelectorFromString(@"parseCouponData:");
             [self parseData:[request responseData]];
 
+            // save data in the context
+            NSError *error = nil;
+            [self.context save:&error];
+            if (error) NSLog(@"TikTokApi: failed to save context: %@", error);
+                
             // run handler
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 if (self.completionHandler) self.completionHandler(request);
@@ -254,13 +279,11 @@
 
 - (void) parseCouponData:(NSDictionary*)data
 {
-    NSManagedObjectContext *context = [[Database getInstance] context];
-
     // create merchant from json 
     NSDictionary *merchantData = [data objectForKey:@"merchant"];
     Merchant *merchant = 
         [Merchant getOrCreateMerchantWithJsonData:merchantData 
-                                      fromContext:context];
+                                      fromContext:self.context];
 
     // skip out if we can't retrive a merchant from the checkin
     if (merchant == nil) {
@@ -269,11 +292,11 @@
     }
 
     // create coupon from json
-    [Coupon getOrCreateCouponWithJsonData:data 
-                              fromContext:context];
+    Coupon *coupon = [Coupon getOrCreateCouponWithJsonData:data 
+                                               fromContext:self.context];
     
-    // save merchant in cache
-    [self.jsonData addObject:merchant];
+    // save coupon in cache
+    [self.jsonData addObject:coupon];
 }
 
 //------------------------------------------------------------------------------
