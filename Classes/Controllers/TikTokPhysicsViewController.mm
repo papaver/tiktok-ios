@@ -243,9 +243,6 @@ enum kViewTag
 
     // a dynamic body reacts to forces right away
     body->SetType(b2_dynamicBody);
-
-    // we abuse the tag property as pointer to the physical body
-    physicalView.tag = (int)body;
 }
 
 //------------------------------------------------------------------------------
