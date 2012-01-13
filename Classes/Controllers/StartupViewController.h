@@ -28,6 +28,8 @@ typedef void (^StartupCompletionHandler)(void);
     TikTokPhysicsViewController *mPhysicsController;
     StartupCompletionHandler     mCompletionHandler;
     NSTimer                     *mTimer;
+    bool                         mPause;
+    bool                         mComplete;
 }
 
 //------------------------------------------------------------------------------

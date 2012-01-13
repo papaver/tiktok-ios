@@ -17,6 +17,16 @@
 #import "Utilities.h"
 
 //------------------------------------------------------------------------------
+// enums
+//------------------------------------------------------------------------------
+
+enum StartupTag
+{
+    kTagProgressBar = 3,
+    kTagShakeIcon   = 4,
+};
+
+//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
@@ -29,6 +39,7 @@
     - (void) syncCoupons;
     - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) progressBar:(NSTimer*)timer;
+    - (void) pauseStartup;
 @end
 
 //------------------------------------------------------------------------------
@@ -69,6 +80,17 @@
                                             selector:@selector(progressBar:) 
                                             userInfo:nil 
                                              repeats:YES];
+
+    // initialize variables
+    mPause    = false;
+    mComplete = false;
+
+    // setup gesture recognizer
+    UIView *shakeIcon = [self.view viewWithTag:kTagShakeIcon]; 
+    UITapGestureRecognizer* gestureRecognizer = 
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pauseStartup)];
+    [shakeIcon setUserInteractionEnabled:YES];
+    [shakeIcon addGestureRecognizer:gestureRecognizer];
 }
 
 //------------------------------------------------------------------------------
@@ -227,7 +249,11 @@
         [self.physicsController stopWorld];
 
         // run the completion handler if one exists
-        if (self.completionHandler) self.completionHandler();
+        if (!mPause) {
+            if (self.completionHandler) self.completionHandler();
+        }
+    
+        mComplete = true;
     };
 
     // add a notification to allow syncing the contexts..
@@ -257,12 +283,32 @@
 
 - (void) progressBar:(NSTimer*)timer
 {
-    UIProgressView *progressBar = (UIProgressView*)[self.view viewWithTag:3];
+    UIProgressView *progressBar = (UIProgressView*)[self.view viewWithTag:kTagProgressBar];
     progressBar.progress       += 0.01;
 
     // kill timer
     if (progressBar.progress >= 1.0) {
         [mTimer invalidate];
+    }
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Events
+//------------------------------------------------------------------------------
+
+- (void) pauseStartup
+{
+    // startup paused and complete, run completion handler
+    if (mPause && mComplete) {
+        if (self.completionHandler) self.completionHandler();
+
+    // startup not paused and not complete, pause startup
+    } else if (!mPause && !mComplete) {
+        mPause = true;
+
+    // startup paused and not complete, unpause startup
+    } else if (mPause && !mComplete) {
+        mPause = false;
     }
 }
 
