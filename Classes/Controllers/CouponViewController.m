@@ -54,6 +54,7 @@ enum CouponTag {
     - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
     - (void) loadImagesForOnscreenRows;
     - (void) handleSettings;
+    - (void) handleFeedback;
 @end 
 
 //------------------------------------------------------------------------------
@@ -91,13 +92,19 @@ enum CouponTag {
     [iconManager deleteAllImages];
 
     // tag testflight checkpoint
-    [TestFlight passCheckpoint:@"Coupon Table Controller"];
+    [TestFlight passCheckpoint:@"Deals"];
 
     // add settings option
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"
         style:UIBarButtonItemStylePlain target:self action:@selector(handleSettings)];
     self.navigationItem.rightBarButtonItem = settingsButton;
     [settingsButton release];
+
+    // add feedback option
+    UIBarButtonItem *feedbackButton = [[UIBarButtonItem alloc] initWithTitle:@"Feedback"
+        style:UIBarButtonItemStylePlain target:self action:@selector(handleFeedback)];
+    self.navigationItem.leftBarButtonItem = feedbackButton;
+    [feedbackButton release];
 }
 
 //------------------------------------------------------------------------------
@@ -672,6 +679,14 @@ enum CouponTag {
     // pass the selected object to the new view controller.
     [self.navigationController pushViewController:settingsViewController animated:YES];
     [settingsViewController release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) handleFeedback
+{
+    // tag testflight checkpoint
+    [TestFlight passCheckpoint:@"Feedback"];
 }
 
 //------------------------------------------------------------------------------

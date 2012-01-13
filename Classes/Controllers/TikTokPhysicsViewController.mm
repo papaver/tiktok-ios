@@ -290,7 +290,8 @@ enum kViewTag
 
 - (void) shakeTikTok
 {
-    NSLog(@"Shaking Tik n' Tok");
+    // tag testflight checkpoint
+    [TestFlight passCheckpoint:@"TikTokMartini"];
 
     // setup the world
     [self startWorld];

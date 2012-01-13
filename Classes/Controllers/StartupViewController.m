@@ -66,6 +66,9 @@ enum StartupTag
 
     [super viewDidLoad];
 
+    // tag testflight checkpoint
+    [TestFlight passCheckpoint:@"Startup"];
+
     // register device with server if no customer id found
     NSString *customerId  = [Utilities getConsumerId];
     if (!customerId) { 
@@ -298,6 +301,16 @@ enum StartupTag
 
 - (void) pauseStartup
 {
+    // tag testflight checkpoint
+    [TestFlight passCheckpoint:@"EasterEgg"];
+
+    // alert user of easter egg
+    NSString *message = @"Congrats! You found the easter egg. You can now toss \
+                        Tik and his retarted other Tok around as long as you \
+                        like. Click on the Shake icon to continue using the app!";
+    [Utilities displaySimpleAlertWithTitle:@"Easter Egg"
+                                andMessage:message];
+
     // startup paused and complete, run completion handler
     if (mPause && mComplete) {
         if (self.completionHandler) self.completionHandler();

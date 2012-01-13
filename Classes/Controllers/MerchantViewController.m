@@ -67,6 +67,9 @@ enum MerchantTags
 
     // setup title
     self.title = @"Merchant";
+
+    // tag testflight checkpoint
+    [TestFlight passCheckpoint:@"Merchant"];
 }
 
 //------------------------------------------------------------------------------
