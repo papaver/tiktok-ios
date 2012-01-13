@@ -301,16 +301,6 @@ enum StartupTag
 
 - (void) pauseStartup
 {
-    // tag testflight checkpoint
-    [TestFlight passCheckpoint:@"EasterEgg"];
-
-    // alert user of easter egg
-    NSString *message = @"Congrats! You found the easter egg. You can now toss \
-                        Tik and his retarted other Tok around as long as you \
-                        like. Click on the Shake icon to continue using the app!";
-    [Utilities displaySimpleAlertWithTitle:@"Easter Egg"
-                                andMessage:message];
-
     // startup paused and complete, run completion handler
     if (mPause && mComplete) {
         if (self.completionHandler) self.completionHandler();
@@ -318,6 +308,16 @@ enum StartupTag
     // startup not paused and not complete, pause startup
     } else if (!mPause && !mComplete) {
         mPause = true;
+
+        // tag testflight checkpoint
+        [TestFlight passCheckpoint:@"EasterEgg"];
+
+        // alert user of easter egg
+        NSString *message = @"Congrats! You found the easter egg. You can now toss \
+                            Tik and his retarted other Tok around as long as you \
+                            like. Click on the Shake icon to continue using the app!";
+        [Utilities displaySimpleAlertWithTitle:@"Easter Egg"
+                                    andMessage:message];
 
     // startup paused and not complete, unpause startup
     } else if (mPause && !mComplete) {
