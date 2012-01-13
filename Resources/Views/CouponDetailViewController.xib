@@ -394,7 +394,6 @@
 										<string key="NSFrame">{{10, 178}, {270, 21}}</string>
 										<reference key="NSSuperview" ref="966368696"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:328</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -524,7 +523,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="519330290">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -533,7 +532,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, -5}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="519330290"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -574,7 +572,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 80}</string>
-				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="108976828"/>
 				<string key="NSReuseIdentifierKey">_NS:196</string>
 				<reference key="IBUIBackgroundColor" ref="133533243"/>
@@ -589,7 +586,6 @@
 				<string key="NSFrameSize">{134, 30}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:225</string>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -609,10 +605,9 @@
 				<reference key="IBUIFont" ref="63431002"/>
 			</object>
 			<object class="IBUIButton" id="456547583">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<string key="NSFrameSize">{70, 26}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSReuseIdentifierKey">_NS:225</string>
 				<reference key="IBUIBackgroundColor" ref="133533243"/>
 				<bool key="IBUIOpaque">NO</bool>
@@ -638,7 +633,6 @@
 				<string key="NSFrameSize">{280, 44}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:225</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUIContentHorizontalAlignment">0</int>
@@ -720,12 +714,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">shareGooglePlus:</string>
+						<string key="label">shareMore:</string>
 						<reference key="source" ref="491528921"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">50</int>
+					<int key="connectionID">91</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1050,7 +1044,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">90</int>
+			<int key="maxID">91</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1065,13 +1059,11 @@
 							<string>merchantDetails:</string>
 							<string>redeemCoupon:</string>
 							<string>shareFacebook:</string>
-							<string>shareGooglePlus:</string>
-							<string>shareMail:</string>
+							<string>shareMore:</string>
 							<string>shareTwitter:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1086,8 +1078,7 @@
 							<string>merchantDetails:</string>
 							<string>redeemCoupon:</string>
 							<string>shareFacebook:</string>
-							<string>shareGooglePlus:</string>
-							<string>shareMail:</string>
+							<string>shareMore:</string>
 							<string>shareTwitter:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -1105,11 +1096,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">shareGooglePlus:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">shareMail:</string>
+								<string key="name">shareMore:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

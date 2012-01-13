@@ -8,3 +8,8 @@
 
 "TITLE_NETWORK_ERROR"          = "Network Error";
 "MESSAGE_DEVICEID_REG_FAILURE" = "There seems to be an error with the network. Unable to register your device with our server. Please try again later.";
+
+"DEVICE_SUPPORT"               = "Device Support";
+"SMS_NO_SUPPORTED"             = "This device does not support sending SMS.";
+"EMAIL_NO_SUPPORTED"           = "This device does not support sending Email.";
+

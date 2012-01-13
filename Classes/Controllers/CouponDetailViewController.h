@@ -10,6 +10,7 @@
 // imports
 //------------------------------------------------------------------------------
 
+#import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
 
 //------------------------------------------------------------------------------
@@ -22,7 +23,9 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface CouponDetailViewController : UIViewController 
+@interface CouponDetailViewController : UIViewController <UIActionSheetDelegate,
+                                                          MFMailComposeViewControllerDelegate,
+                                                          MFMessageComposeViewControllerDelegate>
 {
     Coupon   *mCoupon;
     NSTimer  *mTimer;
@@ -42,10 +45,9 @@
 - (IBAction) merchantDetails:(id)sender;
 - (IBAction) redeemCoupon:(id)sender;
 
-- (IBAction) shareMail:(id)sender;
 - (IBAction) shareTwitter:(id)sender;
 - (IBAction) shareFacebook:(id)sender;
-- (IBAction) shareGooglePlus:(id)sender;
+- (IBAction) shareMore:(id)sender;
 
 //------------------------------------------------------------------------------
 

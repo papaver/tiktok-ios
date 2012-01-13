@@ -17,6 +17,7 @@
 #import "IconManager.h"
 #import "Merchant.h"
 #import "MerchantViewController.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -40,6 +41,12 @@ enum CouponDetailTag
     kTagBarcodeView    =  1,
 };
 
+enum ActionButton
+{
+    kActionButtonSMS   = 0,
+    kActionButtonEmail = 1,
+};
+
 //------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
@@ -55,6 +62,8 @@ enum CouponDetailTag
     - (void) resetSubviews;
     - (void) startTimer;
     - (void) updateTimers;
+    - (void) shareSMS;
+    - (void) shareEmail;
 @end
 
 //------------------------------------------------------------------------------
@@ -366,6 +375,69 @@ enum CouponDetailTag
 }
 
 //------------------------------------------------------------------------------
+#pragma - ActionSheet delegate
+//------------------------------------------------------------------------------
+
+- (void) actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case kActionButtonSMS:
+            [self shareSMS];
+            break;
+        case kActionButtonEmail:
+            [self shareEmail];
+            break;
+        default:
+            break;
+    }
+}
+
+//------------------------------------------------------------------------------
+#pragma - Mail delegate
+//------------------------------------------------------------------------------
+
+- (void) mailComposeController:(MFMailComposeViewController*)controller 
+           didFinishWithResult:(MFMailComposeResult)result 
+                         error:(NSError*)error 
+{
+    switch (result) {
+        case MFMailComposeResultSaved:
+            break;
+        case MFMailComposeResultSent:
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"CouonDetailViewController: email failed: %@", error);
+            break;
+        default:
+            break;
+    }
+
+    // dismiss controller
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+//------------------------------------------------------------------------------
+#pragma - SMS delegate
+//------------------------------------------------------------------------------
+
+- (void) messageComposeViewController:(MFMessageComposeViewController*)controller 
+                  didFinishWithResult:(MessageComposeResult)result
+{
+    switch (result) {
+        case MessageComposeResultSent:
+            break;
+        case MessageComposeResultFailed:
+            NSLog(@"CouonDetailViewController: sms failed.");
+            break;
+        default:
+            break;
+    }
+
+    // dismiss controller
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+//------------------------------------------------------------------------------
 #pragma - Events
 //------------------------------------------------------------------------------
 
@@ -480,32 +552,100 @@ enum CouponDetailTag
 
 //------------------------------------------------------------------------------
 
-- (IBAction) shareMail:(id)sender
-{
-    NSLog(@"share mail");
-}
-
-//------------------------------------------------------------------------------
-
 - (IBAction) shareTwitter:(id)sender
 {
-    NSLog(@"share twitter");
+    NSString *title   = @"Not Implemented";
+    NSString *message = @"Sharing on twitter is no yet implemented. Try again next build!";
+    [Utilities displaySimpleAlertWithTitle:title
+                                andMessage:message];
 }
 
 //------------------------------------------------------------------------------
 
 - (IBAction) shareFacebook:(id)sender
 {
-    NSLog(@"share facebook");
+    NSString *title   = @"Not Implemented";
+    NSString *message = @"Sharing on facebook is no yet implemented. Try again next build!";
+    [Utilities displaySimpleAlertWithTitle:title
+                                andMessage:message];
 }
 
 //------------------------------------------------------------------------------
 
-- (IBAction) shareGooglePlus:(id)sender
+- (IBAction) shareMore:(id)sender
 {
-    NSLog(@"share googleplus");
+    UIActionSheet *actionSheet = 
+        [[UIActionSheet alloc] initWithTitle:@"Share Deal"
+                                    delegate:self 
+                           cancelButtonTitle:@"Cancel" 
+                      destructiveButtonTitle:nil
+                           otherButtonTitles:@"SMS", @"Email", nil];
+
+    // show from toolbar only if coupon not yet redeemed
+    if (self.coupon.wasRedeemed) {
+        [actionSheet showInView:self.view];
+    } else {
+        [actionSheet showFromToolbar:self.navigationController.toolbar];
+    }
+
+    // cleanup
+    [actionSheet release];
 }
 
+//------------------------------------------------------------------------------
+
+- (void) shareEmail
+{
+    // only send email if supported by the device
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *controller = 
+            [[MFMailComposeViewController alloc] init];
+
+        // present the email controller
+        NSString *deal = $string(@"%@ at %@", self.coupon.title, self.coupon.merchant.name);
+        controller.mailComposeDelegate = self;
+        [controller setSubject:@"Checkout this amazing deal on TikTok!"];
+        [controller setMessageBody:$string(@"%@", deal) isHTML:NO];
+        [self presentModalViewController:controller animated:YES];
+
+        // cleanup
+        [controller release];
+
+    // let user know email is not possible on this device
+    } else {
+        NSString *title   = NSLocalizedString(@"DEVICE_SUPPORT", nil);
+        NSString *message = NSLocalizedString(@"EMAIL_NO_SUPPORTED", nil);
+        [Utilities displaySimpleAlertWithTitle:title
+                                    andMessage:message];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareSMS
+{
+    // only send text if supported by the device
+    if ([MFMessageComposeViewController canSendText]) {
+        MFMessageComposeViewController *controller = 
+            [[MFMessageComposeViewController alloc] init];
+
+        // present sms controller
+        NSString *deal  = $string(@"%@ at %@", self.coupon.title, self.coupon.merchant.name);
+        controller.body = $string(@"Checkout this amazing deal on TikTok: %@!", deal);
+        controller.messageComposeDelegate = self;
+        [self presentModalViewController:controller animated:YES];
+
+        // cleanup
+        [controller release];
+
+    // let user know sms is not possible on this device...   
+    } else {
+        NSString *title   = NSLocalizedString(@"DEVICE_SUPPORT", nil);
+        NSString *message = NSLocalizedString(@"SMS_NO_SUPPORTED", nil);
+        [Utilities displaySimpleAlertWithTitle:title
+                                    andMessage:message];
+    }
+}
 
 //------------------------------------------------------------------------------
 #pragma - Memory Management
