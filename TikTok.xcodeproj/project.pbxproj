@@ -154,6 +154,7 @@
 		2EC672AE1490008700AC5CDF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AD1490008700AC5CDF /* SystemConfiguration.framework */; };
 		2EC672B0149000B100AC5CDF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AF149000B100AC5CDF /* libz.dylib */; };
 		2EC672B2149000C500AC5CDF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */; };
+		2ECAD06D14C4B03A00706EF3 /* UIAlertView+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD06C14C4B03A00706EF3 /* UIAlertView+Handlers.m */; };
 		2EE4563A14BF9BA500EDD04B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE4563914BF9BA500EDD04B /* Icon.png */; };
 		2EE5D41F14AD356700D0539C /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5D41E14AD356700D0539C /* GradientView.m */; };
 		2EE5D42214AE38E500D0539C /* NeutraDisp-BoldAlt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2EE5D42114AE38E500D0539C /* NeutraDisp-BoldAlt.otf */; };
@@ -460,6 +461,8 @@
 		2EC672AF149000B100AC5CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2EC672B51490028500AC5CDF /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		2ECAD06B14C4B03A00706EF3 /* UIAlertView+Handlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Handlers.h"; sourceTree = "<group>"; };
+		2ECAD06C14C4B03A00706EF3 /* UIAlertView+Handlers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Handlers.m"; sourceTree = "<group>"; };
 		2EE4563914BF9BA500EDD04B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		2EE5D41D14AD356700D0539C /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
 		2EE5D41E14AD356700D0539C /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
@@ -1145,6 +1148,8 @@
 		2EE5D44A14B624FF00D0539C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				2ECAD06B14C4B03A00706EF3 /* UIAlertView+Handlers.h */,
+				2ECAD06C14C4B03A00706EF3 /* UIAlertView+Handlers.m */,
 				2EE5D44B14B6252B00D0539C /* UIDevice+GUID.h */,
 				2EE5D44C14B6252B00D0539C /* UIDevice+GUID.m */,
 			);
@@ -1405,6 +1410,7 @@
 				2E6A9EE114BE5F5000AA4B7B /* SettingsViewController.m in Sources */,
 				2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */,
 				2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */,
+				2ECAD06D14C4B03A00706EF3 /* UIAlertView+Handlers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

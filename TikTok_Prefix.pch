@@ -15,6 +15,7 @@
     #import <UIKit/UIKit.h>
     #import "UIColor-Expanded.h"
     #import "UIDevice+GUID.h"
+    #import "UIAlertView+Handlers.h"
     #import "Macros.h"
     #import "TestFlight.h"
 #endif
