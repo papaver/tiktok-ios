@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CouponDetailViewController.h"
 #import "Coupon.h"
+#import "FacebookManager.h"
 #import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
@@ -65,6 +66,10 @@ enum ActionButton
     - (void) updateTimers;
     - (void) shareSMS;
     - (void) shareEmail;
+    - (void) setupTwitter;
+    - (void) tweetDealOnTwitter;
+    - (void) setupFacebook;
+    - (void) postDealToFacebook;
 @end
 
 //------------------------------------------------------------------------------
@@ -555,61 +560,16 @@ enum ActionButton
 }
 
 //------------------------------------------------------------------------------
+#pragma mark - Events
+//------------------------------------------------------------------------------
 
 - (IBAction) shareTwitter:(id)sender
 {
-    // only send tweet if supported by device
+    // tweet deal if twitter setup, else request account setup
     if ([TWTweetComposeViewController canSendTweet]) {
-        TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
-
-        // grab icon from view
-        UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];                
-
-        // setup twitter controller
-        NSString *deal = $string(@"%@ at %@.", self.coupon.title, self.coupon.merchant.name);
-        [twitter setInitialText:deal];
-        [twitter addImage:icon.image];
-
-        // setup completion handler
-        twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
-            switch (result) {
-                case TWTweetComposeViewControllerResultCancelled:
-                    break;
-                case TWTweetComposeViewControllerResultDone:
-                    break;
-            }
-
-            // dismiss the controller
-            [self dismissModalViewControllerAnimated:YES];
-        };
-
-        // display controller
-        [self presentModalViewController:twitter animated:YES];
-
-        // cleanup
-        [twitter release];
-
-    // let user know twitter is not setup
+        [self tweetDealOnTwitter];
     } else {
-        NSString *title   = NSLocalizedString(@"TWITTER_SUPPORT", nil);
-        NSString *message = NSLocalizedString(@"TWITTER_NOT_SETUP", nil);
-
-        // open up settings to configure twitter account
-        UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                UIApplication *application = [UIApplication sharedApplication];
-                [application openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
-            }
-        };
-
-        // display alert
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                    withHandler:handler
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Settings", nil];
-        [alert show];
-        [alert release];
+        [self setupTwitter];
     }
 }
 
@@ -617,10 +577,13 @@ enum ActionButton
 
 - (IBAction) shareFacebook:(id)sender
 {
-    NSString *title   = @"Not Implemented";
-    NSString *message = @"Sharing on facebook is not yet implemented. Try again next build!";
-    [Utilities displaySimpleAlertWithTitle:title
-                                andMessage:message];
+    // post deal if logged on, else request connect first 
+    FacebookManager *manager = [FacebookManager getInstance];
+    if ([manager.facebook isSessionValid]) {
+        [self postDealToFacebook];
+    } else {
+        [self setupFacebook];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -698,6 +661,138 @@ enum ActionButton
         [Utilities displaySimpleAlertWithTitle:title
                                     andMessage:message];
     }
+}
+
+//------------------------------------------------------------------------------
+#pragma - Sharing
+//------------------------------------------------------------------------------
+
+- (void) setupTwitter
+{
+    NSString *title   = NSLocalizedString(@"TWITTER_SUPPORT", nil);
+    NSString *message = NSLocalizedString(@"TWITTER_NOT_SETUP", nil);
+
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            UIApplication *application = [UIApplication sharedApplication];
+            [application openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
+        }
+    };
+
+    // display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Settings", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) tweetDealOnTwitter
+{
+    TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+
+    // grab icon from view
+    UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];                
+
+    // setup twitter controller
+    NSString *deal = $string(@"%@ at %@!", self.coupon.title, self.coupon.merchant.name);
+    [twitter setInitialText:deal];
+    [twitter addImage:icon.image];
+
+    // setup completion handler
+    twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
+        switch (result) {
+            case TWTweetComposeViewControllerResultCancelled:
+                break;
+            case TWTweetComposeViewControllerResultDone: {
+                NSString *title   = NSLocalizedString(@"TWITTER", nil);
+                NSString *message = NSLocalizedString(@"TWITTER_DEAL_POST", nil);
+                [Utilities displaySimpleAlertWithTitle:title
+                                            andMessage:message];
+                break;
+            }
+        }
+
+        // dismiss the controller
+        [self dismissModalViewControllerAnimated:YES];
+    };
+
+    // display controller
+    [self presentModalViewController:twitter animated:YES];
+
+    // cleanup
+    [twitter release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupFacebook
+{
+    NSString *title   = NSLocalizedString(@"FACEBOOK_SUPPORT", nil);
+    NSString *message = NSLocalizedString(@"FACEBOOK_NOT_SETUP", nil);
+
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            FacebookManager *manager = [FacebookManager getInstance];
+            [manager authorizeWithSucessHandler:^{
+                [self postDealToFacebook];
+            }];
+        }
+    };
+
+    // display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Facebook", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) postDealToFacebook
+{
+    NSString *deal = $string(@"%@ at %@!", self.coupon.title, self.coupon.merchant.name);
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        deal,                @"description",
+        self.coupon.iconUrl, @"picture",
+        @"www.tiktok.com",   @"link",
+        @"TikTok",           @"name",
+        @"www.tiktok.com",   @"caption",
+        nil];
+
+    // post share on facebook
+    FacebookManager *manager = [FacebookManager getInstance];
+    [manager.facebook requestWithGraphPath:@"me/feed" 
+                                 andParams:params 
+                             andHttpMethod:@"POST" 
+                               andDelegate:self];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) request:(FBRequest*)request didLoad:(id)result
+{
+    NSString *title   = NSLocalizedString(@"FACEBOOK", nil);
+    NSString *message = NSLocalizedString(@"FACEBOOK_DEAL_POST", nil);
+    [Utilities displaySimpleAlertWithTitle:title
+                                andMessage:message];
+    NSLog(@"CouponDetailViewController: facebook request did load: %@", result);
+}
+
+//------------------------------------------------------------------------------
+
+- (void) request:(FBRequest*)request didFailWithError:(NSError*)error
+{
+    NSLog(@"CouponDetailViewController: Facebook share failed: %@", error);
 }
 
 //------------------------------------------------------------------------------

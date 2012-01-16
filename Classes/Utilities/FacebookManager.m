@@ -67,7 +67,21 @@
 {
     if (![self.facebook isSessionValid]) {
         mSuccessHandler = [handler copy];
-        [self.facebook authorize:nil];
+
+        // permission to request from user
+        NSArray *permissions = [[NSArray alloc] initWithObjects:
+            @"user_likes", 
+            @"user_birthday",
+            @"user_checkins",
+            @"user_interests",
+            @"user_location",
+            @"user_relationships",
+            @"user_relationship_details",
+            @"offline_access",
+            @"publish_stream",
+            nil];
+        [self.facebook authorize:permissions];
+        [permissions release];
     }
 }
 

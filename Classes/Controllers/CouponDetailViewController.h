@@ -12,6 +12,7 @@
 
 #import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
+#import "FBConnect.h"
 
 //------------------------------------------------------------------------------
 // forward declarations
@@ -25,7 +26,8 @@
 
 @interface CouponDetailViewController : UIViewController <UIActionSheetDelegate,
                                                           MFMailComposeViewControllerDelegate,
-                                                          MFMessageComposeViewControllerDelegate>
+                                                          MFMessageComposeViewControllerDelegate,
+                                                          FBRequestDelegate>
 {
     Coupon   *mCoupon;
     NSTimer  *mTimer;
