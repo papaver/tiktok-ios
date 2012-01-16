@@ -10,6 +10,7 @@
 // imports
 //------------------------------------------------------------------------------
 
+#import <Twitter/Twitter.h>
 #import <QuartzCore/QuartzCore.h>
 #import "CouponDetailViewController.h"
 #import "Coupon.h"
@@ -557,10 +558,59 @@ enum ActionButton
 
 - (IBAction) shareTwitter:(id)sender
 {
-    NSString *title   = @"Not Implemented";
-    NSString *message = @"Sharing on twitter is no yet implemented. Try again next build!";
-    [Utilities displaySimpleAlertWithTitle:title
-                                andMessage:message];
+    // only send tweet if supported by device
+    if ([TWTweetComposeViewController canSendTweet]) {
+        TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+
+        // grab icon from view
+        UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];                
+
+        // setup twitter controller
+        NSString *deal = $string(@"%@ at %@.", self.coupon.title, self.coupon.merchant.name);
+        [twitter setInitialText:deal];
+        [twitter addImage:icon.image];
+
+        // setup completion handler
+        twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
+            switch (result) {
+                case TWTweetComposeViewControllerResultCancelled:
+                    break;
+                case TWTweetComposeViewControllerResultDone:
+                    break;
+            }
+
+            // dismiss the controller
+            [self dismissModalViewControllerAnimated:YES];
+        };
+
+        // display controller
+        [self presentModalViewController:twitter animated:YES];
+
+        // cleanup
+        [twitter release];
+
+    // let user know twitter is not setup
+    } else {
+        NSString *title   = NSLocalizedString(@"TWITTER_SUPPORT", nil);
+        NSString *message = NSLocalizedString(@"TWITTER_NOT_SETUP", nil);
+
+        // open up settings to configure twitter account
+        UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                UIApplication *application = [UIApplication sharedApplication];
+                [application openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
+            }
+        };
+
+        // display alert
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                    withHandler:handler
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Settings", nil];
+        [alert show];
+        [alert release];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -568,7 +618,7 @@ enum ActionButton
 - (IBAction) shareFacebook:(id)sender
 {
     NSString *title   = @"Not Implemented";
-    NSString *message = @"Sharing on facebook is no yet implemented. Try again next build!";
+    NSString *message = @"Sharing on facebook is not yet implemented. Try again next build!";
     [Utilities displaySimpleAlertWithTitle:title
                                 andMessage:message];
 }

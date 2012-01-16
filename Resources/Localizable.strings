@@ -13,3 +13,6 @@
 "SMS_NO_SUPPORTED"             = "This device does not support sending SMS.";
 "EMAIL_NO_SUPPORTED"           = "This device does not support sending Email.";
 
+"TWITTER_SUPPORT"              = "Twitter Setup";
+"TWITTER_NOT_SETUP"            = "There are no twitter accounts configured on this device.  You can setup an account in Settings.";
+
