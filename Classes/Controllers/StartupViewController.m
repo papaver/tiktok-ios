@@ -108,6 +108,16 @@ enum StartupTag
 
 //------------------------------------------------------------------------------
 
+- (void) viewWillDisappear:(BOOL)animated 
+{
+    [super viewWillDisappear:animated];
+
+    // stop processing physics
+    [self.physicsController stopWorld];
+}
+
+//------------------------------------------------------------------------------
+
 /**
  * Return YES for supported orientations
  */
@@ -200,7 +210,7 @@ enum StartupTag
         // rerun registration process if server no longer registered
         } else {
 
-            // clean up existing keychain and cahced data and 
+            // clean up existing keychain and cached data and 
             // re-register with the server
             [Utilities clearDeviceId];
             [Utilities clearConsumerId];
@@ -247,11 +257,6 @@ enum StartupTag
 
     // trigger completion handler
     api.completionHandler = ^(ASIHTTPRequest* request) { 
-
-        // stop processing physics
-        [self.physicsController stopWorld];
-
-        // run the completion handler if one exists
         if (!mPause) {
             if (self.completionHandler) self.completionHandler();
         }
@@ -314,8 +319,9 @@ enum StartupTag
 
         // alert user of easter egg
         NSString *message = @"Congrats! You found the easter egg. You can now toss \
-                            Tik and his retarted other Tok around as long as you \
-                            like. Click on the Shake icon to continue using the app!";
+                            Tik and his retarded other, Tok, around as long as you \
+                            like. Click on the Shake icon again to continue using  \
+                            the app!";
         [Utilities displaySimpleAlertWithTitle:@"Easter Egg"
                                     andMessage:message];
 
