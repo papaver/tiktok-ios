@@ -216,6 +216,7 @@
 		2EF0EBEE149D863500A68993 /* SplashPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE7149D863500A68993 /* SplashPage.png */; };
 		2EF0EBEF149D863500A68993 /* TopNavBarLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */; };
 		2EF0EBF1149D869D00A68993 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBF0149D869D00A68993 /* Default.png */; };
+		2EFB99F114C63FF800FD69E8 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F014C63FF800FD69E8 /* JSONKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -548,6 +549,8 @@
 		2EF0EBE7149D863500A68993 /* SplashPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashPage.png; sourceTree = "<group>"; };
 		2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TopNavBarLogo.png; sourceTree = "<group>"; };
 		2EF0EBF0149D869D00A68993 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
+		2EFB99EF14C63FF800FD69E8 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		2EFB99F014C63FF800FD69E8 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -989,6 +992,7 @@
 				2EC6725C148FFE5E00AC5CDF /* AsiHttpRequest */,
 				2E5FEAEF14A1B75800B516FE /* Box2D */,
 				2EE5D42714B25CED00D0539C /* Facebook */,
+				2EFB99EE14C63F6C00FD69E8 /* JsonKit */,
 				2EC6725D148FFE7000AC5CDF /* SBJson */,
 				2EE5D43914B3734A00D0539C /* TestFlight */,
 				2E5FEAE114A1157500B516FE /* UIColorUtilities */,
@@ -1173,6 +1177,15 @@
 				2EE5D44C14B6252B00D0539C /* UIDevice+GUID.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		2EFB99EE14C63F6C00FD69E8 /* JsonKit */ = {
+			isa = PBXGroup;
+			children = (
+				2EFB99EF14C63FF800FD69E8 /* JSONKit.h */,
+				2EFB99F014C63FF800FD69E8 /* JSONKit.m */,
+			);
+			path = JsonKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1433,6 +1446,7 @@
 				2ECAD07214C4F87F00706EF3 /* UIActionSheet+Handlers.m in Sources */,
 				2E6CCF4B14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m in Sources */,
 				2E6CCF4E14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m in Sources */,
+				2EFB99F114C63FF800FD69E8 /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
