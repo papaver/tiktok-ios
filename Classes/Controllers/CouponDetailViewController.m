@@ -384,24 +384,6 @@ enum ActionButton
 }
 
 //------------------------------------------------------------------------------
-#pragma - ActionSheet delegate
-//------------------------------------------------------------------------------
-
-- (void) actionSheet:(UIActionSheet*)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case kActionButtonSMS:
-            [self shareSMS];
-            break;
-        case kActionButtonEmail:
-            [self shareEmail];
-            break;
-        default:
-            break;
-    }
-}
-
-//------------------------------------------------------------------------------
 #pragma - Mail delegate
 //------------------------------------------------------------------------------
 
@@ -590,9 +572,24 @@ enum ActionButton
 
 - (IBAction) shareMore:(id)sender
 {
+    // setup action sheet handler
+    UIActionSheetSelectionHandler handler = ^(NSInteger buttonIndex) {
+        switch (buttonIndex) {
+            case kActionButtonSMS:
+                [self shareSMS];
+                break;
+            case kActionButtonEmail:
+                [self shareEmail];
+                break;
+            default:
+                break;
+        }
+    };
+
+    // setup action sheet
     UIActionSheet *actionSheet = 
         [[UIActionSheet alloc] initWithTitle:@"Share Deal"
-                                    delegate:self 
+                                 withHandler:handler 
                            cancelButtonTitle:@"Cancel" 
                       destructiveButtonTitle:nil
                            otherButtonTitles:@"SMS", @"Email", nil];
