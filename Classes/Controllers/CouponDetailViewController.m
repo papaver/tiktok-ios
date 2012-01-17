@@ -384,27 +384,6 @@ enum ActionButton
 }
 
 //------------------------------------------------------------------------------
-#pragma - SMS delegate
-//------------------------------------------------------------------------------
-
-- (void) messageComposeViewController:(MFMessageComposeViewController*)controller 
-                  didFinishWithResult:(MessageComposeResult)result
-{
-    switch (result) {
-        case MessageComposeResultSent:
-            break;
-        case MessageComposeResultFailed:
-            NSLog(@"CouonDetailViewController: sms failed.");
-            break;
-        default:
-            break;
-    }
-
-    // dismiss controller
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-//------------------------------------------------------------------------------
 #pragma - Events
 //------------------------------------------------------------------------------
 
@@ -642,7 +621,22 @@ enum ActionButton
         // present sms controller
         NSString *deal  = $string(@"%@ at %@", self.coupon.title, self.coupon.merchant.name);
         controller.body = $string(@"Checkout this amazing deal on TikTok: %@!", deal);
-        controller.messageComposeDelegate = self;
+        controller.completionHandler = ^(MFMessageComposeViewController* controller,
+                                         MessageComposeResult result) {
+            switch (result) {
+                case MessageComposeResultSent:
+                    break;
+                case MessageComposeResultFailed:
+                    NSLog(@"CouonDetailViewController: sms failed.");
+                    break;
+                default:
+                    break;
+            }
+
+            // dismiss controller
+            [self dismissModalViewControllerAnimated:YES];
+        };
+
         [self presentModalViewController:controller animated:YES];
 
         // cleanup

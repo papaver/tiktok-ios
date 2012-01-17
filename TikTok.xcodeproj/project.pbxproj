@@ -89,6 +89,7 @@
 		2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */; };
 		2E6A9EE614BE7BCA00AA4B7B /* ConnectFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */; };
 		2E6CCF4B14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6CCF4A14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m */; };
+		2E6CCF4E14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6CCF4D14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m */; };
 		2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E081213936496008788C2 /* CoreLocation.framework */; };
 		2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E0814139364AF008788C2 /* CoreGraphics.framework */; };
 		2E6E082B139364C2008788C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082A139364C2008788C2 /* Foundation.framework */; };
@@ -360,6 +361,8 @@
 		2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConnectFacebook@2x.png"; sourceTree = "<group>"; };
 		2E6CCF4914C5E7A3006836F0 /* MFMailComposeViewController+Handlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+Handlers.h"; sourceTree = "<group>"; };
 		2E6CCF4A14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMailComposeViewController+Handlers.m"; sourceTree = "<group>"; };
+		2E6CCF4C14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMessageComposeViewController+Handlers.h"; sourceTree = "<group>"; };
+		2E6CCF4D14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMessageComposeViewController+Handlers.m"; sourceTree = "<group>"; };
 		2E6E081213936496008788C2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2E6E0814139364AF008788C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2E6E082A139364C2008788C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1160,6 +1163,8 @@
 			children = (
 				2E6CCF4914C5E7A3006836F0 /* MFMailComposeViewController+Handlers.h */,
 				2E6CCF4A14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m */,
+				2E6CCF4C14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.h */,
+				2E6CCF4D14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m */,
 				2ECAD07014C4F87F00706EF3 /* UIActionSheet+Handlers.h */,
 				2ECAD07114C4F87F00706EF3 /* UIActionSheet+Handlers.m */,
 				2ECAD06B14C4B03A00706EF3 /* UIAlertView+Handlers.h */,
@@ -1427,6 +1432,7 @@
 				2ECAD06D14C4B03A00706EF3 /* UIAlertView+Handlers.m in Sources */,
 				2ECAD07214C4F87F00706EF3 /* UIActionSheet+Handlers.m in Sources */,
 				2E6CCF4B14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m in Sources */,
+				2E6CCF4E14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

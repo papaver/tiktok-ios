@@ -10,7 +10,6 @@
 // imports
 //------------------------------------------------------------------------------
 
-#import <MessageUI/MessageUI.h>
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 
@@ -24,8 +23,7 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface CouponDetailViewController : UIViewController <MFMessageComposeViewControllerDelegate,
-                                                          FBRequestDelegate>
+@interface CouponDetailViewController : UIViewController <FBRequestDelegate>
 {
     Coupon   *mCoupon;
     NSTimer  *mTimer;
