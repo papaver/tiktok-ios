@@ -24,8 +24,7 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface CouponDetailViewController : UIViewController <MFMailComposeViewControllerDelegate,
-                                                          MFMessageComposeViewControllerDelegate,
+@interface CouponDetailViewController : UIViewController <MFMessageComposeViewControllerDelegate,
                                                           FBRequestDelegate>
 {
     Coupon   *mCoupon;

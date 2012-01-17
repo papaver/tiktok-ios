@@ -17,6 +17,7 @@
     #import "UIDevice+GUID.h"
     #import "UIActionSheet+Handlers.h"
     #import "UIAlertView+Handlers.h"
+    #import "MFMailComposeViewController+Handlers.h"
     #import "Macros.h"
     #import "TestFlight.h"
 #endif

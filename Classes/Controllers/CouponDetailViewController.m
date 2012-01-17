@@ -384,30 +384,6 @@ enum ActionButton
 }
 
 //------------------------------------------------------------------------------
-#pragma - Mail delegate
-//------------------------------------------------------------------------------
-
-- (void) mailComposeController:(MFMailComposeViewController*)controller 
-           didFinishWithResult:(MFMailComposeResult)result 
-                         error:(NSError*)error 
-{
-    switch (result) {
-        case MFMailComposeResultSaved:
-            break;
-        case MFMailComposeResultSent:
-            break;
-        case MFMailComposeResultFailed:
-            NSLog(@"CouonDetailViewController: email failed: %@", error);
-            break;
-        default:
-            break;
-    }
-
-    // dismiss controller
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-//------------------------------------------------------------------------------
 #pragma - SMS delegate
 //------------------------------------------------------------------------------
 
@@ -616,9 +592,30 @@ enum ActionButton
 
         // present the email controller
         NSString *deal = $string(@"%@ at %@", self.coupon.title, self.coupon.merchant.name);
-        controller.mailComposeDelegate = self;
         [controller setSubject:@"Checkout this amazing deal on TikTok!"];
         [controller setMessageBody:$string(@"%@", deal) isHTML:NO];
+
+        // setup completion handler
+        controller.completionHandler = ^(MFMailComposeViewController* controller,
+                                         MFMailComposeResult result,
+                                         NSError* error) {
+            switch (result) {
+                case MFMailComposeResultSaved:
+                    break;
+                case MFMailComposeResultSent:
+                    break;
+                case MFMailComposeResultFailed:
+                    NSLog(@"CouonDetailViewController: email failed: %@", error);
+                    break;
+                default:
+                    break;
+            }
+
+            // dismiss controller
+            [self dismissModalViewControllerAnimated:YES];
+        };
+
+        // present controller
         [self presentModalViewController:controller animated:YES];
 
         // cleanup
