@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 
 #import <Foundation/Foundation.h>
-#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 //-----------------------------------------------------------------------------
 // typedef 
