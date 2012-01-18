@@ -133,6 +133,10 @@ enum MerchantTags
     [phone addGestureRecognizer:phoneTap];
     [website setUserInteractionEnabled:YES];
     [website addGestureRecognizer:websiteTap];
+
+    [addressTap release];
+    [phoneTap release];
+    [websiteTap release];
 }
 
 //------------------------------------------------------------------------------

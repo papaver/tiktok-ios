@@ -1,16 +1,16 @@
 //
-//  LocationMapViewController.h
+//  CouponAnnotation.h
 //  TikTok
 //
-//  Created by Moiz Merchant on 5/30/11.
-//  Copyright 2011 TikTok. All rights reserved.
+//  Created by Moiz Merchant on 01/18/12.
+//  Copyright 2012 TikTok. All rights reserved.
 //
 
 //------------------------------------------------------------------------------
-// imports 
+// imports
 //------------------------------------------------------------------------------
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
 //------------------------------------------------------------------------------
@@ -23,17 +23,27 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface LocationMapViewController : UIViewController <MKMapViewDelegate>
+@interface CouponAnnotation : NSObject <MKAnnotation>
 {
-    MKMapView *mMapView;
-    Coupon    *mCoupon;
+    Coupon *mCoupon;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic, retain)          Coupon    *coupon;
+@property (nonatomic, retain) Coupon *coupon;
+
+//------------------------------------------------------------------------------
+
+- (id) initWithCoupon:(Coupon*)coupon;
+
+/**
+ * MKAnnotation Accessors
+ */
+- (NSString*) title;
+- (NSString*) subtitle;
+- (CLLocationCoordinate2D) coordinate;
 
 //------------------------------------------------------------------------------
 
 @end
+

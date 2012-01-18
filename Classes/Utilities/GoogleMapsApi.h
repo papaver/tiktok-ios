@@ -1,0 +1,54 @@
+//
+//  GoogleMapsApi.h
+//  TikTok
+//
+//  Created by Moiz Merchant on 01/17/12.
+//  Copyright 2012 TikTok. All rights reserved.
+//
+
+//------------------------------------------------------------------------------
+// imports 
+//------------------------------------------------------------------------------
+
+#import <Foundation/Foundation.h>
+#import <dispatch/dispatch.h>
+
+//------------------------------------------------------------------------------
+// forward declarations
+//------------------------------------------------------------------------------
+
+@class ASIHTTPRequest;
+
+//------------------------------------------------------------------------------
+// typedefs
+//------------------------------------------------------------------------------
+
+typedef void (^GoogleApiCompletionHandler)(ASIHTTPRequest*, id);
+typedef void (^GoogleApiErrorHandler)(NSError*);
+
+//------------------------------------------------------------------------------
+// interface implementation 
+//------------------------------------------------------------------------------
+
+@interface GoogleMapsApi : NSObject
+{
+    GoogleApiCompletionHandler mCompletionHandler;
+    GoogleApiErrorHandler      mErrorHandler;
+    dispatch_queue_t           mQueue;
+}
+
+//------------------------------------------------------------------------------
+
+@property (nonatomic, copy) GoogleApiCompletionHandler completionHandler;
+@property (nonatomic, copy) GoogleApiErrorHandler      errorHandler;
+
+//------------------------------------------------------------------------------
+
+/**
+ * Returns a dictionary containing distance/time/route from source to destination.
+ */
+- (void) getRouteBetweenSource:(NSString*)source andDestination:(NSString*)destination;
+
+//------------------------------------------------------------------------------
+
+@end

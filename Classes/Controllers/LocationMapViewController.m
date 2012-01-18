@@ -11,7 +11,21 @@
 //------------------------------------------------------------------------------
 
 #import "LocationMapViewController.h"
-#import "Location.h"
+#import "ASIHTTPRequest.h"
+#import "Coupon.h"
+#import "CouponAnnotation.h"
+#import "GoogleMapsApi.h"
+
+//------------------------------------------------------------------------------
+// interface definition
+//------------------------------------------------------------------------------
+
+@interface LocationMapViewController ()
+    - (void) addCouponAnnotations;
+    - (void) addRouteOverlay:(NSDictionary*)routeData;
+    - (MKPolyline*) polylineFromPoints:(NSArray*)points;
+    - (MKCoordinateRegion) regionFromPoints:(NSArray*)points;
+@end
 
 //------------------------------------------------------------------------------
 // interface implementation
@@ -22,37 +36,35 @@
 //------------------------------------------------------------------------------
 
 @synthesize mapView = mMapView;
+@synthesize coupon  = mCoupon;
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark View lifecycle
+#pragma mark - View lifecycle
 //------------------------------------------------------------------------------
 
 - (void) viewDidLoad 
 {
     [super viewDidLoad];
 
-    /*
-    // create a temporary location for testing purposes till api is ready
-    Location *location = [[[Location alloc] init] autorelease];
-    location.name      = @"15 Minutes HQ";
-    location.latitude  = [NSNumber numberWithDouble: 34.16245];
-    location.longitude = [NSNumber numberWithDouble: -118.344203];
-    location.radius    = [NSNumber numberWithInt: 50];
-
-    // create a region for the map to display
-    MKCoordinateRegion region;
-    region.center.latitude     = location.latitude.doubleValue; 
-    region.center.longitude    = location.longitude.doubleValue;
-    region.span.latitudeDelta  = 0.01f;
-    region.span.longitudeDelta = 0.01f;
-    [self.mapView setRegion:region];
-    */
-
+    // show user location
     self.mapView.showsUserLocation = YES;
 
-    // add annotation to the map
-    //[self.mapView addAnnotation:location];
+    // add coupon location to map and center map
+    if (self.coupon) [self addCouponAnnotations];
+
+    /*
+    NSString *source = @"875 Carleton Way, Burnaby";
+    NSString *dest   = @"595 Burrard St, Vancouver";
+    GoogleMapsApi *api = [[GoogleMapsApi alloc] init];
+    api.completionHandler = ^(ASIHTTPRequest *request, id data) {
+        NSArray *routes = [data objectForKey:@"routes"];
+        if (routes && routes.count) {
+            [self addRouteOverlay:data];
+        }
+    };
+    [api getRouteBetweenSource:source andDestination:dest];
+    [api release];
+    */
 }
 
 //------------------------------------------------------------------------------
@@ -63,8 +75,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark MapViewDelegate
+#pragma mark - MapViewDelegate
 //------------------------------------------------------------------------------
 
 - (MKAnnotationView*) mapView:(MKMapView*)mapView 
@@ -72,74 +83,153 @@
 {
     static NSString *pinViewId = @"pinViewId";
 
-    // skip if displaying current location
-    if (![annotation isKindOfClass:[Location class]]) {
+    // user location (let sdk handle drawing)
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     }
 
-    // cast annotation to location class
-    Location *location = (Location*)annotation;
+    // skip if displaying current location
+    if ([annotation isKindOfClass:[CouponAnnotation class]]) {
 
-    // check for any available annotation views 
-    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapView 
-        dequeueReusableAnnotationViewWithIdentifier:pinViewId];
+        // check for any available annotation views 
+        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapView 
+            dequeueReusableAnnotationViewWithIdentifier:pinViewId];
 
-    // if none were found, allocate a new one
-    if (pinView == nil) {
-        pinView = [[[MKPinAnnotationView alloc] 
-            initWithAnnotation:annotation reuseIdentifier:pinViewId] 
-            autorelease];
+        // if none were found, allocate a new one
+        if (pinView == nil) {
+            pinView = [[[MKPinAnnotationView alloc] 
+                initWithAnnotation:annotation reuseIdentifier:pinViewId] 
+                autorelease];
+        }
+
+        // setup pin view
+        pinView.pinColor       = MKPinAnnotationColorGreen;
+        pinView.canShowCallout = YES;
+        pinView.animatesDrop   = YES;
+    
+        return pinView;
     }
 
-    // setup pin view
-    pinView.pinColor       = MKPinAnnotationColorGreen;
-    pinView.canShowCallout = YES;
-    pinView.animatesDrop   = YES;
-
-    // draw the radius circle for the marker
-    MKCircle *circle = [MKCircle circleWithCenterCoordinate:location.coordinate 
-                                                     radius:location.radius.doubleValue * 1000.0f];
-    [circle setTitle:@"background"];
-    [self.mapView addOverlay:circle];
-
-    MKCircle *circleLine = [MKCircle circleWithCenterCoordinate:location.coordinate 
-                                                         radius:location.radius.doubleValue * 1000.0f];
-    [circleLine setTitle:@"line"];
-    [self.mapView addOverlay:circleLine];
-
-    return pinView;
+    return nil;
 }
 
 //------------------------------------------------------------------------------
-
-#define UIColorFromRGB(rgbValue) [UIColor \
-    colorWithRed:((float)((rgbValue && 0xFF0000) >> 16)) / 255.0 \
-           green:((float)((rgbValue && 0x00FF00) >> 8))  / 255.0 \
-            blue:((float) (rgbValue && 0x0000FF))        / 255.0 \
-           alpha:1.0]
 
 - (MKOverlayView*) mapView:(MKMapView*)mapView 
             viewForOverlay:(id<MKOverlay>)overlay
 {
-    MKCircle *circle         = overlay;
-    MKCircleView *circleView = [[[MKCircleView alloc] initWithCircle:circle] autorelease];
+    MKOverlayView *view = nil;
 
-    if ([circle.title isEqualToString:@"background"]) {
-        circleView.fillColor = UIColorFromRGB(0x008DD3);
-        circleView.alpha     = 0.25f;
-    } else if ([circle.title isEqualToString:@"line" ]) {
-        circleView.strokeColor = UIColorFromRGB(0x008AC7);
-        circleView.lineWidth   = 2.0f;
-    } else {
-        circleView = nil;
+    // polylines
+    if ([overlay isKindOfClass:[MKPolyline class]]) {
+        MKPolylineView* polylineView = [[[MKPolylineView alloc] initWithPolyline:overlay] autorelease];
+        polylineView.fillColor   = [UIColor colorWithRed:0.1f green:0.1f blue:0.9f alpha:0.4f];
+        polylineView.strokeColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.9f alpha:0.6f];
+        polylineView.lineWidth   = 6;
+        view = polylineView;
     }
 
-    return circleView;
+    return view;
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Memory management
+#pragma mark - Helper Functions
+//------------------------------------------------------------------------------
+
+- (void) addCouponAnnotations
+{
+    // add coupon annotations
+    CouponAnnotation *annotation = [[CouponAnnotation alloc] initWithCoupon:self.coupon];
+    [self.mapView addAnnotation:annotation];
+
+    // center map to annotation
+    self.mapView.centerCoordinate = annotation.coordinate;
+
+    // zoom map appropriatly
+    MKCoordinateRegion viewRegion =
+        MKCoordinateRegionMakeWithDistance(annotation.coordinate, 900, 900);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];                
+    [self.mapView setRegion:adjustedRegion animated:NO]; 
+    
+    // cleanup
+    [annotation release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) addRouteOverlay:(NSDictionary*)data
+{
+    // get the first route from the data and add it as an overlay
+    NSArray *routes = [data objectForKey:@"routes"];
+    if (routes && routes.count) {
+
+        // add route
+        NSArray *route       = [routes objectAtIndex:0];
+        MKPolyline *polyline = [self polylineFromPoints:route];
+        [self.mapView addOverlay:polyline];
+
+        // zoom map to show entire route
+        MKCoordinateRegion region = MKCoordinateRegionForMapRect(polyline.boundingMapRect);
+        region.span.latitudeDelta  *= 1.1;
+        region.span.longitudeDelta *= 1.1;
+        [self.mapView setRegion:region animated:YES];
+
+    // alert user that route data could not be obtained?
+    } else {
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (MKPolyline*) polylineFromPoints:(NSArray*)points
+{
+    // convert points to a c array
+    MKMapPoint *pointsArray = malloc(sizeof(MKMapPoint) * points.count);
+    NSUInteger index = 0;
+    for (CLLocation *location in points) {
+        pointsArray[index++] = MKMapPointForCoordinate(location.coordinate);
+    }
+
+    // create the polyline
+    MKPolyline *polyline = [MKPolyline polylineWithPoints:pointsArray 
+                                                    count:points.count];
+    
+    // cleanup
+    free(pointsArray);
+    
+    return polyline;
+}
+
+//------------------------------------------------------------------------------
+
+- (MKCoordinateRegion) regionFromPoints:(NSArray*)points
+{
+    CLLocationCoordinate2D max, min;
+    min.latitude  =   90.0;
+    max.latitude  =  -90.0;
+    min.longitude =  180.0;
+    max.longitude = -180.0; 
+
+    // find the min/max coordinates 
+    for (CLLocation *location in points) {
+        min.latitude  = MIN(min.latitude,  location.coordinate.latitude);
+        max.latitude  = MAX(max.latitude,  location.coordinate.latitude);
+        min.longitude = MIN(min.longitude, location.coordinate.longitude);
+        max.longitude = MAX(max.longitude, location.coordinate.longitude);
+    }
+
+    // create a region from the min/max coordinates
+    MKCoordinateRegion region;
+    region.center.latitude     = (min.latitude + max.latitude)   / 2.0;
+    region.center.longitude    = (min.longitude + max.longitude) / 2.0;
+    region.span.latitudeDelta  = max.latitude - min.latitude;
+    region.span.longitudeDelta = max.longitude - min.longitude;
+
+    return region;
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Memory management
 //------------------------------------------------------------------------------
 
 - (void) didReceiveMemoryWarning 

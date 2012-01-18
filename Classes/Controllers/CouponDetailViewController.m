@@ -17,6 +17,7 @@
 #import "FacebookManager.h"
 #import "GradientView.h"
 #import "IconManager.h"
+#import "LocationMapViewController.h"
 #import "Merchant.h"
 #import "MerchantViewController.h"
 #import "Utilities.h"
@@ -70,6 +71,7 @@ enum ActionButton
     - (void) tweetDealOnTwitter;
     - (void) setupFacebook;
     - (void) postDealToFacebook;
+    - (void) openMap;
 @end
 
 //------------------------------------------------------------------------------
@@ -133,6 +135,14 @@ enum ActionButton
     // correct font on timer
     UILabel *timer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
+
+    // setup gesture recogizer on map
+    MKMapView *map = (MKMapView*)[self.view viewWithTag:kTagMap];
+    UITapGestureRecognizer* mapTap = 
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMap)];
+    [map setUserInteractionEnabled:YES];
+    [map addGestureRecognizer:mapTap];
+    [mapTap release];
 }
 
 //------------------------------------------------------------------------------
@@ -389,15 +399,15 @@ enum ActionButton
 
 - (IBAction) merchantDetails:(id)sender
 {
-    MerchantViewController *merchantViewController = [[MerchantViewController alloc] 
+    MerchantViewController *controller = [[MerchantViewController alloc] 
         initWithNibName:@"MerchantViewController" bundle:nil];
 
     // set merchant to view
-    merchantViewController.merchant = self.coupon.merchant;
+    controller.merchant = self.coupon.merchant;
 
     // pass the selected object to the new view controller.
-    [self.navigationController pushViewController:merchantViewController animated:YES];
-    [merchantViewController release];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 //------------------------------------------------------------------------------
@@ -406,6 +416,21 @@ enum ActionButton
 {
     [self arrangeSubviewsForRedeemedCouponWithAnimation:true];
     self.coupon.wasRedeemed = YES;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) openMap
+{
+    LocationMapViewController *controller = [[LocationMapViewController alloc] 
+        initWithNibName:@"LocationMapViewController" bundle:nil];
+
+    // set merchant to view
+    controller.coupon = self.coupon;
+
+    // pass the selected object to the new view controller.
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 //------------------------------------------------------------------------------
