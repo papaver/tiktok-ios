@@ -45,6 +45,12 @@ typedef void (^GoogleApiErrorHandler)(NSError*);
 //------------------------------------------------------------------------------
 
 /**
+ * Returns google maps url that gets direction between the given places.
+ */
++ (NSURL*) urlForDirectionsFromSource:(NSString*)source 
+                        toDestination:(NSString*)destination;
+
+/**
  * Returns a dictionary containing distance/time/route from source to destination.
  */
 - (void) getRouteBetweenSource:(NSString*)source andDestination:(NSString*)destination;

@@ -13,9 +13,11 @@
 #import "LocationMapViewController.h"
 #import "ASIHTTPRequest.h"
 #import "Coupon.h"
-#import "Merchant.h"
 #import "CouponAnnotation.h"
+#import "IconManager.h"
+#import "Merchant.h"
 #import "GoogleMapsApi.h"
+#import "GradientView.h"
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -25,8 +27,11 @@
     - (void) addCouponAnnotations;
     - (void) addRouteToCoupon;
     - (void) addRouteOverlay:(NSDictionary*)routeData;
+    - (void) getDirections;
+    - (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation;
     - (MKPolyline*) polylineFromPoints:(NSArray*)points;
     - (MKCoordinateRegion) regionFromPoints:(NSArray*)points;
+    - (void) openMapApp;
 @end
 
 //------------------------------------------------------------------------------
@@ -69,38 +74,20 @@
 - (MKAnnotationView*) mapView:(MKMapView*)mapView 
             viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    static NSString *pinViewId = @"pinViewId";
+    MKAnnotationView *view = nil;
 
     // user location (let sdk handle drawing)
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         // [moiz] this is a good place to create a route to a destination from
         // the user location
-        return nil;
+        view = nil;
+
+    // coupon annotations
+    } else if ([annotation isKindOfClass:[CouponAnnotation class]]) {
+        view = [self getCouponPinViewForAnnotation:annotation];
     }
 
-    // skip if displaying current location
-    if ([annotation isKindOfClass:[CouponAnnotation class]]) {
-
-        // check for any available annotation views 
-        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapView 
-            dequeueReusableAnnotationViewWithIdentifier:pinViewId];
-
-        // if none were found, allocate a new one
-        if (pinView == nil) {
-            pinView = [[[MKPinAnnotationView alloc] 
-                initWithAnnotation:annotation reuseIdentifier:pinViewId] 
-                autorelease];
-        }
-
-        // setup pin view
-        pinView.pinColor       = MKPinAnnotationColorGreen;
-        pinView.canShowCallout = YES;
-        pinView.animatesDrop   = YES;
-    
-        return pinView;
-    }
-
-    return nil;
+    return view;
 }
 
 //------------------------------------------------------------------------------
@@ -141,8 +128,10 @@
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];                
     [self.mapView setRegion:adjustedRegion animated:NO]; 
     
+    // [moiz] hmmm... looks like we need to keep a reference to the annotaion
+    //  around this might be true for overlays as well i imagine
     // cleanup
-    [annotation release];
+    //[annotation release];
 }
 
 //------------------------------------------------------------------------------
@@ -151,7 +140,7 @@
 {
     // source : user location
     CLLocationCoordinate2D currentLocation = self.mapView.userLocation.coordinate;
-    NSString *source = $string(@"%f,%fuserLocation.coordinate", currentLocation.latitude,
+    NSString *source = $string(@"%f,%f", currentLocation.latitude,
                                          currentLocation.longitude);
 
     // desintation : coupon location
@@ -242,6 +231,106 @@
     region.span.longitudeDelta = max.longitude - min.longitude;
 
     return region;
+}
+
+//------------------------------------------------------------------------------
+
+- (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation
+{
+    static NSString *sCouponPinId = @"couponPinId";
+
+    enum CouponPinViewTag {
+        kTagGradient = 0,
+        kTagIcon     = 1,
+    };
+
+    // check for any available annotation views 
+    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView 
+        dequeueReusableAnnotationViewWithIdentifier:sCouponPinId];
+    if (pinView == nil) {
+        pinView = 
+            [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
+                                             reuseIdentifier:sCouponPinId] autorelease];
+
+        // setup configuration
+        pinView.pinColor       = MKPinAnnotationColorPurple;
+        pinView.canShowCallout = YES;
+        pinView.animatesDrop   = YES;
+
+        // setup icon view
+        IconManager *iconManager = [IconManager getInstance];
+        CGRect gradientFrame     = CGRectMake(0.0, 0.0, 32.0, 32.0);
+        GradientView *gradient   = [[GradientView alloc] initWithFrame:gradientFrame];
+        gradient.tag             = kTagGradient;
+        gradient.color           = [self.coupon getColor];
+        gradient.border          = 2;
+        CGRect iconFrame         = CGRectMake(4.0, 4.0, 24.0, 24.0);
+        UIImageView *icon        = [[UIImageView alloc] initWithFrame:iconFrame];
+        icon.image               = [iconManager getImage:self.coupon.iconData];
+        icon.tag                 = kTagIcon;
+        [gradient addSubview:icon];
+
+        // setup button 
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [button addTarget:self 
+                   action:@selector(getDirections) 
+         forControlEvents:UIControlEventTouchUpInside];
+
+        // add accessory view
+        pinView.leftCalloutAccessoryView  = gradient;
+        pinView.rightCalloutAccessoryView = button;
+
+        // cleanup
+        [icon release];
+        [gradient release];
+    }
+
+    return pinView;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) getDirections
+{
+    NSString *title   = self.coupon.merchant.name;
+    NSString *message = self.coupon.merchant.address;
+
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self openMapApp];
+        }
+    };
+
+    // display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:@"Directions", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) openMapApp
+{
+    // use current location
+    NSString *source = @"Current Location";
+
+    // grab merchant location
+    Merchant *merchant = self.coupon.merchant;
+    NSString *destination = $string(@"%f,%f", merchant.latitude.doubleValue,
+                                              merchant.longitude.doubleValue);
+
+    // generate url
+    NSURL *url = [GoogleMapsApi urlForDirectionsFromSource:source 
+                                             toDestination:destination];
+
+    // open map app
+    UIApplication *application = [UIApplication sharedApplication];
+    [application openURL:url];
 }
 
 //------------------------------------------------------------------------------

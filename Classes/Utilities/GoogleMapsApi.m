@@ -20,8 +20,8 @@
 
 @interface GoogleMapsApi ()
     + (NSString*) apiUrlPath;
-    + (NSURL*) urlForDirectionsWithSource:(NSString*)source 
-                           andDestination:(NSString*)destination;
+    + (NSURL*) urlForDataFromSource:(NSString*)source
+                      toDestination:(NSString*)destination;
     + (NSString*) formatString:(NSString*)string;
     - (NSDictionary*) parseRouteData:(NSData*)data;
     - (NSDictionary*) parseRawRouteData:(NSData*)data;
@@ -50,7 +50,26 @@
 
 //------------------------------------------------------------------------------
 
-+ (NSURL*) urlForDirectionsWithSource:(NSString*)source andDestination:(NSString*)destination
++ (NSURL*) urlForDirectionsFromSource:(NSString*)source toDestination:(NSString*)destination
+{
+    // properly encode/format the source and destination strings
+    source      = [self formatString:source];
+    destination = [self formatString:destination];
+
+    // grab the local identifier
+    NSString *locale = [[NSLocale currentLocale] localeIdentifier];
+
+    // construct the url path
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@?saddr=%@&daddr=%@&hl=%@", 
+            [GoogleMapsApi apiUrlPath], source, destination, locale)] 
+        autorelease];
+    return url;
+}
+
+//------------------------------------------------------------------------------
+
++ (NSURL*) urlForDataFromSource:(NSString*)source toDestination:(NSString*)destination
 {
     // properly encode/format the source and destination strings
     source      = [self formatString:source];
@@ -65,6 +84,13 @@
             [GoogleMapsApi apiUrlPath], source, destination, locale)] 
         autorelease];
     return url;
+}
+
+//------------------------------------------------------------------------------
+
++ (NSString*) formatString:(NSString*)string
+{
+    return [string stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 }
 
 //------------------------------------------------------------------------------
@@ -91,16 +117,9 @@
 
 //------------------------------------------------------------------------------
 
-+ (NSString*) formatString:(NSString*)string
-{
-    return [string stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-}
-
-//------------------------------------------------------------------------------
-
 - (void) getRouteBetweenSource:(NSString*)source andDestination:(NSString*)destination
 {
-    NSURL* url = [GoogleMapsApi urlForDirectionsWithSource:source andDestination:destination];
+    NSURL* url = [GoogleMapsApi urlForDataFromSource:source toDestination:destination];
 
     // setup the async request
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
