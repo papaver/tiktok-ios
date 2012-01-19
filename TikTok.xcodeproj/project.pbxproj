@@ -106,8 +106,6 @@
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
 		2E986F15138DFCEE00A301BA /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationController.m */; };
-		2E98714B1393050000A301BA /* CheckinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E98714A1393050000A301BA /* CheckinViewController.m */; };
-		2E98715A1393064A00A301BA /* CheckinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9871591393064A00A301BA /* CheckinViewController.xib */; };
 		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
 		2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */; };
 		2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */; };
@@ -388,9 +386,6 @@
 		2E821F8F136C2DCB00507F66 /* TikTokApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokApi.m; sourceTree = "<group>"; };
 		2E986F13138DFCEE00A301BA /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		2E986F14138DFCEE00A301BA /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
-		2E9871491393050000A301BA /* CheckinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinViewController.h; sourceTree = "<group>"; };
-		2E98714A1393050000A301BA /* CheckinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinViewController.m; sourceTree = "<group>"; };
-		2E9871591393064A00A301BA /* CheckinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckinViewController.xib; sourceTree = "<group>"; };
 		2EA168F914BF4C310099B1F1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		2EA168FA14BF4C310099B1F1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderPickerViewController.h; sourceTree = "<group>"; };
@@ -676,7 +671,6 @@
 			isa = PBXGroup;
 			children = (
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
-				2E9871591393064A00A301BA /* CheckinViewController.xib */,
 				28F335F01007B36200424DE2 /* CouponViewController.xib */,
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
 				2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */,
@@ -1105,8 +1099,6 @@
 		2EC672B41490026E00AC5CDF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2E9871491393050000A301BA /* CheckinViewController.h */,
-				2E98714A1393050000A301BA /* CheckinViewController.m */,
 				2EFB99F514C77B0300FD69E8 /* CouponAnnotation.h */,
 				2EFB99F614C77B0300FD69E8 /* CouponAnnotation.m */,
 				2EE8581814ABAC35008055AD /* CouponViewController.h */,
@@ -1254,7 +1246,6 @@
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				28F335F11007B36200424DE2 /* CouponViewController.xib in Resources */,
 				2E1F721E13619BD700F947E3 /* CouponDetailViewController.xib in Resources */,
-				2E98715A1393064A00A301BA /* CheckinViewController.xib in Resources */,
 				2E1144D213946D7900D72753 /* LocationMapViewController.xib in Resources */,
 				2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */,
 				2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */,
@@ -1358,7 +1349,6 @@
 				2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */,
 				2E63B8F21384EE5A00427FF9 /* Location.m in Sources */,
 				2E986F15138DFCEE00A301BA /* LocationController.m in Sources */,
-				2E98714B1393050000A301BA /* CheckinViewController.m in Sources */,
 				2E1144D113946D7900D72753 /* LocationMapViewController.m in Sources */,
 				2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */,
 				2EC6725A148FF6EF00AC5CDF /* Utilities.m in Sources */,
