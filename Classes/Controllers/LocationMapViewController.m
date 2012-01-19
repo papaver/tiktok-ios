@@ -13,6 +13,7 @@
 #import "LocationMapViewController.h"
 #import "ASIHTTPRequest.h"
 #import "Coupon.h"
+#import "Merchant.h"
 #import "CouponAnnotation.h"
 #import "GoogleMapsApi.h"
 
@@ -22,6 +23,7 @@
 
 @interface LocationMapViewController ()
     - (void) addCouponAnnotations;
+    - (void) addRouteToCoupon;
     - (void) addRouteOverlay:(NSDictionary*)routeData;
     - (MKPolyline*) polylineFromPoints:(NSArray*)points;
     - (MKCoordinateRegion) regionFromPoints:(NSArray*)points;
@@ -51,20 +53,6 @@
 
     // add coupon location to map and center map
     if (self.coupon) [self addCouponAnnotations];
-
-    /*
-    NSString *source = @"875 Carleton Way, Burnaby";
-    NSString *dest   = @"595 Burrard St, Vancouver";
-    GoogleMapsApi *api = [[GoogleMapsApi alloc] init];
-    api.completionHandler = ^(ASIHTTPRequest *request, id data) {
-        NSArray *routes = [data objectForKey:@"routes"];
-        if (routes && routes.count) {
-            [self addRouteOverlay:data];
-        }
-    };
-    [api getRouteBetweenSource:source andDestination:dest];
-    [api release];
-    */
 }
 
 //------------------------------------------------------------------------------
@@ -85,6 +73,8 @@
 
     // user location (let sdk handle drawing)
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        // [moiz] this is a good place to create a route to a destination from
+        // the user location
         return nil;
     }
 
@@ -153,6 +143,32 @@
     
     // cleanup
     [annotation release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) addRouteToCoupon
+{
+    // source : user location
+    CLLocationCoordinate2D currentLocation = self.mapView.userLocation.coordinate;
+    NSString *source = $string(@"%f,%fuserLocation.coordinate", currentLocation.latitude,
+                                         currentLocation.longitude);
+
+    // desintation : coupon location
+    Merchant *merchant = self.coupon.merchant;
+    NSString *destination = $string(@"%f,%f", merchant.latitude.doubleValue,
+                                              merchant.longitude.doubleValue);
+
+    // query the location using google maps
+    GoogleMapsApi *api = [[GoogleMapsApi alloc] init];
+    api.completionHandler = ^(ASIHTTPRequest *request, id data) {
+        NSArray *routes = [data objectForKey:@"routes"];
+        if (routes && routes.count) {
+            [self addRouteOverlay:data];
+        }
+    };
+    [api getRouteBetweenSource:source andDestination:destination];
+    [api release];
 }
 
 //------------------------------------------------------------------------------
