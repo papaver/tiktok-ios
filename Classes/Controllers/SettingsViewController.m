@@ -13,22 +13,26 @@
 #import "SettingsViewController.h"
 #import "FacebookManager.h"
 #import "GenderPickerViewController.h"
+#import "LocationPickerViewController.h"
 #import "Settings.h"
 
 //------------------------------------------------------------------------------
 // enums
 //------------------------------------------------------------------------------
-
+ 
 enum TableSections
 {
-    kSectionBasic  = 0,
-    kSectionGender = 1,
+    kSectionBasic    = 0,
+    kSectionGender   = 1,
+    kSectionLocation = 2,
 };
 
 enum TableRows
 {
     kRowName  = 0,
     kRowEmail = 1,
+    kRowHome  = 0,
+    kRowWork  = 1,
 };
 
 enum ViewTags
@@ -159,7 +163,7 @@ enum ViewTags
  */
 - (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView 
 {
-    return 2;
+    return 3;
 }
 
 //------------------------------------------------------------------------------
@@ -174,6 +178,8 @@ enum ViewTags
             return 2;
         case kSectionGender:
             return 1;
+        case kSectionLocation:
+            return 2;
         default:
             break;
     }
@@ -215,11 +221,18 @@ enum ViewTags
             }
             break;
         case kSectionGender:
-            cell                = [[[UITableViewCell alloc] 
+            cell = [[[UITableViewCell alloc] 
                 initWithStyle:UITableViewCellStyleDefault 
               reuseIdentifier:@"gender"] autorelease];
             cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.text = @"Gender";
+            break;
+        case kSectionLocation:
+            cell = [[[UITableViewCell alloc] 
+                initWithStyle:UITableViewCellStyleDefault 
+              reuseIdentifier:@"location"] autorelease];
+            cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = !indexPath.row ? @"Home" : @"Work";
             break;
         default:
             break;
@@ -294,6 +307,30 @@ enum ViewTags
     if (indexPath.section == kSectionGender) {
         GenderPickerViewController *controller = [[GenderPickerViewController alloc] 
             initWithNibName:@"GenderPickerViewController" bundle:nil];
+
+        // pass the selected object to the new view controller.
+        [self.navigationController pushViewController:controller animated:YES];
+        [controller release];
+
+    // pick location
+    } else if (indexPath.section == kSectionLocation) {
+        LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
+            initWithNibName:@"LocationPickerViewController" bundle:nil];
+        
+        // setup the location and save handler depending on which row is selected
+        if (indexPath.row == kRowHome) {
+            __block Settings *settings = [Settings getInstance];
+            controller.location    = settings.home; 
+            controller.saveHandler = ^(CLLocation *location) {
+                settings.home = location;
+            };
+        } else {
+            __block Settings *settings = [Settings getInstance];
+            controller.location    = settings.work; 
+            controller.saveHandler = ^(CLLocation *location) {
+                settings.work = location;
+            };
+        }
 
         // pass the selected object to the new view controller.
         [self.navigationController pushViewController:controller animated:YES];

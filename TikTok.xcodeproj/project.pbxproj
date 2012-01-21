@@ -25,6 +25,12 @@
 		2E201E4614B7AC17001E9051 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E201E4514B7AC17001E9051 /* Database.m */; };
 		2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4714BB58EB001E9051 /* RedeemedSash.png */; };
 		2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */; };
+		2E31269714C8DFFE00477805 /* LocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31269514C8DFFE00477805 /* LocationPickerViewController.m */; };
+		2E31269814C8DFFE00477805 /* LocationPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */; };
+		2E31269A14C8F78000477805 /* MapSelectionMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269914C8F78000477805 /* MapSelectionMask.png */; };
+		2E31269D14CA044C00477805 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31269C14CA044C00477805 /* NSDictionary+Extensions.m */; };
+		2E31269F14CA402500477805 /* UserLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269E14CA402500477805 /* UserLocation.png */; };
+		2E3126A114CA427600477805 /* UserLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3126A014CA427600477805 /* UserLocation@2x.png */; };
 		2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E32143D14C0B6E500647116 /* MessageUI.framework */; };
 		2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E32143F14C0BAE000647116 /* iPhoneShake.png */; };
 		2E5FEADB14A1106400B516FE /* Icon01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD514A1106300B516FE /* Icon01.png */; };
@@ -244,6 +250,14 @@
 		2E201E4514B7AC17001E9051 /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		2E201E4714BB58EB001E9051 /* RedeemedSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemedSash.png; sourceTree = "<group>"; };
 		2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemedSash@2x.png"; sourceTree = "<group>"; };
+		2E31269414C8DFFE00477805 /* LocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPickerViewController.h; sourceTree = "<group>"; };
+		2E31269514C8DFFE00477805 /* LocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPickerViewController.m; sourceTree = "<group>"; };
+		2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationPickerViewController.xib; sourceTree = "<group>"; };
+		2E31269914C8F78000477805 /* MapSelectionMask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapSelectionMask.png; sourceTree = "<group>"; };
+		2E31269B14CA044C00477805 /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
+		2E31269C14CA044C00477805 /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
+		2E31269E14CA402500477805 /* UserLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserLocation.png; sourceTree = "<group>"; };
+		2E3126A014CA427600477805 /* UserLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserLocation@2x.png"; sourceTree = "<group>"; };
 		2E32143D14C0B6E500647116 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2E32143F14C0BAE000647116 /* iPhoneShake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneShake.png; sourceTree = "<group>"; };
 		2E5FEAD514A1106300B516FE /* Icon01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon01.png; sourceTree = "<group>"; };
@@ -675,6 +689,7 @@
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
 				2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
+				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
 				2EB87ED9149FC07C00F01C26 /* StartupViewController.xib */,
 				2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */,
@@ -685,6 +700,9 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E31269E14CA402500477805 /* UserLocation.png */,
+				2E3126A014CA427600477805 /* UserLocation@2x.png */,
+				2E31269914C8F78000477805 /* MapSelectionMask.png */,
 				2E32143F14C0BAE000647116 /* iPhoneShake.png */,
 				2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */,
 				2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */,
@@ -1111,6 +1129,8 @@
 				2E986F14138DFCEE00A301BA /* LocationController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
 				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
+				2E31269414C8DFFE00477805 /* LocationPickerViewController.h */,
+				2E31269514C8DFFE00477805 /* LocationPickerViewController.m */,
 				2EE8581514ABABBB008055AD /* MerchantViewController.h */,
 				2EE8581614ABABBB008055AD /* MerchantViewController.m */,
 				2EB87ED7149FC07C00F01C26 /* StartupViewController.h */,
@@ -1171,6 +1191,8 @@
 				2E6CCF4A14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m */,
 				2E6CCF4C14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.h */,
 				2E6CCF4D14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m */,
+				2E31269B14CA044C00477805 /* NSDictionary+Extensions.h */,
+				2E31269C14CA044C00477805 /* NSDictionary+Extensions.m */,
 				2ECAD07014C4F87F00706EF3 /* UIActionSheet+Handlers.h */,
 				2ECAD07114C4F87F00706EF3 /* UIActionSheet+Handlers.m */,
 				2ECAD06B14C4B03A00706EF3 /* UIAlertView+Handlers.h */,
@@ -1330,6 +1352,10 @@
 				2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */,
 				2EE4563A14BF9BA500EDD04B /* Icon.png in Resources */,
 				2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */,
+				2E31269814C8DFFE00477805 /* LocationPickerViewController.xib in Resources */,
+				2E31269A14C8F78000477805 /* MapSelectionMask.png in Resources */,
+				2E31269F14CA402500477805 /* UserLocation.png in Resources */,
+				2E3126A114CA427600477805 /* UserLocation@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1449,6 +1475,8 @@
 				2EFB99F114C63FF800FD69E8 /* JSONKit.m in Sources */,
 				2EFB99F414C6408C00FD69E8 /* GoogleMapsApi.m in Sources */,
 				2EFB99F714C77B0300FD69E8 /* CouponAnnotation.m in Sources */,
+				2E31269714C8DFFE00477805 /* LocationPickerViewController.m in Sources */,
+				2E31269D14CA044C00477805 /* NSDictionary+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

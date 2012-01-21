@@ -19,15 +19,19 @@
 #define KEY_NAME   @"TTS_name"
 #define KEY_EMAIL  @"TTS_email"
 #define KEY_GENDER @"TTS_gender"
+#define KEY_HOME   @"TTS_home"
+#define KEY_WORK   @"TTS_work"
 
 //-----------------------------------------------------------------------------
 // interface definition
 //-----------------------------------------------------------------------------
 
 @interface Settings ()
-    - (NSString*) loadValueForKey:(NSString*)key;
-    - (void) saveValue:(NSString*)value forKey:(NSString*)key;
+    - (id) loadValueForKey:(NSString*)key;
+    - (void) saveValue:(id)value forKey:(NSString*)key;
     - (void) clearValueForKey:(NSString*)key;
+    - (CLLocation*) loadLocationForKey:(NSString*)key;
+    - (void) saveLocation:(CLLocation*)location forKey:(NSString*)key;
 @end
 
 //-----------------------------------------------------------------------------
@@ -69,16 +73,16 @@
 #pragma - Methods
 //-----------------------------------------------------------------------------
 
-- (NSString*) loadValueForKey:(NSString*)key
+- (id) loadValueForKey:(NSString*)key
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *value          = [defaults objectForKey:key];
+    id value                 = [defaults objectForKey:key];
     return value;
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) saveValue:(NSString*)value forKey:(NSString*)key;
+- (void) saveValue:(id)value forKey:(NSString*)key;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:value forKey:key];
@@ -97,6 +101,32 @@
 }
 
 //-----------------------------------------------------------------------------
+
+- (CLLocation*) loadLocationForKey:(NSString*)key
+{
+    NSDictionary *dict = [self loadValueForKey:key];
+    if (!dict) return nil;
+
+    NSNumber *latitude   = [dict objectForKey:@"lat"];
+    NSNumber *longitude  = [dict objectForKey:@"long"];
+    CLLocation *location = 
+        [[[CLLocation alloc] initWithLatitude:[latitude doubleValue]
+                                    longitude:[longitude doubleValue]] autorelease];
+    return location;
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) saveLocation:(CLLocation*)location forKey:(NSString*)key
+{
+    NSNumber *latitude  = [NSNumber numberWithDouble:location.coordinate.latitude];
+    NSNumber *longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
+    NSDictionary *dict  = $dict($array(@"lat", @"long", nil), 
+                                $array(latitude, longitude, nil));
+    [self saveValue:dict forKey:key];
+}
+
+//-----------------------------------------------------------------------------
 #pragma - Public Api
 //-----------------------------------------------------------------------------
 
@@ -105,6 +135,8 @@
     [self clearValueForKey:KEY_NAME];
     [self clearValueForKey:KEY_EMAIL];
     [self clearValueForKey:KEY_GENDER];
+    [self clearValueForKey:KEY_HOME];
+    [self clearValueForKey:KEY_WORK];
 }
 
 //-----------------------------------------------------------------------------
@@ -120,7 +152,7 @@
 
 - (void) setName:(NSString*)name 
 {
-    return [self saveValue:name forKey:KEY_NAME];
+    [self saveValue:name forKey:KEY_NAME];
 }
 
 //-----------------------------------------------------------------------------
@@ -134,7 +166,7 @@
 
 - (void) setEmail:(NSString*)email 
 {
-    return [self saveValue:email forKey:KEY_EMAIL];
+    [self saveValue:email forKey:KEY_EMAIL];
 }
 
 //-----------------------------------------------------------------------------
@@ -148,9 +180,37 @@
 
 - (void) setGender:(NSString*)gender 
 {
-    return [self saveValue:gender forKey:KEY_GENDER];
+    [self saveValue:gender forKey:KEY_GENDER];
 }
 
+//-----------------------------------------------------------------------------
+
+- (CLLocation*) home 
+{
+    return [self loadLocationForKey:KEY_HOME];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setHome:(CLLocation*)home 
+{
+    [self saveLocation:home forKey:KEY_HOME];
+}
+
+//-----------------------------------------------------------------------------
+
+- (CLLocation*) work 
+{
+    return [self loadLocationForKey:KEY_WORK];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setWork:(CLLocation*)work 
+{
+    [self saveLocation:work forKey:KEY_WORK];
+}
+       
 //-----------------------------------------------------------------------------
 #pragma - Memory Management
 //-----------------------------------------------------------------------------

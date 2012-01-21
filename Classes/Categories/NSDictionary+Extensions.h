@@ -1,8 +1,8 @@
 //
-//  Settings.h
+//  NSDictionary+Extensions.h
 //  TikTok
 //
-//  Created by Moiz Merchant on 01/12/12.
+//  Created by Moiz Merchant on 01/05/12.
 //  Copyright 2012 TikTok. All rights reserved.
 //
 
@@ -16,28 +16,20 @@
 // interface definition
 //-----------------------------------------------------------------------------
 
-@interface Settings : NSObject
-{
-}
-
-//-----------------------------------------------------------------------------
-
-@property(nonatomic, retain) NSString   *name;
-@property(nonatomic, retain) NSString   *email;
-@property(nonatomic, retain) NSString   *gender;
-@property(nonatomic, retain) CLLocation *home;
-@property(nonatomic, retain) CLLocation *work;
+@interface NSDictionary (Extensions)
 
 //-----------------------------------------------------------------------------
 
 /**
- * Gets the global instance of the settings object.
+ * Accepts a list of keys, allowing access into nested dictionaries.
  */
-+ (Settings*) getInstance;
+- (id) objectForNestedKeys:(NSString*)key, ... NS_REQUIRES_NIL_TERMINATION;
 
-//-----------------------------------------------------------------------------
-
-- (void) clearAllSettings;
+/**
+ * Accepts keys of the fashion: one.two.three, allowing easy access into 
+ * nested dictionaries.
+ */
+- (id) objectForComplexKey:(NSString*)key;
 
 //-----------------------------------------------------------------------------
 

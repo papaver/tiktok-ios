@@ -22,6 +22,7 @@
     + (NSString*) apiUrlPath;
     + (NSURL*) urlForDataFromSource:(NSString*)source
                       toDestination:(NSString*)destination;
+    + (NSURL*) urlForForwardGeocodingForAddress:(NSString*)address;
     + (NSString*) formatString:(NSString*)string;
     - (NSDictionary*) parseRouteData:(NSData*)data;
     - (NSDictionary*) parseRawRouteData:(NSData*)data;
@@ -88,6 +89,21 @@
 
 //------------------------------------------------------------------------------
 
++ (NSURL*) urlForForwardGeocodingForAddress:(NSString*)address
+{
+    // properly encode/format the source and destination strings
+    address = [self formatString:address];
+
+    // construct the url path
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/api/geocode/json?sensor=false&address=%@",  
+            [GoogleMapsApi apiUrlPath], address)]
+        autorelease];
+    return url;
+}
+
+//------------------------------------------------------------------------------
+
 + (NSString*) formatString:(NSString*)string
 {
     return [string stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -142,6 +158,39 @@
     // set error handler
     [request setFailedBlock:^{
         NSLog(@"GoogleMapsApi: Failed to query directions: %@", [request error]);
+        if (self.errorHandler) self.errorHandler([request error]);
+    }];
+ 
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) getGeocodingForAddress:(NSString*)address
+{
+    NSURL* url = [GoogleMapsApi urlForForwardGeocodingForAddress:address];
+
+    // setup the async request
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setCompletionBlock:^{
+
+        // parse data
+        dispatch_async(mQueue, ^(void) {
+            
+            // parse the route data 
+            NSDictionary *geoData = [[request responseData] objectFromJSONData];
+
+            // run completion handler
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (self.completionHandler) self.completionHandler(request, geoData);
+            });
+        });  
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"GoogleMapsApi: Failed to query address: %@", [request error]);
         if (self.errorHandler) self.errorHandler([request error]);
     }];
  

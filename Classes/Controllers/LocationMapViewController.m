@@ -11,13 +11,18 @@
 //------------------------------------------------------------------------------
 
 #import "LocationMapViewController.h"
-#import "ASIHTTPRequest.h"
 #import "Coupon.h"
 #import "CouponAnnotation.h"
 #import "IconManager.h"
 #import "Merchant.h"
 #import "GoogleMapsApi.h"
 #import "GradientView.h"
+
+//------------------------------------------------------------------------------
+// forward declarations
+//------------------------------------------------------------------------------
+
+@class ASIHTTPRequest;
 
 //------------------------------------------------------------------------------
 // interface definition
