@@ -115,6 +115,8 @@
 		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
 		2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */; };
 		2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */; };
+		2EA2286214CDE19F00466166 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2EA2285F14CDE19F00466166 /* SVProgressHUD.bundle */; };
+		2EA2286314CDE19F00466166 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2286114CDE19F00466166 /* SVProgressHUD.m */; };
 		2EB87EC9149FA96700F01C26 /* InitalLoadingSplash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */; };
 		2EB87ECA149FA96700F01C26 /* LoadingPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC2149FA96700F01C26 /* LoadingPage.png */; };
 		2EB87ECB149FA96700F01C26 /* LoadingPage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */; };
@@ -405,6 +407,9 @@
 		2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderPickerViewController.h; sourceTree = "<group>"; };
 		2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenderPickerViewController.m; sourceTree = "<group>"; };
 		2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenderPickerViewController.xib; sourceTree = "<group>"; };
+		2EA2285F14CDE19F00466166 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		2EA2286014CDE19F00466166 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		2EA2286114CDE19F00466166 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InitalLoadingSplash@2x.png"; sourceTree = "<group>"; };
 		2EB87EC2149FA96700F01C26 /* LoadingPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoadingPage.png; sourceTree = "<group>"; };
 		2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoadingPage@2x.png"; sourceTree = "<group>"; };
@@ -974,6 +979,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2EA2285D14CDE16500466166 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				2EA2285E14CDE19100466166 /* SVProgressHUD */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		2EA2285E14CDE19100466166 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				2EA2286014CDE19F00466166 /* SVProgressHUD.h */,
+				2EA2286114CDE19F00466166 /* SVProgressHUD.m */,
+				2EA2285F14CDE19F00466166 /* SVProgressHUD.bundle */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		2EC67252148FF6A400AC5CDF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,6 +1037,7 @@
 				2EE5D42714B25CED00D0539C /* Facebook */,
 				2EFB99EE14C63F6C00FD69E8 /* JsonKit */,
 				2EC6725D148FFE7000AC5CDF /* SBJson */,
+				2EA2285D14CDE16500466166 /* SVProgressHUD */,
 				2EE5D43914B3734A00D0539C /* TestFlight */,
 				2E5FEAE114A1157500B516FE /* UIColorUtilities */,
 			);
@@ -1356,6 +1380,7 @@
 				2E31269A14C8F78000477805 /* MapSelectionMask.png in Resources */,
 				2E31269F14CA402500477805 /* UserLocation.png in Resources */,
 				2E3126A114CA427600477805 /* UserLocation@2x.png in Resources */,
+				2EA2286214CDE19F00466166 /* SVProgressHUD.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1477,6 +1502,7 @@
 				2EFB99F714C77B0300FD69E8 /* CouponAnnotation.m in Sources */,
 				2E31269714C8DFFE00477805 /* LocationPickerViewController.m in Sources */,
 				2E31269D14CA044C00477805 /* NSDictionary+Extensions.m in Sources */,
+				2EA2286314CDE19F00466166 /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,3 +13,6 @@
 [submodule "ThirdParty/JsonKit"]
 	path = ThirdParty/JsonKit
 	url = https://github.com/johnezang/JSONKit.git
+[submodule "ThirdParty/SVProgressHUD"]
+	path = ThirdParty/SVProgressHUD
+	url = https://github.com/samvermette/SVProgressHUD.git
