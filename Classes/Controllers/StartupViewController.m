@@ -13,6 +13,7 @@
 #import "StartupViewController.h"
 #import "ASIHTTPRequest.h"
 #import "Database.h"
+#import "NetworkConnectivity.h"
 #import "TikTokApi.h"
 #import "Utilities.h"
 
@@ -40,6 +41,7 @@ enum StartupTag
     - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) progressBar:(NSTimer*)timer;
     - (void) pauseStartup;
+    - (void) waitForInternetConnection;
 @end
 
 //------------------------------------------------------------------------------
@@ -175,16 +177,20 @@ enum StartupTag
             
         // something went horibbily wrong...
         } else {
-            [Utilities displaySimpleAlertWithTitle:@"Registration Error" 
-                                        andMessage:[[request error] description]]; 
+            NSLog(@"StartupController: registration failed: %@", 
+                [[request error] description]);
+            NSString *title   = @"Registration Error";
+            NSString *message = @"Failed to register with the server.  Please \
+                                try again later.";
+            [Utilities displaySimpleAlertWithTitle:title
+                                        andMessage:message];
         }
     };
 
-    // alert user of registration failure
+    // most probably we lost network connection, so put up a HUD and wait till
+    // we get connectivity back, one we do restart the startup process
     api.errorHandler = ^(ASIHTTPRequest* request) { 
-        NSString *title   = NSLocalizedString(@"TITLE_NETWORK_ERROR", nil);
-        NSString *message = NSLocalizedString(@"MESSAGE_DEVICEID_REG_FAILURE", nil);
-        [Utilities displaySimpleAlertWithTitle:title andMessage:message]; 
+        [self waitForInternetConnection];
     };
 
     // register the device with the server
@@ -218,11 +224,10 @@ enum StartupTag
         }
     };
 
-    // alert user of registration check failure?
+    // most probably we lost network connection, so put up a HUD and wait till
+    // we get connectivity back, one we do restart the startup process
     api.errorHandler = ^(ASIHTTPRequest* request) { 
-        NSString *title   = NSLocalizedString(@"TITLE_NETWORK_ERROR", nil);
-        NSString *message = NSLocalizedString(@"MESSAGE_DEVICEID_REG_FAILURE", nil);
-        [Utilities displaySimpleAlertWithTitle:title andMessage:message]; 
+        [self waitForInternetConnection];
     };
 
     // validate registration with server
@@ -297,7 +302,42 @@ enum StartupTag
     // kill timer
     if (progressBar.progress >= 1.0) {
         [mTimer invalidate];
+        mTimer = nil;
     }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) waitForInternetConnection
+{
+    // wait for internet connection 
+    [NetworkConnectivity waitForNetworkWithConnectionHandler:^() {
+
+        // register device with server if no customer id found
+        NSString *customerId  = [Utilities getConsumerId];
+        if (!customerId) { 
+            [self registerDevice];
+        } else {
+            [self validateRegistration];
+        }
+
+        // reset progress bar
+        UIProgressView *progressBar = (UIProgressView*)[self.view viewWithTag:kTagProgressBar];
+        progressBar.progress        = 0.01;
+
+        // kill timer if it is still running
+        if (mTimer) {
+            [mTimer invalidate];
+            [mTimer release];
+        }
+
+        // start fake progress bar timer
+        mTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 
+                                                target:self 
+                                                selector:@selector(progressBar:) 
+                                                userInfo:nil 
+                                                repeats:YES];
+    }];
 }
 
 //------------------------------------------------------------------------------
