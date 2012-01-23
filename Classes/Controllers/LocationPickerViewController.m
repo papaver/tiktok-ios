@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "LocationPickerViewController.h"
 #import "GoogleMapsApi.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // forward declarations
@@ -181,9 +182,11 @@ enum ViewTags
             if (geoData) [self centerMapToGeocoding:geoData];
         };
 
-        // add error handler
+        // alert user search failed
         api.errorHandler = ^(NSError *error) {
-            // alert user search failed
+            NSString *title   = NSLocalizedString(@"LOCATION_SEARCH", nil);
+            NSString *message = NSLocalizedString(@"LOCATION_SEARCH_FAIL", nil);
+            [Utilities displaySimpleAlertWithTitle:title andMessage:message];
         };
 
         // query for geocode data
@@ -199,6 +202,16 @@ enum ViewTags
 
 - (void) centerMapToGeocoding:(NSDictionary*)geoData
 {
+    // make sure search results exist
+    NSString *status = [geoData objectForKey:@"status"];
+    if (!status || [status isEqualToString:@"ZERO_RESULTS"]) {
+        NSString *title   = NSLocalizedString(@"LOCATION_SEARCH", nil);
+        NSString *message = NSLocalizedString(@"LOCATION_NOT_FOUND", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+        return;
+    }
+
+    // grab the results from the json data
     NSDictionary *results   = [[geoData objectForKey:@"results"] objectAtIndex:0];
     NSDictionary *location  = [results objectForComplexKey:@"geometry.location"];
     NSDictionary *northEast = [results objectForComplexKey:@"geometry.bounds.northeast"];
