@@ -13,6 +13,7 @@
 #import "StartupViewController.h"
 #import "ASIHTTPRequest.h"
 #import "Database.h"
+#import "LocationTracker.h"
 #import "NetworkConnectivity.h"
 #import "TikTokApi.h"
 #import "Utilities.h"
@@ -252,6 +253,7 @@ enum StartupTag
 - (void) setupLocationTracking
 {
     NSLog(@"StartupController: Setting up location tracking...");
+    [LocationTracker startLocationTracking];
 }
 
 //------------------------------------------------------------------------------
@@ -359,9 +361,8 @@ enum StartupTag
 
         // alert user of easter egg
         NSString *message = @"Congrats! You found the easter egg. You can now toss \
-                            Tik and his retarded other, Tok, around as long as you \
-                            like. Click on the Shake icon again to continue using  \
-                            the app!";
+                            Tik and Tok, around as long as you like. Click on the \
+                            Shake icon again to continue using the app!";
         [Utilities displaySimpleAlertWithTitle:@"Easter Egg"
                                     andMessage:message];
 

@@ -23,6 +23,7 @@
 "FACEBOOK_NOT_SETUP"           = "You are not currently connected to Facebook.  Connect before posting.";
 "FACEBOOK_DEAL_POST"           = "Your deal has been posted!";
 
+"LOCATION_REQUEST"             = "We'll only use your location to show you local deals nearby.";
 "LOCATION_SEARCH"              = "Location Search";
 "LOCATION_SEARCH_FAIL"         = "The search failed.  Please try it again.";
 "LOCATION_NOT_FOUND"           = "Location not found. Please try different search parameters.";

@@ -1,5 +1,5 @@
 //
-//  LocationController.h
+//  LocationTracker.h
 //  TikTok
 //
 //  Created by Moiz Merchant on 5/25/11.
@@ -14,34 +14,22 @@
 #import <CoreLocation/CoreLocation.h>
 
 //------------------------------------------------------------------------------
-// protocol definition 
-//------------------------------------------------------------------------------
-
-@protocol LocationControllerDelegate 
-
-@required
-
-- (void) locationUpdate:(CLLocation*)location;
-- (void) locationError:(NSError*)error;
-
-@end
-
-//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface LocationController : NSObject <CLLocationManagerDelegate>
+@interface LocationTracker : NSObject <CLLocationManagerDelegate>
 {
     CLLocationManager *mLocationManager;
-    id                 mDelegate;
 }
 
 //------------------------------------------------------------------------------
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain) id                delegate;
 
 //------------------------------------------------------------------------------
+
++ (void) startLocationTracking;
++ (void) stopLocationTracking;
 
 - (void) printLocationManagerStatus:(CLLocationManager*)manager;
 

@@ -111,7 +111,7 @@
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
-		2E986F15138DFCEE00A301BA /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationController.m */; };
+		2E986F15138DFCEE00A301BA /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationTracker.m */; };
 		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
 		2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */; };
 		2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */; };
@@ -401,8 +401,8 @@
 		2E821F84136B1F2A00507F66 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
 		2E821F8E136C2DCB00507F66 /* TikTokApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokApi.h; sourceTree = "<group>"; };
 		2E821F8F136C2DCB00507F66 /* TikTokApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokApi.m; sourceTree = "<group>"; };
-		2E986F13138DFCEE00A301BA /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
-		2E986F14138DFCEE00A301BA /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
+		2E986F13138DFCEE00A301BA /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
+		2E986F14138DFCEE00A301BA /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
 		2EA168F914BF4C310099B1F1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		2EA168FA14BF4C310099B1F1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderPickerViewController.h; sourceTree = "<group>"; };
@@ -1022,6 +1022,8 @@
 				2EE5D43814B25F2F00D0539C /* JSON.h */,
 				2EE5D44E14B65CD400D0539C /* KeychainUtilities.h */,
 				2EE5D44F14B65CD500D0539C /* KeychainUtilities.m */,
+				2E986F13138DFCEE00A301BA /* LocationTracker.h */,
+				2E986F14138DFCEE00A301BA /* LocationTracker.m */,
 				2EA168F914BF4C310099B1F1 /* Settings.h */,
 				2EA168FA14BF4C310099B1F1 /* Settings.m */,
 				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
@@ -1154,8 +1156,6 @@
 				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
 				2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */,
 				2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */,
-				2E986F13138DFCEE00A301BA /* LocationController.h */,
-				2E986F14138DFCEE00A301BA /* LocationController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
 				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
 				2E31269414C8DFFE00477805 /* LocationPickerViewController.h */,
@@ -1404,7 +1404,7 @@
 				2E821F85136B1F2A00507F66 /* Coupon.m in Sources */,
 				2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */,
 				2E63B8F21384EE5A00427FF9 /* Location.m in Sources */,
-				2E986F15138DFCEE00A301BA /* LocationController.m in Sources */,
+				2E986F15138DFCEE00A301BA /* LocationTracker.m in Sources */,
 				2E1144D113946D7900D72753 /* LocationMapViewController.m in Sources */,
 				2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */,
 				2EC6725A148FF6EF00AC5CDF /* Utilities.m in Sources */,

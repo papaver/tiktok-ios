@@ -250,6 +250,38 @@
 
 //------------------------------------------------------------------------------
 
+- (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate
+{
+    // construct the checkin url path 
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/consumers/%@?", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        autorelease];
+
+    // convert to objects
+    NSNumber *latitude  = [NSNumber numberWithDouble:coordinate.latitude];
+    NSNumber *longitude = [NSNumber numberWithDouble:coordinate.longitude];
+
+    // setup the async request
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setRequestMethod:@"PUT"];
+    [request setPostValue:latitude forKey:@"latitude"];
+    [request setPostValue:longitude forKey:@"longitude"];
+    [request setCompletionBlock:^{
+        if (self.completionHandler) self.completionHandler(request);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to push current location: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
 /** 
  * Parse the given data using the SBJson parser. 
  */ 

@@ -58,6 +58,7 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 - (void) validateRegistration;
 - (void) registerNotificationToken:(NSString*)token;
 - (void) syncActiveCoupons;
+- (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate;
 
 //------------------------------------------------------------------------------
 
