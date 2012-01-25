@@ -74,6 +74,9 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 - (void) syncActiveCoupons;
 - (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate;
 - (void) updateCoupon:(NSNumber*)couponId attribute:(TikTokApiCouponAttribute)attribute;
+- (void) updateSettings:(NSDictionary*)settings;
+- (void) updateSettingsHomeLocation:(CLLocation*)home;
+- (void) updateSettingsWorkLocation:(CLLocation*)work;
 
 //------------------------------------------------------------------------------
 

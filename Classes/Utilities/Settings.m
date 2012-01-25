@@ -11,6 +11,7 @@
 //-----------------------------------------------------------------------------
 
 #import "Settings.h"
+#import "TikTokApi.h"
 
 //-----------------------------------------------------------------------------
 // defines
@@ -153,6 +154,8 @@
 - (void) setName:(NSString*)name 
 {
     [self saveValue:name forKey:KEY_NAME];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"name", nil), $array(name, nil))];
 }
 
 //-----------------------------------------------------------------------------
@@ -167,6 +170,8 @@
 - (void) setEmail:(NSString*)email 
 {
     [self saveValue:email forKey:KEY_EMAIL];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"email", nil), $array(email, nil))];
 }
 
 //-----------------------------------------------------------------------------
@@ -181,6 +186,9 @@
 - (void) setGender:(NSString*)gender 
 {
     [self saveValue:gender forKey:KEY_GENDER];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"sex", nil), 
+                              $array([gender substringToIndex:1], nil))];
 }
 
 //-----------------------------------------------------------------------------
@@ -195,6 +203,8 @@
 - (void) setHome:(CLLocation*)home 
 {
     [self saveLocation:home forKey:KEY_HOME];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettingsHomeLocation:home];
 }
 
 //-----------------------------------------------------------------------------
@@ -209,6 +219,8 @@
 - (void) setWork:(CLLocation*)work 
 {
     [self saveLocation:work forKey:KEY_WORK];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettingsWorkLocation:work];
 }
        
 //-----------------------------------------------------------------------------

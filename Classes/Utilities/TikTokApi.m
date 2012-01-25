@@ -112,7 +112,8 @@
     // allocate the object context and attach it to the persistant storage
     Database *database    = [Database getInstance];
     if (database.context != nil) {
-        mManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType]; 
+        mManagedObjectContext = [[NSManagedObjectContext alloc] 
+            initWithConcurrencyType:NSConfinementConcurrencyType]; 
         [mManagedObjectContext setPersistentStoreCoordinator:database.coordinator];
     }
 
@@ -183,7 +184,7 @@
 
 - (void) registerNotificationToken:(NSString*)token
 {
-    // construct the checkin url path 
+    // construct the consumer settings url path 
     NSURL *url = [[[NSURL alloc] initWithString:
         $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
         autorelease];
@@ -253,7 +254,7 @@
 
 - (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate
 {
-    // construct the checkin url path 
+    // construct the consumer settings url path 
     NSURL *url = [[[NSURL alloc] initWithString:
         $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
         autorelease];
@@ -283,6 +284,74 @@
 
 //------------------------------------------------------------------------------
 
+- (void) updateSettings:(NSDictionary*)settings
+{
+    // construct the consumer settings url path 
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        autorelease];
+
+    // setup the async request
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setRequestMethod:@"PUT"];
+
+    // add settings in dictionary
+    for (NSString* key in [settings allKeys]) {
+        NSString* value = [settings objectForKey:key];
+        [request setPostValue:key forKey:value];
+    }
+
+    // set completion handler
+    [request setCompletionBlock:^{
+        if (self.completionHandler) self.completionHandler(request);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to push current location: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateSettingsHomeLocation:(CLLocation*)home
+{
+    // convert to objects
+    NSString *latitude  = $string(@"%f", home.coordinate.latitude);
+    NSString *longitude = $string(@"%f", home.coordinate.longitude);
+
+    // create dictionary with data to be updated
+    NSDictionary *settings = $dict(
+        $array(@"home_latitude", @"home_longitude", nil),
+        $array(latitude, longitude, nil));
+
+    // push the settings to the server
+    [self updateSettings:settings];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateSettingsWorkLocation:(CLLocation*)work
+{
+    // convert to objects
+    NSString *latitude  = $string(@"%f", work.coordinate.latitude);
+    NSString *longitude = $string(@"%f", work.coordinate.longitude);
+
+    // create dictionary with data to be updated
+    NSDictionary *settings = $dict(
+        $array(@"work_latitude", @"work_longitude", nil),
+        $array(latitude, longitude, nil));
+
+    // push the settings to the server
+    [self updateSettings:settings];
+}
+
+//------------------------------------------------------------------------------
+
 - (void) updateCoupon:(NSNumber*)couponId 
             attribute:(TikTokApiCouponAttribute)attribute
 {
@@ -299,7 +368,7 @@
         { kTikTokApiCouponAttributeEmail      , @"email"  },
     };
 
-    // construct the checkin url path 
+    // construct the coupon attribute url path 
     NSURL *url = [[[NSURL alloc] initWithString:
         $string(@"%@/consumers/%@/coupons/%@", 
             [TikTokApi apiUrlPath], [Utilities getConsumerId], couponId)] 
