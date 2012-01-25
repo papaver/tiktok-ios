@@ -16,6 +16,14 @@
 #import "UIDefaults.h"
 
 //------------------------------------------------------------------------------
+// defines
+//------------------------------------------------------------------------------
+
+#define $60_MINS (60.0 * 60.0)
+#define $30_MINS (30.0 * 60.0)
+#define  $5_MINS ( 5.0 * 60.0)
+
+//------------------------------------------------------------------------------
 // interface implementation
 //------------------------------------------------------------------------------
 
@@ -151,10 +159,26 @@
     // return the default color if expired
     if ([self isExpired]) return [UIDefaults getTokColor];
 
-    // calculte interp value
+    // calculate interp value
     NSTimeInterval secondsLeft  = [self.endTime timeIntervalSinceNow];
     NSTimeInterval totalSeconds = [self.endTime timeIntervalSinceDate:self.startTime];
     CGFloat t                   = 1.0 - (secondsLeft / totalSeconds);
+
+    // green  should be solid until 60 minutes
+    // yellow should be solid at 30 minutes
+    // orange should be solid at  5 minutes
+    if (secondsLeft > $60_MINS) {
+        t = 0.0f;
+    } else if (secondsLeft > $30_MINS) {
+        t = (secondsLeft - $30_MINS) / $30_MINS;
+        t = 0.00 + (1.0 - t) * 0.33;
+    } else if (secondsLeft > $5_MINS) {
+        t = (secondsLeft - $5_MINS) / ($30_MINS - $5_MINS);
+        t = 0.33 + (1.0 - t) * 0.33;
+    } else {
+        t = (secondsLeft / $5_MINS);
+        t = 0.66 + (1.0 - t) * 0.33;
+    }
 
     // colors to transition between
     UIColor *tik    = [UIDefaults getTikColor];
