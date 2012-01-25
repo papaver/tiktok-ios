@@ -231,8 +231,8 @@
 
     // create a new dictionary for the data
     NSDictionary *routeData = $dict(
-        $array(@"routes", @"time", @"distance", nil),
-        $array(routes, time, distance, nil));
+        $array(@"routes", @"time", @"distance"),
+        $array(routes, time, distance));
 
     // cleanup
     [routes release];

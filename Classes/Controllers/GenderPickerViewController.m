@@ -48,7 +48,7 @@
     self.title = @"Gender";
 
     // setup the data 
-    mGenderData = [$array(@"Female", @"Male", nil) retain];
+    mGenderData = [$array(@"Female", @"Male") retain];
 }
 
 //------------------------------------------------------------------------------

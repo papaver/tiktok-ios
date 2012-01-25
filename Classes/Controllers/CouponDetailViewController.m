@@ -255,8 +255,7 @@ enum ActionButton
     self.toolbarItems = $array(
         flexibleSpaceButton, 
         barButtonItem,
-        flexibleSpaceButton,
-        nil);
+        flexibleSpaceButton);
 
     // cleanup 
     [flexibleSpaceButton release];

@@ -232,7 +232,7 @@ enum ViewTags
                 initWithStyle:UITableViewCellStyleDefault 
               reuseIdentifier:@"location"] autorelease];
             cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = !indexPath.row ? @"Home" : @"Work";
+            cell.textLabel.text = !indexPath.row ? @"Home Location" : @"Work Location";
             break;
         default:
             break;

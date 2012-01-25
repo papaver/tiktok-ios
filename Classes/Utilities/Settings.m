@@ -122,8 +122,8 @@
 {
     NSNumber *latitude  = [NSNumber numberWithDouble:location.coordinate.latitude];
     NSNumber *longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
-    NSDictionary *dict  = $dict($array(@"lat", @"long", nil), 
-                                $array(latitude, longitude, nil));
+    NSDictionary *dict  = $dict($array(@"lat", @"long"), 
+                                $array(latitude, longitude));
     [self saveValue:dict forKey:key];
 }
 
@@ -155,7 +155,7 @@
 {
     [self saveValue:name forKey:KEY_NAME];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    [api updateSettings:$dict($array(@"name", nil), $array(name, nil))];
+    [api updateSettings:$dict($array(@"name"), $array(name))];
 }
 
 //-----------------------------------------------------------------------------
@@ -171,7 +171,7 @@
 {
     [self saveValue:email forKey:KEY_EMAIL];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    [api updateSettings:$dict($array(@"email", nil), $array(email, nil))];
+    [api updateSettings:$dict($array(@"email"), $array(email))];
 }
 
 //-----------------------------------------------------------------------------
@@ -187,8 +187,8 @@
 {
     [self saveValue:gender forKey:KEY_GENDER];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    [api updateSettings:$dict($array(@"sex", nil), 
-                              $array([gender substringToIndex:1], nil))];
+    [api updateSettings:$dict($array(@"sex"), 
+                              $array([gender substringToIndex:1]))];
 }
 
 //-----------------------------------------------------------------------------

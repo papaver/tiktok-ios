@@ -326,8 +326,8 @@
 
     // create dictionary with data to be updated
     NSDictionary *settings = $dict(
-        $array(@"home_latitude", @"home_longitude", nil),
-        $array(latitude, longitude, nil));
+        $array(@"home_latitude", @"home_longitude"),
+        $array(latitude, longitude));
 
     // push the settings to the server
     [self updateSettings:settings];
@@ -343,8 +343,8 @@
 
     // create dictionary with data to be updated
     NSDictionary *settings = $dict(
-        $array(@"work_latitude", @"work_longitude", nil),
-        $array(latitude, longitude, nil));
+        $array(@"work_latitude", @"work_longitude"),
+        $array(latitude, longitude));
 
     // push the settings to the server
     [self updateSettings:settings];
