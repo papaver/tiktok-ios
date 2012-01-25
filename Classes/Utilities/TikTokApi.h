@@ -22,6 +22,20 @@
 @class ASIHTTPRequest;
 
 //------------------------------------------------------------------------------
+// enums
+//------------------------------------------------------------------------------
+
+typedef enum _TikTokApiCouponAttribute
+{
+    kTikTokApiCouponAttributeRedeem     = 0,
+    kTikTokApiCouponAttributeFacebook   = 1,
+    kTikTokApiCouponAttributeTwitter    = 2,
+    kTikTokApiCouponAttributeGooglePlus = 3,
+    kTikTokApiCouponAttributeSMS        = 4,
+    kTikTokApiCouponAttributeEmail      = 5,
+} TikTokApiCouponAttribute;
+
+//------------------------------------------------------------------------------
 // typedefs
 //------------------------------------------------------------------------------
 
@@ -59,6 +73,7 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 - (void) registerNotificationToken:(NSString*)token;
 - (void) syncActiveCoupons;
 - (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate;
+- (void) updateCoupon:(NSNumber*)couponId attribute:(TikTokApiCouponAttribute)attribute;
 
 //------------------------------------------------------------------------------
 

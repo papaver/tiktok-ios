@@ -20,6 +20,7 @@
 #import "LocationMapViewController.h"
 #import "Merchant.h"
 #import "MerchantViewController.h"
+#import "TikTokApi.h"
 #import "Utilities.h"
 
 //------------------------------------------------------------------------------
@@ -416,6 +417,10 @@ enum ActionButton
 {
     [self arrangeSubviewsForRedeemedCouponWithAnimation:true];
     self.coupon.wasRedeemed = YES;
+
+    // let server know of redemption
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeRedeem];
 }
 
 //------------------------------------------------------------------------------
@@ -606,8 +611,11 @@ enum ActionButton
             switch (result) {
                 case MFMailComposeResultSaved:
                     break;
-                case MFMailComposeResultSent:
+                case MFMailComposeResultSent: {
+                    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+                    [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeEmail];
                     break;
+                }
                 case MFMailComposeResultFailed:
                     NSLog(@"CouonDetailViewController: email failed: %@", error);
                     break;
@@ -649,8 +657,11 @@ enum ActionButton
         controller.completionHandler = ^(MFMessageComposeViewController* controller,
                                          MessageComposeResult result) {
             switch (result) {
-                case MessageComposeResultSent:
+                case MessageComposeResultSent: {
+                    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+                    [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeSMS];
                     break;
+                }
                 case MessageComposeResultFailed:
                     NSLog(@"CouonDetailViewController: sms failed.");
                     break;
@@ -723,6 +734,12 @@ enum ActionButton
             case TWTweetComposeViewControllerResultCancelled:
                 break;
             case TWTweetComposeViewControllerResultDone: {
+
+                // let server know of share
+                TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+                [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeTwitter];
+
+                // alert user of successful tweet
                 NSString *title   = NSLocalizedString(@"TWITTER", nil);
                 NSString *message = NSLocalizedString(@"TWITTER_DEAL_POST", nil);
                 [Utilities displaySimpleAlertWithTitle:title
@@ -794,10 +811,16 @@ enum ActionButton
 
 - (void) request:(FBRequest*)request didLoad:(id)result
 {
+    // let server know of share
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeFacebook];
+
+    // alert user of successful facebook post
     NSString *title   = NSLocalizedString(@"FACEBOOK", nil);
     NSString *message = NSLocalizedString(@"FACEBOOK_DEAL_POST", nil);
     [Utilities displaySimpleAlertWithTitle:title
                                 andMessage:message];
+
     NSLog(@"CouponDetailViewController: facebook request did load: %@", result);
 }
 

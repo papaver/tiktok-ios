@@ -10,6 +10,7 @@
 // imports 
 //------------------------------------------------------------------------------
 
+#import <assert.h>
 #import "TikTokApi.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
@@ -254,7 +255,7 @@
 {
     // construct the checkin url path 
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@?", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
         autorelease];
 
     // convert to objects
@@ -273,6 +274,56 @@
     // set error handler
     [request setFailedBlock:^{
         NSLog(@"TikTokApi: Failed to push current location: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateCoupon:(NSNumber*)couponId 
+            attribute:(TikTokApiCouponAttribute)attribute
+{
+    // attribute table mapping enums to attribute strings
+    static struct AttributeMapping {
+        TikTokApiCouponAttribute e;
+        NSString *attr; 
+    } sAttributeTable[6] = {
+        { kTikTokApiCouponAttributeRedeem     , @"redeem" },
+        { kTikTokApiCouponAttributeFacebook   , @"fb"     },
+        { kTikTokApiCouponAttributeTwitter    , @"twit"   },
+        { kTikTokApiCouponAttributeGooglePlus , @"gplus"  },
+        { kTikTokApiCouponAttributeSMS        , @"sms"    },
+        { kTikTokApiCouponAttributeEmail      , @"email"  },
+    };
+
+    // construct the checkin url path 
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/consumers/%@/coupons/%@", 
+            [TikTokApi apiUrlPath], [Utilities getConsumerId], couponId)] 
+        autorelease];
+
+    // have to convert to number object to use with request
+    NSNumber *one = [NSNumber numberWithInt:1];
+
+    // grab string representing attribute
+    struct AttributeMapping mapping = sAttributeTable[attribute];
+    assert(mapping.e == attribute);
+
+    // setup the async request
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setRequestMethod:@"PUT"];
+    [request setPostValue:one forKey:mapping.attr];
+    [request setCompletionBlock:^{
+        if (self.completionHandler) self.completionHandler(request);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to push coupon attribute '%@': %@", 
+            mapping.attr, [request error]);
         if (self.errorHandler) self.errorHandler(request);
     }];
 
