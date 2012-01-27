@@ -26,6 +26,7 @@
 		2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4714BB58EB001E9051 /* RedeemedSash.png */; };
 		2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */; };
 		2E259E4914D26748007481F2 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */; };
+		2E259E4B14D26E84007481F2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E259E4A14D26E84007481F2 /* QuartzCore.framework */; };
 		2E31269714C8DFFE00477805 /* LocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31269514C8DFFE00477805 /* LocationPickerViewController.m */; };
 		2E31269814C8DFFE00477805 /* LocationPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */; };
 		2E31269A14C8F78000477805 /* MapSelectionMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269914C8F78000477805 /* MapSelectionMask.png */; };
@@ -257,6 +258,7 @@
 		2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemedSash@2x.png"; sourceTree = "<group>"; };
 		2E259E4714D26748007481F2 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		2E259E4A14D26E84007481F2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2E31269414C8DFFE00477805 /* LocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPickerViewController.h; sourceTree = "<group>"; };
 		2E31269514C8DFFE00477805 /* LocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPickerViewController.m; sourceTree = "<group>"; };
 		2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationPickerViewController.xib; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 				2E1144E31394709700D72753 /* MapKit.framework in Frameworks */,
 				2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */,
 				2EC672B2149000C500AC5CDF /* MobileCoreServices.framework in Frameworks */,
+				2E259E4B14D26E84007481F2 /* QuartzCore.framework in Frameworks */,
 				2EE5D45214B65DF700D0539C /* Security.framework in Frameworks */,
 				2EC672AE1490008700AC5CDF /* SystemConfiguration.framework in Frameworks */,
 				2ECAD06F14C4BB5D00706EF3 /* Twitter.framework in Frameworks */,
@@ -679,6 +682,7 @@
 				2E1144E21394709700D72753 /* MapKit.framework */,
 				2E32143D14C0B6E500647116 /* MessageUI.framework */,
 				2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */,
+				2E259E4A14D26E84007481F2 /* QuartzCore.framework */,
 				2EE5D45114B65DF600D0539C /* Security.framework */,
 				2EC672AD1490008700AC5CDF /* SystemConfiguration.framework */,
 				2ECAD06E14C4BB5D00706EF3 /* Twitter.framework */,

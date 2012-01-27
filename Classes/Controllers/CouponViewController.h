@@ -13,6 +13,7 @@
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "EGORefreshTableHeaderView.h"
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -20,11 +21,14 @@
 
 @interface CouponViewController : UIViewController <NSFetchedResultsControllerDelegate, 
                                                     UITableViewDelegate, 
-                                                    UITableViewDataSource>
+                                                    UITableViewDataSource,
+                                                    EGORefreshTableHeaderDelegate>
 {
     UITableViewCell            *mCellView;
     UITableView                *mTableView;
     NSFetchedResultsController *mFetchedCouponsController;
+    EGORefreshTableHeaderView  *mRefreshHeaderView;
+    BOOL                        mReloading;
 }
 
 //------------------------------------------------------------------------------

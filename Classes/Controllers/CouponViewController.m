@@ -18,10 +18,9 @@
 #import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
+#import "SettingsViewController.h"
 #import "TikTokApi.h"
 #import "UIDefaults.h"
-
-#import "SettingsViewController.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -54,6 +53,10 @@ enum CouponTag {
     - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
     - (void) loadImagesForOnscreenRows;
     - (void) handleSettings;
+    - (void) reloadTableViewDataSource;
+    - (void) syncManagedObjects:(NSNotification*)notification;
+    - (void) doneLoadingTableViewData;
+    - (void) setupRefreshHeader;
 @end 
 
 //------------------------------------------------------------------------------
@@ -98,6 +101,50 @@ enum CouponTag {
         style:UIBarButtonItemStylePlain target:self action:@selector(handleSettings)];
     self.navigationItem.rightBarButtonItem = settingsButton;
     [settingsButton release];
+
+    // setup the refresh header
+    [self setupRefreshHeader];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupRefreshHeader
+{
+    // make sure reload header is not already loaded 
+    if (!mRefreshHeaderView) {
+        CGRect frame;
+        frame.origin.x    = 0.0;
+        frame.origin.y    = -self.tableView.bounds.size.height;
+        frame.size.width  = self.view.frame.size.width;
+        frame.size.height = self.tableView.bounds.size.height;
+
+        // setup a new header view 
+        EGORefreshTableHeaderView *headerView = 
+            [[EGORefreshTableHeaderView alloc] initWithFrame:frame
+                                              arrowImageName:@"Tik.png"
+                                                   textColor:[UIColor brownColor]];  
+        headerView.delegate = self;
+
+        // add a background image
+        CGRect backgroundFrame  = CGRectMake(0.0f, 0.0f, 
+                                             frame.size.width, frame.size.height); 
+        UIImageView *background = [[UIImageView alloc] initWithFrame:backgroundFrame]; 
+        background.image        = [UIImage imageNamed:@"CouponDetailBackgroundTexture.png"];
+        [headerView insertSubview:background atIndex:0];
+
+        // add to table
+        [self.tableView addSubview:headerView];
+
+        // save pointer
+        mRefreshHeaderView = [headerView retain];
+
+        // cleanup
+        [headerView release];
+        [background release];
+    }
+    
+    //  update the last update date
+    [mRefreshHeaderView refreshLastUpdatedDate];
 }
 
 //------------------------------------------------------------------------------
@@ -315,7 +362,6 @@ enum CouponTag {
     }
 }
 
-
 //------------------------------------------------------------------------------
 
 - (void) updateExpiration:(NSTimer*)timer
@@ -343,7 +389,6 @@ enum CouponTag {
         [self configureActiveCell:cell withCoupon:coupon];
     }
 }
-
 
 //------------------------------------------------------------------------------
 
@@ -646,11 +691,17 @@ enum CouponTag {
 #pragma mark - ScrollView Delegates
 //-----------------------------------------------------------------------------
 
+- (void) scrollViewDidScroll:(UIScrollView*)scrollView 
+{
+    [mRefreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+//-----------------------------------------------------------------------------
+
 - (void) scrollViewDidEndDragging:(UIScrollView*)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (!decelerate) {
-        [self loadImagesForOnscreenRows];
-    }
+    if (!decelerate) [self loadImagesForOnscreenRows];
+    [mRefreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 }
 
 //-----------------------------------------------------------------------------
@@ -658,6 +709,74 @@ enum CouponTag {
 - (void) scrollViewDidEndDecelerating:(UIScrollView*)scrollView
 {
     [self loadImagesForOnscreenRows];
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - EGORefreshTableHeader Delegate 
+//------------------------------------------------------------------------------
+
+- (void) egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{
+    [self reloadTableViewDataSource];
+}
+
+//------------------------------------------------------------------------------
+
+- (BOOL) egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view 
+{
+    return mReloading; 
+}
+
+//------------------------------------------------------------------------------
+
+- (NSDate*) egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view 
+{
+    return [NSDate date];
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Data Source Loading / Reloading Methods
+//------------------------------------------------------------------------------
+
+- (void) reloadTableViewDataSource 
+{
+    mReloading = YES;
+
+    // setup api object
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.completionHandler = ^(ASIHTTPRequest *request) {
+        [self doneLoadingTableViewData];
+    };
+
+    // add a notification to allow syncing the contexts..
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(syncManagedObjects:)
+                               name:NSManagedObjectContextDidSaveNotification
+                             object:api.context];
+
+    // sync coupons
+    [api syncActiveCoupons];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) syncManagedObjects:(NSNotification*)notification
+{
+    Database *database = [Database getInstance];
+    [database.context mergeChangesFromContextDidSaveNotification:notification];
+
+    // remove self from notification center
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter removeObserver:self];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) doneLoadingTableViewData 
+{
+    mReloading = NO;
+    [mRefreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
 
 //------------------------------------------------------------------------------
@@ -703,6 +822,7 @@ enum CouponTag {
 {
     mFetchedCouponsController.delegate = nil;
     [mFetchedCouponsController release];
+    [mRefreshHeaderView release];
     [mTableView release];
     [mCellView release];
     [super dealloc];
