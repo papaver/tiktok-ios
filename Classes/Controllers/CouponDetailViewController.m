@@ -29,20 +29,21 @@
 
 enum CouponDetailTag
 {
-    kTagScrollView     = 14,
-    kTagTitleBar       = 11,
-    kTagTitle          =  3,
-    kTagContentView    =  2,
-    kTagIcon           =  5,
-    kTagIconActivity   =  6,
-    kTagColorTimer     =  7,
-    kTagTextTimer      =  8,
-    kTagTextTime       =  9,
-    kTagMap            = 10,
-    kTagCompanyName    = 12,
-    kTagCompanyAddress = 13,
-    kTagDetails        =  4,
-    kTagBarcodeView    =  1,
+    kTagScrollView      = 14,
+    kTagTitleBar        = 11,
+    kTagTitle           =  3,
+    kTagContentView     =  2,
+    kTagIcon            =  5,
+    kTagIconActivity    =  6,
+    kTagColorTimer      =  7,
+    kTagTextTimer       =  8,
+    kTagTextTime        =  9,
+    kTagMap             = 10,
+    kTagCompanyName     = 12,
+    kTagCompanyAddress  = 13,
+    kTagDetails         =  4,
+    kTagBarcodeView     =  1,
+    kTagBarcodeCodeView = 15,
 };
 
 enum ActionButton
@@ -295,6 +296,10 @@ enum ActionButton
     // text timer
     UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
     label.text     = [self.coupon getExpirationTimer];
+
+    // barcode code
+    UILabel *code = (UILabel*)[self.view viewWithTag:kTagBarcodeCodeView];
+    code.text     = self.coupon.barcode;
 }
 
 //------------------------------------------------------------------------------

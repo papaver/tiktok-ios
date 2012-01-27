@@ -39,6 +39,7 @@
 @dynamic startTime;
 @dynamic endTime;
 @dynamic wasRedeemed;
+@dynamic barcode;
 @dynamic merchant;
 
 //------------------------------------------------------------------------------
@@ -140,6 +141,10 @@
     self.iconId      = [data objectForKey:@"icon_uid"];
     self.iconUrl     = [data objectForKey:@"icon_url"];
     self.wasRedeemed = NO;
+
+    self.barcode     = $string(@"%c%c%4d", 65 + arc4random() % 26, 
+                                           65 + arc4random() % 26, 
+                                           arc4random() % 9999);
 
     return self;
 }
