@@ -38,6 +38,7 @@
 
 //------------------------------------------------------------------------------
 
+@synthesize timeOut           = mTimeOut;
 @synthesize adapter           = mAdapter;
 @synthesize parser            = mParser;
 @synthesize jsonData          = mJsonData;
@@ -75,6 +76,9 @@
 
         // setup the job queue
         mQueue = dispatch_queue_create("com.tiktok.tiktok.api", NULL);
+
+        // set the default timeout
+        self.timeOut = [ASIHTTPRequest defaultTimeOutSeconds];
     }
 
     return self;
@@ -131,6 +135,7 @@
 
     // setup the async request
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
 
         // parse data

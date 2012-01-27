@@ -88,8 +88,9 @@ enum StartupTag
                                              repeats:YES];
 
     // initialize variables
-    mPause    = false;
-    mComplete = false;
+    mPause               = false;
+    mComplete            = false;
+    mRegistrationTimeout = [ASIHTTPRequest defaultTimeOutSeconds];
 
     // setup gesture recognizer
     UIView *shakeIcon = [self.view viewWithTag:kTagShakeIcon]; 
@@ -159,6 +160,7 @@ enum StartupTag
 
     // setup an instance of the tiktok api to register the device
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.timeOut = mRegistrationTimeout;
 
     // setup a completion handler to save id after server registration
     api.completionHandler = ^(ASIHTTPRequest* request) { 
@@ -191,6 +193,7 @@ enum StartupTag
     // most probably we lost network connection, so put up a HUD and wait till
     // we get connectivity back, one we do restart the startup process
     api.errorHandler = ^(ASIHTTPRequest* request) { 
+        mRegistrationTimeout *= 2.0f;
         [self waitForInternetConnection];
     };
 

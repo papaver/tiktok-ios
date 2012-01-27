@@ -47,6 +47,7 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 
 @interface TikTokApi : NSObject <SBJsonStreamParserAdapterDelegate>
 {
+    CGFloat                     mTimeOut;
     SBJsonStreamParser         *mParser;
     SBJsonStreamParserAdapter  *mAdapter;
     NSMutableArray             *mJsonData;
@@ -65,6 +66,7 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 @property (nonatomic, copy)             TikTokApiCompletionHandler  completionHandler;
 @property (nonatomic, copy)             TikTokApiCompletionHandler  errorHandler;
 @property (nonatomic, retain, readonly) NSManagedObjectContext     *context;
+@property (nonatomic, assign)           CGFloat                     timeOut;
 
 //------------------------------------------------------------------------------
 
