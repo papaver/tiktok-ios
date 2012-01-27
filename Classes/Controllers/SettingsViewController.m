@@ -12,7 +12,7 @@
 
 #import "SettingsViewController.h"
 #import "FacebookManager.h"
-#import "GenderPickerViewController.h"
+#import "StringPickerViewController.h"
 #import "InputTableViewCell.h"
 #import "LocationPickerViewController.h"
 #import "Settings.h"
@@ -375,8 +375,17 @@ enum ViewTags
     if (indexPath.section == kSectionDetails) {
         switch (indexPath.row) {
             case kRowGender: {
-                GenderPickerViewController *controller = [[GenderPickerViewController alloc] 
-                    initWithNibName:@"GenderPickerViewController" bundle:nil];
+                StringPickerViewController *controller = [[StringPickerViewController alloc] 
+                    initWithNibName:@"StringPickerViewController" bundle:nil];
+                controller.data             = $array(@"Female", @"Male");
+                controller.currentSelection = [[Settings getInstance] gender];
+                controller.selectionHandler = ^(NSString* selection) {
+                    Settings *settings        = [Settings getInstance];
+                    settings.gender           = selection;
+                    UITableViewCell *cell     = [self.tableView cellForRowAtIndexPath:indexPath];
+                    cell.detailTextLabel.text = selection;
+                    [cell setNeedsLayout];
+                };
                 [self.navigationController pushViewController:controller animated:YES];
                 [controller release];
                 break;

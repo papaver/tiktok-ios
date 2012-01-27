@@ -114,8 +114,8 @@
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
 		2E986F15138DFCEE00A301BA /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationTracker.m */; };
 		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
-		2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */; };
-		2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */; };
+		2EA168FE14BF60BF0099B1F1 /* StringPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* StringPickerViewController.m */; };
+		2EA1690014BF60D60099B1F1 /* StringPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA168FF14BF60D60099B1F1 /* StringPickerViewController.xib */; };
 		2EA2286214CDE19F00466166 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2EA2285F14CDE19F00466166 /* SVProgressHUD.bundle */; };
 		2EA2286314CDE19F00466166 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2286114CDE19F00466166 /* SVProgressHUD.m */; };
 		2EA2286A14CDEEF500466166 /* NetworkConnectivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2286914CDEEF500466166 /* NetworkConnectivity.m */; };
@@ -408,9 +408,9 @@
 		2E986F14138DFCEE00A301BA /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
 		2EA168F914BF4C310099B1F1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		2EA168FA14BF4C310099B1F1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenderPickerViewController.h; sourceTree = "<group>"; };
-		2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenderPickerViewController.m; sourceTree = "<group>"; };
-		2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenderPickerViewController.xib; sourceTree = "<group>"; };
+		2EA168FC14BF60BF0099B1F1 /* StringPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringPickerViewController.h; sourceTree = "<group>"; };
+		2EA168FD14BF60BF0099B1F1 /* StringPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringPickerViewController.m; sourceTree = "<group>"; };
+		2EA168FF14BF60D60099B1F1 /* StringPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StringPickerViewController.xib; sourceTree = "<group>"; };
 		2EA2285F14CDE19F00466166 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		2EA2286014CDE19F00466166 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		2EA2286114CDE19F00466166 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
@@ -698,12 +698,12 @@
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				28F335F01007B36200424DE2 /* CouponViewController.xib */,
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
-				2EA168FF14BF60D60099B1F1 /* GenderPickerViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
 				2EB87ED9149FC07C00F01C26 /* StartupViewController.xib */,
 				2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */,
+				2EA168FF14BF60D60099B1F1 /* StringPickerViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1159,8 +1159,6 @@
 				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
 				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
 				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
-				2EA168FC14BF60BF0099B1F1 /* GenderPickerViewController.h */,
-				2EA168FD14BF60BF0099B1F1 /* GenderPickerViewController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
 				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
 				2E31269414C8DFFE00477805 /* LocationPickerViewController.h */,
@@ -1173,6 +1171,8 @@
 				2E5FEB8014A1C16C00B516FE /* TikTokPhysicsViewController.mm */,
 				2E6A9EDE14BE5F5000AA4B7B /* SettingsViewController.h */,
 				2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */,
+				2EA168FC14BF60BF0099B1F1 /* StringPickerViewController.h */,
+				2EA168FD14BF60BF0099B1F1 /* StringPickerViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1383,7 +1383,7 @@
 				2E6A9EE214BE5F5000AA4B7B /* SettingsViewController.xib in Resources */,
 				2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */,
 				2E6A9EE614BE7BCA00AA4B7B /* ConnectFacebook@2x.png in Resources */,
-				2EA1690014BF60D60099B1F1 /* GenderPickerViewController.xib in Resources */,
+				2EA1690014BF60D60099B1F1 /* StringPickerViewController.xib in Resources */,
 				2EE4563A14BF9BA500EDD04B /* Icon.png in Resources */,
 				2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */,
 				2E31269814C8DFFE00477805 /* LocationPickerViewController.xib in Resources */,
@@ -1502,7 +1502,7 @@
 				2E6314FF14BE3885001B1D78 /* UILabelExt.m in Sources */,
 				2E6A9EE114BE5F5000AA4B7B /* SettingsViewController.m in Sources */,
 				2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */,
-				2EA168FE14BF60BF0099B1F1 /* GenderPickerViewController.m in Sources */,
+				2EA168FE14BF60BF0099B1F1 /* StringPickerViewController.m in Sources */,
 				2ECAD06D14C4B03A00706EF3 /* UIAlertView+Handlers.m in Sources */,
 				2ECAD07214C4F87F00706EF3 /* UIActionSheet+Handlers.m in Sources */,
 				2E6CCF4B14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m in Sources */,

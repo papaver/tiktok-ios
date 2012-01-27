@@ -1,5 +1,5 @@
 //
-//  GenderPickerViewController.m
+//  StringPickerViewController.m
 //  TikTok
 //
 //  Created by Moiz Merchant on 1/12/12.
@@ -10,18 +10,20 @@
 // imports
 //------------------------------------------------------------------------------
 
-#import "GenderPickerViewController.h"
-#import "Settings.h"
+#import "StringPickerViewController.h"
 
 //------------------------------------------------------------------------------
 // interface implementation
 //------------------------------------------------------------------------------
 
-@implementation GenderPickerViewController
+@implementation StringPickerViewController
 
 //------------------------------------------------------------------------------
 
-@synthesize tableView  = mTableView;
+@synthesize tableView        = mTableView;
+@synthesize data             = mData;
+@synthesize currentSelection = mCurrentSelection;
+@synthesize selectionHandler = mSelectionHandler;
 
 //------------------------------------------------------------------------------
 #pragma mark - Initialization
@@ -44,11 +46,6 @@
  */
 - (void) viewDidLoad
 {
-    // setup navigation info
-    self.title = @"Gender";
-
-    // setup the data 
-    mGenderData = [$array(@"Female", @"Male") retain];
 }
 
 //------------------------------------------------------------------------------
@@ -62,14 +59,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
-
-//------------------------------------------------------------------------------
-#pragma mark - Events
-//------------------------------------------------------------------------------
-
-- (IBAction) done:(id)sender
-{
-}
 
 //------------------------------------------------------------------------------
 #pragma mark - Table view data source
@@ -90,7 +79,7 @@
  */ 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return mGenderData.count;
+    return mData.count;
 }
 
 //------------------------------------------------------------------------------
@@ -111,15 +100,19 @@
 - (UITableViewCell*) tableView:(UITableView*)tableView 
          cellForRowAtIndexPath:(NSIndexPath*)indexPath 
 {
-    // create a new cell
-    UITableViewCell *cell = nil;
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
-                                   reuseIdentifier:nil] autorelease];
-    cell.textLabel.text = [mGenderData objectAtIndex:indexPath.row];
+    static NSString *sCellId = @"stringCellId";
+
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:sCellId];
+    if (!cell) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+            reuseIdentifier:sCellId] autorelease];
+    }
+
+    // update the text
+    cell.textLabel.text = [mData objectAtIndex:indexPath.row];
 
     // check the cell if current option
-    Settings *settings = [Settings getInstance];
-    if ([cell.textLabel.text caseInsensitiveCompare:settings.gender] == NSOrderedSame) {
+    if ([cell.textLabel.text caseInsensitiveCompare:self.currentSelection] == NSOrderedSame) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -192,14 +185,27 @@
 {
     // grab cell at indexpath
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    // save new setting
-    Settings *settings = [Settings getInstance];
-    settings.gender    = cell.textLabel.text;
 
-    // reload data to make sure appropriate selection is checked
-    [self.tableView reloadData];
+    // only update if selection has changed 
+    if (cell.textLabel.text != self.currentSelection) {
+
+        // update the current selection
+        self.currentSelection = cell.textLabel.text;
     
+        // run the selection handler
+        if (self.selectionHandler) self.selectionHandler(self.currentSelection);
+
+        // reload data to make sure appropriate selection is checked
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+
+        // loop through all the visible cells and remove checkmark
+        for (UITableViewCell *visibleCell in [self.tableView visibleCells]) {
+            if (visibleCell != cell) {
+                visibleCell.accessoryType = UITableViewCellAccessoryNone;
+            }
+        }
+    }
+
     // deselect row
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -240,7 +246,9 @@
 
 - (void) dealloc 
 {
-    [mGenderData release];
+    [mSelectionHandler release];
+    [mCurrentSelection release];
+    [mData release];
     [mTableView release];
     [super dealloc];
 }
