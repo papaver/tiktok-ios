@@ -377,6 +377,7 @@ enum ViewTags
             case kRowGender: {
                 StringPickerViewController *controller = [[StringPickerViewController alloc] 
                     initWithNibName:@"StringPickerViewController" bundle:nil];
+                controller.title            = @"Gender";
                 controller.data             = $array(@"Female", @"Male");
                 controller.currentSelection = [[Settings getInstance] gender];
                 controller.selectionHandler = ^(NSString* selection) {
