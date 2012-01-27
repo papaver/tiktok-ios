@@ -115,8 +115,8 @@
 
 - (void) saveLocation:(CLLocation*)location forKey:(NSString*)key
 {
-    NSNumber *latitude  = [NSNumber numberWithDouble:location.coordinate.latitude];
-    NSNumber *longitude = [NSNumber numberWithDouble:location.coordinate.longitude];
+    NSNumber *latitude  = $numd(location.coordinate.latitude);
+    NSNumber *longitude = $numd(location.coordinate.longitude);
     NSDictionary *dict  = $dict($array(@"lat", @"long"), 
                                 $array(latitude, longitude));
     [self saveValue:dict forKey:key];

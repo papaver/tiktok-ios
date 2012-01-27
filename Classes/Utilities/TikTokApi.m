@@ -260,8 +260,8 @@
         autorelease];
 
     // convert to objects
-    NSNumber *latitude  = [NSNumber numberWithDouble:coordinate.latitude];
-    NSNumber *longitude = [NSNumber numberWithDouble:coordinate.longitude];
+    NSNumber *latitude  = $numd(coordinate.latitude);
+    NSNumber *longitude = $numd(coordinate.longitude);
 
     // setup the async request
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
@@ -375,7 +375,7 @@
         autorelease];
 
     // have to convert to number object to use with request
-    NSNumber *one = [NSNumber numberWithInt:1];
+    NSNumber *one = $numi(1);
 
     // grab string representing attribute
     struct AttributeMapping mapping = sAttributeTable[attribute];
