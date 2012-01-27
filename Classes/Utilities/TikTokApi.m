@@ -228,10 +228,14 @@
             mParserMethod = NSSelectorFromString(@"parseCouponData:");
             [self parseData:[request responseData]];
 
-            // save data in the context
-            NSError *error = nil;
-            [self.context save:&error];
-            if (error) NSLog(@"TikTokApi: failed to save context: %@", error);
+            // [moiz:todo] dont forget to unregister the notification is the 
+            //  else block if no notifications are thrown!
+            // only save data in the context, when new data available
+            if ([self.jsonData count]) {
+                NSError *error = nil;
+                [self.context save:&error];
+                if (error) NSLog(@"TikTokApi: failed to save context: %@", error);
+            }
                 
             // run handler
             dispatch_async(dispatch_get_main_queue(), ^(void) {

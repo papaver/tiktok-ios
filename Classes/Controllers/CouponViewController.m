@@ -743,9 +743,10 @@ enum CouponTag {
     mReloading = YES;
 
     // setup api object
-    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     api.completionHandler = ^(ASIHTTPRequest *request) {
-        [self doneLoadingTableViewData];
+        if ([api.jsonData count]) [self doneLoadingTableViewData];
+        
     };
 
     // add a notification to allow syncing the contexts..
@@ -769,6 +770,9 @@ enum CouponTag {
     // remove self from notification center
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter removeObserver:self];
+
+    // allow header to retract
+    [self doneLoadingTableViewData];
 }
 
 //------------------------------------------------------------------------------
