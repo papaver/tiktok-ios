@@ -27,3 +27,6 @@
 "LOCATION_SEARCH"              = "Location Search";
 "LOCATION_SEARCH_FAIL"         = "The search failed.  Please try it again.";
 "LOCATION_NOT_FOUND"           = "Location not found. Please try different search parameters.";
+
+"WEBVIEW_SUPPORT"              = "Loading Website...";
+"WEBVIEW_LOAD_FAILED"          = "Failed to load requseted website. Try again later.";

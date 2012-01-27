@@ -13,6 +13,7 @@
 #import "MerchantViewController.h"
 #import "IconManager.h"
 #import "Merchant.h"
+#import "WebViewController.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -228,27 +229,15 @@ enum MerchantTags
 
 - (void) presentWebsite:(NSString*)url
 {
-    // create a url request for the website
-    NSURLRequest *request = 
-        [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    // setup a webview controller
+    WebViewController *controller = [[WebViewController alloc] init];
+    controller.title              = self.merchant.name;
+    controller.url                = url;
 
-    // create a webview to display the url
-    UIWebView *webView      = [[UIWebView alloc] init];
-    [webView loadRequest:request];
-
-    // setup a generic view controller
-    UIViewController *controller      = [[UIViewController alloc] init];
-    controller.view                   = webView;
-    controller.modalTransitionStyle   = UIModalTransitionStyleCoverVertical;
-    controller.modalPresentationStyle = UIModalPresentationFullScreen;
-    controller.title                  = self.merchant.name;
-
-    // present the webview, should this be done modally?
-    //[self presentModalViewController:controller animated:YES];
+    // present the webview
     [self.navigationController pushViewController:controller animated:YES];
 
     // cleanup
-    [webView release];
     [controller release];
 }
 

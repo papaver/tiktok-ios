@@ -93,6 +93,8 @@
 		2E5FEB8214A1C16C00B516FE /* TikTokPhysicsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEB8014A1C16C00B516FE /* TikTokPhysicsViewController.mm */; };
 		2E6314FF14BE3885001B1D78 /* UILabelExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6314FE14BE3885001B1D78 /* UILabelExt.m */; };
 		2E63B8F21384EE5A00427FF9 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E63B8F11384EE5A00427FF9 /* Location.m */; };
+		2E66244314D33E5400FB6E68 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E66244114D33E5400FB6E68 /* WebViewController.m */; };
+		2E66244414D33E5400FB6E68 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E66244214D33E5400FB6E68 /* WebViewController.xib */; };
 		2E6A9EE114BE5F5000AA4B7B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */; };
 		2E6A9EE214BE5F5000AA4B7B /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */; };
 		2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */; };
@@ -380,6 +382,9 @@
 		2E6314FE14BE3885001B1D78 /* UILabelExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelExt.m; sourceTree = "<group>"; };
 		2E63B8F01384EE5A00427FF9 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		2E63B8F11384EE5A00427FF9 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		2E66244014D33E5400FB6E68 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		2E66244114D33E5400FB6E68 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		2E66244214D33E5400FB6E68 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		2E6A9EDE14BE5F5000AA4B7B /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
@@ -744,6 +749,7 @@
 				2EB87ED9149FC07C00F01C26 /* StartupViewController.xib */,
 				2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */,
 				2EA168FF14BF60D60099B1F1 /* StringPickerViewController.xib */,
+				2E66244214D33E5400FB6E68 /* WebViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1214,6 +1220,8 @@
 				2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */,
 				2EA168FC14BF60BF0099B1F1 /* StringPickerViewController.h */,
 				2EA168FD14BF60BF0099B1F1 /* StringPickerViewController.m */,
+				2E66244014D33E5400FB6E68 /* WebViewController.h */,
+				2E66244114D33E5400FB6E68 /* WebViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1432,6 +1440,7 @@
 				2E31269F14CA402500477805 /* UserLocation.png in Resources */,
 				2E3126A114CA427600477805 /* UserLocation@2x.png in Resources */,
 				2EA2286214CDE19F00466166 /* SVProgressHUD.bundle in Resources */,
+				2E66244414D33E5400FB6E68 /* WebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1557,6 +1566,7 @@
 				2EA2286A14CDEEF500466166 /* NetworkConnectivity.m in Sources */,
 				2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */,
 				2E259E4914D26748007481F2 /* EGORefreshTableHeaderView.m in Sources */,
+				2E66244314D33E5400FB6E68 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

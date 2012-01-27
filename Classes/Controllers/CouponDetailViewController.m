@@ -641,8 +641,7 @@ enum ActionButton
     } else {
         NSString *title   = NSLocalizedString(@"DEVICE_SUPPORT", nil);
         NSString *message = NSLocalizedString(@"EMAIL_NO_SUPPORTED", nil);
-        [Utilities displaySimpleAlertWithTitle:title
-                                    andMessage:message];
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
     }
 }
 
