@@ -17,11 +17,12 @@
 // defines
 //-----------------------------------------------------------------------------
 
-#define KEY_NAME   @"TTS_name"
-#define KEY_EMAIL  @"TTS_email"
-#define KEY_GENDER @"TTS_gender"
-#define KEY_HOME   @"TTS_home"
-#define KEY_WORK   @"TTS_work"
+#define KEY_NAME     @"TTS_name"
+#define KEY_EMAIL    @"TTS_email"
+#define KEY_GENDER   @"TTS_gender"
+#define KEY_BIRTHDAY @"TTS_birthday"
+#define KEY_HOME     @"TTS_home"
+#define KEY_WORK     @"TTS_work"
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -40,12 +41,6 @@
 //-----------------------------------------------------------------------------
 
 @implementation Settings
-
-//-----------------------------------------------------------------------------
-
-@synthesize name   = mName;
-@synthesize email  = mEmail;
-@synthesize gender = mGender;
 
 //-----------------------------------------------------------------------------
 
@@ -136,6 +131,7 @@
     [self clearValueForKey:KEY_NAME];
     [self clearValueForKey:KEY_EMAIL];
     [self clearValueForKey:KEY_GENDER];
+    [self clearValueForKey:KEY_BIRTHDAY];
     [self clearValueForKey:KEY_HOME];
     [self clearValueForKey:KEY_WORK];
 }
@@ -189,6 +185,44 @@
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     [api updateSettings:$dict($array(@"sex"), 
                               $array([gender substringToIndex:1]))];
+}
+
+//-----------------------------------------------------------------------------
+
+- (NSDate*) birthday 
+{
+    return [self loadValueForKey:KEY_BIRTHDAY];
+}
+
+//-----------------------------------------------------------------------------
+
+- (NSString*) birthdayStr
+{
+    // setup the date formatter
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSLocale *locale           = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+
+    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setLocale:locale];
+
+    // format the date
+    NSString *birthdayStr = [formatter stringFromDate:self.birthday];
+
+    // cleanup
+    [locale release];
+    [formatter release];
+
+    return birthdayStr;
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setBirthday:(NSDate*)birthday 
+{
+    [self saveValue:birthday forKey:KEY_BIRTHDAY];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"birthday"), $array(self.birthdayStr))];
 }
 
 //-----------------------------------------------------------------------------

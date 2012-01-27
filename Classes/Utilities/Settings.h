@@ -25,6 +25,7 @@
 @property(nonatomic, retain) NSString   *name;
 @property(nonatomic, retain) NSString   *email;
 @property(nonatomic, retain) NSString   *gender;
+@property(nonatomic, retain) NSDate     *birthday;
 @property(nonatomic, retain) CLLocation *home;
 @property(nonatomic, retain) CLLocation *work;
 
@@ -34,6 +35,11 @@
  * Gets the global instance of the settings object.
  */
 + (Settings*) getInstance;
+
+/**
+ * Returns the birtday as a formated string of the us locale.
+ */
+- (NSString*) birthdayStr;
 
 //-----------------------------------------------------------------------------
 

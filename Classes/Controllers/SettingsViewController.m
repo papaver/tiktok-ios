@@ -13,6 +13,7 @@
 #import "SettingsViewController.h"
 #import "FacebookManager.h"
 #import "GenderPickerViewController.h"
+#import "InputTableViewCell.h"
 #import "LocationPickerViewController.h"
 #import "Settings.h"
 
@@ -23,16 +24,18 @@
 enum TableSections
 {
     kSectionBasic    = 0,
-    kSectionGender   = 1,
+    kSectionDetails  = 1,
     kSectionLocation = 2,
 };
 
 enum TableRows
 {
-    kRowName  = 0,
-    kRowEmail = 1,
-    kRowHome  = 0,
-    kRowWork  = 1,
+    kRowName     = 0,
+    kRowEmail    = 1,
+    kRowHome     = 0,
+    kRowWork     = 1,
+    kRowGender   = 0,
+    kRowBirthday = 1,
 };
 
 enum ViewTags
@@ -42,6 +45,16 @@ enum ViewTags
     kTagFacebook   = 2,
 };
 
+
+//------------------------------------------------------------------------------
+// interface definition
+//------------------------------------------------------------------------------
+
+@interface SettingsViewController ()
+    - (UITableViewCell*) getReusableCell;
+    - (InputTableViewCell*) getReusableBirthdayCell;
+@end
+
 //------------------------------------------------------------------------------
 // interface implementation
 //------------------------------------------------------------------------------
@@ -50,10 +63,13 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
-@synthesize tableView   = mTableView;
-@synthesize nameCell    = mNameCell;
-@synthesize emailCell   = mEmailCell;
-@synthesize basicHeader = mBasicHeader;
+@synthesize tableView              = mTableView;
+@synthesize nameCell               = mNameCell;
+@synthesize emailCell              = mEmailCell;
+@synthesize birthdayCell           = mBirthdayCell;
+@synthesize dateInputView          = mInputView;
+@synthesize dateInputAccessoryView = mInputAccessoryView;
+@synthesize basicHeader            = mBasicHeader;
 
 //------------------------------------------------------------------------------
 #pragma mark - Initialization
@@ -85,6 +101,18 @@ enum ViewTags
     UITextField *emailField = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
     nameField.text          = settings.name;
     emailField.text         = settings.email;
+
+    // save birthday cell
+    self.birthdayCell = [self getReusableBirthdayCell];
+
+    // setup a dictionary for each naming of the rows
+    NSArray *sectionBasic    = $array(@"Name", @"Email");
+    NSArray *sectionDetails  = $array(@"Gender", @"Birthday");
+    NSArray *sectionLocation = $array(@"Home Location", @"Work Location");
+    mTableData = [$dict(
+        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)), 
+        $array(sectionBasic, sectionDetails, sectionLocation)) 
+        retain];
 }
 
 //------------------------------------------------------------------------------
@@ -163,7 +191,7 @@ enum ViewTags
  */
 - (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView 
 {
-    return 3;
+    return [mTableData count];
 }
 
 //------------------------------------------------------------------------------
@@ -173,18 +201,7 @@ enum ViewTags
  */ 
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    switch (section) {
-        case kSectionBasic:
-            return 2;
-        case kSectionGender:
-            return 1;
-        case kSectionLocation:
-            return 2;
-        default:
-            break;
-    }
-
-    return 0;
+    return [[mTableData objectForKey:$numi(section)] count];
 }
 
 //------------------------------------------------------------------------------
@@ -207,7 +224,15 @@ enum ViewTags
 {
     UITableViewCell *cell = nil;
 
+    // grab the title from the table data
+    NSString *title = 
+        [[mTableData objectForKey:$numi(indexPath.section)] objectAtIndex:indexPath.row];
+
+    // grab the settings object
+    Settings *settings = [Settings getInstance];
+
     switch (indexPath.section) {
+
         case kSectionBasic:
             switch (indexPath.row) {
                 case kRowName:
@@ -220,24 +245,67 @@ enum ViewTags
                     break;
             }
             break;
-        case kSectionGender:
-            cell = [[[UITableViewCell alloc] 
-                initWithStyle:UITableViewCellStyleDefault 
-              reuseIdentifier:@"gender"] autorelease];
-            cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = @"Gender";
+
+        case kSectionDetails: {
+            if (indexPath.row == kRowGender) {
+                cell                      = [self getReusableCell];
+                cell.accessoryType        = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text       = title;
+                cell.detailTextLabel.text = settings.gender;
+            } else {
+                cell                      = self.birthdayCell;
+                cell.textLabel.text       = title;
+                cell.detailTextLabel.text = settings.birthdayStr;
+            }
             break;
-        case kSectionLocation:
-            cell = [[[UITableViewCell alloc] 
-                initWithStyle:UITableViewCellStyleDefault 
-              reuseIdentifier:@"location"] autorelease];
-            cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = !indexPath.row ? @"Home Location" : @"Work Location";
+        }
+
+        case kSectionLocation: {
+            cell                      = [self getReusableCell];
+            cell.accessoryType        = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text       = title;
             break;
+        }
+
         default:
             break;
     }
 
+    return cell;
+}
+
+//------------------------------------------------------------------------------
+
+- (UITableViewCell*) getReusableCell
+{
+    static NSString *sCellId = @"generic";
+
+    // check if reuasable cell exists
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:sCellId];
+    if (!cell) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
+            reuseIdentifier:sCellId] autorelease];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    return cell;
+}
+
+//------------------------------------------------------------------------------
+
+- (InputTableViewCell*) getReusableBirthdayCell
+{
+    static NSString *sCellId = @"date";
+
+    // check if reuasable cell exists
+    InputTableViewCell *cell = 
+        (InputTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:sCellId];
+    if (!cell) {
+        cell = [[[InputTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
+            reuseIdentifier:sCellId] autorelease];
+        cell.accessoryType      = UITableViewCellAccessoryNone;
+        cell.inputView          = self.dateInputView;
+        cell.inputAccessoryView = self.dateInputAccessoryView;
+    }
     return cell;
 }
 
@@ -304,13 +372,28 @@ enum ViewTags
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath 
 {
     // pick gender
-    if (indexPath.section == kSectionGender) {
-        GenderPickerViewController *controller = [[GenderPickerViewController alloc] 
-            initWithNibName:@"GenderPickerViewController" bundle:nil];
+    if (indexPath.section == kSectionDetails) {
+        switch (indexPath.row) {
+            case kRowGender: {
+                GenderPickerViewController *controller = [[GenderPickerViewController alloc] 
+                    initWithNibName:@"GenderPickerViewController" bundle:nil];
+                [self.navigationController pushViewController:controller animated:YES];
+                [controller release];
+                break;
+            }
 
-        // pass the selected object to the new view controller.
-        [self.navigationController pushViewController:controller animated:YES];
-        [controller release];
+            case kRowBirthday: {
+                NSDate *birthday        = [[Settings getInstance] birthday];
+                if (!birthday) birthday = [NSDate dateWithTimeIntervalSince1970:60.0*60.0*24.0];
+                self.dateInputView.date = birthday;
+                [self.birthdayCell becomeFirstResponder];
+                break;
+            }
+
+            default:
+                break;
+        }
+
 
     // pick location
     } else if (indexPath.section == kSectionLocation) {
@@ -366,6 +449,29 @@ enum ViewTags
 }
 
 //------------------------------------------------------------------------------
+#pragma mark - Helper Functions
+//------------------------------------------------------------------------------
+
+- (IBAction) toolbarDatePickerCancel:(id)sender
+{
+    [self.birthdayCell resignFirstResponder];
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) toolbarDatePickerSave:(id)sender
+{
+    // save date
+    Settings *settings                     = [Settings getInstance];
+    settings.birthday                      = self.dateInputView.date;
+    self.birthdayCell.detailTextLabel.text = settings.birthdayStr;
+    [self.birthdayCell setNeedsLayout];
+
+    // hide date picker
+    [self.birthdayCell resignFirstResponder];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Memory Management
 //------------------------------------------------------------------------------
 
@@ -394,6 +500,7 @@ enum ViewTags
     [mBasicHeader release];
     [mNameCell release];
     [mEmailCell release];
+    [mBirthdayCell release];
     [mTableView release];
     [super dealloc];
 }

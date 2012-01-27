@@ -14,3 +14,7 @@
 #define $array(...)  [NSArray arrayWithObjects:__VA_ARGS__, nil]
 #define $dict(k, v)  [NSDictionary dictionaryWithObjects:v forKeys:k]
 
+#define $numb(b)     [NSNumber numberWithBool:b]
+#define $numi(i)     [NSNumber numberWithInt:i]
+#define $numd(d)     [NSNumber numberWithDouble:d]
+

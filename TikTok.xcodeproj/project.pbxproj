@@ -33,6 +33,7 @@
 		2E3126A114CA427600477805 /* UserLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3126A014CA427600477805 /* UserLocation@2x.png */; };
 		2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E32143D14C0B6E500647116 /* MessageUI.framework */; };
 		2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E32143F14C0BAE000647116 /* iPhoneShake.png */; };
+		2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */; };
 		2E5FEADB14A1106400B516FE /* Icon01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD514A1106300B516FE /* Icon01.png */; };
 		2E5FEADC14A1106400B516FE /* Icon01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD614A1106300B516FE /* Icon01@2x.png */; };
 		2E5FEADD14A1106400B516FE /* Icon02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD714A1106300B516FE /* Icon02.png */; };
@@ -263,6 +264,8 @@
 		2E3126A014CA427600477805 /* UserLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserLocation@2x.png"; sourceTree = "<group>"; };
 		2E32143D14C0B6E500647116 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2E32143F14C0BAE000647116 /* iPhoneShake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneShake.png; sourceTree = "<group>"; };
+		2E41C74B14D0D2B60098C91C /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
+		2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTableViewCell.m; sourceTree = "<group>"; };
 		2E5FEAD514A1106300B516FE /* Icon01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon01.png; sourceTree = "<group>"; };
 		2E5FEAD614A1106300B516FE /* Icon01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon01@2x.png"; sourceTree = "<group>"; };
 		2E5FEAD714A1106300B516FE /* Icon02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon02.png; sourceTree = "<group>"; };
@@ -805,6 +808,8 @@
 				2E5FEAEA14A1AD2700B516FE /* CouponTableViewCell.m */,
 				2EE5D41D14AD356700D0539C /* GradientView.h */,
 				2EE5D41E14AD356700D0539C /* GradientView.m */,
+				2E41C74B14D0D2B60098C91C /* InputTableViewCell.h */,
+				2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */,
 				2E7DBE1B14A25DC1002F6187 /* TikTokPhysicsView.h */,
 				2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */,
 				2E6314FD14BE3885001B1D78 /* UILabelExt.h */,
@@ -1509,6 +1514,7 @@
 				2E31269D14CA044C00477805 /* NSDictionary+Extensions.m in Sources */,
 				2EA2286314CDE19F00466166 /* SVProgressHUD.m in Sources */,
 				2EA2286A14CDEEF500466166 /* NetworkConnectivity.m in Sources */,
+				2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1531,6 +1537,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries\"",
@@ -1555,6 +1562,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries\"",
@@ -1598,6 +1606,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries\"",

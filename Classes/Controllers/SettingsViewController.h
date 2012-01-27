@@ -13,6 +13,12 @@
 #import <UIKit/UIKit.h>
 
 //------------------------------------------------------------------------------
+// forward declarations
+//------------------------------------------------------------------------------
+
+@class InputTableViewCell;
+
+//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
@@ -20,18 +26,25 @@
                                                       UITableViewDataSource,
                                                       UITextFieldDelegate>
 {
-    UITableView     *mTableView;
-    UITableViewCell *mNameCell;
-    UITableViewCell *mEmailCell;
-    UIView          *mBasicHeader;
+    UITableView        *mTableView;
+    UITableViewCell    *mNameCell;
+    UITableViewCell    *mEmailCell;
+    InputTableViewCell *mBirthdayCell;
+    UIView             *mDateInputView;
+    UIToolbar          *mDateInputAccessoryView;
+    UIView             *mBasicHeader;
+    NSDictionary       *mTableData;
 }
 
 //------------------------------------------------------------------------------
                                                     
-@property (nonatomic, retain) IBOutlet UITableView     *tableView;
-@property (nonatomic, retain) IBOutlet UITableViewCell *nameCell;
-@property (nonatomic, retain) IBOutlet UITableViewCell *emailCell;
-@property (nonatomic, retain) IBOutlet UIView          *basicHeader;
+@property (nonatomic, retain) IBOutlet UITableView        *tableView;
+@property (nonatomic, retain) IBOutlet UITableViewCell    *nameCell;
+@property (nonatomic, retain) IBOutlet UITableViewCell    *emailCell;
+@property (nonatomic, retain)          InputTableViewCell *birthdayCell;
+@property (nonatomic, retain) IBOutlet UIDatePicker       *dateInputView;
+@property (nonatomic, retain) IBOutlet UIToolbar          *dateInputAccessoryView;
+@property (nonatomic, retain) IBOutlet UIView             *basicHeader;
 
 //------------------------------------------------------------------------------
 
@@ -39,6 +52,9 @@
 - (IBAction) saveEmail:(id)sender;
 
 - (IBAction) facebookConnect:(id)sender;
+
+- (IBAction) toolbarDatePickerCancel:(id)sender;
+- (IBAction) toolbarDatePickerSave:(id)sender;
 
 //------------------------------------------------------------------------------
 
