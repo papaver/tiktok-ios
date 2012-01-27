@@ -16,3 +16,6 @@
 [submodule "ThirdParty/SVProgressHUD"]
 	path = ThirdParty/SVProgressHUD
 	url = https://github.com/samvermette/SVProgressHUD.git
+[submodule "ThirdParty/EGOTableViewPullRefresh"]
+	path = ThirdParty/EGOTableViewPullRefresh
+	url = git@github.com:papaver/EGOTableViewPullRefresh.git

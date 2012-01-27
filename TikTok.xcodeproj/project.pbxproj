@@ -25,6 +25,7 @@
 		2E201E4614B7AC17001E9051 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E201E4514B7AC17001E9051 /* Database.m */; };
 		2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4714BB58EB001E9051 /* RedeemedSash.png */; };
 		2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */; };
+		2E259E4914D26748007481F2 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */; };
 		2E31269714C8DFFE00477805 /* LocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31269514C8DFFE00477805 /* LocationPickerViewController.m */; };
 		2E31269814C8DFFE00477805 /* LocationPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */; };
 		2E31269A14C8F78000477805 /* MapSelectionMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269914C8F78000477805 /* MapSelectionMask.png */; };
@@ -254,6 +255,8 @@
 		2E201E4514B7AC17001E9051 /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		2E201E4714BB58EB001E9051 /* RedeemedSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemedSash.png; sourceTree = "<group>"; };
 		2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemedSash@2x.png"; sourceTree = "<group>"; };
+		2E259E4714D26748007481F2 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		2E31269414C8DFFE00477805 /* LocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPickerViewController.h; sourceTree = "<group>"; };
 		2E31269514C8DFFE00477805 /* LocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPickerViewController.m; sourceTree = "<group>"; };
 		2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationPickerViewController.xib; sourceTree = "<group>"; };
@@ -684,6 +687,39 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
+		2E259E4314D266DE007481F2 /* EGOTableViewPullRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				2E259E4414D26707007481F2 /* EGOTableViewPullRefresh */,
+			);
+			path = EGOTableViewPullRefresh;
+			sourceTree = "<group>";
+		};
+		2E259E4414D26707007481F2 /* EGOTableViewPullRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				2E259E4514D26711007481F2 /* Classes */,
+			);
+			path = EGOTableViewPullRefresh;
+			sourceTree = "<group>";
+		};
+		2E259E4514D26711007481F2 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2E259E4614D2671A007481F2 /* View */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		2E259E4614D2671A007481F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2E259E4714D26748007481F2 /* EGORefreshTableHeaderView.h */,
+				2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		2E29AF1F1399E37300FB6AE2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1046,6 +1082,7 @@
 			children = (
 				2EC6725C148FFE5E00AC5CDF /* AsiHttpRequest */,
 				2E5FEAEF14A1B75800B516FE /* Box2D */,
+				2E259E4314D266DE007481F2 /* EGOTableViewPullRefresh */,
 				2EE5D42714B25CED00D0539C /* Facebook */,
 				2EFB99EE14C63F6C00FD69E8 /* JsonKit */,
 				2EC6725D148FFE7000AC5CDF /* SBJson */,
@@ -1515,6 +1552,7 @@
 				2EA2286314CDE19F00466166 /* SVProgressHUD.m in Sources */,
 				2EA2286A14CDEEF500466166 /* NetworkConnectivity.m in Sources */,
 				2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */,
+				2E259E4914D26748007481F2 /* EGORefreshTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
