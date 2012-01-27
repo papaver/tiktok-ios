@@ -159,7 +159,7 @@
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="766127712"/>
 										<string key="NSReuseIdentifierKey">_NS:567</string>
-										<int key="IBUIContentMode">4</int>
+										<int key="IBUIContentMode">1</int>
 										<int key="IBUITag">1</int>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
