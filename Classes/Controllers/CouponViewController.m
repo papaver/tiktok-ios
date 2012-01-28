@@ -398,9 +398,6 @@ enum CouponTag {
     static NSString *offerText        = @"Offer is no longer available.";
     static NSString *timerText        = @"TIMES UP!";
 
-    // disable user interaction
-    cell.userInteractionEnabled = NO;
-
     // expire text
     UILabel *textTime  = (UILabel*)[cell viewWithTag:kTagTextTime];
     textTime.text      = offerText;
@@ -426,9 +423,6 @@ enum CouponTag {
 
 - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
 {
-    // enable user interaction
-    cell.userInteractionEnabled = YES;
-
     // fix the opacity
     for (UIView *view in cell.subviews) {
         if (view.tag != kTagBackground) {
@@ -740,6 +734,9 @@ enum CouponTag {
 
 - (void) reloadTableViewDataSource 
 {
+    // don't try to reload twice
+    if (mReloading) return;
+
     mReloading = YES;
 
     // setup api object

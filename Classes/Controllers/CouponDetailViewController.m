@@ -29,6 +29,7 @@
 
 enum CouponDetailTag
 {
+    kTagBackground      = 16,
     kTagScrollView      = 14,
     kTagTitleBar        = 11,
     kTagTitle           =  3,
@@ -65,6 +66,7 @@ enum ActionButton
     - (void) setupMap;
     - (void) arrangeSubviewsForRedeemedCouponWithAnimation:(bool)animated;
     - (void) resetSubviews;
+    - (void) expireCoupon;
     - (void) startTimer;
     - (void) updateTimers;
     - (void) shareSMS;
@@ -157,7 +159,7 @@ enum ActionButton
     // don't add redeem button if coupon is expired or already activated
     if (self.coupon.wasRedeemed) {
         [self arrangeSubviewsForRedeemedCouponWithAnimation:false];
-    } else if (![self.coupon isExpired]) {
+    } else if (!self.coupon.isExpired) {
         [self.navigationController setToolbarHidden:NO animated:YES];
     } else {
         [self resetSubviews];
@@ -166,6 +168,8 @@ enum ActionButton
     // setup an update loop to for the color/text timers
     if (!self.coupon.isExpired) {
         [self startTimer];
+    } else {
+        [self expireCoupon];
     }
 }
 
@@ -395,7 +399,12 @@ enum ActionButton
     label.text     = [self.coupon getExpirationTimer];
 
     // kill timer if coupon is expired
-    if ([self.coupon isExpired]) [self.timer invalidate];
+    if ([self.coupon isExpired]) {
+        [self.timer invalidate];
+        [UIView animateWithDuration:0.25 animations:^{
+            [self expireCoupon];
+        }];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -466,6 +475,26 @@ enum ActionButton
     contentView.frame              = contentViewFrameNew;
     titleViewFrameNew.size.height -= barcodeFrame.size.height;
     titleView.frame                = titleViewFrameNew;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) expireCoupon
+{
+    // update the timer label
+    UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
+    label.text     = @"TIMES UP!";
+
+    // update the opacity for all the coupons
+    for (UIView *view in self.view.subviews) {
+        if (view.tag != kTagBackground) {
+            view.alpha = 0.6;
+        } 
+    }
+
+    // disable the redeem button and gray it out
+    self.redeemButton.tintColor = [UIColor grayColor];
+    self.redeemButton.enabled   = NO;
 }
 
 //------------------------------------------------------------------------------
@@ -584,7 +613,7 @@ enum ActionButton
                            otherButtonTitles:@"SMS", @"Email", nil];
 
     // show from toolbar only if coupon not yet redeemed
-    if (self.coupon.wasRedeemed) {
+    if (self.coupon.wasRedeemed || self.coupon.isExpired) {
         [actionSheet showInView:self.view];
     } else {
         [actionSheet showFromToolbar:self.navigationController.toolbar];
