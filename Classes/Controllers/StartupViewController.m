@@ -333,7 +333,6 @@ enum StartupTag
         // kill timer if it is still running
         if (mTimer) {
             [mTimer invalidate];
-            [mTimer release];
         }
 
         // start fake progress bar timer
