@@ -251,6 +251,11 @@ enum ViewTags
 
 - (void) dealloc
 {
+    // its possible not niling out the delegate is causing crashes
+    // ref: http://stackoverflow.com/questions/8022609/ios-5-mapkit-crashes-with-overlays-when-zoom-pan
+    MKMapView *map = (MKMapView*)[self.view viewWithTag:kTagMap];
+    map.delegate   = nil;
+
     [mDoneButton release];
     [mLocation release];
     [super dealloc];

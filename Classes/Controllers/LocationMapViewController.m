@@ -351,6 +351,12 @@
 
 - (void) dealloc 
 {
+    // its possible not niling out the delegate is causing crashes
+    // ref: http://stackoverflow.com/questions/8022609/ios-5-mapkit-crashes-with-overlays-when-zoom-pan
+    mMapView.delegate = nil;
+
+    [mMapView release];
+    [mCoupon release];
     [super dealloc];
 }
 
