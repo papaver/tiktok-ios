@@ -76,6 +76,17 @@
 #pragma mark - MapViewDelegate
 //------------------------------------------------------------------------------
 
+- (void) mapView:(MKMapView*)mapView didAddAnnotationViews:(NSArray*)views 
+{
+    // [moiz] should open the deal location
+
+    // open a single callout
+    id myAnnotation = [mapView.annotations objectAtIndex:0]; 
+    [mapView selectAnnotation:myAnnotation animated:YES]; 
+}
+
+//------------------------------------------------------------------------------
+
 - (MKAnnotationView*) mapView:(MKMapView*)mapView 
             viewForAnnotation:(id<MKAnnotation>)annotation
 {
@@ -311,7 +322,7 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
                                                 withHandler:handler
-                                          cancelButtonTitle:@"Ok"
+                                          cancelButtonTitle:@"Okay"
                                           otherButtonTitles:@"Directions", nil];
     [alert show];
     [alert release];
