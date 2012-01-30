@@ -482,6 +482,7 @@ enum CouponTag {
     // update icon 
     icon.image  = image;
     icon.hidden = image == nil;
+    icon.alpha  = image == nil ? 0.0f : 1.0f;
 
     // update spinner
     if (image) {
@@ -543,7 +544,9 @@ enum CouponTag {
         withCompletionHandler:^(UIImage* image, NSError *error) {
             if (image) {
                 UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                [self setIcon:image forCell:cell];
+                [UIView animateWithDuration:0.2 animations:^{
+                    [self setIcon:image forCell:cell];
+                }];
             } else if (error) {
                 NSLog(@"CouponViewController: Failed to load image: %@", error);
             }
