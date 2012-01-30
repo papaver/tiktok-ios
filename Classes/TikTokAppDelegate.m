@@ -64,7 +64,7 @@
 
     // set startup completion handler to show navigation controller 
     self.startupController.completionHandler = ^{
-        self.window.rootViewController = self.navigationController;
+        self.window.rootViewController = self.tabBarController;
     };
 
     // we need this to allow events to propagate through properly
