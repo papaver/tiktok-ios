@@ -42,7 +42,7 @@
 					<object class="IBUIImageView" id="242054899">
 						<reference key="NSNextResponder" ref="256432315"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 416}</string>
+						<string key="NSFrameSize">{320, 367}</string>
 						<reference key="NSSuperview" ref="256432315"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="709618507"/>
@@ -51,6 +51,7 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEgMAA</bytes>
 						</object>
+						<int key="IBUIContentMode">9</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -61,7 +62,7 @@
 					<object class="IBUITableView" id="709618507">
 						<reference key="NSNextResponder" ref="256432315"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 416}</string>
+						<string key="NSFrameSize">{320, 367}</string>
 						<reference key="NSSuperview" ref="256432315"/>
 						<reference key="NSWindow"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="757781593">
@@ -80,7 +81,7 @@
 						<float key="IBUISectionFooterHeight">22</float>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
+				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="242054899"/>
@@ -99,6 +100,7 @@
 					<int key="IBUIBarStyle">1</int>
 					<bool key="IBUIPrompted">NO</bool>
 				</object>
+				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIImageView" id="499164303">
