@@ -27,15 +27,15 @@
 //------------------------------------------------------------------------------
 
 enum CouponTag {
-    kTagIcon         = 1,
-    kTagTitle        = 2,
-    kTagTextTime     = 3,
-    kTagTextTimer    = 4,
-    kTagColorTimer   = 5,
-    kTagIconActivity = 6,
-    kTagRedeemedSash = 7,
-    kTagCompanyName  = 8,
-    kTagBackground   = 9
+    kTagIcon           =  1,
+    kTagTitle          =  2,
+    kTagTextTime       =  3,
+    kTagTextTimer      =  4,
+    kTagColorTimer     =  5,
+    kTagIconActivity   =  6,
+    kTagRedeemedSash   =  7,
+    kTagCompanyName    =  8,
+    kTagBackground     =  9,
 };
 
 //------------------------------------------------------------------------------
@@ -43,6 +43,8 @@ enum CouponTag {
 //------------------------------------------------------------------------------
 
 @interface CouponViewController ()
+    - (void) setupRefreshHeader;
+    - (void) setupFilterButtons;
     - (void) updateExpiration:(NSTimer*)timer;
     - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
     - (void) configureExpiredCell:(UIView*)cell;
@@ -52,11 +54,12 @@ enum CouponTag {
     - (void) setupIconForCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath withCoupon:(Coupon*)coupon;
     - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
     - (void) loadImagesForOnscreenRows;
-    - (void) handleSettings;
     - (void) reloadTableViewDataSource;
     - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) doneLoadingTableViewData;
-    - (void) setupRefreshHeader;
+    - (void) updateFilterByReedmeedOnly:(bool)redeemedOnly activeOnly:(bool)activeOnly;
+    - (void) filterDealsRedeemd;
+    - (void) filterDealsActive;
 @end 
 
 //------------------------------------------------------------------------------
@@ -96,11 +99,8 @@ enum CouponTag {
     // tag testflight checkpoint
     [TestFlight passCheckpoint:@"Deals"];
 
-    // add settings option
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings"
-        style:UIBarButtonItemStylePlain target:self action:@selector(handleSettings)];
-    self.navigationItem.rightBarButtonItem = settingsButton;
-    [settingsButton release];
+    // add navitems
+    [self setupFilterButtons];
 
     // setup the refresh header
     [self setupRefreshHeader];
@@ -145,6 +145,42 @@ enum CouponTag {
     
     //  update the last update date
     [mRefreshHeaderView refreshLastUpdatedDate];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupFilterButtons
+{
+    // add redeemed filter
+    UIBarButtonItem *redeemedButton = 
+        [[UIBarButtonItem alloc] initWithTitle:@"Redeemed"
+                                         style:UIBarButtonItemStyleBordered 
+                                        target:self 
+                                        action:@selector(filterDealsRedeemd)];
+    redeemedButton.tintColor = [UIDefaults getTokColor];
+
+    // add active filter
+    UIBarButtonItem *activeButton = 
+        [[UIBarButtonItem alloc] initWithTitle:@"Active"
+                                         style:UIBarButtonItemStyleBordered 
+                                         target:self 
+                                         action:@selector(filterDealsActive)];
+    activeButton.tintColor = [UIDefaults getTokColor];
+
+    // setup the toolbar
+    UIToolbar *miniToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 147, 44)];
+    [miniToolbar setItems:$array(redeemedButton, activeButton) animated:YES];
+    miniToolbar.barStyle = -1;
+
+    // add as right navigation item
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:miniToolbar];
+    self.navigationItem.rightBarButtonItem = rightItem;
+
+    // cleanup
+    [redeemedButton release];
+    [activeButton release];
+    [miniToolbar release];
+    [rightItem release];
 }
 
 //------------------------------------------------------------------------------
@@ -588,33 +624,37 @@ enum CouponTag {
         entityForName:@"Coupon" inManagedObjectContext:context];
                                                    
     // create a sort descriptor
-    NSSortDescriptor *sortByStartDate = [[[NSSortDescriptor alloc] 
-        initWithKey:@"endTime" ascending:NO]
-        autorelease];
-    NSArray *sortDescriptors = [[[NSArray alloc] 
-        initWithObjects:sortByStartDate, nil] 
-        autorelease];
+    NSSortDescriptor *sortByEndDate = [[NSSortDescriptor alloc] 
+        initWithKey:@"endTime" ascending:NO];
 
     // create a fetch request
-    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     request.entity          = description;
     request.fetchBatchSize  = 10;
-    request.sortDescriptors = sortDescriptors;
+    request.sortDescriptors = $array(sortByEndDate);
 
     // create a results controller from the request
-    self.fetchedCouponsController = [[[NSFetchedResultsController alloc] 
-        initWithFetchRequest:request 
-        managedObjectContext:context 
-          sectionNameKeyPath:nil
-                   cacheName:@"coupon_table"] autorelease];
+    NSFetchedResultsController *fetchedCouponsController = 
+        [[NSFetchedResultsController alloc] initWithFetchRequest:request 
+                                            managedObjectContext:context 
+                                              sectionNameKeyPath:nil
+                                                       cacheName:@"coupon_table"];
+
+    // save the controller
+    self.fetchedCouponsController          = fetchedCouponsController;
     self.fetchedCouponsController.delegate = self;
 
     // preform the fetch
     NSError *error = nil;
-    if (![mFetchedCouponsController performFetch:&error]) {
+    if (![self.fetchedCouponsController performFetch:&error]) {
         NSLog(@"Fetching of coupons failed: %@, %@", error, [error userInfo]);
         abort();
     }
+
+    // cleanup
+    [request release];
+    [sortByEndDate release];
+    [fetchedCouponsController release];
 
     return mFetchedCouponsController;
 }
@@ -784,17 +824,81 @@ enum CouponTag {
 }
 
 //------------------------------------------------------------------------------
-#pragma - Events
+#pragma mark - table sorting / filtering
 //------------------------------------------------------------------------------
 
-- (void) handleSettings
+- (void) updateFilterByReedmeedOnly:(bool)redeemedOnly activeOnly:(bool)activeOnly
 {
-    SettingsViewController *settingsViewController = [[SettingsViewController alloc] 
-        initWithNibName:@"SettingsViewController" bundle:nil];
+    NSPredicate *predicate = nil;
+    if (redeemedOnly && activeOnly) {
+        predicate = [NSPredicate predicateWithFormat:
+            @"wasRedeemed == %@ && endTime > %@", $numb(YES), [NSDate date]];
+    } else if (redeemedOnly) {
+        predicate = [NSPredicate predicateWithFormat:
+            @"wasRedeemed == %@", $numb(YES)];
+    } else if (activeOnly) {
+        predicate = [NSPredicate predicateWithFormat:
+            @"endTime > %@", [NSDate date]];
+    } 
 
-    // pass the selected object to the new view controller.
-    [self.navigationController pushViewController:settingsViewController animated:YES];
-    [settingsViewController release];
+    // clear the cache
+    [NSFetchedResultsController deleteCacheWithName:@"coupon_table"];
+
+    // update the fetch request
+    NSFetchRequest *request = self.fetchedCouponsController.fetchRequest; 
+    request.predicate       = predicate;
+
+    // update the request in the fetch controller
+    NSError *error = nil;
+    if (![self.fetchedCouponsController performFetch:&error]) {
+        NSLog(@"CouponViewController: Fetching of coupons failed: %@, %@", 
+            error, [error userInfo]);
+    }
+
+    // reload the new data
+    [self.tableView reloadData];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) filterDealsRedeemd
+{
+    UIToolbar *toolbar = (UIToolbar*)self.navigationItem.rightBarButtonItem.customView;
+
+    // grab the filter buttons
+    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)[toolbar.items objectAtIndex:0];
+    UIBarButtonItem *activeButton   = (UIBarButtonItem*)[toolbar.items objectAtIndex:1];
+
+    // calculate the new states
+    bool redeemedOnly = ![redeemedButton.tintColor isEqual:[UIDefaults getTikColor]];
+    bool activeOnly   = [activeButton.tintColor isEqual:[UIDefaults getTikColor]];
+
+    // update the color
+    redeemedButton.tintColor = redeemedOnly ? 
+        [UIDefaults getTikColor] : [UIDefaults getTokColor];;
+
+    [self updateFilterByReedmeedOnly:redeemedOnly activeOnly:activeOnly];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) filterDealsActive
+{
+    UIToolbar *toolbar = (UIToolbar*)self.navigationItem.rightBarButtonItem.customView;
+
+    // grab the filter buttons
+    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)[toolbar.items objectAtIndex:0];
+    UIBarButtonItem *activeButton   = (UIBarButtonItem*)[toolbar.items objectAtIndex:1];
+
+    // calculate the new states
+    bool redeemedOnly = [redeemedButton.tintColor isEqual:[UIDefaults getTikColor]];
+    bool activeOnly   = ![activeButton.tintColor isEqual:[UIDefaults getTikColor]];
+
+    // update the color
+    activeButton.tintColor = activeOnly ? 
+        [UIDefaults getTikColor] : [UIDefaults getTokColor];;
+
+    [self updateFilterByReedmeedOnly:redeemedOnly activeOnly:activeOnly];
 }
 
 //------------------------------------------------------------------------------
