@@ -1598,8 +1598,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = TikTok.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Moiz Merchant (P5UA424W4T)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Moiz Merchant (P5UA424W4T)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1615,8 +1615,8 @@
 					"\"$(SRCROOT)/Libraries\"",
 				);
 				PRODUCT_NAME = TikTok;
-				PROVISIONING_PROFILE = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};
@@ -1625,8 +1625,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = TikTok.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Moiz Merchant (P5UA424W4T)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Moiz Merchant (P5UA424W4T)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1640,8 +1640,8 @@
 					"\"$(SRCROOT)/Libraries\"",
 				);
 				PRODUCT_NAME = TikTok;
-				PROVISIONING_PROFILE = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EBEB2274-5B78-4AC2-9277-DDCD92F7CC54";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1702,6 +1702,7 @@
 				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/ThirdParty";
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
 				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1719,6 +1720,7 @@
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;

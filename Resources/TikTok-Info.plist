@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Resources/Icon.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.nektarfx.15minutes</string>
+	<string>com.tiktok.consumerapp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
