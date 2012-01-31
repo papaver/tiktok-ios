@@ -12,11 +12,12 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBUIProgressView</string>
-			<string>IBUIViewController</string>
 			<string>IBUIImageView</string>
-			<string>IBUIView</string>
+			<string>IBUIViewController</string>
 			<string>IBUILabel</string>
 			<string>IBProxyObject</string>
+			<string>IBUIButton</string>
+			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -74,7 +75,6 @@
 						<string key="NSFrame">{{20, 433}, {280, 9}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:677</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">3</int>
@@ -114,13 +114,30 @@
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<string key="name">BradleyHandITCTT-Bold</string>
 							<string key="family">Bradley Hand</string>
-							<int key="traits">2</int>
+							<int key="traits">0</int>
 							<double key="pointSize">17</double>
 						</object>
 						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">BradleyHandITCTT-Bold</string>
+							<string key="NSName">Helvetica</string>
 							<double key="NSSize">17</double>
 							<int key="NSfFlags">16</int>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="704190769">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{136, 20}, {48, 48}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1015262820"/>
+						<string key="NSReuseIdentifierKey">_NS:567</string>
+						<int key="IBUITag">4</int>
+						<array key="IBUIGestureRecognizers" id="0"/>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">iPhoneShake.png</string>
 						</object>
 					</object>
 					<object class="IBUIView" id="415781814">
@@ -150,7 +167,7 @@
 								<string key="NSFrame">{{168, 332}, {105, 97}}</string>
 								<reference key="NSSuperview" ref="415781814"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="704190769"/>
+								<reference key="NSNextKeyView" ref="50183241"/>
 								<string key="NSReuseIdentifierKey">_NS:567</string>
 								<int key="IBUIContentMode">4</int>
 								<int key="IBUITag">2</int>
@@ -173,21 +190,42 @@
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIImageView" id="704190769">
+					<object class="IBUIButton" id="50183241">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{136, 20}, {48, 48}}</string>
+						<string key="NSFrame">{{133, 17}, {53, 53}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1015262820"/>
-						<string key="NSReuseIdentifierKey">_NS:567</string>
-						<int key="IBUITag">4</int>
-						<array key="IBUIGestureRecognizers" id="0"/>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<reference key="NSNextKeyView" ref="704190769"/>
+						<string key="NSReuseIdentifierKey">_NS:225</string>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">iPhoneShake.png</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<object class="NSColor" key="IBUIHighlightedTitleColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+						</object>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<object class="NSColor" key="IBUINormalTitleShadowColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<int key="type">2</int>
+							<double key="pointSize">15</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica-Bold</string>
+							<double key="NSSize">15</double>
+							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 				</array>
@@ -245,6 +283,15 @@
 					</object>
 					<int key="connectionID">19</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">pauseStartup</string>
+						<reference key="source" ref="50183241"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">30</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -264,6 +311,7 @@
 							<reference ref="175247023"/>
 							<reference ref="704190769"/>
 							<reference ref="1015262820"/>
+							<reference ref="50183241"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -335,6 +383,12 @@
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Shake Text</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">29</int>
+						<reference key="object" ref="50183241"/>
+						<reference key="parent" ref="191373211"/>
+						<string key="objectName">Pause</string>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -350,6 +404,7 @@
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="25.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.CustomClassName">TikTokPhysicsViewController</string>
@@ -359,13 +414,24 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">28</int>
+			<int key="maxID">30</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">StartupViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">pauseStartup</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">pauseStartup</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">pauseStartup</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">physicsController</string>
 						<string key="NS.object.0">TikTokPhysicsViewController</string>
@@ -419,7 +485,7 @@
 			<string key="Default.png">{320, 478}</string>
 			<string key="SplashProgressBar.png">{320, 50}</string>
 			<string key="Tik.png">{111, 102}</string>
-			<string key="Tok.png">{112, 102}</string>
+			<string key="Tok.png">{110, 101}</string>
 			<string key="iPhoneShake.png">{236, 260}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">933</string>

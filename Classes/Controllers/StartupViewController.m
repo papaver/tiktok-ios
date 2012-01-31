@@ -41,7 +41,6 @@ enum StartupTag
     - (void) syncCoupons;
     - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) progressBar:(NSTimer*)timer;
-    - (void) pauseStartup;
     - (void) waitForInternetConnection;
 @end
 
@@ -348,7 +347,7 @@ enum StartupTag
 #pragma mark - Events
 //------------------------------------------------------------------------------
 
-- (void) pauseStartup
+- (IBAction) pauseStartup
 {
     // startup paused and complete, run completion handler
     if (mPause && mComplete) {
