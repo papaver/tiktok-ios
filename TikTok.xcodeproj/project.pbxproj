@@ -108,6 +108,10 @@
 		2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E0814139364AF008788C2 /* CoreGraphics.framework */; };
 		2E6E082B139364C2008788C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082A139364C2008788C2 /* Foundation.framework */; };
 		2E6E082D139364D6008788C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E082C139364D6008788C2 /* UIKit.framework */; };
+		2E6FC61214D9C93400DA36E9 /* fbConnect.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6FC60E14D9C93400DA36E9 /* fbConnect.png */; };
+		2E6FC61314D9C93400DA36E9 /* fbConnect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */; };
+		2E6FC61414D9C93400DA36E9 /* fbLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6FC61014D9C93400DA36E9 /* fbLogout.png */; };
+		2E6FC61514D9C93400DA36E9 /* fbLogout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6FC61114D9C93400DA36E9 /* fbLogout@2x.png */; };
 		2E7DBE1D14A25DC1002F6187 /* TikTokPhysicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */; };
 		2E7DBE2214A263E2002F6187 /* TikShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1E14A263E2002F6187 /* TikShaken.png */; };
 		2E7DBE2314A263E2002F6187 /* TikShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */; };
@@ -406,6 +410,10 @@
 		2E6E0814139364AF008788C2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2E6E082A139364C2008788C2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2E6E082C139364D6008788C2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2E6FC60E14D9C93400DA36E9 /* fbConnect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbConnect.png; sourceTree = "<group>"; };
+		2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fbConnect@2x.png"; sourceTree = "<group>"; };
+		2E6FC61014D9C93400DA36E9 /* fbLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogout.png; sourceTree = "<group>"; };
+		2E6FC61114D9C93400DA36E9 /* fbLogout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fbLogout@2x.png"; sourceTree = "<group>"; };
 		2E7DBE1B14A25DC1002F6187 /* TikTokPhysicsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokPhysicsView.h; sourceTree = "<group>"; };
 		2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokPhysicsView.m; sourceTree = "<group>"; };
 		2E7DBE1E14A263E2002F6187 /* TikShaken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikShaken.png; sourceTree = "<group>"; };
@@ -780,6 +788,10 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E6FC60E14D9C93400DA36E9 /* fbConnect.png */,
+				2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */,
+				2E6FC61014D9C93400DA36E9 /* fbLogout.png */,
+				2E6FC61114D9C93400DA36E9 /* fbLogout@2x.png */,
 				2E31269E14CA402500477805 /* UserLocation.png */,
 				2E3126A014CA427600477805 /* UserLocation@2x.png */,
 				2E31269914C8F78000477805 /* MapSelectionMask.png */,
@@ -1470,6 +1482,10 @@
 				2E0B9B2214D721E600DBC86C /* 103-map.png in Resources */,
 				2E0B9B2314D721E600DBC86C /* 123-id-card.png in Resources */,
 				2EEA759214D8C58800D0D92A /* CouponMapViewController.xib in Resources */,
+				2E6FC61214D9C93400DA36E9 /* fbConnect.png in Resources */,
+				2E6FC61314D9C93400DA36E9 /* fbConnect@2x.png in Resources */,
+				2E6FC61414D9C93400DA36E9 /* fbLogout.png in Resources */,
+				2E6FC61514D9C93400DA36E9 /* fbLogout@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

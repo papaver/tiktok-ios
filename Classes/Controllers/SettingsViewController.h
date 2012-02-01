@@ -51,8 +51,6 @@
 - (IBAction) saveName:(id)sender;
 - (IBAction) saveEmail:(id)sender;
 
-- (IBAction) facebookConnect:(id)sender;
-
 - (IBAction) toolbarDatePickerCancel:(id)sender;
 - (IBAction) toolbarDatePickerSave:(id)sender;
 

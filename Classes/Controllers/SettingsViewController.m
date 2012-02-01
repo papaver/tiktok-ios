@@ -51,6 +51,10 @@ enum ViewTags
 //------------------------------------------------------------------------------
 
 @interface SettingsViewController ()
+    - (void) setupFacebookConnect;
+    - (void) updateFacebookConnect;
+    - (void) facebookConnect;
+    - (void) facebookLogout;
     - (UITableViewCell*) getReusableCell;
     - (InputTableViewCell*) getReusableBirthdayCell;
 @end
@@ -113,6 +117,9 @@ enum ViewTags
         $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)), 
         $array(sectionBasic, sectionDetails, sectionLocation)) 
         retain];
+
+    // add facebook connect to navbar
+    [self setupFacebookConnect];
 }
 
 //------------------------------------------------------------------------------
@@ -120,11 +127,7 @@ enum ViewTags
 - (void) viewWillAppear:(BOOL)animated 
 {
     [super viewWillAppear:animated];
-
-    // set correct state on facebook connect button
-    FacebookManager *manager = [FacebookManager getInstance];
-    UIButton *facebookButton = (UIButton*)[self.view viewWithTag:kTagFacebook];
-    facebookButton.enabled   = ![manager.facebook isSessionValid];
+    [self updateFacebookConnect];
 }
 
 //------------------------------------------------------------------------------
@@ -138,6 +141,54 @@ enum ViewTags
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+//------------------------------------------------------------------------------
+#pragma mark - Facebook Connect
+//------------------------------------------------------------------------------
+
+- (void) setupFacebookConnect
+{
+    UIImage *image = [UIImage imageNamed:@"fbConnect.png"];
+
+    // setup facebook connect button
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame  = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
+
+    // add to nav bar
+    UIBarButtonItem *facebookItem = 
+        [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = facebookItem;
+
+    // cleanup
+    [facebookItem release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateFacebookConnect
+{
+    // set correct state on facebook connect button
+    FacebookManager *manager = [FacebookManager getInstance];
+    UIBarButtonItem *item    = self.navigationItem.rightBarButtonItem;
+    UIButton *facebookButton = (UIButton*)item.customView;
+
+    // update according to session validity
+    UIImage *image = nil;
+    SEL selector   = nil;
+    if (![manager.facebook isSessionValid]) {
+        selector = @selector(facebookConnect);
+        image    = [UIImage imageNamed:@"fbConnect.png"];
+    } else {
+        selector = @selector(facebookLogout);
+        image    = [UIImage imageNamed:@"fbLogout.png"];
+    }
+
+    // update the button
+    [facebookButton setImage:image forState:UIControlStateNormal];
+    [facebookButton addTarget:self 
+                       action:selector
+             forControlEvents:UIControlEventTouchUpInside];
+}
 
 //------------------------------------------------------------------------------
 #pragma mark - Events
@@ -161,14 +212,24 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
-- (IBAction) facebookConnect:(id)sender
+- (void) facebookConnect
 {
     FacebookManager *manager = [FacebookManager getInstance];
     if (![manager.facebook isSessionValid]) {
         [manager authorizeWithSucessHandler:^{
-            UIButton *facebookButton = (UIButton*)[self.view viewWithTag:kTagFacebook];
-            facebookButton.enabled   = NO;
+            [self updateFacebookConnect];
         }];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) facebookLogout
+{
+    FacebookManager *manager = [FacebookManager getInstance];
+    if ([manager.facebook isSessionValid]) {
+        [manager.facebook logout];
+        [self updateFacebookConnect];
     }
 }
 
