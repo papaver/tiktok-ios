@@ -221,6 +221,8 @@
 		2EE8581714ABABBB008055AD /* MerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8581614ABABBB008055AD /* MerchantViewController.m */; };
 		2EE8581B14ABF2F8008055AD /* Barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581914ABF2F8008055AD /* Barcode.png */; };
 		2EE8581C14ABF2F8008055AD /* Barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581A14ABF2F8008055AD /* Barcode@2x.png */; };
+		2EEA758E14D8C1E300D0D92A /* CouponMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */; };
+		2EEA759214D8C58800D0D92A /* CouponMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */; };
 		2EEC685914BD094D006AC9F7 /* UIToolbarSized.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */; };
 		2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */; };
 		2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE2149D863500A68993 /* CellBackground.png */; };
@@ -576,6 +578,9 @@
 		2EE8581814ABAC35008055AD /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
 		2EE8581914ABF2F8008055AD /* Barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Barcode.png; sourceTree = "<group>"; };
 		2EE8581A14ABF2F8008055AD /* Barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Barcode@2x.png"; sourceTree = "<group>"; };
+		2EEA758C14D8C1E300D0D92A /* CouponMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponMapViewController.h; sourceTree = "<group>"; };
+		2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponMapViewController.m; sourceTree = "<group>"; };
+		2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponMapViewController.xib; sourceTree = "<group>"; };
 		2EEC685714BD094D006AC9F7 /* UIToolbarSized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIToolbarSized.h; sourceTree = "<group>"; };
 		2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIToolbarSized.m; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -758,8 +763,9 @@
 			isa = PBXGroup;
 			children = (
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
-				28F335F01007B36200424DE2 /* CouponViewController.xib */,
+				2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */,
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
+				28F335F01007B36200424DE2 /* CouponViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
@@ -1219,6 +1225,8 @@
 			children = (
 				2EFB99F514C77B0300FD69E8 /* CouponAnnotation.h */,
 				2EFB99F614C77B0300FD69E8 /* CouponAnnotation.m */,
+				2EEA758C14D8C1E300D0D92A /* CouponMapViewController.h */,
+				2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */,
 				2EE8581814ABAC35008055AD /* CouponViewController.h */,
 				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
 				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
@@ -1461,6 +1469,7 @@
 				2E0B9B2114D721E600DBC86C /* 15-tags.png in Resources */,
 				2E0B9B2214D721E600DBC86C /* 103-map.png in Resources */,
 				2E0B9B2314D721E600DBC86C /* 123-id-card.png in Resources */,
+				2EEA759214D8C58800D0D92A /* CouponMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1587,6 +1596,7 @@
 				2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */,
 				2E259E4914D26748007481F2 /* EGORefreshTableHeaderView.m in Sources */,
 				2E66244314D33E5400FB6E68 /* WebViewController.m in Sources */,
+				2EEA758E14D8C1E300D0D92A /* CouponMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
