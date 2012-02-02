@@ -13,6 +13,7 @@
 #import "TikTokAppDelegate.h"
 #import "ASIHTTPRequest.h"
 #import "Constants.h"
+#import "Database.h"
 #import "FacebookManager.h"
 #import "TikTokApi.h"
 #import "StartupViewController.h"
@@ -86,6 +87,11 @@
  */
 - (void) applicationWillResignActive:(UIApplication*)application 
 {
+    NSError *error = nil;
+    [[[Database getInstance] context] save:&error];
+    if (error != nil) {
+        NSLog(@"AppDelegate: Failed to save managed context!");
+    }
 }
 
 //------------------------------------------------------------------------------
