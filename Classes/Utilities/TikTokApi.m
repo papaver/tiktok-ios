@@ -430,6 +430,9 @@
     } else if (status == SBJsonStreamParserWaitingForData) {
         NSLog(@"json parser: waiting for more data.");
     }
+
+    //NSLog(@"TikTokApi: data -> %@", 
+        //[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
 }
 
 //------------------------------------------------------------------------------
