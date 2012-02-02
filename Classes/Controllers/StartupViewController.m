@@ -297,6 +297,11 @@ enum StartupTag
         [[Settings getInstance] setLastUpdate:lastUpdate];
     };
 
+    // lost connection? fuck... restart startup process for now...
+    api.errorHandler = ^(ASIHTTPRequest* request) { 
+        [self waitForInternetConnection];
+    };
+
     // add a notification to allow syncing the contexts..
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self
