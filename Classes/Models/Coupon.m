@@ -140,11 +140,8 @@
     self.endTime     = [NSDate dateWithTimeIntervalSince1970:expireTime.intValue];
     self.iconId      = [data objectForKey:@"icon_uid"];
     self.iconUrl     = [data objectForKey:@"icon_url"];
+    self.barcode     = [data objectForKey:@"barcode_number"];
     self.wasRedeemed = NO;
-
-    self.barcode     = $string(@"%c%c%4d", 65 + arc4random() % 26, 
-                                           65 + arc4random() % 26, 
-                                           arc4random() % 9999);
 
     return self;
 }
