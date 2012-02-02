@@ -388,11 +388,14 @@ enum CouponTag {
         [self configureActiveCell:cell withCoupon:coupon];
 
         // create update loop for timers
-        cell.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                      target:self
-                                                    selector:@selector(updateExpiration:)
-                                                    userInfo:cell
-                                                     repeats:YES];
+        cell.timer = [NSTimer timerWithTimeInterval:1.0
+                                             target:self
+                                          selector:@selector(updateExpiration:)
+                                          userInfo:cell
+                                           repeats:YES];
+
+        // add timer to the main loop
+        [[NSRunLoop mainRunLoop] addTimer:cell.timer forMode:NSRunLoopCommonModes];
     }
 }
 
@@ -419,7 +422,7 @@ enum CouponTag {
             [self configureExpiredCell:cell];
         }];
     } else {
-        [self configureActiveCell:cell withCoupon:coupon];
+        [self updateActiveCell:cell withCoupon:coupon];
     }
 }
 
@@ -797,6 +800,13 @@ enum CouponTag {
 
         // update last synced time
         [[Settings getInstance] setLastUpdate:lastUpdate];
+    };
+
+    // remove notification and close header
+    api.errorHandler = ^(ASIHTTPRequest *request) {
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter removeObserver:self];
+        [self doneLoadingTableViewData];
     };
 
     // add a notification to allow syncing the contexts..
