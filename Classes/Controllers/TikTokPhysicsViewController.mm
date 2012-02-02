@@ -133,7 +133,6 @@ enum kViewTag
     if (!mWorld) delete mWorld;
     mWorld = NULL;
     [mTimer invalidate];
-    [mTimer release];
 }
 
 //------------------------------------------------------------------------------
