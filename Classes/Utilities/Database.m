@@ -17,7 +17,8 @@
 //-----------------------------------------------------------------------------
 
 @interface Database ()
-    - (NSURL*) applicationDocumentsDirectory;
+    + (NSURL*) applicationDocumentsDirectory;
+    + (NSURL*) getStorageUrl;
 @end    
 
 //-----------------------------------------------------------------------------
@@ -35,6 +36,19 @@
         sDatabase = [[[Database alloc] init] retain];
     }
     return sDatabase;
+}
+
+//-----------------------------------------------------------------------------
+
++ (void) purgeDatabase
+{
+    NSURL *storageUrl = [Database getStorageUrl];
+
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtURL:storageUrl error:&error];
+    if (error != nil) {
+        NSLog(@"Database: failed to purge database '%@': %@", storageUrl, error);
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -89,11 +103,7 @@
     if (mPersistantStoreCoordinator != nil) return mPersistantStoreCoordinator; 
 
     // construct path to storage on disk
-    NSURL *storageUrl = [[self applicationDocumentsDirectory] 
-        URLByAppendingPathComponent:@"TikTok.sqlite"];
-
-    // [moiz::temp] move this back into the if statement below
-    [[NSFileManager defaultManager] removeItemAtURL:storageUrl error:nil];
+    NSURL *storageUrl = [Database getStorageUrl];
 
     // allocate a persistant store coordinator, attached to the storage db
     NSError *error = nil;
@@ -138,6 +148,7 @@
          * changes.
          */
 
+        // log the error and purge the database
         NSLog(@"PersistentStoreCoordinator error: %@, %@", error, [error userInfo]);
         abort();
     }
@@ -146,14 +157,24 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - Application's Documents directory
+#pragma mark - Filesystem
 //------------------------------------------------------------------------------
 
-- (NSURL*) applicationDocumentsDirectory
++ (NSURL*) applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] 
         URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] 
         lastObject];
+}
+
+//------------------------------------------------------------------------------
+
++ (NSURL*) getStorageUrl
+{
+    // construct path to storage on disk
+    NSURL *storageUrl = [[self applicationDocumentsDirectory] 
+        URLByAppendingPathComponent:@"TikTok.sqlite"];
+    return storageUrl;
 }
 
 //------------------------------------------------------------------------------

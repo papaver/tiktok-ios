@@ -73,7 +73,7 @@ typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
 - (void) registerDevice:(NSString*)deviceId;
 - (void) validateRegistration;
 - (void) registerNotificationToken:(NSString*)token;
-- (void) syncActiveCoupons;
+- (void) syncActiveCoupons:(NSDate*)date;
 - (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate;
 - (void) updateCoupon:(NSNumber*)couponId attribute:(TikTokApiCouponAttribute)attribute;
 - (void) updateSettings:(NSDictionary*)settings;

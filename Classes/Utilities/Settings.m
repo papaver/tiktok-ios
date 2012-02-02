@@ -17,12 +17,13 @@
 // defines
 //-----------------------------------------------------------------------------
 
-#define KEY_NAME     @"TTS_name"
-#define KEY_EMAIL    @"TTS_email"
-#define KEY_GENDER   @"TTS_gender"
-#define KEY_BIRTHDAY @"TTS_birthday"
-#define KEY_HOME     @"TTS_home"
-#define KEY_WORK     @"TTS_work"
+#define KEY_NAME       @"TTS_name"
+#define KEY_EMAIL      @"TTS_email"
+#define KEY_GENDER     @"TTS_gender"
+#define KEY_BIRTHDAY   @"TTS_birthday"
+#define KEY_HOME       @"TTS_home"
+#define KEY_WORK       @"TTS_work"
+#define KEY_LASTUPDATE @"TTS_lastUpdate"
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -134,6 +135,7 @@
     [self clearValueForKey:KEY_BIRTHDAY];
     [self clearValueForKey:KEY_HOME];
     [self clearValueForKey:KEY_WORK];
+    [self clearValueForKey:KEY_LASTUPDATE];
 }
 
 //-----------------------------------------------------------------------------
@@ -255,6 +257,20 @@
     [self saveLocation:work forKey:KEY_WORK];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     [api updateSettingsWorkLocation:work];
+}
+       
+//-----------------------------------------------------------------------------
+
+- (NSDate*) lastUpdate 
+{
+    return [self loadValueForKey:KEY_LASTUPDATE];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setLastUpdate:(NSDate*)lastUpdate 
+{
+    [self saveValue:lastUpdate forKey:KEY_LASTUPDATE];
 }
        
 //-----------------------------------------------------------------------------

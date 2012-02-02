@@ -28,6 +28,7 @@
 @property(nonatomic, retain) NSDate     *birthday;
 @property(nonatomic, retain) CLLocation *home;
 @property(nonatomic, retain) CLLocation *work;
+@property(nonatomic, retain) NSDate     *lastUpdate;
 
 //-----------------------------------------------------------------------------
 

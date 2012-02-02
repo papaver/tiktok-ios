@@ -218,11 +218,18 @@
 
 //------------------------------------------------------------------------------
 
-- (void) syncActiveCoupons
+- (void) syncActiveCoupons:(NSDate*)date
 {
-    NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@/coupons", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
-        autorelease];
+    NSString *syncPath = $string(@"%@/consumers/%@/coupons", 
+        [TikTokApi apiUrlPath], [Utilities getConsumerId]);
+
+    // add last update time 
+    if (date) {
+        syncPath = $string(@"%@/?min_time=%f", syncPath, [date timeIntervalSince1970]);
+    }
+
+    // construct url
+    NSURL *url = [[[NSURL alloc] initWithString:syncPath] autorelease];
 
     // setup the async request
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];

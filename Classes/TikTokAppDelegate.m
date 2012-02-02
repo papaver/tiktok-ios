@@ -16,6 +16,7 @@
 #import "FacebookManager.h"
 #import "TikTokApi.h"
 #import "StartupViewController.h"
+#import "Settings.h"
 #import "Utilities.h"
 
 //------------------------------------------------------------------------------
@@ -213,9 +214,13 @@
     // update badge number
     application.applicationIconBadgeNumber = 0;
 
+    // [moiz] fix up how notifications work...
+
     // sync any newly available coupons
-    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    [api syncActiveCoupons];
+    //TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+
+    //Settings *settings = [Settings getInstance];
+    //[api syncActiveCoupons:settings.lastUpdate];
 }
 
 //------------------------------------------------------------------------------

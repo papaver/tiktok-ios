@@ -13,8 +13,10 @@
 #import "StartupViewController.h"
 #import "ASIHTTPRequest.h"
 #import "Database.h"
+#import "IconManager.h"
 #import "LocationTracker.h"
 #import "NetworkConnectivity.h"
+#import "Settings.h"
 #import "TikTokApi.h"
 #import "Utilities.h"
 
@@ -34,6 +36,7 @@ enum StartupTag
 
 @interface StartupViewController ()
     - (void) runStartupProcess;
+    - (void) purgeData;
     - (void) setupLocationTracking;
     - (void) registerDevice;
     - (void) validateRegistration;
@@ -74,6 +77,7 @@ enum StartupTag
     // register device with server if no customer id found
     NSString *customerId  = [Utilities getConsumerId];
     if (!customerId) { 
+        [self purgeData];
         [self registerDevice];
     } else {
         [self validateRegistration];
@@ -131,6 +135,22 @@ enum StartupTag
 
 //------------------------------------------------------------------------------
 #pragma mark - Helper Functions
+//------------------------------------------------------------------------------
+
+- (void) purgeData
+{
+    NSLog(@"StartupViewController: Purgin data...");
+
+    // purge the database
+    [Database purgeDatabase];
+
+    // purge the icon directory
+    IconManager *iconManager = [IconManager getInstance];
+    [iconManager deleteAllImages];
+
+    // purge settings?
+}
+
 //------------------------------------------------------------------------------
 
 - (void) runStartupProcess
@@ -265,12 +285,16 @@ enum StartupTag
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
 
     // trigger completion handler
+    NSDate *lastUpdate    = [NSDate date];
     api.completionHandler = ^(ASIHTTPRequest* request) { 
         if (!mPause) {
             if (self.completionHandler) self.completionHandler();
         }
     
         mComplete = true;
+
+        // update last update 
+        [[Settings getInstance] setLastUpdate:lastUpdate];
     };
 
     // add a notification to allow syncing the contexts..
@@ -281,7 +305,8 @@ enum StartupTag
                              object:api.context];
 
     // sync coupons
-    [api syncActiveCoupons];
+    Settings *settings = [Settings getInstance];
+    [api syncActiveCoupons:settings.lastUpdate];
 }
 
 //------------------------------------------------------------------------------

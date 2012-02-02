@@ -18,7 +18,7 @@
 #import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
-#import "SettingsViewController.h"
+#import "Settings.h"
 #import "TikTokApi.h"
 #import "UIDefaults.h"
 
@@ -92,10 +92,6 @@ enum CouponTag {
     UILabel *timer = (UILabel*)[self.cellView viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:19];
 
-    // [moiz::temp] purge files 
-    IconManager *iconManager = [IconManager getInstance];
-    [iconManager deleteAllImages];
-
     // tag testflight checkpoint
     [TestFlight passCheckpoint:@"Deals"];
 
@@ -104,6 +100,8 @@ enum CouponTag {
 
     // setup the refresh header
     [self setupRefreshHeader];
+
+    mReloading = false;
 }
 
 //------------------------------------------------------------------------------
@@ -355,8 +353,8 @@ enum CouponTag {
 //------------------------------------------------------------------------------
 
 /**
-  * Initializes cell with coupon information.
-  */
+ * Initializes cell with coupon information.
+ */
 - (void) configureCell:(CouponTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
     // grab coupon at the given index path
@@ -402,10 +400,9 @@ enum CouponTag {
 
 - (void) updateExpiration:(NSTimer*)timer
 {
-    CouponTableViewCell* cell = (CouponTableViewCell*)timer.userInfo;
-
     // grab coupon at the given index path
-    Coupon *coupon = cell.coupon;
+    CouponTableViewCell* cell = (CouponTableViewCell*)timer.userInfo;
+    Coupon *coupon            = cell.coupon;
     if (coupon == nil) return;
 
     /* only update the view if its visibile
@@ -783,10 +780,23 @@ enum CouponTag {
     mReloading = YES;
 
     // setup api object
+    NSDate *lastUpdate     = [NSDate date];
     __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    api.completionHandler = ^(ASIHTTPRequest *request) {
-        if ([api.jsonData count]) [self doneLoadingTableViewData];
-        
+    api.completionHandler  = ^(ASIHTTPRequest *request) {
+
+        // nothing to do if there is no data
+        if (![api.jsonData count]) {
+
+            // remove self from notification center
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter removeObserver:self];
+
+            // end transaction
+            [self doneLoadingTableViewData];
+        } 
+
+        // update last synced time
+        [[Settings getInstance] setLastUpdate:lastUpdate];
     };
 
     // add a notification to allow syncing the contexts..
@@ -797,7 +807,8 @@ enum CouponTag {
                              object:api.context];
 
     // sync coupons
-    [api syncActiveCoupons];
+    Settings *settings = [Settings getInstance];
+    [api syncActiveCoupons:settings.lastUpdate];
 }
 
 //------------------------------------------------------------------------------
@@ -811,7 +822,7 @@ enum CouponTag {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter removeObserver:self];
 
-    // allow header to retract
+    // end transaction
     [self doneLoadingTableViewData];
 }
 
