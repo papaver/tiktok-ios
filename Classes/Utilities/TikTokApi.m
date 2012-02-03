@@ -165,8 +165,8 @@
 {
     // construct the checkin url path 
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@/registered", [TikTokApi apiUrlPath], 
-            [Utilities getConsumerId])] 
+        $string(@"%@/consumers/%@/registered?uuid=%@", [TikTokApi apiUrlPath], 
+            [Utilities getConsumerId], [Utilities getDeviceId])] 
         autorelease];
 
     // setup the async request

@@ -38,13 +38,16 @@
 + (Settings*) getInstance;
 
 /**
- * Returns the birtday as a formated string of the us locale.
+ * Purges all of the settings saved in the cache.
  */
-- (NSString*) birthdayStr;
++ (void) clearAllSettings;
 
 //-----------------------------------------------------------------------------
 
-- (void) clearAllSettings;
+/**
+ * Returns the birtday as a formated string of the us locale.
+ */
+- (NSString*) birthdayStr;
 
 //-----------------------------------------------------------------------------
 

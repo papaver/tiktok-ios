@@ -127,15 +127,17 @@
 #pragma - Public Api
 //-----------------------------------------------------------------------------
 
-- (void) clearAllSettings
++ (void) clearAllSettings
 {
-    [self clearValueForKey:KEY_NAME];
-    [self clearValueForKey:KEY_EMAIL];
-    [self clearValueForKey:KEY_GENDER];
-    [self clearValueForKey:KEY_BIRTHDAY];
-    [self clearValueForKey:KEY_HOME];
-    [self clearValueForKey:KEY_WORK];
-    [self clearValueForKey:KEY_LASTUPDATE];
+    Settings *settings = [Settings getInstance];
+
+    [settings clearValueForKey:KEY_NAME];
+    [settings clearValueForKey:KEY_EMAIL];
+    [settings clearValueForKey:KEY_GENDER];
+    [settings clearValueForKey:KEY_BIRTHDAY];
+    [settings clearValueForKey:KEY_HOME];
+    [settings clearValueForKey:KEY_WORK];
+    [settings clearValueForKey:KEY_LASTUPDATE];
 }
 
 //-----------------------------------------------------------------------------

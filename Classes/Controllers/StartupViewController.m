@@ -145,10 +145,10 @@ enum StartupTag
     [Database purgeDatabase];
 
     // purge the icon directory
-    IconManager *iconManager = [IconManager getInstance];
-    [iconManager deleteAllImages];
+    [[IconManager getInstance] deleteAllImages];
 
-    // purge settings?
+    // purge settings
+    [Settings clearAllSettings];
 }
 
 //------------------------------------------------------------------------------
@@ -175,7 +175,10 @@ enum StartupTag
     NSLog(@"StartupController: registering device id...");
 
     // generate a new device id
-    NSString *newDeviceId = [[UIDevice currentDevice] generateGUID];
+    NSString *newDeviceId = [Utilities getDeviceId];
+    if (newDeviceId == nil) {
+        newDeviceId = [[UIDevice currentDevice] generateGUID];
+    }
 
     // setup an instance of the tiktok api to register the device
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -241,8 +244,8 @@ enum StartupTag
 
             // clean up existing keychain and cached data and 
             // re-register with the server
-            [Utilities clearDeviceId];
             [Utilities clearConsumerId];
+            [self purgeData];
             [self registerDevice];
         }
     };
@@ -350,6 +353,7 @@ enum StartupTag
         // register device with server if no customer id found
         NSString *customerId  = [Utilities getConsumerId];
         if (!customerId) { 
+            [self purgeData];
             [self registerDevice];
         } else {
             [self validateRegistration];
