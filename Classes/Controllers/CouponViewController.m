@@ -821,8 +821,12 @@ enum CouponTag {
 
 - (void) syncManagedObjects:(NSNotification*)notification
 {
+    // make sure the update happens on the main thread!
     Database *database = [Database getInstance];
-    [database.context mergeChangesFromContextDidSaveNotification:notification];
+    SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
+    [database.context performSelectorOnMainThread:selector 
+                                       withObject:notification 
+                                    waitUntilDone:YES];
 }
 
 //------------------------------------------------------------------------------
