@@ -787,16 +787,12 @@ enum CouponTag {
     __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     api.completionHandler  = ^(ASIHTTPRequest *request) {
 
-        // nothing to do if there is no data
-        if (![api.jsonData count]) {
+        // remove self from notification center
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter removeObserver:self];
 
-            // remove self from notification center
-            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-            [notificationCenter removeObserver:self];
-
-            // end transaction
-            [self doneLoadingTableViewData];
-        } 
+        // end transaction
+        [self doneLoadingTableViewData];
 
         // update last synced time
         [[Settings getInstance] setLastUpdate:lastUpdate];
@@ -827,13 +823,6 @@ enum CouponTag {
 {
     Database *database = [Database getInstance];
     [database.context mergeChangesFromContextDidSaveNotification:notification];
-
-    // remove self from notification center
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter removeObserver:self];
-
-    // end transaction
-    [self doneLoadingTableViewData];
 }
 
 //------------------------------------------------------------------------------
