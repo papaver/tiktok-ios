@@ -264,6 +264,7 @@ typedef enum _CouponPinViewTag
     // setup icon
     CGRect iconFrame  = CGRectMake(4.0, 4.0, 24.0, 24.0);
     UIImageView *icon = [[UIImageView alloc] initWithFrame:iconFrame];
+    icon.contentMode  = UIViewContentModeScaleAspectFit;
     icon.tag          = kTagIcon;
     [gradient addSubview:icon];
 
