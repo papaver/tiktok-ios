@@ -210,11 +210,16 @@ typedef enum _CouponPinViewTag
     region.span.latitudeDelta  = max.latitude - min.latitude;
     region.span.longitudeDelta = max.longitude - min.longitude;
 
+    // add 10% buffer
+    region = [self.mapView regionThatFits:region];
+    region.span.latitudeDelta  *= 1.1;
+    region.span.longitudeDelta *= 1.1;
+
     // center map 
     self.mapView.centerCoordinate = region.center;
 
     // zoom map appropriatly
-    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+    [self.mapView setRegion:region animated:YES];
 }
 
 //------------------------------------------------------------------------------
