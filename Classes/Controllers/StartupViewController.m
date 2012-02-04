@@ -314,15 +314,23 @@ enum StartupTag
             if (self.completionHandler) self.completionHandler();
         }
     
-        mComplete = true;
-
         // update last update 
         [[Settings getInstance] setLastUpdate:lastUpdate];
+
+        // remove self from notification center
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter removeObserver:self];
+
+        mComplete = true;
     };
 
     // lost connection? fuck... restart startup process for now...
     api.errorHandler = ^(ASIHTTPRequest* request) { 
         [self waitForInternetConnection];
+
+        // remove self from notification center
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter removeObserver:self];
     };
 
     // add a notification to allow syncing the contexts..
@@ -341,12 +349,12 @@ enum StartupTag
 
 - (void) syncManagedObjects:(NSNotification*)notification
 {
+    // make sure the update happens on the main thread!
     Database *database = [Database getInstance];
-    [database.context mergeChangesFromContextDidSaveNotification:notification];
-
-    // remove self from notification center
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter removeObserver:self];
+    SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
+    [database.context performSelectorOnMainThread:selector 
+                                       withObject:notification 
+                                    waitUntilDone:YES];
 }
 
 //------------------------------------------------------------------------------
