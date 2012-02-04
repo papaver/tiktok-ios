@@ -24,6 +24,7 @@
 #define KEY_HOME       @"TTS_home"
 #define KEY_WORK       @"TTS_work"
 #define KEY_LASTUPDATE @"TTS_lastUpdate"
+#define KEY_TUTORIAL   @"TTS_tutorial"
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -138,6 +139,7 @@
     [settings clearValueForKey:KEY_HOME];
     [settings clearValueForKey:KEY_WORK];
     [settings clearValueForKey:KEY_LASTUPDATE];
+    [settings clearValueForKey:KEY_TUTORIAL];
 }
 
 //-----------------------------------------------------------------------------
@@ -273,6 +275,20 @@
 - (void) setLastUpdate:(NSDate*)lastUpdate 
 {
     [self saveValue:lastUpdate forKey:KEY_LASTUPDATE];
+}
+       
+//-----------------------------------------------------------------------------
+
+- (NSNumber*) tutorialIndex 
+{
+    return [self loadValueForKey:KEY_TUTORIAL];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setTutorialIndex:(NSNumber*)tutorialIndex 
+{
+    [self saveValue:tutorialIndex forKey:KEY_TUTORIAL];
 }
        
 //-----------------------------------------------------------------------------

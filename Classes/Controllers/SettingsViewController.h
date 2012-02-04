@@ -19,6 +19,20 @@
 @class InputTableViewCell;
 
 //------------------------------------------------------------------------------
+// enums
+//------------------------------------------------------------------------------
+
+typedef enum _TutorialStage
+{
+    kTutorialStageStart    = 1,
+    kTutorialStageFacebook = 2,
+    kTutorialStageUserInfo = 3,
+    kTutorialStageMisc     = 4,
+    kTutorialStageLocation = 5,
+    kTutorialStageComplete = 6,
+} TutorialStage;
+
+//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
@@ -34,6 +48,7 @@
     UIToolbar          *mDateInputAccessoryView;
     UIView             *mBasicHeader;
     NSDictionary       *mTableData;
+    TutorialStage       mTutorialStage;
 }
 
 //------------------------------------------------------------------------------
@@ -53,6 +68,8 @@
 
 - (IBAction) toolbarDatePickerCancel:(id)sender;
 - (IBAction) toolbarDatePickerSave:(id)sender;
+
+- (IBAction) tutorialNext:(id)sender;
 
 //------------------------------------------------------------------------------
 

@@ -40,17 +40,37 @@ enum TableRows
 
 enum ViewTags
 {
-    kTagNameField  = 1,
-    kTagEmailField = 1,
-    kTagFacebook   = 2,
+    kTagNameField         = 1,
+    kTagEmailField        = 1,
+    kTagFacebook          = 2,
+    kTagTutorialArrow     = 4,
+    kTagTutorialText      = 5,
+    kTagTutorialTapMe     = 6,
+    kTagTutorialCharacter = 7,
 };
-
 
 //------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
 @interface SettingsViewController ()
+    - (void) setupTutorialForStage:(TutorialStage)stage;
+    - (void) setupTutorialStageStart;
+    - (void) setupTutorialStage:(TutorialStage)stage 
+                characterOrigin:(CGPoint)characterOrigin 
+                    arrowOrigin:(CGPoint)arrowOrigin 
+                    textFrame:(CGRect)textFrame 
+                tutorialText:(NSString*)tutorialText;
+    - (void) setupTutorialStageFacebook;
+    - (void) setupTutorialStageUserInfo;
+    - (void) setupTutorialStageMisc;
+    - (void) setupTutorialStageLocation;
+    - (void) setupTutorialStageComplete;
+    - (UIImage*) tutorialCharacterImageForStage:(TutorialStage)stage;
+    - (UIImage*) tutorialArrowImageForStage:(TutorialStage)stage;
+    - (void) repositionTapMe:(UIButton*)character;
+    - (void) addTutorialBarButton;
+    - (void) restartTutorial;
     - (void) setupFacebookConnect;
     - (void) updateFacebookConnect;
     - (void) facebookConnect;
@@ -120,6 +140,11 @@ enum ViewTags
 
     // add facebook connect to navbar
     [self setupFacebookConnect];
+
+    // setup tutorial
+    NSNumber *stage = settings.tutorialIndex;
+    mTutorialStage = stage == nil ? kTutorialStageStart : stage.intValue;
+    [self setupTutorialForStage:mTutorialStage];
 }
 
 //------------------------------------------------------------------------------
@@ -141,6 +166,251 @@ enum ViewTags
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+//------------------------------------------------------------------------------
+#pragma mark - Tutorial
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialForStage:(TutorialStage)stage
+{
+    // save the new stage, once complete don't allow change
+    Settings *settings = [Settings getInstance];
+    if (settings.tutorialIndex.intValue != kTutorialStageComplete) {
+        [[Settings getInstance] setTutorialIndex:$numi(stage)];
+    }
+
+    // update the views
+    switch (stage) {
+        case kTutorialStageStart:
+            [self setupTutorialStageStart];
+            break;
+        case kTutorialStageFacebook:
+            [self setupTutorialStageFacebook];
+            break;
+        case kTutorialStageUserInfo:
+            [self setupTutorialStageUserInfo];
+            break;
+        case kTutorialStageMisc:
+            [self setupTutorialStageMisc];
+            break;
+        case kTutorialStageLocation:
+            [self setupTutorialStageLocation];
+            break;
+        case kTutorialStageComplete:
+            [self setupTutorialStageComplete];
+            break;
+    };
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStageStart
+{
+    // grab all the tutorial elements
+    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
+    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+
+    // hide the unused elements
+    character.hidden = NO;
+    arrow.hidden     = YES;
+    text.hidden      = YES;
+
+    // load the image
+    UIImage *characterImage = [self tutorialCharacterImageForStage:kTutorialStageStart];
+    [character setImage:characterImage forState:UIControlStateNormal];
+
+    // position tik in the middle of the screen
+    CGRect frame      = self.view.frame; 
+    frame.origin.x    = (frame.size.width / 2.0) - (characterImage.size.width / 2.0);
+    frame.origin.y    = (367.0 / 2.0) - (characterImage.size.height / 2.0);
+    frame.size.width  = characterImage.size.width; 
+    frame.size.height = characterImage.size.height; 
+    character.frame   = frame;
+
+    // reposition tapme under the character
+    [self repositionTapMe:character];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStage:(TutorialStage)stage 
+            characterOrigin:(CGPoint)characterOrigin 
+                arrowOrigin:(CGPoint)arrowOrigin 
+                  textFrame:(CGRect)textFrame 
+               tutorialText:(NSString*)tutorialText
+{
+    CGRect frame;
+
+    // grab all the tutorial elements
+    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
+    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+
+    // load the character image
+    UIImage *characterImage = [self tutorialCharacterImageForStage:stage];
+    [character setImage:characterImage forState:UIControlStateNormal];
+
+    // load the arrow image
+    UIImage *arrowImage = [self tutorialArrowImageForStage:stage];
+    arrow.image         = arrowImage;
+    arrow.hidden        = NO;
+
+    // add the text
+    text.text          = tutorialText;
+    text.hidden        = NO;
+    text.numberOfLines = 4;
+
+    // position tik 
+    frame.origin.x    = characterOrigin.x;
+    frame.origin.y    = characterOrigin.y;
+    frame.size.width  = characterImage.size.width; 
+    frame.size.height = characterImage.size.height; 
+    character.frame   = frame;
+
+    // position arrow 
+    frame.origin.x    = arrowOrigin.x;
+    frame.origin.y    = arrowOrigin.y;
+    frame.size.width  = arrowImage.size.width;
+    frame.size.height = arrowImage.size.height;
+    arrow.frame       = frame;
+    
+    // position text 
+    text.frame = textFrame;
+
+    // reposition tapme under the character
+    [self repositionTapMe:character];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStageFacebook
+{
+    [self setupTutorialStage:kTutorialStageFacebook
+             characterOrigin:CGPointMake(51.0, 23.0)
+                 arrowOrigin:CGPointMake(120.0, 20.0)
+                   textFrame:CGRectMake(41.0, 145.0, 179.0 * 2, 94.0)
+                tutorialText:@"Connect to Facebook,\nallow us to customize\nyour deals and cater to\nYOU!"];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStageUserInfo
+{
+    [self setupTutorialStage:kTutorialStageUserInfo
+             characterOrigin:CGPointMake(220.0, 145.0)
+                 arrowOrigin:CGPointMake(77.0, 145.0)
+                   textFrame:CGRectMake(90.0, 241.0, 188.0 * 2, 80.0)
+                tutorialText:@"Fill out your name and\nemail if you feel like it,\nor just stay anonymous."];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStageMisc
+{
+    [self setupTutorialStage:kTutorialStageMisc
+             characterOrigin:CGPointMake(198.0, 67.0)
+                 arrowOrigin:CGPointMake(53.0, 69.0)
+                   textFrame:CGRectMake(70.0, 8.0, 196.0 * 2, 60.0)
+                tutorialText:@"Let us send you special\ndeals on your birthday!"];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStageLocation
+{
+    [self setupTutorialStage:kTutorialStageLocation
+             characterOrigin:CGPointMake(203.0, 174.0)
+                 arrowOrigin:CGPointMake(60.0, 182.0)
+                   textFrame:CGRectMake(110.0, 120.0, 166.0 * 2, 60.0)
+                tutorialText:@"We want to send you\nconvenient deals!"];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStageComplete
+{
+    // grab all the tutorial elements
+    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
+    UILabel *tapme      = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
+    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+
+    arrow.hidden     = YES;
+    tapme.hidden     = YES;
+    character.hidden = YES;
+    text.hidden      = YES;
+
+    // add tutorial button to nav bar
+    [self addTutorialBarButton];
+}
+
+//------------------------------------------------------------------------------
+
+- (UIImage*) tutorialCharacterImageForStage:(TutorialStage)stage
+{
+    NSString *imageName = $string(@"SettingsTutorialChar%02d.png", (NSUInteger)stage);
+    UIImage *image      = [UIImage imageNamed:imageName];
+    return image; 
+}
+
+//------------------------------------------------------------------------------
+
+- (UIImage*) tutorialArrowImageForStage:(TutorialStage)stage
+{
+    NSString *imageName = $string(@"SettingsTutorialArrow%02d.png", (NSUInteger)stage);
+    UIImage *image      = [UIImage imageNamed:imageName];
+    return image; 
+}
+
+//------------------------------------------------------------------------------
+
+- (void) repositionTapMe:(UIButton*)character
+{
+    UILabel *tapme = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
+    CGRect frame     = tapme.frame;
+    frame.origin.x   = character.frame.origin.x + 5;
+    frame.origin.y   = character.frame.origin.y + character.frame.size.height - 5;
+    frame.size.width = character.frame.size.width;
+    tapme.frame      = frame;
+    tapme.hidden     = NO;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) addTutorialBarButton
+{
+    UIImage *image = [UIImage imageNamed:@"Tik.png"];
+    
+    // resize the image
+    CGSize size = CGSizeMake(48.0, 48.0);
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();    
+    image = [UIImage imageWithCGImage:[image CGImage] scale:2.0 orientation:UIImageOrientationUp];
+    UIGraphicsEndImageContext();
+
+    // create the button
+    UIBarButtonItem *infoButton = 
+        [[UIBarButtonItem alloc] initWithImage:image
+                                         style:UIBarButtonItemStyleBordered 
+                                        target:self 
+                                        action:@selector(restartTutorial)];
+
+    // add to nav bar
+    self.navigationItem.leftBarButtonItem = infoButton;
+
+    // cleanup
+    [infoButton release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) restartTutorial
+{
+    mTutorialStage = 0;
+    [self tutorialNext:nil];
+}
 
 //------------------------------------------------------------------------------
 #pragma mark - Facebook Connect
@@ -191,26 +461,6 @@ enum ViewTags
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - Events
-//------------------------------------------------------------------------------
-
-- (IBAction) saveName:(id)sender
-{
-    UITextField *nameField = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
-    Settings *settings     = [Settings getInstance];
-    settings.name          = nameField.text; 
-}
-
-//------------------------------------------------------------------------------
-
-- (IBAction) saveEmail:(id)sender
-{
-    UITextField *emailField = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
-    Settings *settings      = [Settings getInstance];
-    settings.email          = emailField.text; 
-}
-
-//------------------------------------------------------------------------------
 
 - (void) facebookConnect
 {
@@ -231,6 +481,77 @@ enum ViewTags
         [manager.facebook logout];
         [self updateFacebookConnect];
     }
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Events
+//------------------------------------------------------------------------------
+
+- (void) setTutorialAlpha:(CGFloat)alpha
+{
+    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
+    UILabel *tapme      = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
+    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+
+    arrow.alpha     = alpha;
+    tapme.alpha     = alpha;
+    character.alpha = alpha;
+    text.alpha      = alpha;
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) saveName:(id)sender
+{
+    UITextField *nameField = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
+    Settings *settings     = [Settings getInstance];
+    settings.name          = nameField.text; 
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) saveEmail:(id)sender
+{
+    UITextField *emailField = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
+    Settings *settings      = [Settings getInstance];
+    settings.email          = emailField.text; 
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) tutorialNext:(id)sender
+{
+    // shouldn't really get here if the tutorial is complete...
+    if (mTutorialStage == kTutorialStageComplete) {
+        return;
+    }
+
+    // update the view to present the next tutorial
+    CGFloat animationDuration = 0.2;
+    [UIView animateWithDuration:animationDuration
+
+        // hide the views
+        animations:^{
+            [self setTutorialAlpha:0.0];
+            self.tableView.alpha = 0.0;
+        }
+
+        // update the views and show
+        completion:^(BOOL finished) {
+
+            // update the tutorial
+            [self setupTutorialForStage:++mTutorialStage];
+
+            // update the table view
+            [self.tableView reloadData];
+
+            // show the views again
+            [UIView animateWithDuration:animationDuration animations:^{
+                [self setTutorialAlpha:1.0];
+                self.tableView.alpha = 1.0;
+            }];
+        }];
 }
 
 //------------------------------------------------------------------------------
@@ -305,6 +626,10 @@ enum ViewTags
                 default:
                     break;
             }
+
+            // show correctly for tutorial
+            cell.hidden = (mTutorialStage != kTutorialStageUserInfo) &&
+                          (mTutorialStage != kTutorialStageComplete);
             break;
 
         case kSectionDetails: {
@@ -318,6 +643,10 @@ enum ViewTags
                 cell.textLabel.text       = title;
                 cell.detailTextLabel.text = settings.birthdayStr;
             }
+
+            // show correctly for tutorial
+            cell.hidden = (mTutorialStage != kTutorialStageMisc) &&
+                          (mTutorialStage != kTutorialStageComplete);
             break;
         }
 
@@ -325,6 +654,10 @@ enum ViewTags
             cell                      = [self getReusableCell];
             cell.accessoryType        = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.text       = title;
+
+            // show correctly for tutorial
+            cell.hidden = (mTutorialStage != kTutorialStageLocation) &&
+                          (mTutorialStage != kTutorialStageComplete);
             break;
         }
 
@@ -465,7 +798,6 @@ enum ViewTags
                 break;
         }
 
-
     // pick location
     } else if (indexPath.section == kSectionLocation) {
         LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
@@ -516,6 +848,11 @@ enum ViewTags
     if (section == kSectionBasic) {
         header = self.basicHeader;
     }
+
+    // show correctly for tutorial
+    header.hidden = (mTutorialStage != kTutorialStageUserInfo) &&
+                    (mTutorialStage != kTutorialStageComplete);
+
     return header;
 }
 

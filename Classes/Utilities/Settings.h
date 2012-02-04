@@ -29,6 +29,7 @@
 @property(nonatomic, retain) CLLocation *home;
 @property(nonatomic, retain) CLLocation *work;
 @property(nonatomic, retain) NSDate     *lastUpdate;
+@property(nonatomic, retain) NSNumber   *tutorialIndex;
 
 //-----------------------------------------------------------------------------
 
