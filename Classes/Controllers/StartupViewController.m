@@ -72,7 +72,7 @@ enum StartupTag
     [super viewDidLoad];
 
     // tag testflight checkpoint
-    [TestFlight passCheckpoint:@"Startup"];
+    [TestFlight passCheckpointOnce:@"Startup"];
 
     // register device with server if no customer id found
     NSString *customerId  = [Utilities getConsumerId];
@@ -420,7 +420,7 @@ enum StartupTag
         mPause = true;
 
         // tag testflight checkpoint
-        [TestFlight passCheckpoint:@"EasterEgg"];
+        [TestFlight passCheckpointOnce:@"EasterEgg"];
 
         // alert user of easter egg
         NSString *message = @"Congrats! You found the easter egg. You can now toss \

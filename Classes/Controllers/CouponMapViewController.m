@@ -74,6 +74,8 @@ typedef enum _CouponPinViewTag
     [super viewDidLoad];
 
     self.title = @"Map";
+                
+    [TestFlight passCheckpointOnce:@"Deal Map"];
 
     // show user location
     self.mapView.showsUserLocation = YES;
@@ -226,6 +228,8 @@ typedef enum _CouponPinViewTag
 
 - (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation
 {
+    [TestFlight passCheckpointOnce:@"Deal Map Callout"];
+
     // check for any available annotation views 
     MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView 
         dequeueReusableAnnotationViewWithIdentifier:sCouponPinId];
@@ -294,6 +298,8 @@ typedef enum _CouponPinViewTag
 
 - (void) getCouponDetails
 {
+    [TestFlight passCheckpointOnce:@"Deal Map Details"];
+
     // get the selected annotation
     NSArray *selectedAnnotations = [self.mapView selectedAnnotations];
 

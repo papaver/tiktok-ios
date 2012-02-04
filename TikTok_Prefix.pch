@@ -22,4 +22,5 @@
     #import "MFMessageComposeViewController+Handlers.h"
     #import "Macros.h"
     #import "TestFlight.h"
+    #import "TestFlight+Extensions.h"
 #endif

@@ -118,6 +118,8 @@ enum ViewTags
 {
     // setup navigation info
     self.title = @"Settings";
+
+    [TestFlight passCheckpointOnce:@"Settings"];
     
     // load available data
     Settings *settings      = [Settings getInstance];
@@ -330,6 +332,8 @@ enum ViewTags
 
 - (void) setupTutorialStageComplete
 {
+    [TestFlight passCheckpointOnce:@"Settings Tutorial Complete"];
+
     // grab all the tutorial elements
     UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
     UILabel *tapme      = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
@@ -464,6 +468,8 @@ enum ViewTags
 
 - (void) facebookConnect
 {
+    [TestFlight passCheckpointOnce:@"Settings Facebook Connect"];
+
     FacebookManager *manager = [FacebookManager getInstance];
     if (![manager.facebook isSessionValid]) {
         [manager authorizeWithSucessHandler:^{
@@ -476,6 +482,8 @@ enum ViewTags
 
 - (void) facebookLogout
 {
+    [TestFlight passCheckpointOnce:@"Settings Facebook Logout"];
+
     FacebookManager *manager = [FacebookManager getInstance];
     if ([manager.facebook isSessionValid]) {
         [manager.facebook logout];
@@ -504,6 +512,8 @@ enum ViewTags
 
 - (IBAction) saveName:(id)sender
 {
+    [TestFlight passCheckpointOnce:@"Settings Name"];
+
     UITextField *nameField = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
     Settings *settings     = [Settings getInstance];
     settings.name          = nameField.text; 
@@ -513,6 +523,8 @@ enum ViewTags
 
 - (IBAction) saveEmail:(id)sender
 {
+    [TestFlight passCheckpointOnce:@"Settings Email"];
+
     UITextField *emailField = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
     Settings *settings      = [Settings getInstance];
     settings.email          = emailField.text; 
@@ -783,6 +795,7 @@ enum ViewTags
                 };
                 [self.navigationController pushViewController:controller animated:YES];
                 [controller release];
+                [TestFlight passCheckpointOnce:@"Settings Gender"];
                 break;
             }
 
@@ -791,6 +804,7 @@ enum ViewTags
                 if (!birthday) birthday = [NSDate dateWithTimeIntervalSince1970:60.0*60.0*24.0];
                 self.dateInputView.date = birthday;
                 [self.birthdayCell becomeFirstResponder];
+                [TestFlight passCheckpointOnce:@"Settings Birthday"];
                 break;
             }
 
@@ -805,12 +819,14 @@ enum ViewTags
         
         // setup the location and save handler depending on which row is selected
         if (indexPath.row == kRowHome) {
+            [TestFlight passCheckpointOnce:@"Settings Home Location"];
             __block Settings *settings = [Settings getInstance];
             controller.location    = settings.home; 
             controller.saveHandler = ^(CLLocation *location) {
                 settings.home = location;
             };
         } else {
+            [TestFlight passCheckpointOnce:@"Settings Work Location"];
             __block Settings *settings = [Settings getInstance];
             controller.location    = settings.work; 
             controller.saveHandler = ^(CLLocation *location) {

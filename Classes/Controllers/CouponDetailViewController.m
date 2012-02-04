@@ -122,7 +122,7 @@ enum ActionButton
     self.title = @"Deal";
 
     // tag testflight checkpoint
-    [TestFlight passCheckpoint:@"Deal"];
+    [TestFlight passCheckpointOnce:@"Deal"];
 
     // add barcode view to the view and hide, do this so it shows up seperately
     // in interface designer and is easier to manage
@@ -440,6 +440,8 @@ enum ActionButton
 
 - (void) openMap
 {
+    [TestFlight passCheckpointOnce:@"Deal Map Opened"];
+
     LocationMapViewController *controller = [[LocationMapViewController alloc] 
         initWithNibName:@"LocationMapViewController" bundle:nil];
 
@@ -481,6 +483,8 @@ enum ActionButton
 
 - (void) expireCoupon
 {
+    [TestFlight passCheckpointOnce:@"Deal Expired"];
+
     // update the timer label
     UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
     label.text     = @"TIMES UP!";
@@ -563,7 +567,7 @@ enum ActionButton
 #pragma mark - Events
 //------------------------------------------------------------------------------
 
-- (IBAction) shareTwitter:(id)sender
+- (void) shareTwitter
 {
     // tweet deal if twitter setup, else request account setup
     if ([TWTweetComposeViewController canSendTweet]) {
@@ -575,7 +579,30 @@ enum ActionButton
 
 //------------------------------------------------------------------------------
 
-- (IBAction) shareFacebook:(id)sender
+- (IBAction) shareTwitter:(id)sender
+{
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self performSelector:@selector(shareTwitter) withObject:self afterDelay:0.2];
+        }
+    };
+
+    // display alert
+    NSString *title    = @"Hey You!";
+    NSString *message  = @"Please only tweet for testing! If you tweet please delete it or make it private. Thanks!";
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Tweet", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareFacebook
 {
     // post deal if logged on, else request connect first 
     FacebookManager *manager = [FacebookManager getInstance];
@@ -584,6 +611,29 @@ enum ActionButton
     } else {
         [self setupFacebook];
     }
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) shareFacebook:(id)sender
+{
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self performSelector:@selector(shareFacebook) withObject:self afterDelay:0.2];
+        }
+    };
+
+    // display alert
+    NSString *title    = @"Hey You!";
+    NSString *message  = @"Please only post to facebook for testing! If you post please delete it or make it private. Thanks!";
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Post", nil];
+    [alert show];
+    [alert release];
 }
 
 //------------------------------------------------------------------------------
@@ -645,6 +695,7 @@ enum ActionButton
                 case MFMailComposeResultSaved:
                     break;
                 case MFMailComposeResultSent: {
+                    [TestFlight passCheckpointOnce:@"Deal Emailed"];
                     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
                     [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeEmail];
                     break;
@@ -690,6 +741,7 @@ enum ActionButton
                                          MessageComposeResult result) {
             switch (result) {
                 case MessageComposeResultSent: {
+                    [TestFlight passCheckpointOnce:@"Deal SMSed"];
                     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
                     [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeSMS];
                     break;
@@ -766,6 +818,7 @@ enum ActionButton
             case TWTweetComposeViewControllerResultCancelled:
                 break;
             case TWTweetComposeViewControllerResultDone: {
+                [TestFlight passCheckpointOnce:@"Deal Tweeted"];
 
                 // let server know of share
                 TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -822,6 +875,8 @@ enum ActionButton
 
 - (void) postDealToFacebook
 {
+    [TestFlight passCheckpointOnce:@"Deal Facebooked"];
+
     NSString *deal = $string(@"%@ at %@!", self.coupon.title, self.coupon.merchant.name);
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
         deal,                @"description",

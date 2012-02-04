@@ -93,7 +93,7 @@ enum CouponTag {
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:19];
 
     // tag testflight checkpoint
-    [TestFlight passCheckpoint:@"Deals"];
+    [TestFlight passCheckpointOnce:@"Deals"];
 
     // add navitems
     [self setupFilterButtons];
@@ -151,7 +151,7 @@ enum CouponTag {
 {
     // add redeemed filter
     UIBarButtonItem *redeemedButton = 
-        [[UIBarButtonItem alloc] initWithTitle:@"Redeemed"
+        [[UIBarButtonItem alloc] initWithTitle:@"Redeemed Only"
                                          style:UIBarButtonItemStyleBordered 
                                         target:self 
                                         action:@selector(filterDealsRedeemd)];
@@ -159,26 +159,29 @@ enum CouponTag {
 
     // add active filter
     UIBarButtonItem *activeButton = 
-        [[UIBarButtonItem alloc] initWithTitle:@"Active"
+        [[UIBarButtonItem alloc] initWithTitle:@"Active Only"
                                          style:UIBarButtonItemStyleBordered 
                                          target:self 
                                          action:@selector(filterDealsActive)];
     activeButton.tintColor = [UIDefaults getTokColor];
 
+    /*
     // setup the toolbar
     UIToolbar *miniToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 147, 44)];
     [miniToolbar setItems:$array(redeemedButton, activeButton) animated:YES];
     miniToolbar.barStyle = -1;
+    */
 
     // add as right navigation item
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:miniToolbar];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    //UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:miniToolbar];
+    self.navigationItem.leftBarButtonItem  = redeemedButton;
+    self.navigationItem.rightBarButtonItem = activeButton;
 
     // cleanup
     [redeemedButton release];
     [activeButton release];
-    [miniToolbar release];
-    [rightItem release];
+    //[miniToolbar release];
+    //[rightItem release];
 }
 
 //------------------------------------------------------------------------------
@@ -780,6 +783,8 @@ enum CouponTag {
     // don't try to reload twice
     if (mReloading) return;
 
+    [TestFlight passCheckpointOnce:@"Deal Header Reload"];
+
     mReloading = YES;
 
     // setup api object
@@ -877,11 +882,17 @@ enum CouponTag {
 
 - (void) filterDealsRedeemd
 {
+    [TestFlight passCheckpointOnce:@"Deal Filter Redeemed"];
+
+    /*
     UIToolbar *toolbar = (UIToolbar*)self.navigationItem.rightBarButtonItem.customView;
 
     // grab the filter buttons
     UIBarButtonItem *redeemedButton = (UIBarButtonItem*)[toolbar.items objectAtIndex:0];
     UIBarButtonItem *activeButton   = (UIBarButtonItem*)[toolbar.items objectAtIndex:1];
+    */
+    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)self.navigationItem.leftBarButtonItem;
+    UIBarButtonItem *activeButton   = (UIBarButtonItem*)self.navigationItem.rightBarButtonItem;
 
     // calculate the new states
     bool redeemedOnly = ![redeemedButton.tintColor isEqual:[UIDefaults getTikColor]];
@@ -898,11 +909,17 @@ enum CouponTag {
 
 - (void) filterDealsActive
 {
+    [TestFlight passCheckpointOnce:@"Deal Filter Active"];
+
+    /*
     UIToolbar *toolbar = (UIToolbar*)self.navigationItem.rightBarButtonItem.customView;
 
     // grab the filter buttons
     UIBarButtonItem *redeemedButton = (UIBarButtonItem*)[toolbar.items objectAtIndex:0];
     UIBarButtonItem *activeButton   = (UIBarButtonItem*)[toolbar.items objectAtIndex:1];
+    */
+    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)self.navigationItem.leftBarButtonItem;
+    UIBarButtonItem *activeButton   = (UIBarButtonItem*)self.navigationItem.rightBarButtonItem;
 
     // calculate the new states
     bool redeemedOnly = [redeemedButton.tintColor isEqual:[UIDefaults getTikColor]];
