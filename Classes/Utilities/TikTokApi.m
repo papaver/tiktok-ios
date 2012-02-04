@@ -171,6 +171,7 @@
 
     // setup the async request
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
         if (self.completionHandler) self.completionHandler(request);
     }];
@@ -200,6 +201,7 @@
 
     // setup the async request
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
     [request setRequestMethod:@"PUT"];
     [request setPostValue:tokenTrimmed forKey:@"token"];
     [request setCompletionBlock:^{
@@ -233,6 +235,7 @@
 
     // setup the async request
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
 
         // parse data
@@ -272,6 +275,7 @@
 
     // setup the async request
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
     [request setRequestMethod:@"PUT"];
     [request setPostValue:latitude forKey:@"latitude"];
     [request setPostValue:longitude forKey:@"longitude"];
@@ -300,6 +304,7 @@
 
     // setup the async request
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
     [request setRequestMethod:@"PUT"];
 
     // add settings in dictionary
@@ -390,6 +395,7 @@
 
     // setup the async request
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
     [request setRequestMethod:@"PUT"];
     [request setPostValue:one forKey:mapping.attr];
     [request setCompletionBlock:^{
@@ -422,8 +428,8 @@
         NSLog(@"json parser: waiting for more data.");
     }
 
-    //NSLog(@"TikTokApi: data -> %@", 
-        //[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
+    NSLog(@"TikTokApi: data -> %@", 
+        [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
 }
 
 //------------------------------------------------------------------------------

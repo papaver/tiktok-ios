@@ -93,6 +93,8 @@ enum StartupTag
     // initialize variables
     mPause               = false;
     mComplete            = false;
+    mNotifications       = false;
+    mLocations           = false;
     mRegistrationTimeout = [ASIHTTPRequest defaultTimeOutSeconds];
 
     // setup gesture recognizer
@@ -231,6 +233,7 @@ enum StartupTag
 
     // setup an instance of the tiktok api to check registration
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.timeOut = mRegistrationTimeout;
 
     // setup a completion handler 
     api.completionHandler = ^(ASIHTTPRequest* request) { 
@@ -253,6 +256,7 @@ enum StartupTag
     // most probably we lost network connection, so put up a HUD and wait till
     // we get connectivity back, one we do restart the startup process
     api.errorHandler = ^(ASIHTTPRequest* request) { 
+        mRegistrationTimeout *= 2.0f;
         [self waitForInternetConnection];
     };
 
@@ -264,21 +268,36 @@ enum StartupTag
 
 - (void) registerNotifications
 {
+    // don't re-register
+    if (mNotifications) return;
+
     NSLog(@"StartupController: registering with notification server...");
 
+    // register with apn server
     UIApplication *application = [UIApplication sharedApplication];
     [application registerForRemoteNotificationTypes:
         (UIRemoteNotificationTypeBadge | 
          UIRemoteNotificationTypeSound |
          UIRemoteNotificationTypeAlert)];
+
+    // set flag
+    mNotifications = true;
 }
 
 //------------------------------------------------------------------------------
 
 - (void) setupLocationTracking
 {
+    // dont restart tracking
+    if (mLocations) return;
+
     NSLog(@"StartupController: Setting up location tracking...");
+    
+    // start up tracking
     [LocationTracker startLocationTracking];
+
+    // set flag
+    mLocations = true;
 }
 
 //------------------------------------------------------------------------------
@@ -286,6 +305,7 @@ enum StartupTag
 - (void) syncCoupons
 {
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.timeOut = mRegistrationTimeout;
 
     // trigger completion handler
     NSDate *lastUpdate    = [NSDate date];

@@ -31,6 +31,8 @@ typedef void (^StartupCompletionHandler)(void);
     CGFloat                      mRegistrationTimeout;
     bool                         mPause;
     bool                         mComplete;
+    bool                         mNotifications;
+    bool                         mLocations;
 }
 
 //------------------------------------------------------------------------------
