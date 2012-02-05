@@ -36,6 +36,8 @@ enum CouponTag {
     kTagRedeemedSash   =  7,
     kTagCompanyName    =  8,
     kTagBackground     =  9,
+    kTagActiveFilter   = 10,
+    kTagRedeemedFilter = 11,
 };
 
 //------------------------------------------------------------------------------
@@ -45,6 +47,8 @@ enum CouponTag {
 @interface CouponViewController ()
     - (void) setupRefreshHeader;
     - (void) setupFilterButtons;
+    - (void) setupFilterPopoverController;
+    - (WEPopoverContainerViewProperties*) popoverViewProperties;
     - (void) updateExpiration:(NSTimer*)timer;
     - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
     - (void) configureExpiredCell:(UIView*)cell;
@@ -58,8 +62,9 @@ enum CouponTag {
     - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) doneLoadingTableViewData;
     - (void) updateFilterByReedmeedOnly:(bool)redeemedOnly activeOnly:(bool)activeOnly;
-    - (void) filterDealsRedeemd;
-    - (void) filterDealsActive;
+    - (void) filterDealsRedeemed:(id)sender;
+    - (void) filterDealsActive:(id)sender;
+    - (void) filterPopup;
 @end 
 
 //------------------------------------------------------------------------------
@@ -73,6 +78,7 @@ enum CouponTag {
 @synthesize cellView                 = mCellView;
 @synthesize tableView                = mTableView;
 @synthesize fetchedCouponsController = mFetchedCouponsController;
+@synthesize popoverController        = mPopoverController;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -149,39 +155,143 @@ enum CouponTag {
 
 - (void) setupFilterButtons
 {
-    // add redeemed filter
-    UIBarButtonItem *redeemedButton = 
-        [[UIBarButtonItem alloc] initWithTitle:@"Redeemed Only"
+    // create a bar button item for filters
+    UIBarButtonItem *filterButton = 
+        [[UIBarButtonItem alloc] initWithTitle:@"Filter"
                                          style:UIBarButtonItemStyleBordered 
                                         target:self 
-                                        action:@selector(filterDealsRedeemd)];
-    redeemedButton.tintColor = [UIDefaults getTokColor];
+                                        action:@selector(filterPopup)];
 
-    // add active filter
-    UIBarButtonItem *activeButton = 
-        [[UIBarButtonItem alloc] initWithTitle:@"Active Only"
-                                         style:UIBarButtonItemStyleBordered 
-                                         target:self 
-                                         action:@selector(filterDealsActive)];
-    activeButton.tintColor = [UIDefaults getTokColor];
-
-    /*
-    // setup the toolbar
-    UIToolbar *miniToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 147, 44)];
-    [miniToolbar setItems:$array(redeemedButton, activeButton) animated:YES];
-    miniToolbar.barStyle = -1;
-    */
-
-    // add as right navigation item
-    //UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:miniToolbar];
-    self.navigationItem.leftBarButtonItem  = redeemedButton;
-    self.navigationItem.rightBarButtonItem = activeButton;
+    // add to navbar
+    self.navigationItem.rightBarButtonItem = filterButton;
 
     // cleanup
-    [redeemedButton release];
+    [filterButton release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupFilterPopoverController
+{
+    // create popup and content view controllers
+    UIViewController *contentViewController = 
+        [[UIViewController alloc] init];
+        
+    // create active button
+    UISegmentedControl *activeButton   = 
+        [[UISegmentedControl alloc] initWithItems:$array(@"Active Only")];
+    //activeButton.momentary             = YES;
+    activeButton.tag                   = kTagActiveFilter;
+    activeButton.tintColor             = [UIColor darkGrayColor];
+    activeButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    [activeButton addTarget:self
+                     action:@selector(filterDealsActive:)
+           forControlEvents:UIControlEventValueChanged];
+
+    // create redeemed button
+    UISegmentedControl *redeemedButton   = 
+        [[UISegmentedControl alloc] initWithItems:$array(@"Redeemed Only")];
+    //redeemedButton.momentary             = YES;
+    redeemedButton.tag                   = kTagRedeemedFilter;
+    redeemedButton.tintColor             = [UIColor darkGrayColor];
+    redeemedButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    [redeemedButton addTarget:self
+                       action:@selector(filterDealsRedeemed:)
+             forControlEvents:UIControlEventValueChanged];
+
+    // layout the buttons properly
+    CGFloat buffer          = 5.0;
+    CGRect activeFrame      = activeButton.frame;
+    CGRect redeemedFrame    = redeemedButton.frame;
+    activeFrame.origin.x   += buffer;
+    activeFrame.origin.y   += buffer;
+    redeemedFrame.origin.x += buffer;
+    redeemedFrame.origin.y  = activeFrame.origin.y + activeFrame.size.height + buffer;
+
+    // resize the buttons to have equal width
+    CGFloat maxWidth         = MAX(activeFrame.size.width, redeemedFrame.size.width);
+    activeFrame.size.width   = maxWidth;
+    redeemedFrame.size.width = maxWidth;
+
+    // update the frames
+    activeButton.frame   = activeFrame;
+    redeemedButton.frame = redeemedFrame;
+
+    // create a view to hold the buttons
+    CGRect frame;
+    frame.origin.x    = 0.0;
+    frame.origin.y    = 0.0;
+    frame.size.width  = maxWidth + buffer * 2.0;
+    frame.size.height = redeemedFrame.origin.y + redeemedFrame.size.height + buffer;
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    [view addSubview:activeButton];
+    [view addSubview:redeemedButton];
+        
+    // set view on controller
+    contentViewController.view                        = view;
+    contentViewController.contentSizeForViewInPopover = frame.size;
+
+    // create the popup controller
+    WEPopoverController *popoverController = [[WEPopoverController alloc] 
+        initWithContentViewController:contentViewController];
+
+    // setup popover
+    popoverController.delegate                = self;
+    popoverController.passthroughViews        = $array(self.navigationController.navigationBar);
+    popoverController.containerViewProperties = [self popoverViewProperties];
+
+    // save controller
+    self.popoverController = popoverController;
+
+    // cleanup
+    [view release];
     [activeButton release];
-    //[miniToolbar release];
-    //[rightItem release];
+    [redeemedButton release];
+    [contentViewController release];
+    [popoverController release];
+}
+
+//------------------------------------------------------------------------------
+
+- (WEPopoverContainerViewProperties*) popoverViewProperties 
+{
+	WEPopoverContainerViewProperties *props = 
+        [[WEPopoverContainerViewProperties alloc] autorelease];
+
+	NSString *backgroundImageName = nil;
+	CGFloat backgroundMargin      = 0.0;
+	CGFloat backgroundCapSize     = 0.0;
+	CGFloat contentMargin         = 4.0;
+	
+	backgroundImageName = @"popoverBg.png";
+	
+	// these constants are determined by the popoverBg.png image file and are 
+    // image dependent, margin width of 13 pixels on all sides popoverBg.png 
+    // margin = (62 pixels wide - 36 pixel background) / 2 == 26 / 2 == 13 
+    // size   = imageSize/2  == 62 / 2 == 31 pixels
+	backgroundMargin  = 13; 
+	backgroundCapSize = 31; 
+	
+	props.leftBgMargin        = backgroundMargin;
+	props.rightBgMargin       = backgroundMargin;
+	props.topBgMargin         = backgroundMargin;
+	props.bottomBgMargin      = backgroundMargin;
+	props.leftBgCapSize       = backgroundCapSize;
+	props.topBgCapSize        = backgroundCapSize;
+	props.bgImageName         = backgroundImageName;
+	props.leftContentMargin   = contentMargin;
+	props.rightContentMargin  = contentMargin - 1; 
+	props.topContentMargin    = contentMargin; 
+	props.bottomContentMargin = contentMargin;
+	
+	props.arrowMargin = 4.0;
+	
+	props.upArrowImageName    = @"popoverArrowUp.png";
+	props.downArrowImageName  = @"popoverArrowDown.png";
+	props.leftArrowImageName  = @"popoverArrowLeft.png";
+	props.rightArrowImageName = @"popoverArrowRight.png";
+
+	return props;	
 }
 
 //------------------------------------------------------------------------------
@@ -880,19 +990,39 @@ enum CouponTag {
 
 //------------------------------------------------------------------------------
 
-- (void) filterDealsRedeemd
+- (void) filterPopup
+{
+    // lazy create popover controller
+    if (self.popoverController == nil) {
+        [self setupFilterPopoverController];
+    }
+
+    // display popover if visible else dismiss
+    if (!self.popoverController.popoverVisible) {
+        [self.popoverController 
+            presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem
+                   permittedArrowDirections:(UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown) 
+                                   animated:YES];
+    } else {
+        [self.popoverController dismissPopoverAnimated:YES];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) filterDealsRedeemed:(id)sender
 {
     [TestFlight passCheckpointOnce:@"Deal Filter Redeemed"];
 
-    /*
-    UIToolbar *toolbar = (UIToolbar*)self.navigationItem.rightBarButtonItem.customView;
+    // deselect segment
+    [sender setSelectedSegmentIndex:-1];
 
     // grab the filter buttons
-    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)[toolbar.items objectAtIndex:0];
-    UIBarButtonItem *activeButton   = (UIBarButtonItem*)[toolbar.items objectAtIndex:1];
-    */
-    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)self.navigationItem.leftBarButtonItem;
-    UIBarButtonItem *activeButton   = (UIBarButtonItem*)self.navigationItem.rightBarButtonItem;
+    UIView *parentView = [sender superview];
+    UISegmentedControl *activeButton   = 
+        (UISegmentedControl*)[parentView viewWithTag:kTagActiveFilter];
+    UISegmentedControl *redeemedButton = 
+        (UISegmentedControl*)[parentView viewWithTag:kTagRedeemedFilter];
 
     // calculate the new states
     bool redeemedOnly = ![redeemedButton.tintColor isEqual:[UIDefaults getTikColor]];
@@ -900,26 +1030,26 @@ enum CouponTag {
 
     // update the color
     redeemedButton.tintColor = redeemedOnly ? 
-        [UIDefaults getTikColor] : [UIDefaults getTokColor];;
+        [UIDefaults getTikColor] : [UIColor darkGrayColor];;
 
     [self updateFilterByReedmeedOnly:redeemedOnly activeOnly:activeOnly];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) filterDealsActive
+- (void) filterDealsActive:(id)sender
 {
     [TestFlight passCheckpointOnce:@"Deal Filter Active"];
 
-    /*
-    UIToolbar *toolbar = (UIToolbar*)self.navigationItem.rightBarButtonItem.customView;
+    // deselect segment
+    [sender setSelectedSegmentIndex:-1];
 
     // grab the filter buttons
-    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)[toolbar.items objectAtIndex:0];
-    UIBarButtonItem *activeButton   = (UIBarButtonItem*)[toolbar.items objectAtIndex:1];
-    */
-    UIBarButtonItem *redeemedButton = (UIBarButtonItem*)self.navigationItem.leftBarButtonItem;
-    UIBarButtonItem *activeButton   = (UIBarButtonItem*)self.navigationItem.rightBarButtonItem;
+    UIView *parentView = [sender superview];
+    UISegmentedControl *activeButton   = 
+        (UISegmentedControl*)[parentView viewWithTag:kTagActiveFilter];
+    UISegmentedControl *redeemedButton = 
+        (UISegmentedControl*)[parentView viewWithTag:kTagRedeemedFilter];
 
     // calculate the new states
     bool redeemedOnly = [redeemedButton.tintColor isEqual:[UIDefaults getTikColor]];
@@ -927,9 +1057,28 @@ enum CouponTag {
 
     // update the color
     activeButton.tintColor = activeOnly ? 
-        [UIDefaults getTikColor] : [UIDefaults getTokColor];;
+        [UIDefaults getTikColor] : [UIColor darkGrayColor];
 
     [self updateFilterByReedmeedOnly:redeemedOnly activeOnly:activeOnly];
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - WEPopoverController Delegate 
+//------------------------------------------------------------------------------
+
+- (void) popoverControllerDidDismissPopover:(WEPopoverController*)popoverController 
+{
+}
+
+//------------------------------------------------------------------------------
+
+/**
+ * The popover is automatically dismissed if you click outside it, unless you,
+ * return NO here.
+ */ 
+- (BOOL) popoverControllerShouldDismissPopover:(WEPopoverController*)popoverController 
+{
+    return YES;
 }
 
 //------------------------------------------------------------------------------
@@ -959,7 +1108,10 @@ enum CouponTag {
 
 - (void) dealloc 
 {
+    mPopoverController.delegate        = nil;
     mFetchedCouponsController.delegate = nil;
+
+    [mPopoverController release];
     [mFetchedCouponsController release];
     [mRefreshHeaderView release];
     [mTableView release];

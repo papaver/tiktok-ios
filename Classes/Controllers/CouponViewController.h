@@ -14,6 +14,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
+#import "WEPopoverController.h"
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -22,12 +23,14 @@
 @interface CouponViewController : UIViewController <NSFetchedResultsControllerDelegate, 
                                                     UITableViewDelegate, 
                                                     UITableViewDataSource,
-                                                    EGORefreshTableHeaderDelegate>
+                                                    EGORefreshTableHeaderDelegate,
+                                                    WEPopoverControllerDelegate>
 {
     UITableViewCell            *mCellView;
     UITableView                *mTableView;
     NSFetchedResultsController *mFetchedCouponsController;
     EGORefreshTableHeaderView  *mRefreshHeaderView;
+    WEPopoverController        *mPopoverController;
     BOOL                        mReloading;
 }
 
@@ -36,7 +39,8 @@
 @property (nonatomic, retain) IBOutlet UITableViewCell             *cellView;
 @property (nonatomic, retain) IBOutlet UITableView                 *tableView;
 @property (nonatomic, retain)          NSFetchedResultsController  *fetchedCouponsController;
-
+@property (nonatomic, retain)          WEPopoverController         *popoverController;
+    
 //------------------------------------------------------------------------------
 
 @end
