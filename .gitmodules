@@ -19,3 +19,6 @@
 [submodule "ThirdParty/EGOTableViewPullRefresh"]
 	path = ThirdParty/EGOTableViewPullRefresh
 	url = git@github.com:papaver/EGOTableViewPullRefresh.git
+[submodule "ThirdParty/WEPopover"]
+	path = ThirdParty/WEPopover
+	url = https://github.com/papaver/WEPopover.git
