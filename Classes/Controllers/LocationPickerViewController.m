@@ -37,6 +37,7 @@ enum ViewTags
 //------------------------------------------------------------------------------
 
 @interface LocationPickerViewController ()
+    - (void) setupCurrentLocationButton;
     - (void) centerMapToGeocoding:(NSDictionary*)geoData;
 @end
 
@@ -79,6 +80,9 @@ enum ViewTags
     // add done button
     self.navigationItem.rightBarButtonItem = self.doneButton;
 
+    // add current location button
+    [self setupCurrentLocationButton];
+
     // give focus to the search field
     UIView *search = [self.view viewWithTag:kTagSearch];
     [search becomeFirstResponder];
@@ -117,6 +121,30 @@ enum ViewTags
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupCurrentLocationButton
+{
+    // create active button
+    UIImage *image = [UIImage imageNamed:@"193-location-arrow-bar.png"];
+    UISegmentedControl *button   = 
+        [[UISegmentedControl alloc] initWithItems:$array(@"CurrentLocation")];
+    [button setImage:image forSegmentAtIndex:0];
+    button.momentary             = YES;
+    button.frame                 = CGRectMake(283.0, 163.0, 30.0, 30.0);
+    button.tintColor             = [UIColor blueColor];
+    button.segmentedControlStyle = UISegmentedControlStyleBar;
+    [button addTarget:self
+                     action:@selector(centerMap:)
+           forControlEvents:UIControlEventValueChanged];
+
+    // add to view
+    [self.view addSubview:button];
+
+    // cleanup
+    [button release];
 }
 
 //------------------------------------------------------------------------------

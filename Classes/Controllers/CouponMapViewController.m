@@ -99,6 +99,8 @@ typedef enum _CouponPinViewTag
     [super viewDidUnload];
 }
 
+//------------------------------------------------------------------------------
+
 - (void) setupToolbarButtons
 {
     // add current location button
