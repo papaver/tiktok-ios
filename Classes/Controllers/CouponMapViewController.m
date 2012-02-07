@@ -46,10 +46,12 @@ typedef enum _CouponPinViewTag
 //------------------------------------------------------------------------------
 
 @interface CouponMapViewController ()
+    - (void) setupToolbarButtons;
     - (NSArray*) fetchCoupons;
     - (void) addCouponAnnotations:(NSArray*)coupons;
     - (void) getCouponDetails;
     - (void) centerMapAroundCoupons:(NSArray*)coupons;
+    - (void) centerMapUserLocation;
     - (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation;
     - (MKPinAnnotationView*) setupNewPinViewForAnnotation:(id<MKAnnotation>)annotation;
 @end
@@ -80,6 +82,9 @@ typedef enum _CouponPinViewTag
     // show user location
     self.mapView.showsUserLocation = YES;
 
+    // setup toolbar
+    [self setupToolbarButtons];
+
     // fetch all the active coupons availble from the database
     self.coupons = [self fetchCoupons];
 
@@ -92,6 +97,23 @@ typedef enum _CouponPinViewTag
 - (void) viewDidUnload 
 {
     [super viewDidUnload];
+}
+
+- (void) setupToolbarButtons
+{
+    // add current location button
+    UIBarButtonItem *currentLocationButton = 
+        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"193-location-arrow-bar.png"]
+                                         style:UIBarButtonItemStyleBordered 
+                                        target:self 
+                                        action:@selector(centerMapUserLocation)];
+    currentLocationButton.tintColor = [UIColor blueColor];
+
+    // add to navbar
+    self.navigationItem.rightBarButtonItem = currentLocationButton;
+
+    // cleanup
+    [currentLocationButton release];
 }
 
 //------------------------------------------------------------------------------
@@ -207,20 +229,29 @@ typedef enum _CouponPinViewTag
 
     // create a region from the min/max coordinates
     MKCoordinateRegion region;
-    region.center.latitude     = (min.latitude + max.latitude)   / 2.0;
-    region.center.longitude    = (min.longitude + max.longitude) / 2.0;
+    region.center.latitude     = (min.latitude + max.latitude)   * 0.5;
+    region.center.longitude    = (min.longitude + max.longitude) * 0.5;
     region.span.latitudeDelta  = max.latitude - min.latitude;
     region.span.longitudeDelta = max.longitude - min.longitude;
 
-    // add 10% buffer
+    // add 5% buffer
+    region.span.latitudeDelta  *= 1.05;
+    region.span.longitudeDelta *= 1.05;
     region = [self.mapView regionThatFits:region];
-    region.span.latitudeDelta  *= 1.1;
-    region.span.longitudeDelta *= 1.1;
 
     // center map 
     self.mapView.centerCoordinate = region.center;
 
     // zoom map appropriatly
+    [self.mapView setRegion:region animated:YES];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) centerMapUserLocation
+{
+    MKCoordinateRegion region = self.mapView.region;
+    region.center = self.mapView.userLocation.location.coordinate;
     [self.mapView setRegion:region animated:YES];
 }
 
