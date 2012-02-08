@@ -23,17 +23,21 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface CouponMapViewController : UIViewController <MKMapViewDelegate>
+@interface CouponMapViewController : UIViewController <MKMapViewDelegate,
+                                                       NSFetchedResultsControllerDelegate>
 {
-    MKMapView      *mMapView;
-    NSArray        *mCoupons;
-    NSMutableArray *mAnnotations;
+    MKMapView                  *mMapView;
+    NSMutableArray             *mAnnotations;
+    NSFetchedResultsController *mFetchedCouponsController;
+    NSTimer                    *mTimer;
+    NSDictionary               *mUpdates;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic, retain)          NSArray   *coupons;
+@property (nonatomic, retain) IBOutlet MKMapView                  *mapView;
+@property (nonatomic, retain)          NSFetchedResultsController *fetchedCouponsController;
+@property (nonatomic, retain)          NSTimer                    *timer;
 
 //------------------------------------------------------------------------------
 

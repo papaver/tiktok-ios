@@ -41,6 +41,12 @@ enum CouponTag {
 };
 
 //------------------------------------------------------------------------------
+// statics
+//------------------------------------------------------------------------------
+
+static NSString *sCouponCacheName = @"coupon_table";
+
+//------------------------------------------------------------------------------
 // interface definition 
 //------------------------------------------------------------------------------
 
@@ -751,7 +757,7 @@ enum CouponTag {
         [[NSFetchedResultsController alloc] initWithFetchRequest:request 
                                             managedObjectContext:context 
                                               sectionNameKeyPath:nil
-                                                       cacheName:@"coupon_table"];
+                                                       cacheName:sCouponCacheName];
 
     // save the controller
     self.fetchedCouponsController          = fetchedCouponsController;
@@ -971,7 +977,7 @@ enum CouponTag {
     } 
 
     // clear the cache
-    [NSFetchedResultsController deleteCacheWithName:@"coupon_table"];
+    [NSFetchedResultsController deleteCacheWithName:sCouponCacheName];
 
     // update the fetch request
     NSFetchRequest *request = self.fetchedCouponsController.fetchRequest; 
