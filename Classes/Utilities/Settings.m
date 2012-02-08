@@ -22,7 +22,9 @@
 #define KEY_GENDER     @"TTS_gender"
 #define KEY_BIRTHDAY   @"TTS_birthday"
 #define KEY_HOME       @"TTS_home"
+#define KEY_HOMELOC    @"TTS_homeLocality"
 #define KEY_WORK       @"TTS_work"
+#define KEY_WORKLOC    @"TTS_workLocality"
 #define KEY_LASTUPDATE @"TTS_lastUpdate"
 #define KEY_TUTORIAL   @"TTS_tutorial"
 
@@ -137,7 +139,9 @@
     [settings clearValueForKey:KEY_GENDER];
     [settings clearValueForKey:KEY_BIRTHDAY];
     [settings clearValueForKey:KEY_HOME];
+    [settings clearValueForKey:KEY_HOMELOC];
     [settings clearValueForKey:KEY_WORK];
+    [settings clearValueForKey:KEY_WORKLOC];
     [settings clearValueForKey:KEY_LASTUPDATE];
     [settings clearValueForKey:KEY_TUTORIAL];
 }
@@ -249,6 +253,20 @@
 
 //-----------------------------------------------------------------------------
 
+- (NSString*) homeLocality 
+{
+    return [self loadValueForKey:KEY_HOMELOC];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setHomeLocality:(NSString*)homeLocality 
+{
+    [self saveValue:homeLocality forKey:KEY_HOMELOC];
+}
+
+//-----------------------------------------------------------------------------
+
 - (CLLocation*) work 
 {
     return [self loadLocationForKey:KEY_WORK];
@@ -263,6 +281,20 @@
     [api updateSettingsWorkLocation:work];
 }
        
+//-----------------------------------------------------------------------------
+
+- (NSString*) workLocality 
+{
+    return [self loadValueForKey:KEY_WORKLOC];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setWorkLocality:(NSString*)workLocality 
+{
+    [self saveValue:workLocality forKey:KEY_WORKLOC];
+}
+
 //-----------------------------------------------------------------------------
 
 - (NSDate*) lastUpdate 

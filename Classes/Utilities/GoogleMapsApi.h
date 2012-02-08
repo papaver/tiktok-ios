@@ -56,6 +56,11 @@ typedef void (^GoogleApiErrorHandler)(NSError*);
 - (void) getGeocodingForAddress:(NSString*)address;
 
 /**
+ * Returns a dictionary containing geocoding information about the givin coordinate.
+ */
+- (void) getReverseGeocodingForAddress:(CLLocationCoordinate2D)coordinate;
+
+/**
  * Returns a dictionary containing distance/time/route from source to destination.
  */
 - (void) getRouteBetweenSource:(NSString*)source andDestination:(NSString*)destination;

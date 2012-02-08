@@ -12,10 +12,11 @@
 
 #import "SettingsViewController.h"
 #import "FacebookManager.h"
-#import "StringPickerViewController.h"
+#import "GoogleMapsApi.h"
 #import "InputTableViewCell.h"
 #import "LocationPickerViewController.h"
 #import "Settings.h"
+#import "StringPickerViewController.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -77,6 +78,11 @@ enum ViewTags
     - (void) facebookLogout;
     - (UITableViewCell*) getReusableCell;
     - (InputTableViewCell*) getReusableBirthdayCell;
+    - (void) updateGenderAtIndexPath:(NSIndexPath*)indexPath;
+    - (void) updateBirthdayAtIndexPath:(NSIndexPath*)indexPath;
+    - (void) updateWorkLocationAtIndexPath:(NSIndexPath*)indexPath;
+    - (void) updateHomeLocationAtIndexPath:(NSIndexPath*)indexPath;
+    - (NSString*) parseLocality:(NSDictionary*)geoData;
 @end
 
 //------------------------------------------------------------------------------
@@ -663,9 +669,15 @@ enum ViewTags
         }
 
         case kSectionLocation: {
-            cell                      = [self getReusableCell];
-            cell.accessoryType        = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text       = title;
+            cell                = [self getReusableCell];
+            cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = title;
+
+            if (indexPath.row == kRowHome) {
+                cell.detailTextLabel.text = settings.homeLocality;
+            } else {
+                cell.detailTextLabel.text = settings.workLocality;
+            }
 
             // show correctly for tutorial
             cell.hidden = (mTutorialStage != kTutorialStageLocation) &&
@@ -777,66 +789,33 @@ enum ViewTags
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath 
 {
-    // pick gender
+    // details sections
     if (indexPath.section == kSectionDetails) {
+
         switch (indexPath.row) {
-            case kRowGender: {
-                StringPickerViewController *controller = [[StringPickerViewController alloc] 
-                    initWithNibName:@"StringPickerViewController" bundle:nil];
-                controller.title            = @"Gender";
-                controller.data             = $array(@"Female", @"Male");
-                controller.currentSelection = [[Settings getInstance] gender];
-                controller.selectionHandler = ^(NSString* selection) {
-                    Settings *settings        = [Settings getInstance];
-                    settings.gender           = selection;
-                    UITableViewCell *cell     = [self.tableView cellForRowAtIndexPath:indexPath];
-                    cell.detailTextLabel.text = selection;
-                    [cell setNeedsLayout];
-                };
-                [self.navigationController pushViewController:controller animated:YES];
-                [controller release];
-                [TestFlight passCheckpointOnce:@"Settings Gender"];
+            case kRowGender: 
+                [self updateGenderAtIndexPath:indexPath];
                 break;
-            }
-
-            case kRowBirthday: {
-                NSDate *birthday        = [[Settings getInstance] birthday];
-                if (!birthday) birthday = [NSDate dateWithTimeIntervalSince1970:60.0*60.0*24.0];
-                self.dateInputView.date = birthday;
-                [self.birthdayCell becomeFirstResponder];
-                [TestFlight passCheckpointOnce:@"Settings Birthday"];
+            case kRowBirthday: 
+                [self updateBirthdayAtIndexPath:indexPath];
                 break;
-            }
-
             default:
                 break;
         }
 
-    // pick location
+    // location section
     } else if (indexPath.section == kSectionLocation) {
-        LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
-            initWithNibName:@"LocationPickerViewController" bundle:nil];
-        
-        // setup the location and save handler depending on which row is selected
-        if (indexPath.row == kRowHome) {
-            [TestFlight passCheckpointOnce:@"Settings Home Location"];
-            __block Settings *settings = [Settings getInstance];
-            controller.location    = settings.home; 
-            controller.saveHandler = ^(CLLocation *location) {
-                settings.home = location;
-            };
-        } else {
-            [TestFlight passCheckpointOnce:@"Settings Work Location"];
-            __block Settings *settings = [Settings getInstance];
-            controller.location    = settings.work; 
-            controller.saveHandler = ^(CLLocation *location) {
-                settings.work = location;
-            };
-        }
 
-        // pass the selected object to the new view controller.
-        [self.navigationController pushViewController:controller animated:YES];
-        [controller release];
+        switch (indexPath.row) {
+            case kRowHome: 
+                [self updateHomeLocationAtIndexPath:indexPath];
+                break;
+            case kRowWork: 
+                [self updateWorkLocationAtIndexPath:indexPath];
+                break;
+            default:
+                break;
+        }
     }
 
     // deselect row
@@ -873,7 +852,195 @@ enum ViewTags
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - Helper Functions
+#pragma mark - Updates settings
+//------------------------------------------------------------------------------
+
+- (void) updateGenderAtIndexPath:(NSIndexPath*)indexPath
+{
+    [TestFlight passCheckpointOnce:@"Settings Gender"];
+
+    // create a string picker controller
+    StringPickerViewController *controller = [[StringPickerViewController alloc] 
+        initWithNibName:@"StringPickerViewController" bundle:nil];
+
+    // setup controller to pick gender
+    controller.title            = @"Gender";
+    controller.data             = $array(@"Female", @"Male");
+    controller.currentSelection = [[Settings getInstance] gender];
+
+    // save the data on completion
+    controller.selectionHandler = ^(NSString* selection) {
+        Settings *settings        = [Settings getInstance];
+        settings.gender           = selection;
+        UITableViewCell *cell     = [self.tableView cellForRowAtIndexPath:indexPath];
+        cell.detailTextLabel.text = selection;
+        [cell setNeedsLayout];
+    };
+
+    // display gender picker controller
+    [self.navigationController pushViewController:controller animated:YES];
+
+    // cleanup
+    [controller release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateBirthdayAtIndexPath:(NSIndexPath*)indexPath
+{
+    [TestFlight passCheckpointOnce:@"Settings Birthday"];
+
+    // update the date picker with the current birthday or use default
+    NSDate *birthday        = [[Settings getInstance] birthday];
+    if (!birthday) birthday = [NSDate dateWithTimeIntervalSince1970:60.0*60.0*24.0];
+    self.dateInputView.date = birthday;
+
+    // display the birthday picker
+    [self.birthdayCell becomeFirstResponder];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateWorkLocationAtIndexPath:(NSIndexPath*)indexPath
+{
+    [TestFlight passCheckpointOnce:@"Settings Work Location"];
+
+    // create a location picker
+    LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
+        initWithNibName:@"LocationPickerViewController" bundle:nil];
+        
+    // setup the location to point to current work address if set
+    __block Settings *settings = [Settings getInstance];
+    controller.location        = settings.work; 
+
+    // save the location and reverse geocode the location
+    controller.saveHandler = ^(CLLocation *location) {
+        settings.work = location;
+
+        // figure out the locality
+        GoogleMapsApi *api = [[GoogleMapsApi alloc] init];
+        api.completionHandler = ^(ASIHTTPRequest *request, id geoData) {
+            if (geoData) {
+                NSString *place           = [self parseLocality:geoData];
+                UITableViewCell *cell     = [self.tableView cellForRowAtIndexPath:indexPath];
+                settings.workLocality     = place;
+                cell.detailTextLabel.text = place;
+                [cell setNeedsLayout];
+            }
+        };
+
+        // query for geocode data
+        [api getReverseGeocodingForAddress:location.coordinate];
+        [api release];
+    };
+
+    // display the work location picker
+    [self.navigationController pushViewController:controller animated:YES];
+
+    // cleanup
+    [controller release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateHomeLocationAtIndexPath:(NSIndexPath*)indexPath
+{
+    [TestFlight passCheckpointOnce:@"Settings Home Location"];
+
+    // create a location picker
+    LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
+        initWithNibName:@"LocationPickerViewController" bundle:nil];
+        
+    // setup the location to point to the current home address if set
+    __block Settings *settings = [Settings getInstance];
+    controller.location        = settings.home; 
+
+    // save the location and reverse geocode the location
+    controller.saveHandler = ^(CLLocation *location) {
+        settings.home = location;
+
+        // figure out the locality
+        GoogleMapsApi *api = [[GoogleMapsApi alloc] init];
+        api.completionHandler = ^(ASIHTTPRequest *request, id geoData) {
+            if (geoData) {
+                NSString *place           = [self parseLocality:geoData];
+                UITableViewCell *cell     = [self.tableView cellForRowAtIndexPath:indexPath];
+                settings.homeLocality     = place;
+                cell.detailTextLabel.text = place;
+                [cell setNeedsLayout];
+            }
+        };
+
+        // query for geocode data
+        [api getReverseGeocodingForAddress:location.coordinate];
+        [api release];
+    };
+
+    // display the home location picker
+    [self.navigationController pushViewController:controller animated:YES];
+
+    // cleanup
+    [controller release];
+}
+
+//------------------------------------------------------------------------------
+
+- (NSString*) parseLocality:(NSDictionary*)geoData
+{
+    static NSArray *keys = nil;
+    if (keys == nil) {
+        keys = [$array(@"subpremise", @"premise", @"neighborhood", 
+            @"sublocality", @"locality", @"colloquial_area", 
+            @"administrative_area_level_3") retain];
+    }
+
+    // make sure search results exist
+    NSString *status = [geoData objectForKey:@"status"];
+    if (!status || [status isEqualToString:@"ZERO_RESULTS"]) {
+        return @"Unknown";
+    }
+
+    // grab the results from the json data
+    NSArray *results = [geoData objectForKey:@"results"];
+
+    // loop through all of the results and get as many fits as possbile
+    NSMutableDictionary *localities = [[NSMutableDictionary alloc] init];
+    for (NSDictionary *address in results) {
+        NSArray *components = [address objectForKey:@"address_components"];
+        for (NSDictionary *component in components) {
+            for (NSString *key in keys) {
+
+                // skip if the key was already found
+                if ([localities objectForKey:key]) continue;
+
+                // add key if it matches the type
+                NSArray *types = [component objectForKey:@"types"];
+                if ([types containsObject:key]) {
+                    NSString *name = [component objectForKey:@"short_name"];
+                    [localities setObject:name forKey:key];
+                }
+            }
+        }
+    }
+
+    // go through the list and find the smallest locality 
+    NSString *locality = nil;
+    for (NSString *key in keys) {
+        NSString *value = [localities objectForKey:key];
+        if (value) {
+            locality = value;
+            break;
+        }
+    }
+
+    // cleanup
+    [localities release];
+
+    return locality ? locality : @"Unknown";
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Events
 //------------------------------------------------------------------------------
 
 - (IBAction) toolbarDatePickerCancel:(id)sender

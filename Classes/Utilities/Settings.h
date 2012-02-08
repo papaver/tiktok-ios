@@ -27,7 +27,9 @@
 @property(nonatomic, retain) NSString   *gender;
 @property(nonatomic, retain) NSDate     *birthday;
 @property(nonatomic, retain) CLLocation *home;
+@property(nonatomic, retain) NSString   *homeLocality;
 @property(nonatomic, retain) CLLocation *work;
+@property(nonatomic, retain) NSString   *workLocality;
 @property(nonatomic, retain) NSDate     *lastUpdate;
 @property(nonatomic, retain) NSNumber   *tutorialIndex;
 
