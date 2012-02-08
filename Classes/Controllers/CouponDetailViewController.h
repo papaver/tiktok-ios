@@ -23,7 +23,8 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface CouponDetailViewController : UIViewController <FBRequestDelegate>
+@interface CouponDetailViewController : UIViewController <FBRequestDelegate,
+                                                          FBDialogDelegate>
 {
     Coupon   *mCoupon;
     NSTimer  *mTimer;

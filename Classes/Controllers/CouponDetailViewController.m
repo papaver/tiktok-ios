@@ -584,7 +584,7 @@ enum ActionButton
     // open up settings to configure twitter account
     UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [self performSelector:@selector(shareTwitter) withObject:self afterDelay:0.2];
+            [self performSelector:@selector(shareTwitter) withObject:nil afterDelay:0.05];
         }
     };
 
@@ -620,7 +620,7 @@ enum ActionButton
     // open up settings to configure twitter account
     UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [self performSelector:@selector(shareFacebook) withObject:self afterDelay:0.2];
+            [self performSelector:@selector(shareFacebook) withObject:nil afterDelay:0.5];
         }
     };
 
@@ -879,19 +879,17 @@ enum ActionButton
 
     NSString *deal = $string(@"%@ at %@!", self.coupon.title, self.coupon.merchant.name);
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-        deal,                @"description",
-        self.coupon.iconUrl, @"picture",
         @"www.tiktok.com",   @"link",
+        self.coupon.iconUrl, @"picture",
         @"TikTok",           @"name",
         @"www.tiktok.com",   @"caption",
+        deal,                @"description",
         nil];
+
 
     // post share on facebook
     FacebookManager *manager = [FacebookManager getInstance];
-    [manager.facebook requestWithGraphPath:@"me/feed" 
-                                 andParams:params 
-                             andHttpMethod:@"POST" 
-                               andDelegate:self];
+    [manager.facebook dialog:@"feed" andParams:params andDelegate:self];
 }
 
 //------------------------------------------------------------------------------
@@ -916,6 +914,15 @@ enum ActionButton
 - (void) request:(FBRequest*)request didFailWithError:(NSError*)error
 {
     NSLog(@"CouponDetailViewController: Facebook share failed: %@", error);
+}
+
+//------------------------------------------------------------------------------
+#pragma - Facebook delegate
+//------------------------------------------------------------------------------
+
+- (BOOL) dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL*)url
+{
+    return NO;
 }
 
 //------------------------------------------------------------------------------
@@ -945,7 +952,6 @@ enum ActionButton
 - (void) dealloc 
 {
     [mTimer invalidate];
-    [mTimer release];
     [mRedeemButton release];
     [mBarcodeView release];
     [mCoupon release];
