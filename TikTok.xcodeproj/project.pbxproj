@@ -65,6 +65,10 @@
 		2E3190EB14E4535500D7470E /* DealBarcodeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190E914E4535500D7470E /* DealBarcodeButton.png */; };
 		2E3190EC14E4535500D7470E /* DealBarcodeButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */; };
 		2E3190EE14E453F500D7470E /* UnitedSansReg-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */; };
+		2E3190F114E48B1500D7470E /* ArrowMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190EF14E48B1500D7470E /* ArrowMore.png */; };
+		2E3190F214E48B1500D7470E /* ArrowMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190F014E48B1500D7470E /* ArrowMore@2x.png */; };
+		2E3190F514E48DBA00D7470E /* ArrowMoreSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190F314E48DB900D7470E /* ArrowMoreSelected.png */; };
+		2E3190F614E48DBA00D7470E /* ArrowMoreSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */; };
 		2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E32143D14C0B6E500647116 /* MessageUI.framework */; };
 		2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E32143F14C0BAE000647116 /* iPhoneShake.png */; };
 		2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */; };
@@ -368,6 +372,10 @@
 		2E3190E914E4535500D7470E /* DealBarcodeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DealBarcodeButton.png; sourceTree = "<group>"; };
 		2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DealBarcodeButton@2x.png"; sourceTree = "<group>"; };
 		2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UnitedSansReg-Bold.otf"; sourceTree = "<group>"; };
+		2E3190EF14E48B1500D7470E /* ArrowMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowMore.png; sourceTree = "<group>"; };
+		2E3190F014E48B1500D7470E /* ArrowMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowMore@2x.png"; sourceTree = "<group>"; };
+		2E3190F314E48DB900D7470E /* ArrowMoreSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowMoreSelected.png; sourceTree = "<group>"; };
+		2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowMoreSelected@2x.png"; sourceTree = "<group>"; };
 		2E32143D14C0B6E500647116 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2E32143F14C0BAE000647116 /* iPhoneShake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneShake.png; sourceTree = "<group>"; };
 		2E41C74B14D0D2B60098C91C /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
@@ -952,6 +960,10 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E3190F314E48DB900D7470E /* ArrowMoreSelected.png */,
+				2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */,
+				2E3190EF14E48B1500D7470E /* ArrowMore.png */,
+				2E3190F014E48B1500D7470E /* ArrowMore@2x.png */,
 				2E3190E914E4535500D7470E /* DealBarcodeButton.png */,
 				2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */,
 				2E3190E114E44F7A00D7470E /* DealActiveBanner.png */,
@@ -1725,6 +1737,10 @@
 				2E3190EB14E4535500D7470E /* DealBarcodeButton.png in Resources */,
 				2E3190EC14E4535500D7470E /* DealBarcodeButton@2x.png in Resources */,
 				2E3190EE14E453F500D7470E /* UnitedSansReg-Bold.otf in Resources */,
+				2E3190F114E48B1500D7470E /* ArrowMore.png in Resources */,
+				2E3190F214E48B1500D7470E /* ArrowMore@2x.png in Resources */,
+				2E3190F514E48DBA00D7470E /* ArrowMoreSelected.png in Resources */,
+				2E3190F614E48DBA00D7470E /* ArrowMoreSelected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
