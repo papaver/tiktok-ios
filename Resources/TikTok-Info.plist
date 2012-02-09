@@ -57,6 +57,7 @@
 	<string>MainWindow</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>UnitedSansReg-Bold.otf</string>
 		<string>NeutraDisp-BoldAlt.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>

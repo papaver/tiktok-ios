@@ -96,6 +96,11 @@
  */
 + (void) printHierarchyForView:(UIView*)view;
 
+/**
+ * Prints out all the available loaded fonts on the system.
+ */
++ (void) printAvailableFonts;
+
 //-----------------------------------------------------------------------------
 
 @end

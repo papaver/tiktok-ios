@@ -29,28 +29,36 @@
 
 enum CouponDetailTag
 {
-    kTagBackground      = 16,
-    kTagScrollView      = 14,
-    kTagTitleBar        = 11,
-    kTagTitle           =  3,
-    kTagContentView     =  2,
-    kTagIcon            =  5,
-    kTagIconActivity    =  6,
-    kTagColorTimer      =  7,
-    kTagTextTimer       =  8,
-    kTagTextTime        =  9,
-    kTagMap             = 10,
-    kTagCompanyName     = 12,
-    kTagCompanyAddress  = 13,
-    kTagDetails         =  4,
-    kTagBarcodeView     =  1,
-    kTagBarcodeCodeView = 15,
+    kTagBackground       = 16,
+    kTagScrollView       = 14,
+    kTagTitleBar         = 11,
+    kTagTitle            =  3,
+    kTagContentView      =  2,
+    kTagIcon             =  5,
+    kTagIconActivity     =  6,
+    kTagColorTimer       =  7,
+    kTagTextTimer        =  8,
+    kTagTextTime         =  9,
+    kTagMap              = 10,
+    kTagCompanyName      = 12,
+    kTagCompanyAddress   = 13,
+    kTagDetails          =  4,
+    kTagBarcodeView      =  1,
+    kTagBarcodeCodeView  = 15,
+    kTagBarcodeSlideView = 17,
 };
 
 enum ActionButton
 {
     kActionButtonSMS   = 0,
     kActionButtonEmail = 1,
+};
+
+enum CouponState
+{
+    kStateDefault = 0,
+    kStateActive  = 1,
+    kStateExpired = 2,
 };
 
 //------------------------------------------------------------------------------
@@ -64,8 +72,6 @@ enum ActionButton
     - (void) setupIcon;
     - (void) setIcon:(UIImage*)image;
     - (void) setupMap;
-    - (void) arrangeSubviewsForRedeemedCouponWithAnimation:(bool)animated;
-    - (void) resetSubviews;
     - (void) expireCoupon;
     - (void) startTimer;
     - (void) updateTimers;
@@ -89,7 +95,6 @@ enum ActionButton
 @synthesize coupon       = mCoupon;
 @synthesize timer        = mTimer;
 @synthesize barcodeView  = mBarcodeView;
-@synthesize redeemButton = mRedeemButton;
 
 //------------------------------------------------------------------------------
 #pragma - View Lifecycle
@@ -124,12 +129,6 @@ enum ActionButton
     // tag testflight checkpoint
     [TestFlight passCheckpointOnce:@"Deal"];
 
-    // add barcode view to the view and hide, do this so it shows up seperately
-    // in interface designer and is easier to manage
-    UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:kTagScrollView];
-    [scrollView addSubview:self.barcodeView];
-    self.barcodeView.hidden = YES;
-
     // setup toolbar
     [self setupToolbar];
 
@@ -139,6 +138,10 @@ enum ActionButton
     // correct font on timer
     UILabel *timer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
+
+    // correct font on barcode
+    UIButton *barcode       = (UIButton*)[self.barcodeView viewWithTag:kTagBarcodeCodeView];
+    barcode.titleLabel.font = [UIFont fontWithName:@"UnitedSansReg-Bold" size:17];
 
     // setup gesture recogizer on map
     MKMapView *map = (MKMapView*)[self.view viewWithTag:kTagMap];
@@ -154,16 +157,32 @@ enum ActionButton
 - (void) viewWillAppear:(BOOL)animated 
 {
     [super viewWillAppear:animated];
+
+    // update the ui with the coupon details
     [self setupCouponDetails];
 
-    // don't add redeem button if coupon is expired or already activated
-    if (self.coupon.wasRedeemed) {
-        [self arrangeSubviewsForRedeemedCouponWithAnimation:false];
-    } else if (!self.coupon.isExpired) {
-        [self.navigationController setToolbarHidden:NO animated:YES];
-    } else {
-        [self resetSubviews];
-    }
+    // table enumeration view positions for various states
+    static struct YTable {
+        NSUInteger cs;
+        CGFloat    h;
+    } sYTable[3] = {
+        { kStateDefault , -120.0 },
+        { kStateActive  ,  -60.0 },
+        { kStateExpired ,    0.0 },
+    };
+
+    // get the coupon state
+    NSUInteger state = kStateDefault;
+    state            = self.coupon.wasRedeemed ? kStateActive : state;
+
+    // position the view accordingly
+    UIView *view   = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
+    CGRect frame   = view.frame;
+    frame.origin.y = sYTable[state].h;
+    view.frame     = frame;
+
+    // show the toolbar
+    [self.navigationController setToolbarHidden:NO animated:YES];
 
     // setup an update loop to for the color/text timers
     if (!self.coupon.isExpired) {
@@ -254,7 +273,7 @@ enum ActionButton
 
     // create a bar button
     UIBarButtonItem *barButtonItem = 
-        [[UIBarButtonItem alloc] initWithCustomView:self.redeemButton];
+        [[UIBarButtonItem alloc] initWithCustomView:self.barcodeView];
      
     // set the items in the toolbar
     self.toolbarItems = $array(
@@ -265,6 +284,8 @@ enum ActionButton
     // cleanup 
     [flexibleSpaceButton release];
     [barButtonItem release];
+
+    // show the toolbar
 }
 
 //------------------------------------------------------------------------------
@@ -302,8 +323,8 @@ enum ActionButton
     label.text     = [self.coupon getExpirationTimer];
 
     // barcode code
-    UILabel *code = (UILabel*)[self.view viewWithTag:kTagBarcodeCodeView];
-    code.text     = self.coupon.barcode;
+    UIButton *code       = (UIButton*)[self.barcodeView viewWithTag:kTagBarcodeCodeView];
+    code.titleLabel.text = self.coupon.barcode;
 }
 
 //------------------------------------------------------------------------------
@@ -428,8 +449,15 @@ enum ActionButton
 
 - (IBAction) redeemCoupon:(id)sender
 {
-    [self arrangeSubviewsForRedeemedCouponWithAnimation:true];
     self.coupon.wasRedeemed = YES;
+
+    // animate barcode
+    [UIView animateWithDuration:0.3 animations:^{
+        UIView *view    = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
+        CGRect frame    = view.frame;
+        frame.origin.y += 60.0;
+        view.frame      = frame;
+    }];
 
     // let server know of redemption
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -455,32 +483,6 @@ enum ActionButton
 
 //------------------------------------------------------------------------------
 
-- (void) resetSubviews
-{
-    // grab subviews
-    UIView *titleView    = [self.view viewWithTag:kTagTitleBar];
-    UIView *barcodeView  = [self.view viewWithTag:kTagBarcodeView];
-    UIView *contentView  = [self.view viewWithTag:kTagContentView];
-
-    // already in default state if barcode is hidden
-    if (barcodeView.hidden) return;
-
-    // hide barcode
-    barcodeView.hidden = YES;
-
-    // position contentview back to original position
-    CGRect barcodeFrame            = barcodeView.frame;
-    CGRect titleViewFrameNew       = titleView.frame;
-    CGRect contentViewFrameNew     = contentView.frame;
-    contentViewFrameNew.origin.x   = barcodeFrame.origin.x;
-    contentViewFrameNew.origin.y   = barcodeFrame.origin.y;
-    contentView.frame              = contentViewFrameNew;
-    titleViewFrameNew.size.height -= barcodeFrame.size.height;
-    titleView.frame                = titleViewFrameNew;
-}
-
-//------------------------------------------------------------------------------
-
 - (void) expireCoupon
 {
     [TestFlight passCheckpointOnce:@"Deal Expired"];
@@ -496,70 +498,12 @@ enum ActionButton
         } 
     }
 
-    // disable the redeem button and gray it out
-    self.redeemButton.tintColor = [UIColor grayColor];
-    self.redeemButton.enabled   = NO;
-}
-
-//------------------------------------------------------------------------------
-
-- (void) arrangeSubviewsForRedeemedCouponWithAnimation:(bool)animated
-{
-    // grab subviews
-    __block UIView *titleView        = [self.view viewWithTag:kTagTitleBar];
-    __block UIView *barcodeView      = [self.view viewWithTag:kTagBarcodeView];
-    __block UIView *contentView      = [self.view viewWithTag:kTagContentView];
-
-    // already configured correctly if barcode is visible
-    if (!barcodeView.hidden) return;
-    
-    // make sure barcode view is visible
-    barcodeView.hidden = NO;
-
-    // grab the current values of the views
-    CGRect contentFrame = contentView.frame;
-    CGRect barcodeFrame = self.barcodeView.frame;
-    CGSize barcodeSize  = self.barcodeView.frame.size;
-    CGRect titleFrame   = titleView.frame;
-
-    // calculate the title bar height
-    __block CGRect titleFrameNew = titleFrame;
-    titleFrameNew.size.height   += barcodeSize.height;
-
-    // position the barcode view at title bar bottom and null out height
-    barcodeFrame.origin.x    = titleFrame.origin.x; 
-    barcodeFrame.origin.y    = titleFrame.origin.y + titleFrame.size.height;;
-    barcodeFrame.size.height = 0.1;
-    barcodeView.frame        = barcodeFrame;
-
-    // calculate the new position for the content view
-    __block CGRect contentFrameNew = contentFrame;
-    contentFrameNew.origin.y      += barcodeSize.height;
-    
-        // calcuate the new size for the barcode
-    __block CGRect barcodeFrameNew = barcodeFrame;
-    barcodeFrameNew.size.height    = barcodeSize.height;
-
-    // fix up scroll view to account for text view content
-    UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:kTagScrollView];
-    CGSize contentSize       = scrollView.contentSize;
-    contentSize.height      += barcodeSize.height;
-    scrollView.contentSize   = contentSize;
-
-    // animate new views into place
-    void (^animationBlock)(void) = ^{
-        contentView.frame = contentFrameNew;
-        barcodeView.frame = barcodeFrameNew;
-        titleView.frame   = titleFrameNew;
-    };
-    
-    // update the subviews
-    if (animated) {
-        [UIView animateWithDuration:0.4 animations:animationBlock];
-        [self.navigationController setToolbarHidden:YES animated:YES];
-    } else {
-        animationBlock();
-        [self.navigationController setToolbarHidden:YES animated:NO];
+    // animate barcode
+    if (!self.coupon.wasRedeemed) {
+        UIView *view   = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
+        CGRect frame   = view.frame;
+        frame.origin.y = 0.0;
+        view.frame     = frame;
     }
 }
 
@@ -664,10 +608,8 @@ enum ActionButton
 
     // show from toolbar only if coupon not yet redeemed
     if (self.coupon.wasRedeemed || self.coupon.isExpired) {
-        [actionSheet showInView:self.view];
-    } else {
         [actionSheet showFromToolbar:self.navigationController.toolbar];
-    }
+    } 
 
     // cleanup
     [actionSheet release];
@@ -952,7 +894,6 @@ enum ActionButton
 - (void) dealloc 
 {
     [mTimer invalidate];
-    [mRedeemButton release];
     [mBarcodeView release];
     [mCoupon release];
     [super dealloc];

@@ -58,6 +58,13 @@
 		2E31269D14CA044C00477805 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31269C14CA044C00477805 /* NSDictionary+Extensions.m */; };
 		2E31269F14CA402500477805 /* UserLocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269E14CA402500477805 /* UserLocation.png */; };
 		2E3126A114CA427600477805 /* UserLocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3126A014CA427600477805 /* UserLocation@2x.png */; };
+		2E3190E514E44F7A00D7470E /* DealActiveBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190E114E44F7A00D7470E /* DealActiveBanner.png */; };
+		2E3190E614E44F7A00D7470E /* DealActiveBanner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190E214E44F7A00D7470E /* DealActiveBanner@2x.png */; };
+		2E3190E714E44F7A00D7470E /* DealExpiredBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190E314E44F7A00D7470E /* DealExpiredBanner.png */; };
+		2E3190E814E44F7A00D7470E /* DealExpiredBanner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190E414E44F7A00D7470E /* DealExpiredBanner@2x.png */; };
+		2E3190EB14E4535500D7470E /* DealBarcodeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190E914E4535500D7470E /* DealBarcodeButton.png */; };
+		2E3190EC14E4535500D7470E /* DealBarcodeButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */; };
+		2E3190EE14E453F500D7470E /* UnitedSansReg-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */; };
 		2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E32143D14C0B6E500647116 /* MessageUI.framework */; };
 		2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E32143F14C0BAE000647116 /* iPhoneShake.png */; };
 		2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */; };
@@ -354,6 +361,13 @@
 		2E31269C14CA044C00477805 /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
 		2E31269E14CA402500477805 /* UserLocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserLocation.png; sourceTree = "<group>"; };
 		2E3126A014CA427600477805 /* UserLocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserLocation@2x.png"; sourceTree = "<group>"; };
+		2E3190E114E44F7A00D7470E /* DealActiveBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DealActiveBanner.png; sourceTree = "<group>"; };
+		2E3190E214E44F7A00D7470E /* DealActiveBanner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DealActiveBanner@2x.png"; sourceTree = "<group>"; };
+		2E3190E314E44F7A00D7470E /* DealExpiredBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DealExpiredBanner.png; sourceTree = "<group>"; };
+		2E3190E414E44F7A00D7470E /* DealExpiredBanner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DealExpiredBanner@2x.png"; sourceTree = "<group>"; };
+		2E3190E914E4535500D7470E /* DealBarcodeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DealBarcodeButton.png; sourceTree = "<group>"; };
+		2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DealBarcodeButton@2x.png"; sourceTree = "<group>"; };
+		2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UnitedSansReg-Bold.otf"; sourceTree = "<group>"; };
 		2E32143D14C0B6E500647116 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2E32143F14C0BAE000647116 /* iPhoneShake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneShake.png; sourceTree = "<group>"; };
 		2E41C74B14D0D2B60098C91C /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
@@ -938,6 +952,12 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E3190E914E4535500D7470E /* DealBarcodeButton.png */,
+				2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */,
+				2E3190E114E44F7A00D7470E /* DealActiveBanner.png */,
+				2E3190E214E44F7A00D7470E /* DealActiveBanner@2x.png */,
+				2E3190E314E44F7A00D7470E /* DealExpiredBanner.png */,
+				2E3190E414E44F7A00D7470E /* DealExpiredBanner@2x.png */,
 				2E89C2EA14DC6BE40052751D /* SettingsTutorialArrow02.png */,
 				2E89C2EB14DC6BE40052751D /* SettingsTutorialArrow02@2x.png */,
 				2E89C2EC14DC6BE40052751D /* SettingsTutorialArrow03.png */,
@@ -1436,6 +1456,7 @@
 			isa = PBXGroup;
 			children = (
 				2EE5D42114AE38E500D0539C /* NeutraDisp-BoldAlt.otf */,
+				2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -1697,6 +1718,13 @@
 				2E06472F14DE007B008283D5 /* popoverBgSimple.png in Resources */,
 				2EB7525A14E06B8B009FC332 /* 193-location-arrow-bar.png in Resources */,
 				2EB7525B14E06B8B009FC332 /* 193-location-arrow-bar@2x.png in Resources */,
+				2E3190E514E44F7A00D7470E /* DealActiveBanner.png in Resources */,
+				2E3190E614E44F7A00D7470E /* DealActiveBanner@2x.png in Resources */,
+				2E3190E714E44F7A00D7470E /* DealExpiredBanner.png in Resources */,
+				2E3190E814E44F7A00D7470E /* DealExpiredBanner@2x.png in Resources */,
+				2E3190EB14E4535500D7470E /* DealBarcodeButton.png in Resources */,
+				2E3190EC14E4535500D7470E /* DealBarcodeButton@2x.png in Resources */,
+				2E3190EE14E453F500D7470E /* UnitedSansReg-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

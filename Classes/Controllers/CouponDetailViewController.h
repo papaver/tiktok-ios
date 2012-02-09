@@ -29,7 +29,6 @@
     Coupon   *mCoupon;
     NSTimer  *mTimer;
     UIView   *mBarcodeView;
-    UIButton *mRedeemButton;
 }
 
 //------------------------------------------------------------------------------
@@ -37,7 +36,6 @@
 @property (nonatomic, retain)          Coupon   *coupon;
 @property (nonatomic, retain)          NSTimer  *timer;
 @property (nonatomic, retain) IBOutlet UIView   *barcodeView;
-@property (nonatomic, retain) IBOutlet UIButton *redeemButton;
 
 //------------------------------------------------------------------------------
 
