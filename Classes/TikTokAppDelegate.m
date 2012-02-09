@@ -21,6 +21,16 @@
 #import "Utilities.h"
 
 //------------------------------------------------------------------------------
+// interface definition
+//------------------------------------------------------------------------------
+
+@interface TikTokAppDelegate ()
+    - (void) handleNotificationsForApplication:(UIApplication*)application
+                                   withOptions:(NSDictionary*)launchOptions;
+    - (void) setupNavigationController;
+@end 
+
+//------------------------------------------------------------------------------
 // interface implemenation
 //------------------------------------------------------------------------------
 
@@ -46,27 +56,15 @@
     // start up test flight
     [TestFlight takeOff:TESTFLIGHT_API_KEY];
 
-    // handle local notifications
-    UILocalNotification *localNotification =
-        [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-    if (localNotification) {
-        application.applicationIconBadgeNumber = 
-            localNotification.applicationIconBadgeNumber - 1;
-    }
+    // handle any notification sent to the app on startup
+    [self handleNotificationsForApplication:application withOptions:launchOptions];
 
-    // handle remote notifications
-    NSDictionary *userInfo =
-        [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (userInfo) {
-        application.applicationIconBadgeNumber = 0;
-    }
-    
-    // hide navigation toolbar
-    [self.navigationController setToolbarHidden:YES animated:NO];
+    // have to manually add the tabbar controller to the navigation controller
+    [self setupNavigationController];
 
     // set startup completion handler to show navigation controller 
     self.startupController.completionHandler = ^{
-        self.window.rootViewController = self.tabBarController;
+        self.window.rootViewController = self.navigationController;
     };
 
     // we need this to allow events to propagate through properly
@@ -230,8 +228,63 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - Core Data Stack
+#pragma mark - UITabBarController Delegate
 //------------------------------------------------------------------------------
+
+/**
+ * This is kind of a hack, but this allows us to embed the tabbar under a
+ * navigation bar and allow the navbar items to propate up correctly, else since
+ * the nav bar doesn't correctly pass up the items.
+ */
+- (void) tabBarController:(UITabBarController*)tabBarController 
+  didSelectViewController:(UIViewController*)viewController
+{
+    tabBarController.title                             = viewController.title;
+    tabBarController.navigationItem.titleView          = viewController.navigationItem.titleView;
+    tabBarController.navigationItem.leftBarButtonItem  = viewController.navigationItem.leftBarButtonItem;
+    tabBarController.navigationItem.rightBarButtonItem = viewController.navigationItem.rightBarButtonItem;
+}
+
+//------------------------------------------------------------------------------
+#pragma - Helper Functions
+//------------------------------------------------------------------------------
+
+- (void) handleNotificationsForApplication:(UIApplication*)application
+                               withOptions:(NSDictionary*)launchOptions
+{
+    // handle local notifications
+    UILocalNotification *localNotification =
+        [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (localNotification) {
+        application.applicationIconBadgeNumber = 0;
+            //localNotification.applicationIconBadgeNumber - 1;
+    }
+
+    // handle remote notifications
+    NSDictionary *userInfo =
+        [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (userInfo) {
+        application.applicationIconBadgeNumber = 0;
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupNavigationController
+{
+    // hacky... force the initial view to load so we can get the nav bar icaons 
+    // to appear correctly through the tab bar delegate
+    UIViewController *viewController = 
+        [self.tabBarController.viewControllers objectAtIndex:0];
+    [viewController view];
+    [self tabBarController:self.tabBarController didSelectViewController:viewController];
+
+    // manually add the tabbar controller to the navigation controller
+    [self.navigationController setViewControllers:$array(self.tabBarController) 
+                                         animated:NO];
+    [self.navigationController setToolbarHidden:YES animated:NO];
+}
+
 //------------------------------------------------------------------------------
 #pragma - Handle Url
 //------------------------------------------------------------------------------

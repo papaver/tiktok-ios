@@ -23,7 +23,8 @@
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface TikTokAppDelegate : NSObject <UIApplicationDelegate> 
+@interface TikTokAppDelegate : NSObject <UIApplicationDelegate,
+                                         UITabBarControllerDelegate> 
 {
     UIWindow               *mWindow;
     UITabBarController     *mTabBarController;
