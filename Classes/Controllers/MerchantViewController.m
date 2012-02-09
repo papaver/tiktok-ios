@@ -11,9 +11,11 @@
 //------------------------------------------------------------------------------
 
 #import "MerchantViewController.h"
+#import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
 #import "WebViewController.h"
+#import "UIDefaults.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -21,14 +23,15 @@
 
 enum MerchantTags 
 {
-    kTagCategory     = 5,
-    kTagName         = 1,
-    kTagIcon         = 3,
-    kTagIconActivity = 4,
-    kTagDetails      = 6,
-    kTagAddress      = 7,
-    kTagPhone        = 8,
-    kTagWebsite      = 9,
+    kTagCategory     =  5,
+    kTagName         =  1,
+    kTagIcon         =  3,
+    kTagIconActivity =  4,
+    kTagDetails      =  6,
+    kTagAddress      =  7,
+    kTagPhone        =  8,
+    kTagWebsite      =  9,
+    kTagGradient     = 10,
 };
 
 //------------------------------------------------------------------------------
@@ -174,6 +177,10 @@ enum MerchantTags
     // details
     UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];
     details.text        = self.merchant.details;
+
+    // gradient 
+    GradientView *color = (GradientView*)[self.view viewWithTag:kTagGradient];
+    color.color         = [UIDefaults getTikColor];
 
     // icon
     [self setupIcon];
