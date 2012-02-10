@@ -177,6 +177,7 @@
 		2E89C30B14DC6BE40052751D /* SettingsTutorialChar04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F914DC6BE40052751D /* SettingsTutorialChar04@2x.png */; };
 		2E89C30C14DC6BE40052751D /* SettingsTutorialChar05.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2FA14DC6BE40052751D /* SettingsTutorialChar05.png */; };
 		2E89C30D14DC6BE40052751D /* SettingsTutorialChar05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2FB14DC6BE40052751D /* SettingsTutorialChar05@2x.png */; };
+		2E8E78CD14E58A4500806A20 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8E78CC14E58A4500806A20 /* libFlurryAnalytics.a */; };
 		2E986F15138DFCEE00A301BA /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationTracker.m */; };
 		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
 		2EA168FE14BF60BF0099B1F1 /* StringPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* StringPickerViewController.m */; };
@@ -550,6 +551,8 @@
 		2E89C2F914DC6BE40052751D /* SettingsTutorialChar04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar04@2x.png"; sourceTree = "<group>"; };
 		2E89C2FA14DC6BE40052751D /* SettingsTutorialChar05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar05.png; sourceTree = "<group>"; };
 		2E89C2FB14DC6BE40052751D /* SettingsTutorialChar05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar05@2x.png"; sourceTree = "<group>"; };
+		2E8E78C914E5898C00806A20 /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
+		2E8E78CC14E58A4500806A20 /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		2E986F13138DFCEE00A301BA /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
 		2E986F14138DFCEE00A301BA /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
 		2EA168F914BF4C310099B1F1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
@@ -741,8 +744,8 @@
 			files = (
 				2EC672AC1490006800AC5CDF /* CFNetwork.framework in Frameworks */,
 				2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */,
-				2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */,
 				2E6E0815139364AF008788C2 /* CoreGraphics.framework in Frameworks */,
+				2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */,
 				2E6E082B139364C2008788C2 /* Foundation.framework in Frameworks */,
 				2E1144E31394709700D72753 /* MapKit.framework in Frameworks */,
 				2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */,
@@ -752,8 +755,9 @@
 				2EC672AE1490008700AC5CDF /* SystemConfiguration.framework in Frameworks */,
 				2ECAD06F14C4BB5D00706EF3 /* Twitter.framework in Frameworks */,
 				2E6E082D139364D6008788C2 /* UIKit.framework in Frameworks */,
-				2EC672B0149000B100AC5CDF /* libz.dylib in Frameworks */,
+				2E8E78CD14E58A4500806A20 /* libFlurryAnalytics.a in Frameworks */,
 				2EE5D43C14B373CD00D0539C /* libTestFlight.a in Frameworks */,
+				2EC672B0149000B100AC5CDF /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1280,6 +1284,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2E8E78C814E5897200806A20 /* FlurryAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				2E8E78C914E5898C00806A20 /* FlurryAnalytics.h */,
+			);
+			path = FlurryAnalytics;
+			sourceTree = "<group>";
+		};
 		2EA2285D14CDE16500466166 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -1341,6 +1353,7 @@
 				2E5FEAEF14A1B75800B516FE /* Box2D */,
 				2E259E4314D266DE007481F2 /* EGOTableViewPullRefresh */,
 				2EE5D42714B25CED00D0539C /* Facebook */,
+				2E8E78C814E5897200806A20 /* FlurryAnalytics */,
 				2EFB99EE14C63F6C00FD69E8 /* JsonKit */,
 				2EC6725D148FFE7000AC5CDF /* SBJson */,
 				2EA2285D14CDE16500466166 /* SVProgressHUD */,
@@ -1439,6 +1452,7 @@
 		2EC672B3149000FB00AC5CDF /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2E8E78CC14E58A4500806A20 /* libFlurryAnalytics.a */,
 				2EE5D43B14B373CD00D0539C /* libTestFlight.a */,
 				2EC672AF149000B100AC5CDF /* libz.dylib */,
 			);
