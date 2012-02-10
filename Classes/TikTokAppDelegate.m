@@ -53,8 +53,10 @@
     // override point for customization after application launch.
     NSLog(@"Application did finish launching with options.");
 
-    // start up test flight
+    // start up test flight and flurry
     [TestFlight takeOff:TESTFLIGHT_API_KEY];
+    [FlurryAnalytics setSecureTransportEnabled:YES];
+    [FlurryAnalytics startSession:FLURRY_DEV_API_KEY];
 
     // handle any notification sent to the app on startup
     [self handleNotificationsForApplication:application withOptions:launchOptions];

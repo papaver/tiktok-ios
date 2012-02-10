@@ -156,6 +156,9 @@ enum StartupTag
 
 - (void) runStartupProcess
 {
+    // set user id for analytics session 
+    [FlurryAnalytics setUserID:[Utilities getDeviceId]];
+
     // kick of registration for notifications
     [self registerNotifications];
 

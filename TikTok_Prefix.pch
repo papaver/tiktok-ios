@@ -23,4 +23,5 @@
     #import "Macros.h"
     #import "TestFlight.h"
     #import "TestFlight+Extensions.h"
+    #import "FlurryAnalytics.h"
 #endif
