@@ -42,7 +42,6 @@ enum StartupTag
     - (void) validateRegistration;
     - (void) registerNotifications;
     - (void) syncCoupons;
-    - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) progressBar:(NSTimer*)timer;
     - (void) waitForInternetConnection;
 @end
@@ -314,12 +313,8 @@ enum StartupTag
             if (self.completionHandler) self.completionHandler();
         }
     
-        // update last update 
+        // update last update time
         [[Settings getInstance] setLastUpdate:lastUpdate];
-
-        // remove self from notification center
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter removeObserver:self];
 
         mComplete = true;
     };
@@ -327,34 +322,11 @@ enum StartupTag
     // lost connection? fuck... restart startup process for now...
     api.errorHandler = ^(ASIHTTPRequest* request) { 
         [self waitForInternetConnection];
-
-        // remove self from notification center
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter removeObserver:self];
     };
-
-    // add a notification to allow syncing the contexts..
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self
-                           selector:@selector(syncManagedObjects:)
-                               name:NSManagedObjectContextDidSaveNotification
-                             object:api.context];
 
     // sync coupons
     Settings *settings = [Settings getInstance];
     [api syncActiveCoupons:settings.lastUpdate];
-}
-
-//------------------------------------------------------------------------------
-
-- (void) syncManagedObjects:(NSNotification*)notification
-{
-    // make sure the update happens on the main thread!
-    Database *database = [Database getInstance];
-    SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
-    [database.context performSelectorOnMainThread:selector 
-                                       withObject:notification 
-                                    waitUntilDone:YES];
 }
 
 //------------------------------------------------------------------------------

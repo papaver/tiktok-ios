@@ -28,6 +28,7 @@
     - (void) parseData:(NSData*)data;
     - (void) parseRegistrationId:(NSDictionary*)data;
     - (void) parseCouponData:(NSDictionary*)data;
+    - (void) syncManagedObjects:(NSNotification*)notification;
 @end
 
 //------------------------------------------------------------------------------
@@ -240,8 +241,20 @@
 
         // parse data
         dispatch_async(mQueue, ^(void) {
+
+            // add notifications to allow updating of main context
+            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+            [notificationCenter addObserver:self
+                                selector:@selector(syncManagedObjects:)
+                                    name:NSManagedObjectContextDidSaveNotification
+                                    object:self.context];
+
+            // parse the objects
             mParserMethod = NSSelectorFromString(@"parseCouponData:");
             [self parseData:[request responseData]];
+
+            // cleanup notifications
+            [notificationCenter removeObserver:self];
 
             // run handler
             dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -258,6 +271,18 @@
  
     // initiate the request
     [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) syncManagedObjects:(NSNotification*)notification
+{
+    // make sure the update happens on the main thread!
+    Database *database = [Database getInstance];
+    SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
+    [database.context performSelectorOnMainThread:selector 
+                                       withObject:notification 
+                                    waitUntilDone:YES];
 }
 
 //------------------------------------------------------------------------------

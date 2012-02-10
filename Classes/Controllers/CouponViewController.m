@@ -65,7 +65,6 @@ static NSString *sCouponCacheName = @"coupon_table";
     - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
     - (void) loadImagesForOnscreenRows;
     - (void) reloadTableViewDataSource;
-    - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) doneLoadingTableViewData;
     - (void) updateFilterByReedmeedOnly:(bool)redeemedOnly activeOnly:(bool)activeOnly;
     - (void) filterDealsRedeemed:(id)sender;
@@ -907,47 +906,18 @@ static NSString *sCouponCacheName = @"coupon_table";
     NSDate *lastUpdate     = [NSDate date];
     __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     api.completionHandler  = ^(ASIHTTPRequest *request) {
-
-        // remove self from notification center
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter removeObserver:self];
-
-        // end transaction
         [self doneLoadingTableViewData];
-
-        // update last synced time
         [[Settings getInstance] setLastUpdate:lastUpdate];
     };
 
     // remove notification and close header
     api.errorHandler = ^(ASIHTTPRequest *request) {
-        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-        [notificationCenter removeObserver:self];
         [self doneLoadingTableViewData];
     };
-
-    // add a notification to allow syncing the contexts..
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self
-                           selector:@selector(syncManagedObjects:)
-                               name:NSManagedObjectContextDidSaveNotification
-                             object:api.context];
 
     // sync coupons
     Settings *settings = [Settings getInstance];
     [api syncActiveCoupons:settings.lastUpdate];
-}
-
-//------------------------------------------------------------------------------
-
-- (void) syncManagedObjects:(NSNotification*)notification
-{
-    // make sure the update happens on the main thread!
-    Database *database = [Database getInstance];
-    SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
-    [database.context performSelectorOnMainThread:selector 
-                                       withObject:notification 
-                                    waitUntilDone:YES];
 }
 
 //------------------------------------------------------------------------------
