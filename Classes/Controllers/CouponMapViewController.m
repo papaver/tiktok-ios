@@ -60,8 +60,8 @@ NSString *sCouponCacheName = @"coupon_map";
     - (void) getCouponDetails;
     - (void) centerMapAroundCoupons:(NSArray*)coupons;
     - (void) centerMapUserLocation;
-    - (MKAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation;
-    - (MKAnnotationView*) setupNewPinViewForAnnotation:(id<MKAnnotation>)annotation;
+    - (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation;
+    - (MKPinAnnotationView*) setupNewPinViewForAnnotation:(id<MKAnnotation>)annotation;
     - (void) expireCoupon:(NSTimer*)timer;
     - (void) refetchCoupons;
 @end
@@ -233,7 +233,7 @@ NSString *sCouponCacheName = @"coupon_map";
 - (void) mapView:(MKMapView*)mapView didSelectAnnotationView:(MKAnnotationView*)view
 {
     if ([view.annotation isKindOfClass:[CouponAnnotation class]]) {
-        MKAnnotationView *pinView          = (MKAnnotationView*)view;
+        MKPinAnnotationView *pinView       = (MKPinAnnotationView*)view;
         CouponAnnotation *couponAnnotation = (CouponAnnotation*)view.annotation;
 
         // update gradient color and icon
@@ -467,12 +467,12 @@ NSString *sCouponCacheName = @"coupon_map";
 
 //------------------------------------------------------------------------------
 
-- (MKAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation
+- (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation
 {
     [TestFlight passCheckpointOnce:@"Deal Map Callout"];
 
     // check for any available annotation views 
-    MKAnnotationView *pinView = (MKAnnotationView*)[self.mapView 
+    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView 
         dequeueReusableAnnotationViewWithIdentifier:sCouponPinId];
     if (pinView == nil) {
         pinView = [self setupNewPinViewForAnnotation:annotation];
@@ -482,23 +482,17 @@ NSString *sCouponCacheName = @"coupon_map";
 
 //------------------------------------------------------------------------------
 
-- (MKAnnotationView*) setupNewPinViewForAnnotation:(id<MKAnnotation>)annotation
+- (MKPinAnnotationView*) setupNewPinViewForAnnotation:(id<MKAnnotation>)annotation
 {
-    // [moiz] if we end up keeping these guys as pins clean up the naming
-    //  in this class and figure out how to get tok in there as well...
-
     // create a new pin view
-    MKAnnotationView *pinView = 
-        [[[MKAnnotationView alloc] initWithAnnotation:annotation 
-                                      reuseIdentifier:sCouponPinId] autorelease];
+    MKPinAnnotationView *pinView = 
+        [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
+                                         reuseIdentifier:sCouponPinId] autorelease];
 
     // setup configuration
-    //pinView.pinColor       = MKPinAnnotationColorPurple;
-    //pinView.animatesDrop   = YES;
+    pinView.pinColor       = MKPinAnnotationColorPurple;
     pinView.canShowCallout = YES;
-
-    // add custom pin
-    pinView.image = [UIImage imageNamed:@"TikPin.png"];
+    pinView.animatesDrop   = YES;
 
     // setup gradient
     CGRect gradientFrame   = CGRectMake(0.0, 0.0, 32.0, 32.0);
