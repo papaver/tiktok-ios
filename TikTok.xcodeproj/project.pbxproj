@@ -204,6 +204,10 @@
 		2EB87EE4149FEED600F01C26 /* CellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */; };
 		2EB87EE5149FEED600F01C26 /* CellIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */; };
 		2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBAC7931399D9BE001FD98D /* CoreData.framework */; };
+		2EC5A54514E4C4290059762C /* TikPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54414E4C4290059762C /* TikPin.png */; };
+		2EC5A54714E4C70A0059762C /* TikPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54614E4C70A0059762C /* TikPin@2x.png */; };
+		2EC5A54A14E4CA740059762C /* TokPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54814E4CA740059762C /* TokPin.png */; };
+		2EC5A54B14E4CA740059762C /* TokPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54914E4CA740059762C /* TokPin@2x.png */; };
 		2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */; };
 		2EC6725A148FF6EF00AC5CDF /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67259148FF6EF00AC5CDF /* Utilities.m */; };
 		2EC67278148FFEAD00AC5CDF /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67260148FFEAD00AC5CDF /* NSObject+SBJson.m */; };
@@ -580,6 +584,10 @@
 		2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CellIcon@2x.png"; sourceTree = "<group>"; };
 		2EB87EE814A0029700F01C26 /* TikTok.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TikTok.entitlements; sourceTree = "<group>"; };
 		2EBAC7931399D9BE001FD98D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2EC5A54414E4C4290059762C /* TikPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikPin.png; sourceTree = "<group>"; };
+		2EC5A54614E4C70A0059762C /* TikPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TikPin@2x.png"; sourceTree = "<group>"; };
+		2EC5A54814E4CA740059762C /* TokPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokPin.png; sourceTree = "<group>"; };
+		2EC5A54914E4CA740059762C /* TokPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokPin@2x.png"; sourceTree = "<group>"; };
 		2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VancouverDowntownWalk.gpx; sourceTree = "<group>"; };
 		2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TikTok-Info.plist"; sourceTree = "<group>"; };
 		2EC67258148FF6EF00AC5CDF /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
@@ -960,6 +968,10 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2EC5A54414E4C4290059762C /* TikPin.png */,
+				2EC5A54614E4C70A0059762C /* TikPin@2x.png */,
+				2EC5A54814E4CA740059762C /* TokPin.png */,
+				2EC5A54914E4CA740059762C /* TokPin@2x.png */,
 				2E3190F314E48DB900D7470E /* ArrowMoreSelected.png */,
 				2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */,
 				2E3190EF14E48B1500D7470E /* ArrowMore.png */,
@@ -1741,6 +1753,10 @@
 				2E3190F214E48B1500D7470E /* ArrowMore@2x.png in Resources */,
 				2E3190F514E48DBA00D7470E /* ArrowMoreSelected.png in Resources */,
 				2E3190F614E48DBA00D7470E /* ArrowMoreSelected@2x.png in Resources */,
+				2EC5A54514E4C4290059762C /* TikPin.png in Resources */,
+				2EC5A54714E4C70A0059762C /* TikPin@2x.png in Resources */,
+				2EC5A54A14E4CA740059762C /* TokPin.png in Resources */,
+				2EC5A54B14E4CA740059762C /* TokPin@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
