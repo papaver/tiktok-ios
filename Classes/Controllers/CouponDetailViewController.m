@@ -142,6 +142,7 @@ enum CouponState
     // correct font on barcode
     UIButton *barcode       = (UIButton*)[self.barcodeView viewWithTag:kTagBarcodeCodeView];
     barcode.titleLabel.font = [UIFont fontWithName:@"UnitedSansReg-Bold" size:17];
+    barcode.titleLabel.adjustsFontSizeToFitWidth = YES;
 
     // setup gesture recogizer on map
     MKMapView *map = (MKMapView*)[self.view viewWithTag:kTagMap];

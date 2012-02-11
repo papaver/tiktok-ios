@@ -594,7 +594,7 @@
 							<object class="IBUIButton" id="155318535">
 								<reference key="NSNextResponder" ref="588732454"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{103, 88}, {106, 29}}</string>
+								<string key="NSFrame">{{103, 88}, {108, 29}}</string>
 								<reference key="NSSuperview" ref="588732454"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="526685503"/>
@@ -608,13 +608,13 @@
 								<int key="IBUIButtonType">1</int>
 								<double key="IBUIContentEdgeInsets.top">2</double>
 								<double key="IBUIContentEdgeInsets.bottom">0.0</double>
-								<double key="IBUIContentEdgeInsets.left">2</double>
+								<double key="IBUIContentEdgeInsets.left">0.0</double>
 								<double key="IBUIContentEdgeInsets.right">0.0</double>
 								<double key="IBUITitleEdgeInsets.top">2</double>
 								<double key="IBUITitleEdgeInsets.bottom">0.0</double>
-								<double key="IBUITitleEdgeInsets.left">2</double>
+								<double key="IBUITitleEdgeInsets.left">0.0</double>
 								<double key="IBUITitleEdgeInsets.right">0.0</double>
-								<int key="IBUILineBreakMode">2</int>
+								<int key="IBUILineBreakMode">4</int>
 								<string key="IBUITitleShadowOffset">{0, 1}</string>
 								<string key="IBUINormalTitle">AB1234</string>
 								<reference key="IBUIHighlightedTitleColor" ref="377613849"/>
@@ -1072,7 +1072,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="0.0"/>
+					<real value="1"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
