@@ -13,7 +13,6 @@
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
-#import "SBJson.h"
 
 //------------------------------------------------------------------------------
 // forward declarations
@@ -39,32 +38,39 @@ typedef enum _TikTokApiCouponAttribute
 // typedefs
 //------------------------------------------------------------------------------
 
-typedef void (^TikTokApiCompletionHandler)(ASIHTTPRequest*);
+typedef void (^TikTokApiCompletionHandler)(NSDictionary*);
+typedef void (^TikTokApiErrorHandler)(ASIHTTPRequest*);
+
+//------------------------------------------------------------------------------
+// defines
+//------------------------------------------------------------------------------
+
+#define kTikTokApiKeyStatus  @"status"
+#define kTikTokApiKeyError   @"error"
+#define kTikTokApiKeyResults @"results"
+
+#define kTikTokApiStatusOkay      @"OK"
+#define kTikTokApiStatusInvalid   @"INVALID REQUEST"
+#define kTikTokApiStatusForbidden @"FORBIDDEN"
+#define kTikTokApiStatusNotFound  @"NOT FOUND"
 
 //------------------------------------------------------------------------------
 // interface implementation 
 //------------------------------------------------------------------------------
 
-@interface TikTokApi : NSObject <SBJsonStreamParserAdapterDelegate>
+@interface TikTokApi : NSObject
 {
     CGFloat                     mTimeOut;
-    SBJsonStreamParser         *mParser;
-    SBJsonStreamParserAdapter  *mAdapter;
-    NSMutableArray             *mJsonData;
-    SEL                         mParserMethod;
     TikTokApiCompletionHandler  mCompletionHandler;
-    TikTokApiCompletionHandler  mErrorHandler;
+    TikTokApiErrorHandler       mErrorHandler;
     dispatch_queue_t            mQueue;
     NSManagedObjectContext     *mManagedObjectContext;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain)           SBJsonStreamParser         *parser;
-@property (nonatomic, retain)           SBJsonStreamParserAdapter  *adapter;
-@property (nonatomic, retain)           NSMutableArray             *jsonData;
 @property (nonatomic, copy)             TikTokApiCompletionHandler  completionHandler;
-@property (nonatomic, copy)             TikTokApiCompletionHandler  errorHandler;
+@property (nonatomic, copy)             TikTokApiErrorHandler       errorHandler;
 @property (nonatomic, retain, readonly) NSManagedObjectContext     *context;
 @property (nonatomic, assign)           CGFloat                     timeOut;
 

@@ -189,13 +189,15 @@ enum StartupTag
     api.timeOut = mRegistrationTimeout;
 
     // setup a completion handler to save id after server registration
-    api.completionHandler = ^(ASIHTTPRequest* request) { 
+    api.completionHandler = ^(NSDictionary *response) { 
 
         // verify registeration succeeded
-        if (request.responseStatusCode == 200) {
+        NSString *status = [response objectForKey:kTikTokApiKeyStatus];
+        if ([status isEqualToString:kTikTokApiStatusOkay]) {
 
             // grab customer id from api
-            NSString *consumerId = [api.jsonData objectAtIndex:0];
+            NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
+            NSString *consumerId  = $string(@"%@", [results objectForKey:@"id"]);
 
             // cache the customer/device id 
             [Utilities cacheDeviceId:newDeviceId];
@@ -204,10 +206,10 @@ enum StartupTag
             // allow the startup process to continue
             [self runStartupProcess];
             
-        // something went horibbily wrong...
+        // something went horribly wrong...
         } else {
-            NSLog(@"StartupController: registration failed: %@", 
-                [[request error] description]);
+            NSString *error = [response objectForKey:kTikTokApiKeyError];
+            NSLog(@"StartupController: registration failed: %@", error);
             NSString *title   = @"Registration Error";
             NSString *message = @"Failed to register with the server.  Please \
                                 try again later.";
@@ -238,10 +240,18 @@ enum StartupTag
     api.timeOut = mRegistrationTimeout;
 
     // setup a completion handler 
-    api.completionHandler = ^(ASIHTTPRequest* request) { 
+    api.completionHandler = ^(NSDictionary *response) { 
+        bool isRegistered = false;
+
+        // parse out registration status 
+        NSString *status = [response objectForKey:kTikTokApiKeyStatus];
+        if ([status isEqualToString:kTikTokApiStatusOkay]) {
+            NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
+            isRegistered          = [[results objectForKey:@"registered"] boolValue];
+        }
 
         // allow the startup process to continue
-        if (request.responseStatusCode == 200) {
+        if (isRegistered) {
             [self runStartupProcess];
             
         // rerun registration process if server no longer registered
@@ -311,7 +321,7 @@ enum StartupTag
 
     // trigger completion handler
     NSDate *lastUpdate    = [NSDate date];
-    api.completionHandler = ^(ASIHTTPRequest* request) { 
+    api.completionHandler = ^(NSDictionary *response) { 
         if (!mPause) {
             if (self.completionHandler) self.completionHandler();
         }

@@ -16,6 +16,7 @@
 #import "ASIFormDataRequest.h"
 #import "Coupon.h"
 #import "Database.h"
+#import "JSONKit.h"
 #import "Merchant.h"
 #import "Utilities.h"
 
@@ -25,9 +26,8 @@
 
 @interface TikTokApi ()
     + (NSString*) apiUrlPath;
-    - (void) parseData:(NSData*)data;
-    - (void) parseRegistrationId:(NSDictionary*)data;
     - (void) parseCouponData:(NSDictionary*)data;
+    - (void) parseCoupon:(NSDictionary*)couponData;
     - (void) syncManagedObjects:(NSNotification*)notification;
 @end
 
@@ -40,9 +40,6 @@
 //------------------------------------------------------------------------------
 
 @synthesize timeOut           = mTimeOut;
-@synthesize adapter           = mAdapter;
-@synthesize parser            = mParser;
-@synthesize jsonData          = mJsonData;
 @synthesize completionHandler = mCompletionHandler;
 @synthesize errorHandler      = mErrorHandler;
 
@@ -64,17 +61,6 @@
     self = [super init];
     if (self) {
 
-        // setup the json parser adapter
-        self.adapter          = [SBJsonStreamParserAdapter new];
-        self.adapter.delegate = self;
-
-        // setup the json parser
-        self.parser          = [SBJsonStreamParser new];
-        self.parser.delegate = self.adapter;
-
-        // initialize merchant array
-        self.jsonData = [[NSMutableArray alloc] init];
-
         // setup the job queue
         mQueue = dispatch_queue_create("com.tiktok.tiktok.api", NULL);
 
@@ -90,16 +76,7 @@
 - (void) dealloc
 {
     dispatch_release(mQueue);
-     
-    mAdapter.delegate = nil;
-    mParser.delegate  = nil;
-
-    [mAdapter  release];
-    [mParser   release];
-    [mJsonData release];
-
     [mManagedObjectContext release];
-
     [super dealloc];
 }
 
@@ -138,13 +115,8 @@
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
-
-        // parse data
-        mParserMethod = NSSelectorFromString(@"parseRegistrationId:");
-        [self parseData:[request responseData]];
-
-        // run handler
-        if (self.completionHandler) self.completionHandler(request);
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
     }];
 
     // set error handler
@@ -153,9 +125,6 @@
         if (self.errorHandler) self.errorHandler(request);
     }];
 
-    // clear out the cache
-    [self.jsonData removeAllObjects];
- 
     // initiate the request
     [request startAsynchronous];
 }
@@ -174,7 +143,8 @@
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
-        if (self.completionHandler) self.completionHandler(request);
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
     }];
 
     // set error handler
@@ -206,7 +176,8 @@
     [request setRequestMethod:@"PUT"];
     [request setPostValue:tokenTrimmed forKey:@"token"];
     [request setCompletionBlock:^{
-        if (self.completionHandler) self.completionHandler(request);
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
     }];
 
     // set error handler
@@ -248,13 +219,15 @@
 
         // parse the data on another thread
         dispatch_async(mQueue, ^(void) {
-            mParserMethod = NSSelectorFromString(@"parseCouponData:");
-            [self parseData:[request responseData]];
+
+            // convert the json data into managed objects
+            NSDictionary *response = [[request responseData] objectFromJSONData];
+            [self parseCouponData:response];
 
             // run completion handler and cleanup notification registration
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 [notificationCenter removeObserver:self];
-                if (self.completionHandler) self.completionHandler(request);
+                if (self.completionHandler) self.completionHandler(response);
             });
         });  
     }];
@@ -301,7 +274,8 @@
     [request setPostValue:latitude forKey:@"latitude"];
     [request setPostValue:longitude forKey:@"longitude"];
     [request setCompletionBlock:^{
-        if (self.completionHandler) self.completionHandler(request);
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
     }];
 
     // set error handler
@@ -336,7 +310,8 @@
 
     // set completion handler
     [request setCompletionBlock:^{
-        if (self.completionHandler) self.completionHandler(request);
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
     }];
 
     // set error handler
@@ -420,7 +395,8 @@
     [request setRequestMethod:@"PUT"];
     [request setPostValue:one forKey:mapping.attr];
     [request setCompletionBlock:^{
-        if (self.completionHandler) self.completionHandler(request);
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
     }];
 
     // set error handler
@@ -435,83 +411,39 @@
 }
 
 //------------------------------------------------------------------------------
+#pragma mark - Json Parserers
+//------------------------------------------------------------------------------
 
-/** 
- * Parse the given data using the SBJson parser. 
- */ 
-- (void) parseData:(NSData*)data
+- (void) parseCouponData:(NSDictionary*)response
 {
-    // parse the json results
-    SBJsonStreamParserStatus status = [self.parser parse:data];
-    if (status == SBJsonStreamParserError) {
-        NSLog(@"json parser error: %@", self.parser.error);
-    } else if (status == SBJsonStreamParserWaitingForData) {
-        NSLog(@"json parser: waiting for more data.");
+    NSString *status = [response objectForKey:kTikTokApiKeyStatus];
+    if ([status isEqualToString:kTikTokApiStatusOkay]) {
+        NSArray *results = [response objectForKey:kTikTokApiKeyResults];
+        for (NSDictionary *couponData in results) {
+            [self parseCoupon:couponData];
+        }
     }
-
-    //NSLog(@"TikTokApi: data -> %@", 
-        //[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
-}
-
-//------------------------------------------------------------------------------
-#pragma mark - Custom JSON Parserers
-//------------------------------------------------------------------------------
-
-- (void) parseRegistrationId:(NSDictionary*)data
-{
-    NSNumber *customerId = [data objectForKey:@"id"];
-    NSLog(@"TikTokApi: parsed customer id -> %@", customerId);
-    [self.jsonData addObject:$string(@"%@", customerId)];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) parseCouponData:(NSDictionary*)data
+- (void) parseCoupon:(NSDictionary*)couponData
 {
     // create merchant from json 
-    NSDictionary *merchantData = [data objectForKey:@"merchant"];
+    NSDictionary *merchantData = [couponData objectForKey:@"merchant"];
     Merchant *merchant = 
         [Merchant getOrCreateMerchantWithJsonData:merchantData 
                                       fromContext:self.context];
 
-    // skip out if we can't retrive a merchant from the checkin
+    // skip out if we can't retrive a merchant from the coupon
     if (merchant == nil) {
         NSLog(@"failed to parse merchant.");
         return;
     }
 
     // create coupon from json
-    Coupon *coupon = [Coupon getOrCreateCouponWithJsonData:data 
-                                               fromContext:self.context];
-    
-    // save coupon in cache
-    [self.jsonData addObject:coupon];
-}
-
-//------------------------------------------------------------------------------
-#pragma mark - SBJsonStreamParserAdapterDelegate
-//------------------------------------------------------------------------------
-
-/**
- * Called when a JSON array is found.
- */
-- (void) parser:(SBJsonStreamParser*)parser foundArray:(NSArray*)array
-{
-    //NSLog(@"json: array found.");
-    for (NSDictionary *data in array) {
-        [self performSelector:mParserMethod withObject:data];
-    }
-}
-
-//------------------------------------------------------------------------------
-
-/**
- * Called when a JSON object is found.
- */
-- (void) parser:(SBJsonStreamParser*)parser foundObject:(NSDictionary*)dict
-{
-    //NSLog(@"json: dictionary found.");
-    [self performSelector:mParserMethod withObject:dict];
+    [Coupon getOrCreateCouponWithJsonData:couponData 
+                              fromContext:self.context];
 }
 
 //------------------------------------------------------------------------------

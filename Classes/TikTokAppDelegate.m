@@ -11,7 +11,6 @@
 //------------------------------------------------------------------------------
 
 #import "TikTokAppDelegate.h"
-#import "ASIHTTPRequest.h"
 #import "Constants.h"
 #import "Database.h"
 #import "FacebookManager.h"
@@ -163,8 +162,9 @@
         TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
 
         // setup completion handler
-        api.completionHandler = ^(ASIHTTPRequest *request){
-            if (request.responseStatusCode == 200) {
+        api.completionHandler = ^(NSDictionary* response) {
+            NSString *status = [response objectForKey:kTikTokApiKeyStatus];
+            if ([status isEqualToString:kTikTokApiStatusOkay]) {
                 NSLog(@"Notifications: Caching new token %@", newToken);
                 [Utilities cacheNotificationToken:newToken];
             }

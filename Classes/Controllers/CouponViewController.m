@@ -905,7 +905,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     // setup api object
     NSDate *lastUpdate     = [NSDate date];
     __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    api.completionHandler  = ^(ASIHTTPRequest *request) {
+    api.completionHandler  = ^(NSDictionary *response) {
         [self doneLoadingTableViewData];
         [[Settings getInstance] setLastUpdate:lastUpdate];
     };
