@@ -239,25 +239,21 @@
     [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
 
-        // parse data
+        // add notifications to allow updating of main context
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self
+                            selector:@selector(syncManagedObjects:)
+                                name:NSManagedObjectContextDidSaveNotification
+                                object:self.context];
+
+        // parse the data on another thread
         dispatch_async(mQueue, ^(void) {
-
-            // add notifications to allow updating of main context
-            NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-            [notificationCenter addObserver:self
-                                selector:@selector(syncManagedObjects:)
-                                    name:NSManagedObjectContextDidSaveNotification
-                                    object:self.context];
-
-            // parse the objects
             mParserMethod = NSSelectorFromString(@"parseCouponData:");
             [self parseData:[request responseData]];
 
-            // cleanup notifications
-            [notificationCenter removeObserver:self];
-
-            // run handler
+            // run completion handler and cleanup notification registration
             dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [notificationCenter removeObserver:self];
                 if (self.completionHandler) self.completionHandler(request);
             });
         });  
