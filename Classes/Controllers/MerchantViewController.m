@@ -73,7 +73,7 @@ enum MerchantTags
     self.title = @"Merchant";
 
     // tag testflight checkpoint
-    [TestFlight passCheckpointOnce:@"Merchant"];
+    [Analytics passCheckpoint:@"Merchant"];
 }
 
 //------------------------------------------------------------------------------
@@ -236,7 +236,7 @@ enum MerchantTags
 
 - (void) presentWebsite:(NSString*)url
 {
-    [TestFlight passCheckpointOnce:@"Merchant Website"];
+    [Analytics passCheckpoint:@"Merchant Website"];
 
     // setup a webview controller
     WebViewController *controller = [[WebViewController alloc] init];
@@ -254,7 +254,7 @@ enum MerchantTags
 
 - (IBAction) clickAddress:(id)sender
 {
-    [TestFlight passCheckpointOnce:@"Merchant Address"];
+    [Analytics passCheckpoint:@"Merchant Address"];
 
     NSString *address = [self.merchant.address
         stringByReplacingOccurrencesOfString:@" " 
@@ -268,7 +268,7 @@ enum MerchantTags
 
 - (IBAction) clickPhone:(id)sender
 {
-    [TestFlight passCheckpointOnce:@"Merchant Phone"];
+    [Analytics passCheckpoint:@"Merchant Phone"];
 
     // construct message for verify phone call
     NSString *title   = $string(@"Calling %@", self.merchant.name);

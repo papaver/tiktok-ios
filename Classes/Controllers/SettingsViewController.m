@@ -125,7 +125,7 @@ enum ViewTags
     // setup navigation info
     self.title = @"Settings";
 
-    [TestFlight passCheckpointOnce:@"Settings"];
+    [Analytics passCheckpoint:@"Settings"];
     
     // load available data
     Settings *settings      = [Settings getInstance];
@@ -338,7 +338,7 @@ enum ViewTags
 
 - (void) setupTutorialStageComplete
 {
-    [TestFlight passCheckpointOnce:@"Settings Tutorial Complete"];
+    [Analytics passCheckpoint:@"Settings Tutorial Complete"];
 
     // grab all the tutorial elements
     UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
@@ -474,7 +474,7 @@ enum ViewTags
 
 - (void) facebookConnect
 {
-    [TestFlight passCheckpointOnce:@"Settings Facebook Connect"];
+    [Analytics passCheckpoint:@"Settings Facebook Connect"];
 
     FacebookManager *manager = [FacebookManager getInstance];
     if (![manager.facebook isSessionValid]) {
@@ -488,7 +488,7 @@ enum ViewTags
 
 - (void) facebookLogout
 {
-    [TestFlight passCheckpointOnce:@"Settings Facebook Logout"];
+    [Analytics passCheckpoint:@"Settings Facebook Logout"];
 
     FacebookManager *manager = [FacebookManager getInstance];
     if ([manager.facebook isSessionValid]) {
@@ -518,7 +518,7 @@ enum ViewTags
 
 - (IBAction) saveName:(id)sender
 {
-    [TestFlight passCheckpointOnce:@"Settings Name"];
+    [Analytics passCheckpoint:@"Settings Name"];
 
     UITextField *nameField = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
     Settings *settings     = [Settings getInstance];
@@ -529,7 +529,7 @@ enum ViewTags
 
 - (IBAction) saveEmail:(id)sender
 {
-    [TestFlight passCheckpointOnce:@"Settings Email"];
+    [Analytics passCheckpoint:@"Settings Email"];
 
     UITextField *emailField = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
     Settings *settings      = [Settings getInstance];
@@ -857,7 +857,7 @@ enum ViewTags
 
 - (void) updateGenderAtIndexPath:(NSIndexPath*)indexPath
 {
-    [TestFlight passCheckpointOnce:@"Settings Gender"];
+    [Analytics passCheckpoint:@"Settings Gender"];
 
     // create a string picker controller
     StringPickerViewController *controller = [[StringPickerViewController alloc] 
@@ -888,7 +888,7 @@ enum ViewTags
 
 - (void) updateBirthdayAtIndexPath:(NSIndexPath*)indexPath
 {
-    [TestFlight passCheckpointOnce:@"Settings Birthday"];
+    [Analytics passCheckpoint:@"Settings Birthday"];
 
     // update the date picker with the current birthday or use default
     NSDate *birthday        = [[Settings getInstance] birthday];
@@ -903,7 +903,7 @@ enum ViewTags
 
 - (void) updateWorkLocationAtIndexPath:(NSIndexPath*)indexPath
 {
-    [TestFlight passCheckpointOnce:@"Settings Work Location"];
+    [Analytics passCheckpoint:@"Settings Work Location"];
 
     // create a location picker
     LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
@@ -945,7 +945,7 @@ enum ViewTags
 
 - (void) updateHomeLocationAtIndexPath:(NSIndexPath*)indexPath
 {
-    [TestFlight passCheckpointOnce:@"Settings Home Location"];
+    [Analytics passCheckpoint:@"Settings Home Location"];
 
     // create a location picker
     LocationPickerViewController *controller = [[LocationPickerViewController alloc] 

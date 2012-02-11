@@ -104,7 +104,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:19];
 
     // tag testflight checkpoint
-    [TestFlight passCheckpointOnce:@"Deals"];
+    [Analytics passCheckpoint:@"Deals"];
 
     // add navitems
     [self setupFilterButtons];
@@ -898,7 +898,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     // don't try to reload twice
     if (mReloading) return;
 
-    [TestFlight passCheckpointOnce:@"Deal Header Reload"];
+    [Analytics passCheckpoint:@"Deal Header Reload"];
 
     mReloading = YES;
 
@@ -988,7 +988,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) filterDealsRedeemed:(id)sender
 {
-    [TestFlight passCheckpointOnce:@"Deal Filter Redeemed"];
+    [Analytics passCheckpoint:@"Deal Filter Redeemed"];
 
     // deselect segment
     [sender setSelectedSegmentIndex:-1];
@@ -1015,7 +1015,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) filterDealsActive:(id)sender
 {
-    [TestFlight passCheckpointOnce:@"Deal Filter Active"];
+    [Analytics passCheckpoint:@"Deal Filter Active"];
 
     // deselect segment
     [sender setSelectedSegmentIndex:-1];

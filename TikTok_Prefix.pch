@@ -20,8 +20,7 @@
     #import "UIAlertView+Handlers.h"
     #import "MFMailComposeViewController+Handlers.h"
     #import "MFMessageComposeViewController+Handlers.h"
+    #import "Debug.h"
     #import "Macros.h"
-    #import "TestFlight.h"
-    #import "TestFlight+Extensions.h"
-    #import "FlurryAnalytics.h"
+    #import "Analytics.h"
 #endif

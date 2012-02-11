@@ -197,7 +197,7 @@
                               $array([gender substringToIndex:1]))];
     
     // save analytics data
-    [FlurryAnalytics setGender:[[gender substringToIndex:1] lowercaseString]];
+    [Analytics setUserGender:gender];
 }
 
 //-----------------------------------------------------------------------------
@@ -237,13 +237,8 @@
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     [api updateSettings:$dict($array(@"birthday"), $array(self.birthdayStr))];
 
-    // save analytics data
-    NSDateComponents* ageComponents = 
-        [[NSCalendar currentCalendar] components:NSYearCalendarUnit 
-                                        fromDate:birthday
-                                          toDate:[NSDate date]
-                                         options:0];
-    [FlurryAnalytics setAge:ageComponents.year];
+    // update analytics
+    [Analytics setUserAgeWithBirthday:birthday];
 }
 
 //-----------------------------------------------------------------------------

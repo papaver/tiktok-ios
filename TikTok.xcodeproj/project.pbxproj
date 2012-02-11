@@ -185,6 +185,7 @@
 		2EA2286214CDE19F00466166 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2EA2285F14CDE19F00466166 /* SVProgressHUD.bundle */; };
 		2EA2286314CDE19F00466166 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2286114CDE19F00466166 /* SVProgressHUD.m */; };
 		2EA2286A14CDEEF500466166 /* NetworkConnectivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA2286914CDEEF500466166 /* NetworkConnectivity.m */; };
+		2EAE8A8314E5F74400076EDA /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAE8A8214E5F74400076EDA /* Analytics.m */; };
 		2EB7525A14E06B8B009FC332 /* 193-location-arrow-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB7525814E06B8B009FC332 /* 193-location-arrow-bar.png */; };
 		2EB7525B14E06B8B009FC332 /* 193-location-arrow-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB7525914E06B8B009FC332 /* 193-location-arrow-bar@2x.png */; };
 		2EB87EC9149FA96700F01C26 /* InitalLoadingSplash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */; };
@@ -565,6 +566,9 @@
 		2EA2286114CDE19F00466166 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		2EA2286814CDEEF500466166 /* NetworkConnectivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkConnectivity.h; sourceTree = "<group>"; };
 		2EA2286914CDEEF500466166 /* NetworkConnectivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkConnectivity.m; sourceTree = "<group>"; };
+		2EAE8A8114E5F74400076EDA /* Analytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
+		2EAE8A8214E5F74400076EDA /* Analytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
+		2EAE8A8414E6045C00076EDA /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 		2EB7525814E06B8B009FC332 /* 193-location-arrow-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow-bar.png"; sourceTree = "<group>"; };
 		2EB7525914E06B8B009FC332 /* 193-location-arrow-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow-bar@2x.png"; sourceTree = "<group>"; };
 		2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InitalLoadingSplash@2x.png"; sourceTree = "<group>"; };
@@ -1313,8 +1317,11 @@
 		2EC67252148FF6A400AC5CDF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2EAE8A8114E5F74400076EDA /* Analytics.h */,
+				2EAE8A8214E5F74400076EDA /* Analytics.m */,
 				2E201E4414B7AC17001E9051 /* Database.h */,
 				2E201E4514B7AC17001E9051 /* Database.m */,
+				2EAE8A8414E6045C00076EDA /* Debug.h */,
 				2EE5D44614B3D58F00D0539C /* Constants.h */,
 				2EE5D44714B3D58F00D0539C /* FacebookManager.h */,
 				2EE5D44814B3D58F00D0539C /* FacebookManager.m */,
@@ -1903,6 +1910,7 @@
 				2E06473C14DE00C2008283D5 /* WEPopoverContainerView.m in Sources */,
 				2E06473D14DE00C2008283D5 /* WEPopoverController.m in Sources */,
 				2E06473E14DE00C2008283D5 /* WETouchableView.m in Sources */,
+				2EAE8A8314E5F74400076EDA /* Analytics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -287,7 +287,7 @@ enum kViewTag
 - (void) shakeTikTok
 {
     // tag testflight checkpoint
-    [TestFlight passCheckpointOnce:@"TikTokMartini"];
+    [Analytics passCheckpoint:@"TikTokMartini"];
 
     // setup the world
     [self startWorld];

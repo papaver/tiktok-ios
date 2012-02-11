@@ -127,7 +127,7 @@ enum CouponState
     self.title = @"Deal";
 
     // tag testflight checkpoint
-    [TestFlight passCheckpointOnce:@"Deal"];
+    [Analytics passCheckpoint:@"Deal"];
 
     // setup toolbar
     [self setupToolbar];
@@ -468,7 +468,7 @@ enum CouponState
 
 - (void) openMap
 {
-    [TestFlight passCheckpointOnce:@"Deal Map Opened"];
+    [Analytics passCheckpoint:@"Deal Map Opened"];
 
     LocationMapViewController *controller = [[LocationMapViewController alloc] 
         initWithNibName:@"LocationMapViewController" bundle:nil];
@@ -485,7 +485,7 @@ enum CouponState
 
 - (void) expireCoupon
 {
-    [TestFlight passCheckpointOnce:@"Deal Expired"];
+    [Analytics passCheckpoint:@"Deal Expired"];
 
     // update the timer label
     UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
@@ -637,7 +637,7 @@ enum CouponState
                 case MFMailComposeResultSaved:
                     break;
                 case MFMailComposeResultSent: {
-                    [TestFlight passCheckpointOnce:@"Deal Emailed"];
+                    [Analytics passCheckpoint:@"Deal Emailed"];
                     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
                     [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeEmail];
                     break;
@@ -683,7 +683,7 @@ enum CouponState
                                          MessageComposeResult result) {
             switch (result) {
                 case MessageComposeResultSent: {
-                    [TestFlight passCheckpointOnce:@"Deal SMSed"];
+                    [Analytics passCheckpoint:@"Deal SMSed"];
                     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
                     [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeSMS];
                     break;
@@ -760,7 +760,7 @@ enum CouponState
             case TWTweetComposeViewControllerResultCancelled:
                 break;
             case TWTweetComposeViewControllerResultDone: {
-                [TestFlight passCheckpointOnce:@"Deal Tweeted"];
+                [Analytics passCheckpoint:@"Deal Tweeted"];
 
                 // let server know of share
                 TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -817,7 +817,7 @@ enum CouponState
 
 - (void) postDealToFacebook
 {
-    [TestFlight passCheckpointOnce:@"Deal Facebooked"];
+    [Analytics passCheckpoint:@"Deal Facebooked"];
 
     NSString *deal = $string(@"%@ at %@!", self.coupon.title, self.coupon.merchant.name);
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:

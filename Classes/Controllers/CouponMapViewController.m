@@ -88,7 +88,7 @@ NSString *sCouponCacheName = @"coupon_map";
 
     self.title = @"Map";
                 
-    [TestFlight passCheckpointOnce:@"Deal Map"];
+    [Analytics passCheckpoint:@"Deal Map"];
 
     // initialize variables
     NSMutableArray *adds    = [[NSMutableArray alloc] init];
@@ -469,7 +469,7 @@ NSString *sCouponCacheName = @"coupon_map";
 
 - (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation
 {
-    [TestFlight passCheckpointOnce:@"Deal Map Callout"];
+    [Analytics passCheckpoint:@"Deal Map Callout"];
 
     // check for any available annotation views 
     MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView 
@@ -528,7 +528,7 @@ NSString *sCouponCacheName = @"coupon_map";
 
 - (void) getCouponDetails
 {
-    [TestFlight passCheckpointOnce:@"Deal Map Details"];
+    [Analytics passCheckpoint:@"Deal Map Details"];
 
     // get the selected annotation
     NSArray *selectedAnnotations = [self.mapView selectedAnnotations];

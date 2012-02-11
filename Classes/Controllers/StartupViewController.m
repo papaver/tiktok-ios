@@ -71,7 +71,7 @@ enum StartupTag
     [super viewDidLoad];
 
     // tag testflight checkpoint
-    [TestFlight passCheckpointOnce:@"Startup"];
+    [Analytics passCheckpoint:@"Startup"];
 
     // register device with server if no customer id found
     NSString *customerId  = [Utilities getConsumerId];
@@ -157,7 +157,7 @@ enum StartupTag
 - (void) runStartupProcess
 {
     // set user id for analytics session 
-    [FlurryAnalytics setUserID:[Utilities getDeviceId]];
+    [Analytics setUserId:[Utilities getDeviceId]];
 
     // kick of registration for notifications
     [self registerNotifications];
@@ -395,7 +395,7 @@ enum StartupTag
         mPause = true;
 
         // tag testflight checkpoint
-        [TestFlight passCheckpointOnce:@"EasterEgg"];
+        [Analytics passCheckpoint:@"EasterEgg"];
 
         // alert user of easter egg
         NSString *message = @"Congrats! You found the easter egg. You can now toss \
