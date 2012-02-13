@@ -260,6 +260,7 @@ enum StartupTag
             // clean up existing keychain and cached data and 
             // re-register with the server
             [Utilities clearConsumerId];
+            [Utilities clearNotificationToken];
             [self purgeData];
             [self registerDevice];
         }
