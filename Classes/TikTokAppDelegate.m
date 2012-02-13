@@ -199,10 +199,6 @@
     didReceiveLocalNotification:(UILocalNotification*)notification
 {
     NSLog(@"Application did recieve local notification.");
-
-    // update badge number
-    application.applicationIconBadgeNumber = 
-        notification.applicationIconBadgeNumber - 1;
 }
 
 //------------------------------------------------------------------------------
@@ -215,16 +211,19 @@
 {
     NSLog(@"Application did recieve remote notification.");
 
-    // update badge number
+    // cleat out badge
     application.applicationIconBadgeNumber = 0;
 
-    // [moiz] fix up how notifications work...
-
     // sync any newly available coupons
-    //TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    NSDate *lastUpdate     = [NSDate date];
+    __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.completionHandler  = ^(NSDictionary *response) {
+        [[Settings getInstance] setLastUpdate:lastUpdate];
+    };
 
-    //Settings *settings = [Settings getInstance];
-    //[api syncActiveCoupons:settings.lastUpdate];
+    // sync coupons
+    Settings *settings = [Settings getInstance];
+    [api syncActiveCoupons:settings.lastUpdate];
 }
 
 //------------------------------------------------------------------------------
@@ -252,19 +251,19 @@
 - (void) handleNotificationsForApplication:(UIApplication*)application
                                withOptions:(NSDictionary*)launchOptions
 {
+    // clear out badge
+    application.applicationIconBadgeNumber = 0;
+
     // handle local notifications
     UILocalNotification *localNotification =
         [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotification) {
-        application.applicationIconBadgeNumber = 0;
-            //localNotification.applicationIconBadgeNumber - 1;
     }
 
     // handle remote notifications
     NSDictionary *userInfo =
         [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (userInfo) {
-        application.applicationIconBadgeNumber = 0;
     }
 }
 
