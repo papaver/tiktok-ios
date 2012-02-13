@@ -14,6 +14,7 @@
 #import "Constants.h"
 #import "Database.h"
 #import "FacebookManager.h"
+#import "LocationTracker.h"
 #import "TikTokApi.h"
 #import "StartupViewController.h"
 #import "Settings.h"
@@ -103,6 +104,7 @@
 - (void) applicationDidEnterBackground:(UIApplication*)application 
 {
     NSLog(@"Application entered background state.");
+    [LocationTracker stopLocationTracking];
 
     /* local notification example
     [Utilities postLocalNotificationInBackgroundWithBody:@"App entered background"
@@ -119,6 +121,7 @@
  */
 - (void) applicationWillEnterForeground:(UIApplication*)application 
 {
+    [LocationTracker startLocationTracking];
 }
 
 //------------------------------------------------------------------------------
@@ -131,6 +134,7 @@
 - (void) applicationDidBecomeActive:(UIApplication*)application 
 {
     NSLog(@"Application entered foreground state.");
+    [LocationTracker startLocationTracking];
 }
 
 //------------------------------------------------------------------------------
@@ -142,6 +146,7 @@
 - (void) applicationWillTerminate:(UIApplication*)application 
 {
     NSLog(@"Application will terminate.");
+    [LocationTracker stopLocationTracking];
 }
 
 //------------------------------------------------------------------------------
