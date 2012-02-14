@@ -15,6 +15,7 @@
 #import "Database.h"
 #import "IconManager.h"
 #import "LocationTracker.h"
+#import "LocationTracker.h"
 #import "NetworkConnectivity.h"
 #import "Settings.h"
 #import "TikTokApi.h"
@@ -211,8 +212,8 @@ enum StartupTag
             NSString *error = [response objectForKey:kTikTokApiKeyError];
             NSLog(@"StartupController: registration failed: %@", error);
             NSString *title   = @"Registration Error";
-            NSString *message = @"Failed to register with the server.  Please \
-                                try again later.";
+            NSString *message = @"Failed to register with the server.  Please "
+                                @"try again later.";
             [Utilities displaySimpleAlertWithTitle:title
                                         andMessage:message];
         }
