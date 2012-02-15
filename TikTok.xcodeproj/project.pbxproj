@@ -302,6 +302,8 @@
 		2EFB99F114C63FF800FD69E8 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F014C63FF800FD69E8 /* JSONKit.m */; };
 		2EFB99F414C6408C00FD69E8 /* GoogleMapsApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F314C6408C00FD69E8 /* GoogleMapsApi.m */; };
 		2EFB99F714C77B0300FD69E8 /* CouponAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F614C77B0300FD69E8 /* CouponAnnotation.m */; };
+		2EFF7BDB14EB467000632211 /* SoldOutSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BD914EB467000632211 /* SoldOutSash.png */; };
+		2EFF7BDC14EB467000632211 /* SoldOutSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -739,6 +741,8 @@
 		2EFB99F314C6408C00FD69E8 /* GoogleMapsApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleMapsApi.m; sourceTree = "<group>"; };
 		2EFB99F514C77B0300FD69E8 /* CouponAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponAnnotation.h; sourceTree = "<group>"; };
 		2EFB99F614C77B0300FD69E8 /* CouponAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponAnnotation.m; sourceTree = "<group>"; };
+		2EFF7BD914EB467000632211 /* SoldOutSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SoldOutSash.png; sourceTree = "<group>"; };
+		2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SoldOutSash@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -976,6 +980,8 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2EFF7BD914EB467000632211 /* SoldOutSash.png */,
+				2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */,
 				2EC5A54414E4C4290059762C /* TikPin.png */,
 				2EC5A54614E4C70A0059762C /* TikPin@2x.png */,
 				2EC5A54814E4CA740059762C /* TokPin.png */,
@@ -1778,6 +1784,8 @@
 				2EC5A54714E4C70A0059762C /* TikPin@2x.png in Resources */,
 				2EC5A54A14E4CA740059762C /* TokPin.png in Resources */,
 				2EC5A54B14E4CA740059762C /* TokPin@2x.png in Resources */,
+				2EFF7BDB14EB467000632211 /* SoldOutSash.png in Resources */,
+				2EFF7BDC14EB467000632211 /* SoldOutSash@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
