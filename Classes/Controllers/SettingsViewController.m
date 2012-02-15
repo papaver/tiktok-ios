@@ -1093,6 +1093,7 @@ enum ViewTags
     [mEmailCell release];
     [mBirthdayCell release];
     [mTableView release];
+    [mTableData release];
     [super dealloc];
 }
 

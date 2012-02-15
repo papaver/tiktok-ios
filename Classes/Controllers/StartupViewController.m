@@ -15,7 +15,6 @@
 #import "Database.h"
 #import "IconManager.h"
 #import "LocationTracker.h"
-#import "LocationTracker.h"
 #import "NetworkConnectivity.h"
 #import "Settings.h"
 #import "TikTokApi.h"
