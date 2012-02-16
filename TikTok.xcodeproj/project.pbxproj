@@ -304,6 +304,20 @@
 		2EFB99F714C77B0300FD69E8 /* CouponAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F614C77B0300FD69E8 /* CouponAnnotation.m */; };
 		2EFF7BDB14EB467000632211 /* SoldOutSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BD914EB467000632211 /* SoldOutSash.png */; };
 		2EFF7BDC14EB467000632211 /* SoldOutSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */; };
+		2EFF7BDF14EB4E1200632211 /* 17-bar-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BDD14EB4E1200632211 /* 17-bar-chart.png */; };
+		2EFF7BE014EB4E1200632211 /* 17-bar-chart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BDE14EB4E1200632211 /* 17-bar-chart@2x.png */; };
+		2EFF7BE214EB50F000632211 /* KarmaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BE114EB50F000632211 /* KarmaViewController.xib */; };
+		2EFF7BE514EB511E00632211 /* KarmaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF7BE414EB511E00632211 /* KarmaViewController.m */; };
+		2EFF7BEE14EB531100632211 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BE614EB531100632211 /* 18-envelope.png */; };
+		2EFF7BEF14EB531100632211 /* 18-envelope@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BE714EB531100632211 /* 18-envelope@2x.png */; };
+		2EFF7BF014EB531100632211 /* 208-facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BE814EB531100632211 /* 208-facebook.png */; };
+		2EFF7BF114EB531100632211 /* 208-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BE914EB531100632211 /* 208-facebook@2x.png */; };
+		2EFF7BF214EB531100632211 /* 210-twitterbird.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BEA14EB531100632211 /* 210-twitterbird.png */; };
+		2EFF7BF314EB531100632211 /* 210-twitterbird@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BEB14EB531100632211 /* 210-twitterbird@2x.png */; };
+		2EFF7BF414EB531100632211 /* 286-speechbubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BEC14EB531100632211 /* 286-speechbubble.png */; };
+		2EFF7BF514EB531100632211 /* 286-speechbubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BED14EB531100632211 /* 286-speechbubble@2x.png */; };
+		2EFF7BF814EB591B00632211 /* TokKarma.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BF614EB591A00632211 /* TokKarma.png */; };
+		2EFF7BF914EB591B00632211 /* TokKarma@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BF714EB591A00632211 /* TokKarma@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -743,6 +757,21 @@
 		2EFB99F614C77B0300FD69E8 /* CouponAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponAnnotation.m; sourceTree = "<group>"; };
 		2EFF7BD914EB467000632211 /* SoldOutSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SoldOutSash.png; sourceTree = "<group>"; };
 		2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SoldOutSash@2x.png"; sourceTree = "<group>"; };
+		2EFF7BDD14EB4E1200632211 /* 17-bar-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "17-bar-chart.png"; sourceTree = "<group>"; };
+		2EFF7BDE14EB4E1200632211 /* 17-bar-chart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "17-bar-chart@2x.png"; sourceTree = "<group>"; };
+		2EFF7BE114EB50F000632211 /* KarmaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KarmaViewController.xib; sourceTree = "<group>"; };
+		2EFF7BE314EB511E00632211 /* KarmaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KarmaViewController.h; sourceTree = "<group>"; };
+		2EFF7BE414EB511E00632211 /* KarmaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KarmaViewController.m; sourceTree = "<group>"; };
+		2EFF7BE614EB531100632211 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
+		2EFF7BE714EB531100632211 /* 18-envelope@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope@2x.png"; sourceTree = "<group>"; };
+		2EFF7BE814EB531100632211 /* 208-facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "208-facebook.png"; sourceTree = "<group>"; };
+		2EFF7BE914EB531100632211 /* 208-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "208-facebook@2x.png"; sourceTree = "<group>"; };
+		2EFF7BEA14EB531100632211 /* 210-twitterbird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "210-twitterbird.png"; sourceTree = "<group>"; };
+		2EFF7BEB14EB531100632211 /* 210-twitterbird@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "210-twitterbird@2x.png"; sourceTree = "<group>"; };
+		2EFF7BEC14EB531100632211 /* 286-speechbubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "286-speechbubble.png"; sourceTree = "<group>"; };
+		2EFF7BED14EB531100632211 /* 286-speechbubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "286-speechbubble@2x.png"; sourceTree = "<group>"; };
+		2EFF7BF614EB591A00632211 /* TokKarma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokKarma.png; sourceTree = "<group>"; };
+		2EFF7BF714EB591A00632211 /* TokKarma@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokKarma@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -908,12 +937,22 @@
 			children = (
 				2E0B9B1E14D721E600DBC86C /* 15-tags.png */,
 				2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */,
+				2EFF7BDD14EB4E1200632211 /* 17-bar-chart.png */,
+				2EFF7BDE14EB4E1200632211 /* 17-bar-chart@2x.png */,
+				2EFF7BE614EB531100632211 /* 18-envelope.png */,
+				2EFF7BE714EB531100632211 /* 18-envelope@2x.png */,
 				2E0B9B1F14D721E600DBC86C /* 103-map.png */,
 				2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */,
 				2E0B9B2014D721E600DBC86C /* 123-id-card.png */,
 				2E89C2E014DBCB2B0052751D /* 123-id-card@2x.png */,
 				2EB7525814E06B8B009FC332 /* 193-location-arrow-bar.png */,
 				2EB7525914E06B8B009FC332 /* 193-location-arrow-bar@2x.png */,
+				2EFF7BE814EB531100632211 /* 208-facebook.png */,
+				2EFF7BE914EB531100632211 /* 208-facebook@2x.png */,
+				2EFF7BEA14EB531100632211 /* 210-twitterbird.png */,
+				2EFF7BEB14EB531100632211 /* 210-twitterbird@2x.png */,
+				2EFF7BEC14EB531100632211 /* 286-speechbubble.png */,
+				2EFF7BED14EB531100632211 /* 286-speechbubble@2x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -966,6 +1005,7 @@
 				2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */,
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
 				28F335F01007B36200424DE2 /* CouponViewController.xib */,
+				2EFF7BE114EB50F000632211 /* KarmaViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
@@ -980,6 +1020,8 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2EFF7BF614EB591A00632211 /* TokKarma.png */,
+				2EFF7BF714EB591A00632211 /* TokKarma@2x.png */,
 				2EFF7BD914EB467000632211 /* SoldOutSash.png */,
 				2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */,
 				2EC5A54414E4C4290059762C /* TikPin.png */,
@@ -1483,6 +1525,8 @@
 				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
 				2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */,
 				2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */,
+				2EFF7BE314EB511E00632211 /* KarmaViewController.h */,
+				2EFF7BE414EB511E00632211 /* KarmaViewController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
 				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
 				2E31269414C8DFFE00477805 /* LocationPickerViewController.h */,
@@ -1786,6 +1830,19 @@
 				2EC5A54B14E4CA740059762C /* TokPin@2x.png in Resources */,
 				2EFF7BDB14EB467000632211 /* SoldOutSash.png in Resources */,
 				2EFF7BDC14EB467000632211 /* SoldOutSash@2x.png in Resources */,
+				2EFF7BDF14EB4E1200632211 /* 17-bar-chart.png in Resources */,
+				2EFF7BE014EB4E1200632211 /* 17-bar-chart@2x.png in Resources */,
+				2EFF7BE214EB50F000632211 /* KarmaViewController.xib in Resources */,
+				2EFF7BEE14EB531100632211 /* 18-envelope.png in Resources */,
+				2EFF7BEF14EB531100632211 /* 18-envelope@2x.png in Resources */,
+				2EFF7BF014EB531100632211 /* 208-facebook.png in Resources */,
+				2EFF7BF114EB531100632211 /* 208-facebook@2x.png in Resources */,
+				2EFF7BF214EB531100632211 /* 210-twitterbird.png in Resources */,
+				2EFF7BF314EB531100632211 /* 210-twitterbird@2x.png in Resources */,
+				2EFF7BF414EB531100632211 /* 286-speechbubble.png in Resources */,
+				2EFF7BF514EB531100632211 /* 286-speechbubble@2x.png in Resources */,
+				2EFF7BF814EB591B00632211 /* TokKarma.png in Resources */,
+				2EFF7BF914EB591B00632211 /* TokKarma@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1919,6 +1976,7 @@
 				2E06473D14DE00C2008283D5 /* WEPopoverController.m in Sources */,
 				2E06473E14DE00C2008283D5 /* WETouchableView.m in Sources */,
 				2EAE8A8314E5F74400076EDA /* Analytics.m in Sources */,
+				2EFF7BE514EB511E00632211 /* KarmaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
