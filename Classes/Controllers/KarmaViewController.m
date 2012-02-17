@@ -73,10 +73,13 @@ enum TableRow
  */
 - (void) viewDidLoad
 {
+    [Analytics passCheckpoint:@"Karma"];
+
     // setup navigation info
     self.title = @"Karma";
 
-    [Analytics passCheckpoint:@"Karma"];
+    // [iOS4] fix for black corners 
+    self.tableView.backgroundColor = [UIColor clearColor];
 
     // setup a dictionary for each naming of the rows
     mTableData = [$array(@"Twitter", @"Facebook", @"SMS", @"Email") retain];

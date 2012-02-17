@@ -122,10 +122,13 @@ enum ViewTags
  */
 - (void) viewDidLoad
 {
+    [Analytics passCheckpoint:@"Settings"];
+
     // setup navigation info
     self.title = @"Settings";
 
-    [Analytics passCheckpoint:@"Settings"];
+    // [iOS4] fix for black corners 
+    self.tableView.backgroundColor = [UIColor clearColor];
     
     // load available data
     Settings *settings      = [Settings getInstance];
