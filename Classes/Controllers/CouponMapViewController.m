@@ -150,7 +150,11 @@ NSString *sCouponCacheName = @"coupon_map";
                                          style:UIBarButtonItemStyleBordered 
                                         target:self 
                                         action:@selector(centerMapUserLocation)];
-    currentLocationButton.tintColor = [UIColor blueColor];
+
+    // [iOS4] tintColor not available
+    if ($has_selector(currentLocationButton, setTintColor:)) {
+        currentLocationButton.tintColor = [UIColor blueColor];
+    }
 
     // add to navbar
     self.navigationItem.rightBarButtonItem = currentLocationButton;
