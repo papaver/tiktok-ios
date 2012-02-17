@@ -92,11 +92,20 @@
     if (mManagedObjectContext != nil)  return mManagedObjectContext;
 
     // allocate the object context and attach it to the persistant storage
-    Database *database    = [Database getInstance];
+    Database *database = [Database getInstance];
     if (database.context != nil) {
-        mManagedObjectContext = [[NSManagedObjectContext alloc] 
-            initWithConcurrencyType:NSConfinementConcurrencyType]; 
-        [mManagedObjectContext setPersistentStoreCoordinator:database.coordinator];
+
+        // [iOS4] concurrency type only exists in 5.0+
+        NSManagedObjectContext *context = [NSManagedObjectContext alloc];
+        if ($has_selector(context, initWithConcurrencyType:)) {
+            context = [context initWithConcurrencyType:NSConfinementConcurrencyType];
+        } else {
+            context = [context init];
+        }
+
+        // set the presistance store and save cache the context
+        [context setPersistentStoreCoordinator:database.coordinator];
+        mManagedObjectContext = [context retain];
     }
 
     return mManagedObjectContext;
