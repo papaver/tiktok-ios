@@ -65,6 +65,7 @@
 						<string key="NSFrameSize">{320, 367}</string>
 						<reference key="NSSuperview" ref="256432315"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="757781593">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -109,6 +110,7 @@
 				<string key="NSFrameSize">{320, 140}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:567</string>
 				<int key="IBUIContentMode">1</int>
 				<int key="IBUITag">9</int>
@@ -117,10 +119,6 @@
 					<integer value="260" key="IBUIAccessibilityTraits"/>
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-				<object class="NSCustomResource" key="IBUIImage">
-					<string key="NSClassName">NSImage</string>
-					<string key="NSResourceName">CellBackground.png</string>
-				</object>
 			</object>
 			<object class="IBUITableViewCell" id="797280367">
 				<reference key="NSNextResponder"/>
@@ -130,25 +128,6 @@
 						<reference key="NSNextResponder" ref="797280367"/>
 						<int key="NSvFlags">256</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIImageView" id="242410823">
-								<reference key="NSNextResponder" ref="569878545"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 10}, {118, 118}}</string>
-								<reference key="NSSuperview" ref="569878545"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="506098075"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
-									<integer value="260" key="IBUIAccessibilityTraits"/>
-									<boolean value="YES" key="IBUIIsAccessibilityElement"/>
-								</object>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">CellIcon.png</string>
-								</object>
-							</object>
 							<object class="IBUIView" id="506098075">
 								<reference key="NSNextResponder" ref="569878545"/>
 								<int key="NSvFlags">292</int>
@@ -235,15 +214,11 @@
 								<string key="NSFrameSize">{75, 75}</string>
 								<reference key="NSSuperview" ref="569878545"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="242410823"/>
+								<reference key="NSNextKeyView" ref="506098075"/>
 								<string key="NSReuseIdentifierKey">_NS:567</string>
 								<int key="IBUITag">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">RedeemedSash.png</string>
-								</object>
 							</object>
 							<object class="IBUILabel" id="1048311229">
 								<reference key="NSNextResponder" ref="569878545"/>
@@ -320,6 +295,7 @@
 								<string key="NSFrame">{{132, 102}, {160, 21}}</string>
 								<reference key="NSSuperview" ref="569878545"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -453,7 +429,6 @@
 						<int key="objectID">6</int>
 						<reference key="object" ref="797280367"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="242410823"/>
 							<reference ref="506098075"/>
 							<reference ref="425454158"/>
 							<reference ref="564135386"/>
@@ -462,12 +437,6 @@
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Coupon TableView's Cell</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">10</int>
-						<reference key="object" ref="242410823"/>
-						<reference key="parent" ref="797280367"/>
-						<string key="objectName">Icon Background</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">14</int>
@@ -555,7 +524,6 @@
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -628,12 +596,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="CellBackground.png">{320, 138}</string>
-			<string key="CellIcon.png">{115, 118}</string>
-			<string key="CouponTableBackground.png">{319, 416}</string>
-			<string key="RedeemedSash.png">{105, 105}</string>
-		</dictionary>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">CouponTableBackground.png</string>
+			<string key="NS.object.0">{319, 416}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>
 </archive>

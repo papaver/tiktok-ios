@@ -402,6 +402,12 @@ static NSString *sCouponCacheName = @"coupon_table";
         NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:self.cellView];
         cell = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
         cell.selectionStyle  = UITableViewCellSelectionStyleBlue;
+
+        // [iOS4] UIImage can't be archived/unarchived, set images manually
+        UIImageView *redeemedSash = (UIImageView*)[cell viewWithTag:kTagRedeemedSash];
+        redeemedSash.image        = [UIImage imageNamed:@"RedeemedSash.png"];
+        UIImageView *background   = (UIImageView*)[cell backgroundView];
+        background.image          = [UIImage imageNamed:@"CellBackground.png"];
     }
 
     // configure the cell 
