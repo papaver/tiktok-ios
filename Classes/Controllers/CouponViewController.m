@@ -185,7 +185,6 @@ static NSString *sCouponCacheName = @"coupon_table";
     // create active button
     UISegmentedControl *activeButton   = 
         [[UISegmentedControl alloc] initWithItems:$array(@"Active Only")];
-    //activeButton.momentary             = YES;
     activeButton.tag                   = kTagActiveFilter;
     activeButton.tintColor             = [UIColor darkGrayColor];
     activeButton.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -196,7 +195,6 @@ static NSString *sCouponCacheName = @"coupon_table";
     // create redeemed button
     UISegmentedControl *redeemedButton   = 
         [[UISegmentedControl alloc] initWithItems:$array(@"Redeemed Only")];
-    //redeemedButton.momentary             = YES;
     redeemedButton.tag                   = kTagRedeemedFilter;
     redeemedButton.tintColor             = [UIColor darkGrayColor];
     redeemedButton.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -996,8 +994,13 @@ static NSString *sCouponCacheName = @"coupon_table";
 {
     [Analytics passCheckpoint:@"Deal Filter Redeemed"];
 
+    // [iOS4] deselecting causes another event to be trigged nullifing the result
+    if ([sender selectedSegmentIndex] == UISegmentedControlNoSegment) {
+        return;
+    }
+
     // deselect segment
-    [sender setSelectedSegmentIndex:-1];
+    [sender setSelectedSegmentIndex:UISegmentedControlNoSegment];
 
     // grab the filter buttons
     UIView *parentView = [sender superview];
@@ -1023,8 +1026,13 @@ static NSString *sCouponCacheName = @"coupon_table";
 {
     [Analytics passCheckpoint:@"Deal Filter Active"];
 
+    // [iOS4] deselecting causes another event to be trigged nullifing the result
+    if ([sender selectedSegmentIndex] == UISegmentedControlNoSegment) {
+        return;
+    }
+
     // deselect segment
-    [sender setSelectedSegmentIndex:-1];
+    [sender setSelectedSegmentIndex:UISegmentedControlNoSegment];
 
     // grab the filter buttons
     UIView *parentView = [sender superview];
