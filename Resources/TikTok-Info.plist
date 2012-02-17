@@ -57,8 +57,9 @@
 	<string>MainWindow</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>UnitedSansReg-Bold.otf</string>
+		<string>BradleyHandITCTTBold.ttf</string>
 		<string>NeutraDisp-BoldAlt.otf</string>
+		<string>UnitedSansReg-Bold.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

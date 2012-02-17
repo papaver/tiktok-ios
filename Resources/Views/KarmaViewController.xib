@@ -64,6 +64,7 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
+						<int key="IBUITag">4</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string type="base64-UTF8" key="IBUIText">U2hhcmUgRGVhbHMsIEVhcm4gS2FybWEsCkJlIFJld2FyZGVkIGZvciBZb3VyIExveWFsdHkhA</string>

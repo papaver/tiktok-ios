@@ -18,11 +18,12 @@
 // enums
 //------------------------------------------------------------------------------
 
-enum CellViewTag
+enum ViewTag
 {
-    kTagIcon     = 1,
-    kTagTitle    = 2,
-    kTagSubtitle = 3,
+    kTagIcon      = 1,
+    kTagTitle     = 2,
+    kTagSubtitle  = 3,
+    kTagKarmaCopy = 4,
 };
 
 enum TableRow
@@ -80,6 +81,12 @@ enum TableRow
 
     // [iOS4] fix for black corners 
     self.tableView.backgroundColor = [UIColor clearColor];
+
+    // [OS4] fix for missing font bradley hand bold
+    UILabel *copy = (UILabel*)[self.view viewWithTag:kTagKarmaCopy];
+    if (copy.font == nil) {
+        copy.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
+    }
 
     // setup a dictionary for each naming of the rows
     mTableData = [$array(@"Twitter", @"Facebook", @"SMS", @"Email") retain];

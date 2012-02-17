@@ -146,6 +146,7 @@
 		2E6FC61314D9C93400DA36E9 /* fbConnect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */; };
 		2E6FC61414D9C93400DA36E9 /* fbLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6FC61014D9C93400DA36E9 /* fbLogout.png */; };
 		2E6FC61514D9C93400DA36E9 /* fbLogout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6FC61114D9C93400DA36E9 /* fbLogout@2x.png */; };
+		2E79792914EEEB9F0007D8C9 /* BradleyHandITCTTBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E79792814EEEB9F0007D8C9 /* BradleyHandITCTTBold.ttf */; };
 		2E7DBE1D14A25DC1002F6187 /* TikTokPhysicsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */; };
 		2E7DBE2214A263E2002F6187 /* TikShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1E14A263E2002F6187 /* TikShaken.png */; };
 		2E7DBE2314A263E2002F6187 /* TikShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */; };
@@ -534,6 +535,7 @@
 		2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fbConnect@2x.png"; sourceTree = "<group>"; };
 		2E6FC61014D9C93400DA36E9 /* fbLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fbLogout.png; sourceTree = "<group>"; };
 		2E6FC61114D9C93400DA36E9 /* fbLogout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fbLogout@2x.png"; sourceTree = "<group>"; };
+		2E79792814EEEB9F0007D8C9 /* BradleyHandITCTTBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BradleyHandITCTTBold.ttf; sourceTree = "<group>"; };
 		2E7DBE1B14A25DC1002F6187 /* TikTokPhysicsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokPhysicsView.h; sourceTree = "<group>"; };
 		2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokPhysicsView.m; sourceTree = "<group>"; };
 		2E7DBE1E14A263E2002F6187 /* TikShaken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikShaken.png; sourceTree = "<group>"; };
@@ -1555,6 +1557,7 @@
 		2EE5D42014AE389900D0539C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				2E79792814EEEB9F0007D8C9 /* BradleyHandITCTTBold.ttf */,
 				2EE5D42114AE38E500D0539C /* NeutraDisp-BoldAlt.otf */,
 				2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */,
 			);
@@ -1848,6 +1851,7 @@
 				2EFF7BF514EB531100632211 /* 286-speechbubble@2x.png in Resources */,
 				2EFF7BF814EB591B00632211 /* TokKarma.png in Resources */,
 				2EFF7BF914EB591B00632211 /* TokKarma@2x.png in Resources */,
+				2E79792914EEEB9F0007D8C9 /* BradleyHandITCTTBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

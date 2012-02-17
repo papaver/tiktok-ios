@@ -28,6 +28,7 @@ enum StartupTag
 {
     kTagProgressBar = 3,
     kTagShakeIcon   = 4,
+    kTagShakeText   = 5,
 };
 
 //------------------------------------------------------------------------------
@@ -66,12 +67,16 @@ enum StartupTag
  */
 - (void) viewDidLoad
 {
+    [super viewDidLoad];
     NSLog(@"StartupController: viewDidLoad, setting up services...");
 
-    [super viewDidLoad];
-
-    // tag testflight checkpoint
     [Analytics passCheckpoint:@"Startup"];
+
+    // [OS4] fix for missing font bradley hand bold
+    UILabel *shakeText = (UILabel*)[self.view viewWithTag:kTagShakeText];
+    if (shakeText.font == nil) {
+        shakeText.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
+    }
 
     // register device with server if no customer id found
     NSString *customerId  = [Utilities getConsumerId];

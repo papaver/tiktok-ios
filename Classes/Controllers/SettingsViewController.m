@@ -129,6 +129,14 @@ enum ViewTags
 
     // [iOS4] fix for black corners 
     self.tableView.backgroundColor = [UIColor clearColor];
+
+    // [OS4] fix for missing font bradley hand bold
+    UILabel *text  = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+    UILabel *tapme = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
+    if (text.font == nil) {
+        text.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
+        tapme.font = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
+    }
     
     // load available data
     Settings *settings      = [Settings getInstance];
