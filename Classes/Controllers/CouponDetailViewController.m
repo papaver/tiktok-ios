@@ -174,7 +174,7 @@ enum CouponState
 
     // get the coupon state
     NSUInteger state = kStateDefault;
-    state            = self.coupon.wasRedeemed ? kStateActive : state;
+    state            = self.coupon.wasRedeemed.boolValue ? kStateActive : state;
 
     // position the view accordingly
     UIView *view   = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
@@ -450,7 +450,7 @@ enum CouponState
 
 - (IBAction) redeemCoupon:(id)sender
 {
-    self.coupon.wasRedeemed = YES;
+    self.coupon.wasRedeemed = $numb(YES);
 
     // animate barcode
     [UIView animateWithDuration:0.3 animations:^{
@@ -500,7 +500,7 @@ enum CouponState
     }
 
     // animate barcode
-    if (!self.coupon.wasRedeemed) {
+    if (!self.coupon.wasRedeemed.boolValue) {
         UIView *view   = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
         CGRect frame   = view.frame;
         frame.origin.y = 0.0;
@@ -608,7 +608,7 @@ enum CouponState
                            otherButtonTitles:@"SMS", @"Email", nil];
 
     // show from toolbar only if coupon not yet redeemed
-    if (self.coupon.wasRedeemed || self.coupon.isExpired) {
+    if (self.coupon.wasRedeemed.boolValue || self.coupon.isExpired) {
         [actionSheet showFromToolbar:self.navigationController.toolbar];
     } 
 

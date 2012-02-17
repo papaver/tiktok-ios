@@ -141,7 +141,7 @@
     self.iconId      = [data objectForKey:@"icon_uid"];
     self.iconUrl     = [data objectForKey:@"icon_url"];
     self.barcode     = [data objectForKey:@"barcode_number"];
-    self.wasRedeemed = [[data objectForComplexKey:@"assignment.redeemed"] boolValue];
+    self.wasRedeemed = [data objectForComplexKey:@"assignment.redeemed"];
 
     return self;
 }
