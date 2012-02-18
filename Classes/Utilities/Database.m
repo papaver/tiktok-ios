@@ -64,7 +64,7 @@
 
     // allocate the object context and attach it to the persistant storage
     if (self.coordinator != nil) {
-        mManagedObjectContext = [[NSManagedObjectContext alloc] init]; 
+        mManagedObjectContext = [[[NSManagedObjectContext alloc] init] retain];
         [mManagedObjectContext setPersistentStoreCoordinator:self.coordinator];
     }
 

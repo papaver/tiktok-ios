@@ -26,8 +26,10 @@
 
 @interface TikTokApi ()
     + (NSString*) apiUrlPath;
-    - (void) parseCouponData:(NSDictionary*)data;
-    - (void) parseCoupon:(NSDictionary*)couponData;
+    - (void) parseCouponData:(NSDictionary*)data
+                 withContext:(NSManagedObjectContext*)context;
+    - (void) parseCoupon:(NSDictionary*)couponData
+             withContext:(NSManagedObjectContext*)context;
     - (void) syncManagedObjects:(NSNotification*)notification;
 @end
 
@@ -219,26 +221,51 @@
     [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
 
-        // add notifications to allow updating of main context
+        // [moiz] this doesn't seem like the best idea, to get notifications from
+        //   any context, but if the attach block is run inside another thead
+        //   notification seem to break, ex, redeemed sash doesn't show up in the
+        //   deal view when deal is redeemed...
+
+        // [iOS4] I can't get this shit working using multiple threads on on iOS4.
+        //   Keep gettings tons of merge conflict bullshit.  tried all sorts of
+        //   variations of using main thread and queue, nothing seems to help, so
+        //   only thread on iOS5+
+
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        Database *database     = [Database getInstance];
+        BOOL runASync          = $has_selector(database.context, initWithConcurrencyType:);
+
+        // convert the json data into managed objects
+        dispatch_block_t parseData = ^{
+            NSManagedObjectContext *context = runASync ? self.context : database.context;
+            [self parseCouponData:response withContext:context];
+        };
+
+        // run completion handler and cleanup notification registration
+        dispatch_block_t cleanup = ^{
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            if (self.completionHandler) self.completionHandler(response);
+        };
+
+        // setup notifiation for object updates
         NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
         [notificationCenter addObserver:self
-                            selector:@selector(syncManagedObjects:)
-                                name:NSManagedObjectContextDidSaveNotification
-                                object:self.context];
+                               selector:@selector(syncManagedObjects:)
+                                   name:NSManagedObjectContextDidSaveNotification
+                                 object:nil];
 
         // parse the data on another thread
-        dispatch_async(mQueue, ^(void) {
-
-            // convert the json data into managed objects
-            NSDictionary *response = [[request responseData] objectFromJSONData];
-            [self parseCouponData:response];
-
-            // run completion handler and cleanup notification registration
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [notificationCenter removeObserver:self];
-                if (self.completionHandler) self.completionHandler(response);
+        if (runASync) {
+            dispatch_async(mQueue, ^(void) {
+                parseData();
+                dispatch_async(dispatch_get_main_queue(), cleanup);
             });
-        });  
+
+        // [iOS4] run on main thread
+        } else {
+            parseData();
+            cleanup();
+        }
     }];
 
     // set error handler
@@ -424,12 +451,13 @@
 //------------------------------------------------------------------------------
 
 - (void) parseCouponData:(NSDictionary*)response
+             withContext:(NSManagedObjectContext*)context
 {
     NSString *status = [response objectForKey:kTikTokApiKeyStatus];
     if ([status isEqualToString:kTikTokApiStatusOkay]) {
         NSArray *results = [response objectForKey:kTikTokApiKeyResults];
         for (NSDictionary *couponData in results) {
-            [self parseCoupon:couponData];
+            [self parseCoupon:couponData withContext:context];
         }
     }
 }
@@ -437,22 +465,9 @@
 //------------------------------------------------------------------------------
 
 - (void) parseCoupon:(NSDictionary*)couponData
+         withContext:(NSManagedObjectContext*)context
 {
-    // create merchant from json 
-    NSDictionary *merchantData = [couponData objectForKey:@"merchant"];
-    Merchant *merchant = 
-        [Merchant getOrCreateMerchantWithJsonData:merchantData 
-                                      fromContext:self.context];
-
-    // skip out if we can't retrive a merchant from the coupon
-    if (merchant == nil) {
-        NSLog(@"failed to parse merchant.");
-        return;
-    }
-
-    // create coupon from json
-    [Coupon getOrCreateCouponWithJsonData:couponData 
-                              fromContext:self.context];
+    [Coupon getOrCreateCouponWithJsonData:couponData fromContext:context];
 }
 
 //------------------------------------------------------------------------------
