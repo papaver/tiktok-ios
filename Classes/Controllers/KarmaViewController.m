@@ -82,7 +82,7 @@ enum TableRow
     // [iOS4] fix for black corners 
     self.tableView.backgroundColor = [UIColor clearColor];
 
-    // [OS4] fix for missing font bradley hand bold
+    // [iOS4] fix for missing font bradley hand bold
     UILabel *copy = (UILabel*)[self.view viewWithTag:kTagKarmaCopy];
     if (copy.font == nil) {
         copy.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
