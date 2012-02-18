@@ -615,10 +615,8 @@ enum CouponState
                       destructiveButtonTitle:nil
                            otherButtonTitles:@"SMS", @"Email", nil];
 
-    // show from toolbar only if coupon not yet redeemed
-    if (self.coupon.wasRedeemed.boolValue || self.coupon.isExpired) {
-        [actionSheet showFromToolbar:self.navigationController.toolbar];
-    } 
+    // show from toolbar 
+    [actionSheet showFromToolbar:self.navigationController.toolbar];
 
     // cleanup
     [actionSheet release];
