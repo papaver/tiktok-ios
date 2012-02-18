@@ -15,6 +15,7 @@
 
 "TWITTER"                      = "Twitter";
 "TWITTER_SUPPORT"              = "Twitter Setup";
+"TWITTER_UPGRADE"              = "Update your device to iOS 5.0+ for twitter support.";
 "TWITTER_NOT_SETUP"            = "There are no twitter accounts configured on this device.  You can setup an account in Settings.";
 "TWITTER_DEAL_POST"            = "Your deal has been tweeted!";
 

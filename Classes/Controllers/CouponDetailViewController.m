@@ -522,6 +522,15 @@ enum CouponState
 
 - (void) shareTwitter
 {
+    // [iOS4] disable twitter, to much effort to add backwords compatibilty
+    Class twitter = NSClassFromString(@"TWTweetComposeViewController");
+     if (!twitter) {
+        NSString *title   = NSLocalizedString(@"TWITTER", nil);
+        NSString *message = NSLocalizedString(@"TWITTER_UPGRADE", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+        return;
+     }
+
     // tweet deal if twitter setup, else request account setup
     if ([TWTweetComposeViewController canSendTweet]) {
         [self tweetDealOnTwitter];
