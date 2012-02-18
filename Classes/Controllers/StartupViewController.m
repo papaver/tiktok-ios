@@ -121,12 +121,25 @@ enum StartupTag
 
 //------------------------------------------------------------------------------
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    // [iOS4] viewWillAppear doesn't get triggered on physics controller
+    [self.physicsController viewWillAppear:animated];
+}
+
+//------------------------------------------------------------------------------
+
 - (void) viewWillDisappear:(BOOL)animated 
 {
     [super viewWillDisappear:animated];
 
     // stop processing physics
     [self.physicsController stopWorld];
+
+    // [iOS4] viewWillDisappear doesn't get triggered on physics controller
+    [self.physicsController viewWillDisappear:animated];
 }
 
 //------------------------------------------------------------------------------
