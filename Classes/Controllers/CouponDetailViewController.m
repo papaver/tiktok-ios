@@ -135,6 +135,14 @@ enum CouponState
     // add nice little shadow details
     [self addShadows];
 
+    // [iOS4] fix for missing font bradley hand bold
+    UILabel *address = (UILabel*)[self.view viewWithTag:kTagCompanyAddress];
+    UITextView *text = (UITextView*)[self.view viewWithTag:kTagDetails];
+    if (address.font == nil) {
+        address.font = [UIFont fontWithName:@"HelveticaNeueMedium" size:13];
+        text.font    = [UIFont fontWithName:@"HelveticaNeueLight" size:14];
+    }
+
     // correct font on timer
     UILabel *timer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];

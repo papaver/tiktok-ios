@@ -67,13 +67,24 @@ enum MerchantTags
 - (void) viewDidLoad 
 {
     [super viewDidLoad];
-    [self setupGestureRecognizers];
+
+    [Analytics passCheckpoint:@"Merchant"];
 
     // setup title
     self.title = @"Merchant";
 
-    // tag testflight checkpoint
-    [Analytics passCheckpoint:@"Merchant"];
+    // setup touch for merchant details
+    [self setupGestureRecognizers];
+
+    // [iOS4] fix for missing helvetics neuve fonts
+    UILabel *address = (UILabel*)[self.view viewWithTag:kTagAddress];
+    UILabel *website = (UILabel*)[self.view viewWithTag:kTagWebsite];
+    UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];
+    if (address.font == nil) {
+        address.font = [UIFont fontWithName:@"HelveticaNeueLight" size:13];
+        website.font = [UIFont fontWithName:@"HelveticaNeueMeduim" size:15];
+        details.font = [UIFont fontWithName:@"HelveticaNeueLight" size:14];
+    }
 }
 
 //------------------------------------------------------------------------------

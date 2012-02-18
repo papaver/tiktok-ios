@@ -58,6 +58,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>BradleyHandITCTTBold.ttf</string>
+		<string>HelveticaNeueLight.ttf</string>
+		<string>HelveticaNeueMedium.ttf</string>
 		<string>NeutraDisp-BoldAlt.otf</string>
 		<string>UnitedSansReg-Bold.otf</string>
 	</array>
