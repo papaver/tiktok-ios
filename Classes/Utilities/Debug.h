@@ -25,3 +25,8 @@
 #define ANALYTICS_FLURRY        1
 #define ANALYTICS_FLURRY_DEBUG  ANALYTICS_MODE_DEBUG
 
+//------------------------------------------------------------------------------
+// TikTokApi 
+//------------------------------------------------------------------------------
+
+#define TIKTOKAPI_STAGING 0

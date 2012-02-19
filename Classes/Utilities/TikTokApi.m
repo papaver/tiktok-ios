@@ -15,6 +15,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "Coupon.h"
+#import "Debug.h"
 #import "Database.h"
 #import "JSONKit.h"
 #import "Merchant.h"
@@ -51,7 +52,11 @@
 
 + (NSString*) apiUrlPath
 {
-    return @"http://electric-dusk-7349.herokuapp.com/";
+    if (TIKTOKAPI_STAGING) {
+        return @"http://furious-window-5155.herokuapp.com/";
+    } else {
+        return @"http://electric-dusk-7349.herokuapp.com/";
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -455,8 +460,11 @@
 {
     NSString *status = [response objectForKey:kTikTokApiKeyStatus];
     if ([status isEqualToString:kTikTokApiStatusOkay]) {
-        NSArray *results = [response objectForKey:kTikTokApiKeyResults];
-        for (NSDictionary *couponData in results) {
+        NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
+
+        // parse the new coupons
+        NSDictionary *coupons = [results objectForKey:@"coupons"];
+        for (NSDictionary *couponData in coupons) {
             [self parseCoupon:couponData withContext:context];
         }
     }
