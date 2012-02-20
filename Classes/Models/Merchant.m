@@ -122,10 +122,7 @@
     self.iconId      = [data objectForKey:@"icon_uid"];
     self.iconUrl     = [data objectForKey:@"icon_url"];
     self.websiteUrl  = [data objectForKey:@"web_url"];
-    self.facebookUrl = [data objectForKey:@"facebook_url"];
-    self.twitterUrl  = [data objectForKey:@"twitter_url"];
-
-    self.category    = @"Pub";
+    self.category    = [data objectForKey:@"category"];
 
     return self;
 }
