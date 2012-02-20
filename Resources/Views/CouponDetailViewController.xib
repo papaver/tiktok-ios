@@ -564,6 +564,21 @@
 							<object class="IBUIImageView" id="120770760">
 								<reference key="NSNextResponder" ref="588732454"/>
 								<int key="NSvFlags">290</int>
+								<string key="NSFrame">{{0, -60}, {320, 60}}</string>
+								<reference key="NSSuperview" ref="588732454"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="682751429"/>
+								<string key="NSReuseIdentifierKey">_NS:567</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">DealSoldOutBanner.png</string>
+								</object>
+							</object>
+							<object class="IBUIImageView" id="682751429">
+								<reference key="NSNextResponder" ref="588732454"/>
+								<int key="NSvFlags">290</int>
 								<string key="NSFrameSize">{320, 60}</string>
 								<reference key="NSSuperview" ref="588732454"/>
 								<reference key="NSWindow"/>
@@ -960,15 +975,10 @@
 							<reference ref="155318535"/>
 							<reference ref="962380517"/>
 							<reference ref="120770760"/>
+							<reference ref="682751429"/>
 						</object>
 						<reference key="parent" ref="143615997"/>
 						<string key="objectName">Slider View</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">85</int>
-						<reference key="object" ref="526685503"/>
-						<reference key="parent" ref="588732454"/>
-						<string key="objectName">RedeemButton</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">98</int>
@@ -977,22 +987,34 @@
 						<string key="objectName">Barcode</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">97</int>
-						<reference key="object" ref="962380517"/>
-						<reference key="parent" ref="588732454"/>
-						<string key="objectName">Active</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">95</int>
 						<reference key="object" ref="120770760"/>
 						<reference key="parent" ref="588732454"/>
-						<string key="objectName">Expired</string>
+						<string key="objectName">SoldOut</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">88</int>
 						<reference key="object" ref="907060288"/>
 						<reference key="parent" ref="966368696"/>
 						<string key="objectName">Company Button</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">85</int>
+						<reference key="object" ref="526685503"/>
+						<reference key="parent" ref="588732454"/>
+						<string key="objectName">RedeemButton</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">97</int>
+						<reference key="object" ref="962380517"/>
+						<reference key="parent" ref="588732454"/>
+						<string key="objectName">Active</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">103</int>
+						<reference key="object" ref="682751429"/>
+						<reference key="parent" ref="588732454"/>
+						<string key="objectName">Expired</string>
 					</object>
 				</object>
 			</object>
@@ -1005,6 +1027,7 @@
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
 					<string>101.IBPluginDependency</string>
+					<string>103.IBPluginDependency</string>
 					<string>15.IBPluginDependency</string>
 					<string>18.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
@@ -1041,6 +1064,7 @@
 					<string>CouponDetailViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1087,7 +1111,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">102</int>
+			<int key="maxID">103</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1193,6 +1217,7 @@
 				<string>DealActiveBanner.png</string>
 				<string>DealBarcodeButton.png</string>
 				<string>DealExpiredBanner.png</string>
+				<string>DealSoldOutBanner.png</string>
 				<string>RedeemBarItemButton.png</string>
 				<string>ShareFacebook.png</string>
 				<string>ShareMore.png</string>
@@ -1207,6 +1232,7 @@
 				<string>{320, 140}</string>
 				<string>{320, 60}</string>
 				<string>{90, 27}</string>
+				<string>{320, 60}</string>
 				<string>{320, 60}</string>
 				<string>{280, 46}</string>
 				<string>{94, 27}</string>

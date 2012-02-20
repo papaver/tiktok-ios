@@ -29,6 +29,7 @@
     Coupon   *mCoupon;
     NSTimer  *mTimer;
     UIView   *mBarcodeView;
+    bool      mHasObserver;
 }
 
 //------------------------------------------------------------------------------

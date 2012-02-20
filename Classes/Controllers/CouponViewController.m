@@ -33,7 +33,7 @@ enum CouponTag {
     kTagTextTimer      =  4,
     kTagColorTimer     =  5,
     kTagIconActivity   =  6,
-    kTagRedeemedSash   =  7,
+    kTagSash           =  7,
     kTagCompanyName    =  8,
     kTagBackground     =  9,
     kTagActiveFilter   = 10,
@@ -402,10 +402,8 @@ static NSString *sCouponCacheName = @"coupon_table";
         cell.selectionStyle  = UITableViewCellSelectionStyleBlue;
 
         // [iOS4] UIImage can't be archived/unarchived, set images manually
-        UIImageView *redeemedSash = (UIImageView*)[cell viewWithTag:kTagRedeemedSash];
-        redeemedSash.image        = [UIImage imageNamed:@"RedeemedSash.png"];
-        UIImageView *background   = (UIImageView*)[cell backgroundView];
-        background.image          = [UIImage imageNamed:@"CellBackground.png"];
+        UIImageView *background = (UIImageView*)[cell backgroundView];
+        background.image        = [UIImage imageNamed:@"CellBackground.png"];
     }
 
     // configure the cell 
@@ -479,6 +477,9 @@ static NSString *sCouponCacheName = @"coupon_table";
  */
 - (void) configureCell:(CouponTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath
 {
+    // skip out if no cell available
+    if (!cell) return;
+
     // grab coupon at the given index path
     Coupon* coupon = [self.fetchedCouponsController objectAtIndexPath:indexPath];
 
@@ -500,8 +501,10 @@ static NSString *sCouponCacheName = @"coupon_table";
     [self setupIconForCell:cell atIndexPath:indexPath withCoupon:coupon];
 
     // configure redeemed sash
-    UIImageView* sash = (UIImageView*)[cell viewWithTag:kTagRedeemedSash];
-    sash.hidden       = !coupon.wasRedeemed.boolValue;
+    UIImageView* sash = (UIImageView*)[cell viewWithTag:kTagSash];
+    sash.hidden       = !coupon.wasRedeemed.boolValue && !coupon.isSoldOut.boolValue;
+    sash.image        = coupon.wasRedeemed.boolValue ? [UIImage imageNamed:@"RedeemedSash.png"] :
+                        coupon.isSoldOut.boolValue ? [UIImage imageNamed:@"SoldOutSash.png"] : nil;
 
     // update the cell to reflect the state of the coupon
     if ([coupon isExpired]) {

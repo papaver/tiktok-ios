@@ -150,7 +150,9 @@
 
         // log the error and purge the database
         NSLog(@"PersistentStoreCoordinator error: %@, %@", error, [error userInfo]);
-        abort();
+        [Database purgeDatabase];
+        mPersistantStoreCoordinator = nil;
+        return self.coordinator;
     }
 
     return mPersistantStoreCoordinator;

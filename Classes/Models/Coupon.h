@@ -41,6 +41,7 @@
 @property (nonatomic, retain)   NSString *barcode;
 @property (nonatomic, retain)   Merchant *merchant;
 @property (nonatomic, assign)   NSNumber *wasRedeemed;
+@property (nonatomic, assign)   NSNumber *isSoldOut;
 
 //------------------------------------------------------------------------------
 

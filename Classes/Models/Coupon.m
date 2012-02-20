@@ -39,6 +39,7 @@
 @dynamic startTime;
 @dynamic endTime;
 @dynamic wasRedeemed;
+@dynamic isSoldOut;
 @dynamic barcode;
 @dynamic merchant;
 
@@ -142,6 +143,7 @@
     self.iconUrl     = [data objectForKey:@"icon_url"];
     self.barcode     = [data objectForKey:@"barcode_number"];
     self.wasRedeemed = [data objectForComplexKey:@"assignment.redeemed"];
+    self.isSoldOut   = $numb(NO);
 
     return self;
 }

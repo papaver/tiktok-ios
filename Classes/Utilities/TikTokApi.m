@@ -33,6 +33,7 @@
              withContext:(NSManagedObjectContext*)context;
     - (void) syncManagedObjects:(NSNotification*)notification;
     - (void) killCoupons:(NSArray*)killed fromContext:(NSManagedObjectContext*)context;
+    - (void) sellOutCoupons:(NSArray*)soldOut fromContext:(NSManagedObjectContext*)context;
 @end
 
 //------------------------------------------------------------------------------
@@ -471,7 +472,15 @@
 
         // update any killed coupons
         NSArray *killed = [results objectForKey:@"killed"];
-        [self killCoupons:killed fromContext:context];
+        if (killed.count) {
+            [self killCoupons:killed fromContext:context];
+        }
+
+        // update any sold out coupons
+        NSArray *soldOut = [results objectForKey:@"sold_out"];
+        if (soldOut.count) {
+            [self sellOutCoupons:soldOut fromContext:context];
+        }
     }
 }
 
@@ -496,6 +505,22 @@
     NSError *error = nil;
     if (![context save:&error]) {
         NSLog(@"killed coupon save failed: %@", error);
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) sellOutCoupons:(NSArray*)soldOut fromContext:(NSManagedObjectContext*)context
+{
+    for (NSNumber* couponId in soldOut) {
+        Coupon *coupon = [Coupon getCouponById:couponId fromContext:context];
+        if (!coupon.isSoldOut.boolValue) coupon.isSoldOut = $numb(YES);
+    }
+
+    // save the context
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"sold out coupon save failed: %@", error);
     }
 }
 

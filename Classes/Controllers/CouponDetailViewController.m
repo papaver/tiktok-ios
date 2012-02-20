@@ -55,12 +55,19 @@ enum ActionButton
     kActionButtonEmail = 1,
 };
 
-enum CouponState
+typedef enum _CouponState
 {
     kStateDefault = 0,
     kStateActive  = 1,
     kStateExpired = 2,
-};
+    kStateSoldOut = 3,
+} CouponState;
+
+//------------------------------------------------------------------------------
+// statics
+//------------------------------------------------------------------------------
+
+static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -74,6 +81,7 @@ enum CouponState
     - (void) setIcon:(UIImage*)image;
     - (void) setupMap;
     - (void) expireCoupon;
+    - (void) sellOutCoupon;
     - (void) startTimer;
     - (void) updateTimers;
     - (void) shareSMS;
@@ -84,6 +92,9 @@ enum CouponState
     - (void) postDealToFacebook;
     - (void) openMap;
     - (void) onCouponDeleted:(NSNotification*)notification;
+    - (CouponState) getCouponState:(Coupon*)coupon;
+    - (void) addSoldOutObserver;
+    - (void) removeSoldOutObserver;
 @end
 
 //------------------------------------------------------------------------------
@@ -183,21 +194,20 @@ enum CouponState
     static struct YTable {
         NSUInteger cs;
         CGFloat    h;
-    } sYTable[3] = {
+    } sYTable[4] = {
         { kStateDefault , -120.0 },
         { kStateActive  ,  -60.0 },
         { kStateExpired ,    0.0 },
+        { kStateSoldOut ,   60.0 },
     };
 
     // get the coupon state
-    NSUInteger state = kStateDefault;
-    state            = self.coupon.wasRedeemed.boolValue ? kStateActive : state;
-
     // position the view accordingly
-    UIView *view   = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
-    CGRect frame   = view.frame;
-    frame.origin.y = sYTable[state].h;
-    view.frame     = frame;
+    CouponState state = [self getCouponState:self.coupon];
+    UIView *view      = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
+    CGRect frame      = view.frame;
+    frame.origin.y    = sYTable[state].h;
+    view.frame        = frame;
 
     // show the toolbar
     [self.navigationController setToolbarHidden:NO animated:YES];
@@ -205,6 +215,7 @@ enum CouponState
     // setup an update loop to for the color/text timers
     if (!self.coupon.isExpired) {
         [self startTimer];
+        [self addSoldOutObserver];
     } else {
         [self expireCoupon];
     }
@@ -228,6 +239,9 @@ enum CouponState
 
     // stop timer 
     [self.timer invalidate];
+
+    // cleanup notifications
+    [self removeSoldOutObserver];
 }
 
 //------------------------------------------------------------------------------
@@ -241,6 +255,28 @@ enum CouponState
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+- (void) observeValueForKeyPath:(NSString*)keyPath
+                       ofObject:(id)object
+                         change:(NSDictionary*)change
+                        context:(void*)context
+{
+    if (&sObservationContext != context) return;
+
+    // only listen to sold out
+    if (![keyPath isEqualToString:@"isSoldOut"]) return;
+
+    // get new value and animate view if required
+    NSNumber *isSoldOut = [change objectForKey:NSKeyValueChangeNewKey];
+    Coupon *coupon      = (Coupon*)object;
+    CouponState state   = [self getCouponState:coupon];
+    if ((self.coupon == coupon) && (state == kStateSoldOut) && isSoldOut.boolValue) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self sellOutCoupon];
+            [self removeSoldOutObserver];
+        }];
+    }
+}
 
 //------------------------------------------------------------------------------
 #pragma - Properties
@@ -527,6 +563,18 @@ enum CouponState
 
 //------------------------------------------------------------------------------
 
+- (void) sellOutCoupon
+{
+    if (self.coupon.isSoldOut.boolValue) {
+        UIView *view   = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
+        CGRect frame   = view.frame;
+        frame.origin.y = 60.0;
+        view.frame     = frame;
+    }
+}
+
+//------------------------------------------------------------------------------
+
 - (void) onCouponDeleted:(NSNotification*)notification
 {
     // pop to the root controller
@@ -535,6 +583,47 @@ enum CouponState
         if (self.coupon == killedCoupon) {
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (CouponState) getCouponState:(Coupon*)coupon
+{
+    NSUInteger state = kStateDefault;
+    state            = coupon.isSoldOut.boolValue ? kStateSoldOut : state;
+    state            = coupon.isExpired ? kStateExpired : state;
+    state            = coupon.wasRedeemed.boolValue ? kStateActive : state;
+    return state;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) addSoldOutObserver
+{
+    mHasObserver      = false;
+    CouponState state = [self getCouponState:self.coupon];
+
+    // only add observer if coupon can be sold out
+    if (state == kStateDefault) {
+        mHasObserver = true;
+        [self.coupon addObserver:self
+                      forKeyPath:@"isSoldOut"
+                         options:NSKeyValueObservingOptionNew
+                         context:&sObservationContext];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) removeSoldOutObserver
+{
+    // only remove observer if we are still listening
+    if (mHasObserver) {
+        mHasObserver = false;
+        [self.coupon removeObserver:self
+                         forKeyPath:@"isSoldOut"
+                            context:&sObservationContext];
     }
 }
 
