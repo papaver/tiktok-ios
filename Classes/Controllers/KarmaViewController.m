@@ -13,6 +13,7 @@
 #import "KarmaViewController.h"
 #import "ASIHTTPRequest.h"
 #import "TikTokApi.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -39,6 +40,8 @@ enum TableRow
 //------------------------------------------------------------------------------
 
 @interface KarmaViewController ()
+    - (void) setupToolbar;
+    - (void) syncKarmaPoints;
     - (UITableViewCell*) getReusableCell;
 @end
 
@@ -89,8 +92,15 @@ enum TableRow
     }
 
     // setup a dictionary for each naming of the rows
-    mTableData = [$array(@"Twitter", @"Facebook", @"SMS", @"Email") retain];
-    mIconData  = [$array(@"210-twitterbird", @"208-facebook", @"286-speechbubble", @"18-envelope") retain];
+    mTableData   = [$array(@"Twitter", @"Facebook", @"SMS", @"Email") retain];
+    mIconData    = [$array(@"210-twitterbird", @"208-facebook", @"286-speechbubble", @"18-envelope") retain];
+    mKarmaPoints = [$array(@"-", @"-", @"-", @"-") retain];
+
+    // setup toolbar
+    [self setupToolbar];
+
+    // sync the points from the server
+    [self syncKarmaPoints];
 }
 
 //------------------------------------------------------------------------------
@@ -111,6 +121,73 @@ enum TableRow
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+//------------------------------------------------------------------------------
+#pragma mark - Helper Functions
+//------------------------------------------------------------------------------
+
+- (void) setupToolbar
+{
+    UIBarButtonItem *reloadButton =
+        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"01-refresh-bar.png"]
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(syncKarmaPoints)];
+
+    // add to navbar
+    self.navigationItem.rightBarButtonItem = reloadButton;
+
+    // cleanup
+    [reloadButton release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) syncKarmaPoints
+{
+    // setup an instance of the tiktok api to register the device
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+
+    // setup a completion handler to save points
+    api.completionHandler = ^(NSDictionary *response) {
+
+        // verify sync succeeded
+        NSString *status = [response objectForKey:kTikTokApiKeyStatus];
+        NSLog(@"status: %@", status);
+        if ([status isEqualToString:kTikTokApiStatusOkay]) {
+
+            // grab points
+            NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
+            NSString *twitter     = $string(@"%@", [results objectForKey:@"twitter"]);
+            NSString *facebook    = $string(@"%@", [results objectForKey:@"fb"]);
+            NSString *sms         = $string(@"%@", [results objectForKey:@"sms"]);
+            NSString *email       = $string(@"%@", [results objectForKey:@"email"]);
+
+            // cache for easy access
+            [mKarmaPoints release];
+            mKarmaPoints = [$array(twitter, facebook, sms, email) retain];
+
+            // refresh table
+            [self.tableView reloadData];
+
+        // something bad happened...
+        } else {
+            NSString *title   = NSLocalizedString(@"KARMA_POINTS", nil);
+            NSString *message = NSLocalizedString(@"KARMA_SYNC_FAIL", nil);
+            [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+        }
+    };
+
+    // alert user if sync failed
+    api.errorHandler = ^(ASIHTTPRequest* request) {
+        NSString *title   = NSLocalizedString(@"KARMA_POINTS", nil);
+        NSString *message = NSLocalizedString(@"KARMA_SYNC_FAIL", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+    };
+
+    // sync karma points from server
+    [api syncKarmaPoints];
+}
 
 //------------------------------------------------------------------------------
 #pragma mark - Table view data source
@@ -161,28 +238,7 @@ enum TableRow
 
     icon.image    = [UIImage imageNamed:[mIconData objectAtIndex:indexPath.row]];
     title.text    = [mTableData objectAtIndex:indexPath.row];
-
-    switch (indexPath.row) {
-
-       case kRowTwitter:
-            subtitle.text = @"230";
-            break;
-
-        case kRowFacebook:
-            subtitle.text = @"370";
-            break;
-
-        case kRowSMS:
-            subtitle.text = @"30";
-            break;
-
-        case kRowEmail:
-            subtitle.text = @"70";
-            break;
-
-        default:
-            break;
-    }
+    subtitle.text = [mKarmaPoints objectAtIndex:indexPath.row];
 
     return cell;
 }
@@ -309,6 +365,7 @@ enum TableRow
 
 - (void) dealloc
 {
+    [mKarmaPoints release];
     [mTableView release];
     [mCellView release];
     [mIconData release];

@@ -23,6 +23,7 @@
     UITableViewCell *mCellView;
     NSArray         *mTableData;
     NSArray         *mIconData;
+    NSArray         *mKarmaPoints;
 }
 
 //------------------------------------------------------------------------------

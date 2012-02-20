@@ -31,3 +31,6 @@
 
 "WEBVIEW_SUPPORT"              = "Loading Website...";
 "WEBVIEW_LOAD_FAILED"          = "Failed to load requseted website. Try again later.";
+
+"KARMA_POINTS"                 = "Karma Points";
+"KARMA_SYNC_FAIL"              = "Failed to sync karma points from server, try again later.";

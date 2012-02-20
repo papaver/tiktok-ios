@@ -454,6 +454,34 @@
 }
 
 //------------------------------------------------------------------------------
+
+- (void) syncKarmaPoints
+{
+    NSString *syncPath = $string(@"%@/consumers/%@/loyalty_points",
+        [TikTokApi apiUrlPath], [Utilities getConsumerId]);
+
+    // construct url
+    NSURL *url = [[[NSURL alloc] initWithString:syncPath] autorelease];
+
+    // setup the async request
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
+    [request setCompletionBlock:^{
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to sync karma points: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [request startAsynchronous];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Json Parserers
 //------------------------------------------------------------------------------
 

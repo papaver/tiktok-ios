@@ -241,6 +241,8 @@
 		2EC672AE1490008700AC5CDF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AD1490008700AC5CDF /* SystemConfiguration.framework */; };
 		2EC672B0149000B100AC5CDF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672AF149000B100AC5CDF /* libz.dylib */; };
 		2EC672B2149000C500AC5CDF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */; };
+		2EC9E27814F2E42300B8D8FB /* 01-refresh-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC9E27614F2E42300B8D8FB /* 01-refresh-bar.png */; };
+		2EC9E27914F2E42300B8D8FB /* 01-refresh-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC9E27714F2E42300B8D8FB /* 01-refresh-bar@2x.png */; };
 		2ECAD06D14C4B03A00706EF3 /* UIAlertView+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD06C14C4B03A00706EF3 /* UIAlertView+Handlers.m */; };
 		2ECAD06F14C4BB5D00706EF3 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ECAD06E14C4BB5D00706EF3 /* Twitter.framework */; };
 		2ECAD07214C4F87F00706EF3 /* UIActionSheet+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD07114C4F87F00706EF3 /* UIActionSheet+Handlers.m */; };
@@ -678,6 +680,8 @@
 		2EC672AF149000B100AC5CDF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		2EC672B1149000C500AC5CDF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2EC672B51490028500AC5CDF /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		2EC9E27614F2E42300B8D8FB /* 01-refresh-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh-bar.png"; sourceTree = "<group>"; };
+		2EC9E27714F2E42300B8D8FB /* 01-refresh-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh-bar@2x.png"; sourceTree = "<group>"; };
 		2ECAD06B14C4B03A00706EF3 /* UIAlertView+Handlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Handlers.h"; sourceTree = "<group>"; };
 		2ECAD06C14C4B03A00706EF3 /* UIAlertView+Handlers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Handlers.m"; sourceTree = "<group>"; };
 		2ECAD06E14C4BB5D00706EF3 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -948,6 +952,8 @@
 		2E0B9B1D14D721D100DBC86C /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				2EC9E27614F2E42300B8D8FB /* 01-refresh-bar.png */,
+				2EC9E27714F2E42300B8D8FB /* 01-refresh-bar@2x.png */,
 				2E0B9B1E14D721E600DBC86C /* 15-tags.png */,
 				2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */,
 				2EFF7BDD14EB4E1200632211 /* 17-bar-chart.png */,
@@ -1868,6 +1874,8 @@
 				2E5FB77F14EF21F200F597DD /* HelveticaNeueMedium.ttf in Resources */,
 				2EFEDEB014F1DDFC00BCE0CC /* DealSoldOutBanner.png in Resources */,
 				2EFEDEB114F1DDFC00BCE0CC /* DealSoldOutBanner@2x.png in Resources */,
+				2EC9E27814F2E42300B8D8FB /* 01-refresh-bar.png in Resources */,
+				2EC9E27914F2E42300B8D8FB /* 01-refresh-bar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
