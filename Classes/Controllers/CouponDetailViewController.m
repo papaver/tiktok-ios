@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CouponDetailViewController.h"
 #import "Coupon.h"
+#import "Database.h"
 #import "FacebookManager.h"
 #import "GradientView.h"
 #import "IconManager.h"
@@ -82,6 +83,7 @@ enum CouponState
     - (void) setupFacebook;
     - (void) postDealToFacebook;
     - (void) openMap;
+    - (void) onCouponDeleted:(NSNotification*)notification;
 @end
 
 //------------------------------------------------------------------------------
@@ -159,6 +161,13 @@ enum CouponState
     [map setUserInteractionEnabled:YES];
     [map addGestureRecognizer:mapTap];
     [mapTap release];
+
+    // watch for deletions
+    Database *database = [Database getInstance];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onCouponDeleted:)
+                                                 name:NSManagedObjectContextObjectsDidChangeNotification
+                                               object:database.context];
 }
 
 //------------------------------------------------------------------------------
@@ -353,7 +362,7 @@ enum CouponState
                 if (image != nil) {
                     [self setIcon:image];
                 } else if (error) {
-                    NSLog(@"MerchantViewController: Failed to load image, %@", error);
+                    NSLog(@"CouponDetailViewController: Failed to load image, %@", error);
                 }
             }];
     }
@@ -513,6 +522,19 @@ enum CouponState
         CGRect frame   = view.frame;
         frame.origin.y = 0.0;
         view.frame     = frame;
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) onCouponDeleted:(NSNotification*)notification
+{
+    // pop to the root controller
+    NSArray *killedCoupons = [notification.userInfo objectForKey:NSDeletedObjectsKey];
+    for (Coupon *killedCoupon in killedCoupons) {
+        if (self.coupon == killedCoupon) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -903,6 +925,9 @@ enum CouponState
 - (void) viewDidUnload 
 {
     [super viewDidUnload];
+
+    // clean up notifications
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 //------------------------------------------------------------------------------

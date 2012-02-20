@@ -345,6 +345,7 @@ NSString *sCouponCacheName = @"coupon_map";
             }
             break;
         case NSFetchedResultsChangeDelete:
+            [self removeCouponAnnotation:(Coupon*)object];
             break;
         case NSFetchedResultsChangeUpdate:
             break;

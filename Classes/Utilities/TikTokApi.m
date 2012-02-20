@@ -32,6 +32,7 @@
     - (void) parseCoupon:(NSDictionary*)couponData
              withContext:(NSManagedObjectContext*)context;
     - (void) syncManagedObjects:(NSNotification*)notification;
+    - (void) killCoupons:(NSArray*)killed fromContext:(NSManagedObjectContext*)context;
 @end
 
 //------------------------------------------------------------------------------
@@ -467,6 +468,10 @@
         for (NSDictionary *couponData in coupons) {
             [self parseCoupon:couponData withContext:context];
         }
+
+        // update any killed coupons
+        NSArray *killed = [results objectForKey:@"killed"];
+        [self killCoupons:killed fromContext:context];
     }
 }
 
@@ -476,6 +481,22 @@
          withContext:(NSManagedObjectContext*)context
 {
     [Coupon getOrCreateCouponWithJsonData:couponData fromContext:context];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) killCoupons:(NSArray*)killed fromContext:(NSManagedObjectContext*)context
+{
+    for (NSNumber* couponId in killed) {
+        Coupon *coupon = [Coupon getCouponById:couponId fromContext:context];
+        if (coupon) [context deleteObject:coupon];
+    }
+
+    // save the context
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"killed coupon save failed: %@", error);
+    }
 }
 
 //------------------------------------------------------------------------------
