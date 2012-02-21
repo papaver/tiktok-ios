@@ -867,7 +867,7 @@ static NSUInteger sObservationContext;
         NSString *deal      = $string(@"<h3>TikTok</h3>"
                                       @"<b>%@</b> at <b>%@</b>"
                                       @"<br><br>"
-                                      @"<a href='www.tiktok.com'>Get your deal on!</a>", 
+                                      @"<a href='http://www.tiktok.com'>Get your deal on!</a>", 
                                       formatted, merchant);
         [controller setMessageBody:deal isHTML:YES];
 
