@@ -1083,7 +1083,7 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-- (void) request:(FBRequest*)request didLoad:(id)result
+- (void) dialogDidComplete:(FBDialog*)dialog
 {
     // let server know of share
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -1095,12 +1095,12 @@ static NSUInteger sObservationContext;
     [Utilities displaySimpleAlertWithTitle:title
                                 andMessage:message];
 
-    NSLog(@"CouponDetailViewController: facebook request did load: %@", result);
+    NSLog(@"CouponDetailViewController: facebook request did load");
 }
 
 //------------------------------------------------------------------------------
 
-- (void) request:(FBRequest*)request didFailWithError:(NSError*)error
+- (void) dialog:(FBDialog*)dialog didFailWithError:(NSError*)error
 {
     NSLog(@"CouponDetailViewController: Facebook share failed: %@", error);
 }
