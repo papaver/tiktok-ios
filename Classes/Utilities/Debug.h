@@ -19,7 +19,7 @@
  *   FlurryAnalytics w/ Production ApiKey
  */
 
-#define ANALYTICS_MODE_DEBUG    1 
+#define ANALYTICS_MODE_DEBUG    0
 
 #define ANALYTICS_TESTFLIGHT    ANALYTICS_MODE_DEBUG
 #define ANALYTICS_FLURRY        1
