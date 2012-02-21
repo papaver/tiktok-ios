@@ -740,7 +740,7 @@ static NSUInteger sObservationContext;
 #pragma mark - Events
 //------------------------------------------------------------------------------
 
-- (void) shareTwitter
+- (IBAction) shareTwitter:(id)sender
 {
     // [iOS4] disable twitter, to much effort to add backwords compatibilty
     Class twitter = NSClassFromString(@"TWTweetComposeViewController");
@@ -761,30 +761,7 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-- (IBAction) shareTwitter:(id)sender
-{
-    // open up settings to configure twitter account
-    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            [self performSelector:@selector(shareTwitter) withObject:nil afterDelay:0.05];
-        }
-    };
-
-    // display alert
-    NSString *title    = @"Hey You!";
-    NSString *message  = @"Please only tweet for testing! If you tweet please delete it or make it private. Thanks!";
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                withHandler:handler
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Tweet", nil];
-    [alert show];
-    [alert release];
-}
-
-//------------------------------------------------------------------------------
-
-- (void) shareFacebook
+- (IBAction) shareFacebook:(id)sender
 {
     // post deal if logged on, else request connect first 
     FacebookManager *manager = [FacebookManager getInstance];
@@ -793,29 +770,6 @@ static NSUInteger sObservationContext;
     } else {
         [self setupFacebook];
     }
-}
-
-//------------------------------------------------------------------------------
-
-- (IBAction) shareFacebook:(id)sender
-{
-    // open up settings to configure twitter account
-    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
-        if (buttonIndex == 1) {
-            [self performSelector:@selector(shareFacebook) withObject:nil afterDelay:0.5];
-        }
-    };
-
-    // display alert
-    NSString *title    = @"Hey You!";
-    NSString *message  = @"Please only post to facebook for testing! If you post please delete it or make it private. Thanks!";
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                withHandler:handler
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Post", nil];
-    [alert show];
-    [alert release];
 }
 
 //------------------------------------------------------------------------------
