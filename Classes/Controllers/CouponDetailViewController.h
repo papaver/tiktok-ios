@@ -26,17 +26,17 @@
 @interface CouponDetailViewController : UIViewController <FBRequestDelegate,
                                                           FBDialogDelegate>
 {
-    Coupon   *mCoupon;
-    NSTimer  *mTimer;
-    UIView   *mBarcodeView;
-    bool      mHasObserver;
+    Coupon  *mCoupon;
+    NSTimer *mTimer;
+    UIView  *mBarcodeView;
+    bool     mHasObserver;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain)          Coupon   *coupon;
-@property (nonatomic, retain)          NSTimer  *timer;
-@property (nonatomic, retain) IBOutlet UIView   *barcodeView;
+@property (nonatomic, retain)          Coupon  *coupon;
+@property (nonatomic, retain)          NSTimer *timer;
+@property (nonatomic, retain) IBOutlet UIView  *barcodeView;
 
 //------------------------------------------------------------------------------
 

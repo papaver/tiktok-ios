@@ -247,4 +247,14 @@
 
 //------------------------------------------------------------------------------
 
+- (NSString*) getDetailsWithTerms
+{
+    NSString* detailsWithTerms = $string(@"%@\n\n"
+                                         @"TikTok Terms and Conditions:\n"
+                                         @"www.tiktok.com/terms\n", self.details);
+    return detailsWithTerms;
+}
+
+//------------------------------------------------------------------------------
+
 @end

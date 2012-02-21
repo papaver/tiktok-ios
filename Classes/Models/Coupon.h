@@ -83,6 +83,11 @@
  */
 - (NSString*) getExpirationTimer;
 
+/**
+ * Returns the details with terms and conditions attached to the bottom.
+ */
+- (NSString*) getDetailsWithTerms;
+
 //------------------------------------------------------------------------------
 
 @end

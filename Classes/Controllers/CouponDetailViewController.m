@@ -23,6 +23,7 @@
 #import "MerchantViewController.h"
 #import "TikTokApi.h"
 #import "Utilities.h"
+#import "WebViewController.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -289,11 +290,24 @@ static NSUInteger sObservationContext;
     [self setupCouponDetails];
 
     // fix up scroll view to account for text view content
-    UIScrollView *scrollView = (UIScrollView*)[self.view viewWithTag:kTagScrollView];
-    UITextView *textView     = (UITextView*)[self.view viewWithTag:kTagDetails];
-    CGSize contentSize       = scrollView.contentSize;
-    contentSize.height       = textView.frame.origin.y + textView.contentSize.height + 60;
-    scrollView.contentSize   = contentSize;
+    UIScrollView *scrollView   = (UIScrollView*)[self.view viewWithTag:kTagScrollView];
+    UITextView *textView       = (UITextView*)[self.view viewWithTag:kTagDetails];
+    UIView *contentView        = [self.view viewWithTag:kTagContentView];
+    CGRect contentFrame        = contentView.frame;
+    CGRect textFrame           = textView.frame;
+    CGSize contentSize         = scrollView.contentSize;
+    contentSize.height         = contentFrame.origin.y   +
+                                 textView.frame.origin.y +
+                                 textView.contentSize.height;
+    scrollView.contentSize     = contentSize;
+
+    // update the height of the textview to match the content
+    textFrame.size.height = contentSize.height;
+    textView.frame        = textFrame;
+
+    // update the height of the content view
+    contentFrame.size.height = contentSize.height;
+    contentView.frame        = contentFrame;
 }
 
 //------------------------------------------------------------------------------
@@ -338,8 +352,6 @@ static NSUInteger sObservationContext;
     // cleanup 
     [flexibleSpaceButton release];
     [barButtonItem release];
-
-    // show the toolbar
 }
 
 //------------------------------------------------------------------------------
@@ -352,7 +364,7 @@ static NSUInteger sObservationContext;
 
     // details
     UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];
-    details.text        = self.coupon.details;
+    details.text        = [self.coupon getDetailsWithTerms];
 
     // icon
     [self setupIcon];
