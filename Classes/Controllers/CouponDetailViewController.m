@@ -792,9 +792,16 @@ static NSUInteger sObservationContext;
             [[MFMailComposeViewController alloc] init];
 
         // present the email controller
-        NSString *deal = $string(@"%@ at %@", self.coupon.title, self.coupon.merchant.name);
-        [controller setSubject:@"Checkout this amazing deal on TikTok!"];
-        [controller setMessageBody:$string(@"%@", deal) isHTML:NO];
+        NSString *merchant  = self.coupon.merchant.name;
+        NSString *formatted = [self.coupon.title capitalizedString];
+        [controller setSubject:$string(@"TikTok: Checkout this amazing deal for %@!", merchant)];
+        NSString *deal      = $string(@"<h3>TikTok</h3>"
+                                      @"<b>%@</b> at <b>%@</b>"
+                                      @"<br><br>"
+                                      @"<a href='www.tiktok.com'>Get your deal on!</a>", 
+                                      formatted, merchant);
+        [controller setMessageBody:deal isHTML:YES];
+
 
         // setup completion handler
         controller.completionHandler = ^(MFMailComposeViewController* controller,
@@ -846,7 +853,7 @@ static NSUInteger sObservationContext;
         // present sms controller
         NSString *formatted = [self.coupon.title capitalizedString];
         NSString *deal      = $string(@"%@ at %@", formatted, self.coupon.merchant.name);
-        controller.body     = $string(@"TikTok Deals: %@! www.tiktok.com", deal);
+        controller.body     = $string(@"TikTok: %@! www.tiktok.com", deal);
         controller.completionHandler = ^(MFMessageComposeViewController* controller,
                                          MessageComposeResult result) {
             switch (result) {
