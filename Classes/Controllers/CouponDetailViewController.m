@@ -988,12 +988,13 @@ static NSUInteger sObservationContext;
 {
     [Analytics passCheckpoint:@"Deal Facebooked"];
 
-    NSString *deal = $string(@"%@ at %@!", self.coupon.title, self.coupon.merchant.name);
+    NSString *formatted = [self.coupon.title capitalizedString];
+    NSString *deal      = $string(@"%@ at %@!", formatted, self.coupon.merchant.name);
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
         @"www.tiktok.com",   @"link",
         self.coupon.iconUrl, @"picture",
         @"TikTok",           @"name",
-        @"www.tiktok.com",   @"caption",
+        @"TikTok Deals!",    @"caption",
         deal,                @"description",
         nil];
 
