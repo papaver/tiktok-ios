@@ -844,8 +844,9 @@ static NSUInteger sObservationContext;
             [[MFMessageComposeViewController alloc] init];
 
         // present sms controller
-        NSString *deal  = $string(@"%@ at %@", self.coupon.title, self.coupon.merchant.name);
-        controller.body = $string(@"Checkout this amazing deal on TikTok: %@!", deal);
+        NSString *formatted = [self.coupon.title capitalizedString];
+        NSString *deal      = $string(@"%@ at %@", formatted, self.coupon.merchant.name);
+        controller.body     = $string(@"TikTok Deals: %@! www.tiktok.com", deal);
         controller.completionHandler = ^(MFMessageComposeViewController* controller,
                                          MessageComposeResult result) {
             switch (result) {
