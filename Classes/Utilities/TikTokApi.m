@@ -55,9 +55,9 @@
 + (NSString*) apiUrlPath
 {
     if (TIKTOKAPI_STAGING) {
-        return @"http://furious-window-5155.herokuapp.com/";
+        return @"https://furious-window-5155.herokuapp.com";
     } else {
-        return @"http://electric-dusk-7349.herokuapp.com/";
+        return @"https://www.tiktok.com";
     }
 }
 
