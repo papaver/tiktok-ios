@@ -18,6 +18,7 @@
     #import "UIDevice+GUID.h"
     #import "UIActionSheet+Handlers.h"
     #import "UIAlertView+Handlers.h"
+    #import "UIImage+FromView.h"
     #import "MFMailComposeViewController+Handlers.h"
     #import "MFMessageComposeViewController+Handlers.h"
     #import "Debug.h"

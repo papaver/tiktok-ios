@@ -22,6 +22,7 @@
 #import "Merchant.h"
 #import "MerchantViewController.h"
 #import "TikTokApi.h"
+#import "UIDefaults.h"
 #import "Utilities.h"
 #import "WebViewController.h"
 
@@ -91,6 +92,7 @@ static NSUInteger sObservationContext;
     - (void) tweetDealOnTwitter;
     - (void) setupFacebook;
     - (void) postDealToFacebook;
+    - (UIImage*) imageForIcon:(UIImage*)icon;
     - (void) openMap;
     - (void) onCouponDeleted:(NSNotification*)notification;
     - (CouponState) getCouponState:(Coupon*)coupon;
@@ -532,6 +534,32 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
+- (UIImage*) imageForIcon:(UIImage*)icon
+{
+    // create a gradient view for the background
+    CGRect gradientFrame       = CGRectMake(0.0, 0.0, 128.0, 128.0);
+    GradientView *gradientView = [[GradientView alloc] initWithFrame:gradientFrame];
+    gradientView.color         = [UIDefaults getTikColor];
+
+    // add the icon to the center
+    CGRect iconFrame      = CGRectMake(8.0, 8.0, 112.0, 112.0);
+    UIImageView *iconView = [[UIImageView alloc] initWithFrame:iconFrame];
+    iconView.contentMode  = UIViewContentModeScaleAspectFit;
+    iconView.image        = icon;
+    [gradientView addSubview:iconView];
+
+    // render the image 
+    UIImage *image = [UIImage imageFromView:gradientView];
+
+    // cleanup
+    [iconView release];
+    [gradientView release];
+
+    return image;
+}
+    
+//------------------------------------------------------------------------------
+
 - (void) openMap
 {
     [Analytics passCheckpoint:@"Deal Map Opened"];
@@ -889,9 +917,11 @@ static NSUInteger sObservationContext;
     UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];                
 
     // setup twitter controller
-    NSString *deal = $string(@"%@ at %@!", self.coupon.title, self.coupon.merchant.name);
+    NSString *formatted = [self.coupon.title capitalizedString];
+    NSString *deal      = $string(@"#tiktok #deals - %@ at %@!", formatted, self.coupon.merchant.name);
     [twitter setInitialText:deal];
-    [twitter addImage:icon.image];
+    [twitter addImage:[self imageForIcon:icon.image]];
+    [twitter addURL:[NSURL URLWithString:@"www.tiktok.com"]];
 
     // setup completion handler
     twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
