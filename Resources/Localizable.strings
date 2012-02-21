@@ -34,3 +34,6 @@
 
 "KARMA_POINTS"                 = "Karma Points";
 "KARMA_SYNC_FAIL"              = "Failed to sync karma points from server, try again later.";
+
+"REDEEM"                       = "Redeem Deal";
+"REDEEM_NETWORK_ERROR"         = "Failed to redeem the deal, could not connect to the network. Try again.";

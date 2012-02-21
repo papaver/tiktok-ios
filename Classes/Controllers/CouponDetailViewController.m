@@ -21,6 +21,7 @@
 #import "LocationMapViewController.h"
 #import "Merchant.h"
 #import "MerchantViewController.h"
+#import "Settings.h"
 #import "TikTokApi.h"
 #import "UIDefaults.h"
 #import "Utilities.h"
@@ -32,23 +33,26 @@
 
 enum CouponDetailTag
 {
-    kTagBackground       = 16,
-    kTagScrollView       = 14,
-    kTagTitleBar         = 11,
-    kTagTitle            =  3,
-    kTagContentView      =  2,
-    kTagIcon             =  5,
-    kTagIconActivity     =  6,
-    kTagColorTimer       =  7,
-    kTagTextTimer        =  8,
-    kTagTextTime         =  9,
-    kTagMap              = 10,
-    kTagCompanyName      = 12,
-    kTagCompanyAddress   = 13,
-    kTagDetails          =  4,
-    kTagBarcodeView      =  1,
-    kTagBarcodeCodeView  = 15,
-    kTagBarcodeSlideView = 17,
+    kTagBackground         = 16,
+    kTagScrollView         = 14,
+    kTagTitleBar           = 11,
+    kTagTitle              =  3,
+    kTagContentView        =  2,
+    kTagIcon               =  5,
+    kTagIconActivity       =  6,
+    kTagColorTimer         =  7,
+    kTagTextTimer          =  8,
+    kTagTextTime           =  9,
+    kTagMap                = 10,
+    kTagCompanyName        = 12,
+    kTagCompanyAddress     = 13,
+    kTagDetails            =  4,
+    kTagBarcodeView        =  1,
+    kTagBarcodeCodeView    = 15,
+    kTagBarcodeSlideView   = 17,
+    kTagBarcodeRedeem      = 18,
+    kTagBarcodeRedeemEmpty = 19,
+    kTagBarcodeActivity    = 20,
 };
 
 enum ActionButton
@@ -98,6 +102,8 @@ static NSUInteger sObservationContext;
     - (CouponState) getCouponState:(Coupon*)coupon;
     - (void) addSoldOutObserver;
     - (void) removeSoldOutObserver;
+    - (void) startRedeemedActivity;
+    - (void) endRedeemedActivity:(bool)redeemed;
 @end
 
 //------------------------------------------------------------------------------
@@ -517,19 +523,46 @@ static NSUInteger sObservationContext;
 
 - (IBAction) redeemCoupon:(id)sender
 {
-    self.coupon.wasRedeemed = $numb(YES);
-
-    // animate barcode
+    // show redeeming activity
     [UIView animateWithDuration:0.3 animations:^{
-        UIView *view    = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
-        CGRect frame    = view.frame;
-        frame.origin.y += 60.0;
-        view.frame      = frame;
-    }];
+        [self startRedeemedActivity];
+    }
+    completion:^(BOOL complete) {
 
-    // let server know of redemption
-    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeRedeem];
+        // let server know of redemption
+        TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+        api.completionHandler = ^(NSDictionary *response) {
+
+            // parse out registration status
+            NSString *status = [response objectForComplexKey:kTikTokApiKeyStatus@".redeem"];
+            if ([status isEqualToString:kTikTokApiStatusOkay]) {
+                [self endRedeemedActivity:true];
+                self.coupon.wasRedeemed = $numb(YES);
+
+            // alert the user of a problem
+            } else if ([status isEqualToString:kTikTokApiStatusForbidden]) {
+                [self endRedeemedActivity:false];
+                NSString *title   = NSLocalizedString(@"REDEEM", nil);
+                NSString *message = [response objectForComplexKey:kTikTokApiKeyError@".redeem"];
+                [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+
+                // sync up coupons
+                Settings *settings = [Settings getInstance];
+                [[[[TikTokApi alloc] init] autorelease] syncActiveCoupons:settings.lastUpdate];
+            }
+        };
+
+        // alert the user of error
+        api.errorHandler = ^(ASIHTTPRequest* request) {
+            [self endRedeemedActivity:false];
+            NSString *title   = NSLocalizedString(@"REDEEM", nil);
+            NSString *message = NSLocalizedString(@"REDEEM_NETWORK_ERROR", nil);
+            [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+        };
+
+        // run api
+        [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeRedeem];
+    }];
 }
 
 //------------------------------------------------------------------------------
@@ -664,6 +697,42 @@ static NSUInteger sObservationContext;
         [self.coupon removeObserver:self
                          forKeyPath:@"isSoldOut"
                             context:&sObservationContext];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) startRedeemedActivity
+{
+    UIImageView *empty               = (UIImageView*)[self.barcodeView viewWithTag:kTagBarcodeRedeemEmpty];
+    UIImageView *redeem              = (UIImageView*)[self.barcodeView viewWithTag:kTagBarcodeRedeem];
+    UIActivityIndicatorView *spinner = (UIActivityIndicatorView*)[self.barcodeView viewWithTag:kTagBarcodeActivity];
+    empty.hidden                     = NO;
+    empty.alpha                      = 1.0;
+    redeem.alpha                     = 0.0;
+    [spinner startAnimating];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) endRedeemedActivity:(bool)redeemed
+{
+    UIImageView *empty               = (UIImageView*)[self.barcodeView viewWithTag:kTagBarcodeRedeemEmpty];
+    UIImageView *redeem              = (UIImageView*)[self.barcodeView viewWithTag:kTagBarcodeRedeem];
+    UIActivityIndicatorView *spinner = (UIActivityIndicatorView*)[self.barcodeView viewWithTag:kTagBarcodeActivity];
+    empty.hidden                     = YES;
+    empty.alpha                      = 0.0;
+    redeem.alpha                     = 1.0;
+    [spinner stopAnimating];
+
+    // animate to redeemed status
+    if (redeemed) {
+        [UIView animateWithDuration:0.3 animations:^{
+            UIView *view    = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
+            CGRect frame    = view.frame;
+            frame.origin.y += 60.0;
+            view.frame      = frame;
+        }];
     }
 }
 

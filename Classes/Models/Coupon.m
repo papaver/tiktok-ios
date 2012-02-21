@@ -142,7 +142,7 @@
     self.iconId      = [data objectForKey:@"icon_uid"];
     self.iconUrl     = [data objectForKey:@"icon_url"];
     self.barcode     = [data objectForKey:@"barcode_number"];
-    self.wasRedeemed = [data objectForComplexKey:@"assignment.redeemed"];
+    self.wasRedeemed = [data objectForComplexKey:@"redeemed"];
     self.isSoldOut   = $numb(NO);
 
     return self;
