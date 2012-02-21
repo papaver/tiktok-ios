@@ -991,11 +991,13 @@ static NSUInteger sObservationContext;
     TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
 
     // grab icon from view
-    UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];                
+    UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];
 
     // setup twitter controller
     NSString *formatted = [self.coupon.title capitalizedString];
-    NSString *deal      = $string(@"#tiktok #deals - %@ at %@!", formatted, self.coupon.merchant.name);
+    NSString *deal      = $string(@"#tiktok #deals - %@ at %@! "
+                                  @"Grab your free deal at www.tiktok.com!",
+                                  formatted, self.coupon.merchant.name);
     [twitter setInitialText:deal];
     [twitter addImage:[self imageForIcon:icon.image]];
     [twitter addURL:[NSURL URLWithString:@"www.tiktok.com"]];
@@ -1066,12 +1068,14 @@ static NSUInteger sObservationContext;
     [Analytics passCheckpoint:@"Deal Facebooked"];
 
     NSString *formatted = [self.coupon.title capitalizedString];
-    NSString *deal      = $string(@"%@ at %@!", formatted, self.coupon.merchant.name);
+    NSString *deal      = $string(@"%@ at %@! "
+                                  @"Grab your free deal at www.tiktok.com!",
+                                  formatted, self.coupon.merchant.name);
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
         @"www.tiktok.com",   @"link",
         self.coupon.iconUrl, @"picture",
         @"TikTok",           @"name",
-        @"TikTok Deals!",    @"caption",
+        @"www.tiktok.com",   @"caption",
         deal,                @"description",
         nil];
 
