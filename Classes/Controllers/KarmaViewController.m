@@ -158,7 +158,7 @@ enum TableRow
 
             // grab points
             NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
-            NSString *twitter     = $string(@"%@", [results objectForKey:@"twitter"]);
+            NSString *twitter     = $string(@"%@", [results objectForKey:@"tw"]);
             NSString *facebook    = $string(@"%@", [results objectForKey:@"fb"]);
             NSString *sms         = $string(@"%@", [results objectForKey:@"sms"]);
             NSString *email       = $string(@"%@", [results objectForKey:@"email"]);

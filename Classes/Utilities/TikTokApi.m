@@ -413,7 +413,7 @@
     } sAttributeTable[6] = {
         { kTikTokApiCouponAttributeRedeem     , @"redeem" },
         { kTikTokApiCouponAttributeFacebook   , @"fb"     },
-        { kTikTokApiCouponAttributeTwitter    , @"twit"   },
+        { kTikTokApiCouponAttributeTwitter    , @"tw"     },
         { kTikTokApiCouponAttributeGooglePlus , @"gplus"  },
         { kTikTokApiCouponAttributeSMS        , @"sms"    },
         { kTikTokApiCouponAttributeEmail      , @"email"  },
