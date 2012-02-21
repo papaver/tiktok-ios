@@ -694,7 +694,7 @@
 		2EE0D88414F3380E0093D59B /* UIImage+FromView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FromView.m"; sourceTree = "<group>"; };
 		2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemBarItemButtonEmpty.png; sourceTree = "<group>"; };
 		2EE0D88D14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemBarItemButtonEmpty@2x.png"; sourceTree = "<group>"; };
-		2EE4563914BF9BA500EDD04B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		2EE4563914BF9BA500EDD04B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		2EE5D41D14AD356700D0539C /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
 		2EE5D41E14AD356700D0539C /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
 		2EE5D42114AE38E500D0539C /* NeutraDisp-BoldAlt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NeutraDisp-BoldAlt.otf"; sourceTree = "<group>"; };
