@@ -1087,8 +1087,14 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-- (void) dialogDidComplete:(FBDialog*)dialog
+- (void) dialogCompleteWithUrl:(NSURL*)url
 {
+    // make sure post actually went through.. fucking pos facebook...
+    NSString *query = url.query;
+    if (!query || ([query rangeOfString:@"post_id"].location == NSNotFound)) {
+        return;
+    }
+
     // let server know of share
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     [api updateCoupon:self.coupon.couponId attribute:kTikTokApiCouponAttributeFacebook];
