@@ -61,10 +61,6 @@
 		<string>NeutraDisp-BoldAlt.otf</string>
 		<string>UnitedSansReg-Bold.otf</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>location</string>
-	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIStatusBarStyle</key>
