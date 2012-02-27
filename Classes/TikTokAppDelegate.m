@@ -302,7 +302,7 @@
          annotation:(id)annotation 
 {
     // facebook
-    if ([sourceApplication isEqualToString:@"com.facebook.Facebook"]) {
+    if ([[url absoluteString] hasPrefix:$string(@"fb%@",FACEBOOK_API_KEY)]) {
         FacebookManager* facebookManager = [FacebookManager getInstance];
         return [facebookManager.facebook handleOpenURL:url];
     }
