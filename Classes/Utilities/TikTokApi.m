@@ -348,7 +348,7 @@
     // add settings in dictionary
     for (NSString* key in [settings allKeys]) {
         NSString* value = [settings objectForKey:key];
-        [request setPostValue:key forKey:value];
+        [request setPostValue:value forKey:key];
     }
 
     // set completion handler
