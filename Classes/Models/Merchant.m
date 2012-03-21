@@ -42,8 +42,8 @@
 #pragma mark Static methods
 //------------------------------------------------------------------------------
 
-+ (Merchant*) getMerchantByName:(NSString*)name 
-                    fromContext:(NSManagedObjectContext*)context
++ (Merchant*) getMerchantById:(NSNumber*)merchantId
+                  fromContext:(NSManagedObjectContext*)context
 {
     // grab the merchant description
     NSEntityDescription *description = [NSEntityDescription
@@ -54,7 +54,7 @@
     [request setEntity:description];
 
     // setup the request to lookup the specific merchant by name
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"merchantId == %@", merchantId];
     [request setPredicate:predicate];
 
     // return the merchant if it already exists in the context
@@ -76,8 +76,8 @@
                                   fromContext:(NSManagedObjectContext*)context
 {
     // check if merchant already exists in the store
-    NSString *name     = [data objectForKey:@"name"];
-    Merchant *merchant = [Merchant getMerchantByName:name fromContext:context];
+    NSNumber *merchantId = [data objectForKey:@"id"];
+    Merchant *merchant   = [Merchant getMerchantById:merchantId fromContext:context];
     if (merchant != nil) {
         return merchant;
     }
@@ -113,6 +113,7 @@
 
 - (Merchant*) initWithJsonDictionary:(NSDictionary*)data
 {
+    self.merchantId  = [data objectForKey:@"id"];
     self.name        = [data objectForKey:@"name"];
     self.address     = [data objectForKey:@"full_address"];
     self.latitude    = [data objectForKey:@"latitude"];

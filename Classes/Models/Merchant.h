@@ -51,8 +51,8 @@
 /**
  * Query the context for a merchant by name.  
  */
-+ (Merchant*) getMerchantByName:(NSString*)name 
-                    fromContext:(NSManagedObjectContext*)context;
++ (Merchant*) getMerchantById:(NSNumber*)merchantId
+                  fromContext:(NSManagedObjectContext*)context;
 
 /**
  * Query the context for a merchant by json data.  If the merchant does not 
