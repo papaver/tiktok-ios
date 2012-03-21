@@ -153,6 +153,16 @@ enum ViewTags
 
 - (IBAction) centerMap:(id)sender
 {
+    // can't use current location without location services enabled
+    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
+        NSString *title   = NSLocalizedString(@"LOCATION_SERVICE", nil);
+        NSString *message = NSLocalizedString(@"LOCATION_NO_CURRENT", nil);
+        [Utilities displaySimpleAlertWithTitle:title
+                                    andMessage:message];
+        return;
+    }
+
+    // center map around current location
     MKMapView *map = (MKMapView*)[self.view viewWithTag:kTagMap];
     MKCoordinateRegion region = map.region;
     region.center = map.userLocation.location.coordinate;

@@ -16,8 +16,9 @@
 #import "CouponDetailViewController.h"
 #import "Database.h"
 #import "IconManager.h"
-#import "Merchant.h"
 #import "GradientView.h"
+#import "Merchant.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // statics
@@ -465,6 +466,16 @@ NSString *sCouponCacheName = @"coupon_map";
 
 - (void) centerMapUserLocation
 {
+    // can't use current location without location services enabled
+    if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
+        NSString *title   = NSLocalizedString(@"LOCATION_SERVICE", nil);
+        NSString *message = NSLocalizedString(@"LOCATION_NO_CURRENT", nil);
+        [Utilities displaySimpleAlertWithTitle:title
+                                    andMessage:message];
+        return;
+    }
+
+    // center map around current location
     MKCoordinateRegion region = self.mapView.region;
     region.center = self.mapView.userLocation.location.coordinate;
     [self.mapView setRegion:region animated:YES];
