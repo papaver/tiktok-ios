@@ -28,6 +28,7 @@
 
 //------------------------------------------------------------------------------
 
++ (bool) isInitialized;
 + (void) startLocationTracking;
 + (void) stopLocationTracking;
 

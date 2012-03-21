@@ -44,6 +44,13 @@ static LocationTracker *sLocationTracker;
 #pragma mark - class members
 //------------------------------------------------------------------------------
 
++ (bool) isInitialized
+{
+    return sLocationTracker != nil;
+}
+
+//------------------------------------------------------------------------------
+
 + (void) startLocationTracking
 {
     // allocate a new location tacker if required

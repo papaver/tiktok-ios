@@ -134,7 +134,11 @@
 - (void) applicationDidBecomeActive:(UIApplication*)application 
 {
     NSLog(@"Application entered foreground state.");
-    [LocationTracker startLocationTracking];
+
+    // restart location services
+    if ([LocationTracker isInitialized]) {
+        [LocationTracker startLocationTracking];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -146,6 +150,8 @@
 - (void) applicationWillTerminate:(UIApplication*)application 
 {
     NSLog(@"Application will terminate.");
+
+    // stop location services
     [LocationTracker stopLocationTracking];
 }
 

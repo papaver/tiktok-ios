@@ -27,6 +27,7 @@
 
 @interface TikTokApi ()
     + (NSString*) apiUrlPath;
+    + (void) startAsyncRequest:(ASIHTTPRequest*)request;
     - (void) parseCouponData:(NSDictionary*)data
                  withContext:(NSManagedObjectContext*)context;
     - (void) parseCoupon:(NSDictionary*)couponData
@@ -59,6 +60,13 @@
     } else {
         return @"https://www.tiktok.com";
     }
+}
+
+//------------------------------------------------------------------------------
+
++ (void) startAsyncRequest:(ASIHTTPRequest*)request
+{
+    [request startAsynchronous];
 }
 
 //------------------------------------------------------------------------------
@@ -144,7 +152,7 @@
     }];
 
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------
@@ -172,7 +180,7 @@
     }];
 
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------
@@ -205,7 +213,7 @@
     }];
 
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------
@@ -282,7 +290,7 @@
     }];
  
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------
@@ -328,7 +336,7 @@
     }];
 
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------
@@ -364,7 +372,7 @@
     }];
 
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------
@@ -450,7 +458,7 @@
     }];
 
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------
@@ -478,7 +486,7 @@
     }];
 
     // initiate the request
-    [request startAsynchronous];
+    [TikTokApi startAsyncRequest:request];
 }
 
 //------------------------------------------------------------------------------

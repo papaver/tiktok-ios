@@ -341,14 +341,13 @@ enum StartupTag
     // trigger completion handler
     NSDate *lastUpdate    = [NSDate date];
     api.completionHandler = ^(NSDictionary *response) { 
-        if (!mPause) {
-            if (self.completionHandler) self.completionHandler();
-        }
-    
+        mComplete = true;
+
+        // run completion handler
+        if (!mPause && self.completionHandler) self.completionHandler();
+
         // update last update time
         [[Settings getInstance] setLastUpdate:lastUpdate];
-
-        mComplete = true;
     };
 
     // lost connection? fuck... restart startup process for now...
