@@ -23,6 +23,12 @@
 #import "UIDefaults.h"
 
 //------------------------------------------------------------------------------
+// defines
+//------------------------------------------------------------------------------
+
+#define SECONDS_PER_DAY 86400
+
+//------------------------------------------------------------------------------
 // enums
 //------------------------------------------------------------------------------
 
@@ -752,10 +758,16 @@ static NSString *sCouponCacheName = @"coupon_table";
     NSSortDescriptor *sortByEndDate = [[NSSortDescriptor alloc] 
         initWithKey:@"endTime" ascending:NO];
 
+    // create a predicate
+    NSDate *threeDaysAgo   = [[NSDate date] dateByAddingTimeInterval:(-3 * SECONDS_PER_DAY)];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+            @"endTime > %@", threeDaysAgo];
+
     // create a fetch request
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     request.entity          = description;
     request.fetchBatchSize  = 10;
+    request.predicate       = predicate;
     request.sortDescriptors = $array(sortByEndDate);
 
     // create a results controller from the request
@@ -941,17 +953,23 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) updateFilterByReedmeedOnly:(bool)redeemedOnly activeOnly:(bool)activeOnly
 {
+    NSDate *now          = [NSDate date];
+    NSDate *threeDaysAgo = [now dateByAddingTimeInterval:(-3 * SECONDS_PER_DAY)];
+
     NSPredicate *predicate = nil;
     if (redeemedOnly && activeOnly) {
         predicate = [NSPredicate predicateWithFormat:
-            @"wasRedeemed == %@ && endTime > %@", $numb(YES), [NSDate date]];
+            @"wasRedeemed == %@ && endTime > %@", $numb(YES), now];
     } else if (redeemedOnly) {
         predicate = [NSPredicate predicateWithFormat:
-            @"wasRedeemed == %@", $numb(YES)];
+            @"wasRedeemed == %@ && endTime > %@", $numb(YES), threeDaysAgo];
     } else if (activeOnly) {
         predicate = [NSPredicate predicateWithFormat:
-            @"endTime > %@", [NSDate date]];
-    } 
+            @"endTime > %@", now];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:
+            @"endTime > %@", threeDaysAgo];
+    }
 
     // clear the cache
     [NSFetchedResultsController deleteCacheWithName:sCouponCacheName];
