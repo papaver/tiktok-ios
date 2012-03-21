@@ -948,13 +948,13 @@ static NSUInteger sObservationContext;
     UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];
 
     // setup twitter controller
+    NSString *city      = [[self.coupon.merchant getCity] lowercaseString];
     NSString *formatted = [self.coupon.title capitalizedString];
-    NSString *deal      = $string(@"#tiktok #deals - %@ at %@! "
-                                  @"Grab your free deal at www.tiktok.com!",
-                                  formatted, self.coupon.merchant.name);
+    NSString *deal      = $string(@"@tiktok #%@ - I just scored a #deal... %@ at %@! "
+                                  @"FREE deals at www.tiktok.com!",
+                                  city, formatted, self.coupon.merchant.name);
     [twitter setInitialText:deal];
     [twitter addImage:[self imageForIcon:icon.image]];
-    [twitter addURL:[NSURL URLWithString:@"www.tiktok.com"]];
 
     // setup completion handler
     twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {

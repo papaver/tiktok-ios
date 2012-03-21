@@ -130,4 +130,12 @@
 
 //------------------------------------------------------------------------------
 
+- (NSString*) getCity
+{
+    NSString *city = [[self.address componentsSeparatedByString:@", "] objectAtIndex:1];
+    return city;
+}
+
+//------------------------------------------------------------------------------
+
 @end

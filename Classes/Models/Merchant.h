@@ -66,6 +66,11 @@
  */
 - (Merchant*) initWithJsonDictionary:(NSDictionary*)data;
 
+/**
+ * Get city merchant resides in.
+ */
+- (NSString*) getCity;
+
 //------------------------------------------------------------------------------
 
 @end 
@@ -80,4 +85,3 @@
 - (void) addCoupons:(NSSet*)coupons;
 - (void) removeCoupons:(NSSet*)coupons;
 @end
-
