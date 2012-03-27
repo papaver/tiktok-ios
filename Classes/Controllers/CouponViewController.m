@@ -18,6 +18,7 @@
 #import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
+#import "PromoController.h"
 #import "Settings.h"
 #import "TikTokApi.h"
 #import "UIDefaults.h"
@@ -114,6 +115,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // add navitems
     [self setupFilterButtons];
+    [self setupLeftButtons];
 
     // setup the refresh header
     [self setupRefreshHeader];
@@ -178,6 +180,34 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // cleanup
     [filterButton release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupLeftButtons
+{
+    // create a bar button item for filters
+    UIBarButtonItem *promoButton =
+        [[UIBarButtonItem alloc] initWithTitle:@"Promo"
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(redeemPromoCode)];
+
+    // add to navbar
+    self.navigationItem.leftBarButtonItem = promoButton;
+
+    // cleanup
+    [promoButton release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) redeemPromoCode
+{
+    PromoController *promoController = [[PromoController alloc] init];
+    [self presentViewController:promoController
+                       animated:YES
+                     completion:nil];
 }
 
 //------------------------------------------------------------------------------

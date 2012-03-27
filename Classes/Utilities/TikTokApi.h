@@ -52,7 +52,7 @@ typedef void (^TikTokApiErrorHandler)(ASIHTTPRequest*);
 #define kTikTokApiStatusOkay      @"OK"
 #define kTikTokApiStatusInvalid   @"INVALID REQUEST"
 #define kTikTokApiStatusForbidden @"FORBIDDEN"
-#define kTikTokApiStatusNotFound  @"NOT FOUND"
+#define kTikTokApiStatusNotFound  @"NOT_FOUND"
 
 //------------------------------------------------------------------------------
 // interface implementation 
@@ -86,6 +86,7 @@ typedef void (^TikTokApiErrorHandler)(ASIHTTPRequest*);
 - (void) updateSettingsHomeLocation:(CLLocation*)home;
 - (void) updateSettingsWorkLocation:(CLLocation*)work;
 - (void) syncKarmaPoints;
+- (void) redeemPromotion:(NSString*)promoCode;
 
 //------------------------------------------------------------------------------
 

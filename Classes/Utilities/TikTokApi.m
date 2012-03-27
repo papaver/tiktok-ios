@@ -490,6 +490,34 @@
 }
 
 //------------------------------------------------------------------------------
+
+- (void) redeemPromotion:(NSString*)promoCode;
+{
+    NSString *syncPath = $string(@"%@/consumers/%@/promotions/redeem?code=%@",
+        [TikTokApi apiUrlPath], [Utilities getConsumerId], promoCode);
+
+    // construct url
+    NSURL *url = [[[NSURL alloc] initWithString:syncPath] autorelease];
+
+    // setup the async request
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
+    [request setCompletionBlock:^{
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to redeem promo code: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [TikTokApi startAsyncRequest:request];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Json Parserers
 //------------------------------------------------------------------------------
 

@@ -39,3 +39,9 @@
 
 "REDEEM"                       = "Redeem Deal";
 "REDEEM_NETWORK_ERROR"         = "Failed to redeem the deal, could not connect to the network. Try again.";
+
+"PROMO"                        = "Promotion Code";
+"PROMO_SUCCESS"                = "Congratulations, you have won a FREE deal!";
+"PROMO_FAIL"                   = "Failed to redeem promotion, try again.";
+"PROMO_USED"                   = "Promotion code can only be redeemed once, try another code.";
+"PROMO_INVALID"                = "The promotion code you entered was not recognized, try another code.";

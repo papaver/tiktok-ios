@@ -73,6 +73,10 @@
 		2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E32143F14C0BAE000647116 /* iPhoneShake.png */; };
 		2E3BFC2114EDD61700E77147 /* LineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3BFC2014EDD61700E77147 /* LineChartView.m */; };
 		2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */; };
+		2E5565EA1522395700606625 /* PromoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5565E91522395700606625 /* PromoController.m */; };
+		2E5565EC1522397800606625 /* PromoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565EB1522397800606625 /* PromoController.xib */; };
+		2E5565EE15223CE100606625 /* TokPromo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565ED15223CE100606625 /* TokPromo.png */; };
+		2E5565F015223CEC00606625 /* TokPromo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565EF15223CEC00606625 /* TokPromo@2x.png */; };
 		2E5FB77E14EF21F200F597DD /* HelveticaNeueLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FB77C14EF21F200F597DD /* HelveticaNeueLight.ttf */; };
 		2E5FB77F14EF21F200F597DD /* HelveticaNeueMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FB77D14EF21F200F597DD /* HelveticaNeueMedium.ttf */; };
 		2E5FEADB14A1106400B516FE /* Icon01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD514A1106300B516FE /* Icon01.png */; };
@@ -415,6 +419,11 @@
 		2E3BFC2014EDD61700E77147 /* LineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChartView.m; sourceTree = "<group>"; };
 		2E41C74B14D0D2B60098C91C /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
 		2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTableViewCell.m; sourceTree = "<group>"; };
+		2E5565E81522395700606625 /* PromoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoController.h; sourceTree = "<group>"; };
+		2E5565E91522395700606625 /* PromoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoController.m; sourceTree = "<group>"; };
+		2E5565EB1522397800606625 /* PromoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromoController.xib; sourceTree = "<group>"; };
+		2E5565ED15223CE100606625 /* TokPromo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokPromo.png; sourceTree = "<group>"; };
+		2E5565EF15223CEC00606625 /* TokPromo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokPromo@2x.png"; sourceTree = "<group>"; };
 		2E5FB77C14EF21F200F597DD /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueLight.ttf; sourceTree = "<group>"; };
 		2E5FB77D14EF21F200F597DD /* HelveticaNeueMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueMedium.ttf; sourceTree = "<group>"; };
 		2E5FEAD514A1106300B516FE /* Icon01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon01.png; sourceTree = "<group>"; };
@@ -1035,6 +1044,7 @@
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
+				2E5565EB1522397800606625 /* PromoController.xib */,
 				2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */,
 				2EB87ED9149FC07C00F01C26 /* StartupViewController.xib */,
 				2EA168FF14BF60D60099B1F1 /* StringPickerViewController.xib */,
@@ -1046,6 +1056,8 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E5565ED15223CE100606625 /* TokPromo.png */,
+				2E5565EF15223CEC00606625 /* TokPromo@2x.png */,
 				2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */,
 				2EE0D88D14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png */,
 				2EFEDEAE14F1DDFC00BCE0CC /* DealSoldOutBanner.png */,
@@ -1565,6 +1577,8 @@
 				2E31269514C8DFFE00477805 /* LocationPickerViewController.m */,
 				2EE8581514ABABBB008055AD /* MerchantViewController.h */,
 				2EE8581614ABABBB008055AD /* MerchantViewController.m */,
+				2E5565E81522395700606625 /* PromoController.h */,
+				2E5565E91522395700606625 /* PromoController.m */,
 				2E6A9EDE14BE5F5000AA4B7B /* SettingsViewController.h */,
 				2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */,
 				2EB87ED7149FC07C00F01C26 /* StartupViewController.h */,
@@ -1889,6 +1903,9 @@
 				2EC9E27914F2E42300B8D8FB /* 01-refresh-bar@2x.png in Resources */,
 				2EE0D88E14F357A60093D59B /* RedeemBarItemButtonEmpty.png in Resources */,
 				2EE0D88F14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png in Resources */,
+				2E5565EC1522397800606625 /* PromoController.xib in Resources */,
+				2E5565EE15223CE100606625 /* TokPromo.png in Resources */,
+				2E5565F015223CEC00606625 /* TokPromo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2025,6 +2042,7 @@
 				2EFF7BE514EB511E00632211 /* KarmaViewController.m in Sources */,
 				2E3BFC2114EDD61700E77147 /* LineChartView.m in Sources */,
 				2EE0D88514F3380E0093D59B /* UIImage+FromView.m in Sources */,
+				2E5565EA1522395700606625 /* PromoController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
