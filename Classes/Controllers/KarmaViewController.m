@@ -14,6 +14,7 @@
 #import "ASIHTTPRequest.h"
 #import "TikTokApi.h"
 #import "Utilities.h"
+#import "WebViewController.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -189,6 +190,22 @@ enum TableRow
 
     // sync karma points from server
     [api syncKarmaPoints];
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) karmaDetails:(id)sender
+{
+    // setup a webview controller
+    WebViewController *controller = [[WebViewController alloc] init];
+    controller.title              = @"Karma Points";
+    controller.url                = @"http://www.tiktok.com/karma_details";
+
+    // present the webview
+    [self.navigationController pushViewController:controller animated:YES];
+
+    // cleanup
+    [controller release];
 }
 
 //------------------------------------------------------------------------------
