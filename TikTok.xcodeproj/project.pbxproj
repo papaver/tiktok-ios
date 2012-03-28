@@ -77,6 +77,8 @@
 		2E5565EC1522397800606625 /* PromoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565EB1522397800606625 /* PromoController.xib */; };
 		2E5565EE15223CE100606625 /* TokPromo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565ED15223CE100606625 /* TokPromo.png */; };
 		2E5565F015223CEC00606625 /* TokPromo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565EF15223CEC00606625 /* TokPromo@2x.png */; };
+		2E5565F91522A2F300606625 /* 108-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565F71522A2F300606625 /* 108-badge.png */; };
+		2E5565FA1522A2F300606625 /* 108-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565F81522A2F300606625 /* 108-badge@2x.png */; };
 		2E5FB77E14EF21F200F597DD /* HelveticaNeueLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FB77C14EF21F200F597DD /* HelveticaNeueLight.ttf */; };
 		2E5FB77F14EF21F200F597DD /* HelveticaNeueMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FB77D14EF21F200F597DD /* HelveticaNeueMedium.ttf */; };
 		2E5FEADB14A1106400B516FE /* Icon01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD514A1106300B516FE /* Icon01.png */; };
@@ -424,6 +426,8 @@
 		2E5565EB1522397800606625 /* PromoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromoController.xib; sourceTree = "<group>"; };
 		2E5565ED15223CE100606625 /* TokPromo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokPromo.png; sourceTree = "<group>"; };
 		2E5565EF15223CEC00606625 /* TokPromo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokPromo@2x.png"; sourceTree = "<group>"; };
+		2E5565F71522A2F300606625 /* 108-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge.png"; sourceTree = "<group>"; };
+		2E5565F81522A2F300606625 /* 108-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge@2x.png"; sourceTree = "<group>"; };
 		2E5FB77C14EF21F200F597DD /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueLight.ttf; sourceTree = "<group>"; };
 		2E5FB77D14EF21F200F597DD /* HelveticaNeueMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueMedium.ttf; sourceTree = "<group>"; };
 		2E5FEAD514A1106300B516FE /* Icon01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon01.png; sourceTree = "<group>"; };
@@ -978,6 +982,8 @@
 				2EFF7BE714EB531100632211 /* 18-envelope@2x.png */,
 				2E0B9B1F14D721E600DBC86C /* 103-map.png */,
 				2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */,
+				2E5565F71522A2F300606625 /* 108-badge.png */,
+				2E5565F81522A2F300606625 /* 108-badge@2x.png */,
 				2E0B9B2014D721E600DBC86C /* 123-id-card.png */,
 				2E89C2E014DBCB2B0052751D /* 123-id-card@2x.png */,
 				2EB7525814E06B8B009FC332 /* 193-location-arrow-bar.png */,
@@ -1906,6 +1912,8 @@
 				2E5565EC1522397800606625 /* PromoController.xib in Resources */,
 				2E5565EE15223CE100606625 /* TokPromo.png in Resources */,
 				2E5565F015223CEC00606625 /* TokPromo@2x.png in Resources */,
+				2E5565F91522A2F300606625 /* 108-badge.png in Resources */,
+				2E5565FA1522A2F300606625 /* 108-badge@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

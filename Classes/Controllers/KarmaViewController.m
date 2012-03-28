@@ -33,6 +33,7 @@ enum TableRow
     kRowFacebook = 1,
     kRowEmail    = 2,
     kRowSMS      = 3,
+    kRowReferral = 4,
 };
 
 //------------------------------------------------------------------------------
@@ -92,9 +93,9 @@ enum TableRow
     }
 
     // setup a dictionary for each naming of the rows
-    mTableData   = [$array(@"Twitter", @"Facebook", @"SMS", @"Email") retain];
-    mIconData    = [$array(@"210-twitterbird", @"208-facebook", @"286-speechbubble", @"18-envelope") retain];
-    mKarmaPoints = [$array(@"-", @"-", @"-", @"-") retain];
+    mTableData   = [$array(@"Twitter", @"Facebook", @"SMS", @"Email", @"Referrals") retain];
+    mIconData    = [$array(@"210-twitterbird", @"208-facebook", @"286-speechbubble", @"18-envelope", @"108-badge") retain];
+    mKarmaPoints = [$array(@"-", @"-", @"-", @"-", @"-") retain];
 
     // setup toolbar
     [self setupToolbar];
@@ -162,10 +163,11 @@ enum TableRow
             NSString *facebook    = $string(@"%@", [results objectForKey:@"fb"]);
             NSString *sms         = $string(@"%@", [results objectForKey:@"sms"]);
             NSString *email       = $string(@"%@", [results objectForKey:@"email"]);
+            NSString *referral    = $string(@"%@", [results objectForKey:@"referral"]);
 
             // cache for easy access
             [mKarmaPoints release];
-            mKarmaPoints = [$array(twitter, facebook, sms, email) retain];
+            mKarmaPoints = [$array(twitter, facebook, sms, email, referral) retain];
 
             // refresh table
             [self.tableView reloadData];
