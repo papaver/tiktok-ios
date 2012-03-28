@@ -17,6 +17,7 @@
 #import "LocationPickerViewController.h"
 #import "Settings.h"
 #import "StringPickerViewController.h"
+#import "TikTokApi.h"
 
 //------------------------------------------------------------------------------
 // enums
@@ -491,6 +492,10 @@ enum ViewTags
     if (![manager.facebook isSessionValid]) {
         [manager authorizeWithSucessHandler:^{
             [self updateFacebookConnect];
+
+            // push facebook token to server
+            TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+            [api updateSettings:$dict($array(@"fb"), $array(manager.facebook.accessToken))];
         }];
     }
 }
