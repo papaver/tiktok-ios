@@ -71,9 +71,8 @@ static NSString *sCouponCacheName = @"coupon_table";
 @interface CouponViewController ()
     - (void) setupRefreshHeader;
     - (void) setupFilterButtons;
-    - (void) setupMoreButtons;
+    - (void) setupNavButtons;
     - (void) setupFilterPopoverController;
-    - (void) setupMorePopoverController;
     - (WEPopoverContainerViewProperties*) popoverViewProperties;
     - (void) updateExpiration:(NSTimer*)timer;
     - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
@@ -90,7 +89,6 @@ static NSString *sCouponCacheName = @"coupon_table";
     - (void) filterDealsRedeemed:(id)sender;
     - (void) filterDealsActive:(id)sender;
     - (void) filterPopup;
-    - (void) morePopup;
     - (void) redeemPromoCode:(id)sender;
     - (void) shareApp:(id)sender;
     - (void) shareTwitter;
@@ -115,7 +113,6 @@ static NSString *sCouponCacheName = @"coupon_table";
 @synthesize tableView                = mTableView;
 @synthesize fetchedCouponsController = mFetchedCouponsController;
 @synthesize popoverControllerFilter  = mPopoverControllerFilter;
-@synthesize popoverControllerMore    = mPopoverControllerMore;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -139,8 +136,10 @@ static NSString *sCouponCacheName = @"coupon_table";
     [Analytics passCheckpoint:@"Deals"];
 
     // add navitems
-    [self setupFilterButtons];
-    [self setupMoreButtons];
+    [self setupNavButtons];
+
+    // [moiz] removed for the time being...
+    //[self setupFilterButtons];
 
     // setup the refresh header
     [self setupRefreshHeader];
@@ -209,19 +208,29 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) setupMoreButtons
+- (void) setupNavButtons
 {
-    // create a bar button item for filters
-    UIBarButtonItem *moreButton =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                      target:self
-                                                      action:@selector(morePopup)];
+    // share app button
+    UIBarButtonItem *shareButton =
+        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"112-group-bar.png"]
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(shareApp:)];
+
+    // redeem promo button
+    UIBarButtonItem *redeemButton =
+        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"24-gift-bar.png"]
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(redeemPromoCode:)];
 
     // add to navbar
-    self.navigationItem.rightBarButtonItem = moreButton;
+    self.navigationItem.leftBarButtonItem  = redeemButton;
+    self.navigationItem.rightBarButtonItem = shareButton;
 
     // cleanup
-    [moreButton release];
+    [shareButton release];
+    [redeemButton release];
 }
 
 //------------------------------------------------------------------------------
@@ -299,86 +308,6 @@ static NSString *sCouponCacheName = @"coupon_table";
     // cleanup
     [view release];
     [activeButton release];
-    [redeemedButton release];
-    [contentViewController release];
-    [popoverController release];
-}
-
-//------------------------------------------------------------------------------
-
-- (void) setupMorePopoverController
-{
-    // create popup and content view controllers
-    UIViewController *contentViewController =
-        [[UIViewController alloc] init];
-
-    // create active button
-    UISegmentedControl *shareButton   =
-        [[UISegmentedControl alloc] initWithItems:$array(@"Share App")];
-    shareButton.momentary             = YES;
-    shareButton.tintColor             = [UIDefaults getTikColor];
-    shareButton.segmentedControlStyle = UISegmentedControlStyleBar;
-    [shareButton addTarget:self
-                    action:@selector(shareApp:)
-          forControlEvents:UIControlEventValueChanged];
-
-    // create redeemed button
-    UISegmentedControl *redeemedButton   =
-        [[UISegmentedControl alloc] initWithItems:$array(@"Redeem Promo")];
-    redeemedButton.momentary             = YES;
-    redeemedButton.tintColor             = [UIDefaults getTikColor];
-    redeemedButton.segmentedControlStyle = UISegmentedControlStyleBar;
-    [redeemedButton addTarget:self
-                       action:@selector(redeemPromoCode:)
-             forControlEvents:UIControlEventValueChanged];
-
-    // layout the buttons properly
-    CGFloat buffer          = 5.0;
-    CGRect activeFrame      = shareButton.frame;
-    CGRect redeemedFrame    = redeemedButton.frame;
-    activeFrame.origin.x   += buffer;
-    activeFrame.origin.y   += buffer;
-    redeemedFrame.origin.x += buffer;
-    redeemedFrame.origin.y  = activeFrame.origin.y + activeFrame.size.height + buffer;
-
-    // resize the buttons to have equal width
-    CGFloat maxWidth         = MAX(activeFrame.size.width, redeemedFrame.size.width);
-    activeFrame.size.width   = maxWidth;
-    redeemedFrame.size.width = maxWidth;
-
-    // update the frames
-    shareButton.frame    = activeFrame;
-    redeemedButton.frame = redeemedFrame;
-
-    // create a view to hold the buttons
-    CGRect frame;
-    frame.origin.x    = 0.0;
-    frame.origin.y    = 0.0;
-    frame.size.width  = maxWidth + buffer * 2.0;
-    frame.size.height = redeemedFrame.origin.y + redeemedFrame.size.height + buffer;
-    UIView *view = [[UIView alloc] initWithFrame:frame];
-    [view addSubview:shareButton];
-    [view addSubview:redeemedButton];
-
-    // set view on controller
-    contentViewController.view                        = view;
-    contentViewController.contentSizeForViewInPopover = frame.size;
-
-    // create the popup controller
-    WEPopoverController *popoverController = [[WEPopoverController alloc]
-        initWithContentViewController:contentViewController];
-
-    // setup popover
-    popoverController.delegate                = self;
-    popoverController.passthroughViews        = $array(self.navigationController.navigationBar);
-    popoverController.containerViewProperties = [self popoverViewProperties];
-
-    // save controller
-    self.popoverControllerMore = popoverController;
-
-    // cleanup
-    [view release];
-    [shareButton release];
     [redeemedButton release];
     [contentViewController release];
     [popoverController release];
@@ -1131,36 +1060,6 @@ static NSString *sCouponCacheName = @"coupon_table";
     } else {
         [self.popoverControllerFilter dismissPopoverAnimated:YES];
     }
-
-    // dismiss more popover
-    if (self.popoverControllerMore.popoverVisible) {
-        [self.popoverControllerMore dismissPopoverAnimated:YES];
-    }
-}
-
-//------------------------------------------------------------------------------
-
-- (void) morePopup
-{
-    // lazy create popover controller
-    if (self.popoverControllerMore == nil) {
-        [self setupMorePopoverController];
-    }
-
-    // display popover if visible else dismiss
-    if (!self.popoverControllerMore.popoverVisible) {
-        [self.popoverControllerMore
-            presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem
-                   permittedArrowDirections:(UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown)
-                                   animated:YES];
-    } else {
-        [self.popoverControllerMore dismissPopoverAnimated:YES];
-    }
-
-    // dismiss filter popover
-    if (self.popoverControllerFilter.popoverVisible) {
-        [self.popoverControllerFilter dismissPopoverAnimated:YES];
-    }
 }
 
 //------------------------------------------------------------------------------
@@ -1252,9 +1151,6 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) redeemPromoCode:(id)sender
 {
-    // close poppover
-    [self.popoverControllerMore dismissPopoverAnimated:YES];
-
     // present promo controller
     PromoController *controller = [[PromoController alloc] init];
     [self presentViewController:controller
@@ -1269,9 +1165,6 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) shareApp:(id)sender
 {
-    // close poppover
-    [self.popoverControllerMore dismissPopoverAnimated:YES];
-
     // setup action sheet handler
     UIActionSheetSelectionHandler handler = ^(NSInteger buttonIndex) {
         switch (buttonIndex) {
@@ -1294,7 +1187,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // setup action sheet
     UIActionSheet *actionSheet =
-        [[UIActionSheet alloc] initWithTitle:@"Share TikTok App"
+        [[UIActionSheet alloc] initWithTitle:@"Share the TikTok App with your friends!"
                                  withHandler:handler
                            cancelButtonTitle:@"Cancel"
                       destructiveButtonTitle:nil
@@ -1621,11 +1514,9 @@ static NSString *sCouponCacheName = @"coupon_table";
 - (void) dealloc
 {
     mPopoverControllerFilter.delegate  = nil;
-    mPopoverControllerMore.delegate    = nil;
     mFetchedCouponsController.delegate = nil;
 
     [mPopoverControllerFilter release];
-    [mPopoverControllerMore release];
     [mFetchedCouponsController release];
     [mRefreshHeaderView release];
     [mTableView release];

@@ -34,7 +34,6 @@
     NSFetchedResultsController *mFetchedCouponsController;
     EGORefreshTableHeaderView  *mRefreshHeaderView;
     WEPopoverController        *mPopoverControllerFilter;
-    WEPopoverController        *mPopoverControllerMore;
     BOOL                        mReloading;
 }
 
@@ -44,7 +43,6 @@
 @property (nonatomic, retain) IBOutlet UITableView                 *tableView;
 @property (nonatomic, retain)          NSFetchedResultsController  *fetchedCouponsController;
 @property (nonatomic, retain)          WEPopoverController         *popoverControllerFilter;
-@property (nonatomic, retain)          WEPopoverController         *popoverControllerMore;
     
 //------------------------------------------------------------------------------
 
