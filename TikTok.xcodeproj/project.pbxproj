@@ -304,6 +304,12 @@
 		2EE8581C14ABF2F8008055AD /* Barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581A14ABF2F8008055AD /* Barcode@2x.png */; };
 		2EEA758E14D8C1E300D0D92A /* CouponMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */; };
 		2EEA759214D8C58800D0D92A /* CouponMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */; };
+		2EEC09CD1523B2E100E6812E /* 24-gift-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09C71523B2E100E6812E /* 24-gift-bar.png */; };
+		2EEC09CE1523B2E100E6812E /* 24-gift-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09C81523B2E100E6812E /* 24-gift-bar@2x.png */; };
+		2EEC09CF1523B2E100E6812E /* 112-group-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09C91523B2E100E6812E /* 112-group-bar.png */; };
+		2EEC09D01523B2E100E6812E /* 112-group-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09CA1523B2E100E6812E /* 112-group-bar@2x.png */; };
+		2EEC09D11523B2E100E6812E /* 281-crown.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09CB1523B2E100E6812E /* 281-crown.png */; };
+		2EEC09D21523B2E100E6812E /* 281-crown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09CC1523B2E100E6812E /* 281-crown@2x.png */; };
 		2EEC685914BD094D006AC9F7 /* UIToolbarSized.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */; };
 		2EEFBCE81398B9F50062E330 /* DataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */; };
 		2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE2149D863500A68993 /* CellBackground.png */; };
@@ -773,6 +779,12 @@
 		2EEA758C14D8C1E300D0D92A /* CouponMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponMapViewController.h; sourceTree = "<group>"; };
 		2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponMapViewController.m; sourceTree = "<group>"; };
 		2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponMapViewController.xib; sourceTree = "<group>"; };
+		2EEC09C71523B2E100E6812E /* 24-gift-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "24-gift-bar.png"; sourceTree = "<group>"; };
+		2EEC09C81523B2E100E6812E /* 24-gift-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "24-gift-bar@2x.png"; sourceTree = "<group>"; };
+		2EEC09C91523B2E100E6812E /* 112-group-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group-bar.png"; sourceTree = "<group>"; };
+		2EEC09CA1523B2E100E6812E /* 112-group-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group-bar@2x.png"; sourceTree = "<group>"; };
+		2EEC09CB1523B2E100E6812E /* 281-crown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "281-crown.png"; sourceTree = "<group>"; };
+		2EEC09CC1523B2E100E6812E /* 281-crown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "281-crown@2x.png"; sourceTree = "<group>"; };
 		2EEC685714BD094D006AC9F7 /* UIToolbarSized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIToolbarSized.h; sourceTree = "<group>"; };
 		2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIToolbarSized.m; sourceTree = "<group>"; };
 		2EEFBCE71398B9F50062E330 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -980,10 +992,14 @@
 				2EFF7BDE14EB4E1200632211 /* 17-bar-chart@2x.png */,
 				2EFF7BE614EB531100632211 /* 18-envelope.png */,
 				2EFF7BE714EB531100632211 /* 18-envelope@2x.png */,
+				2EEC09C71523B2E100E6812E /* 24-gift-bar.png */,
+				2EEC09C81523B2E100E6812E /* 24-gift-bar@2x.png */,
 				2E0B9B1F14D721E600DBC86C /* 103-map.png */,
 				2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */,
 				2E5565F71522A2F300606625 /* 108-badge.png */,
 				2E5565F81522A2F300606625 /* 108-badge@2x.png */,
+				2EEC09C91523B2E100E6812E /* 112-group-bar.png */,
+				2EEC09CA1523B2E100E6812E /* 112-group-bar@2x.png */,
 				2E0B9B2014D721E600DBC86C /* 123-id-card.png */,
 				2E89C2E014DBCB2B0052751D /* 123-id-card@2x.png */,
 				2EB7525814E06B8B009FC332 /* 193-location-arrow-bar.png */,
@@ -992,6 +1008,8 @@
 				2EFF7BE914EB531100632211 /* 208-facebook@2x.png */,
 				2EFF7BEA14EB531100632211 /* 210-twitterbird.png */,
 				2EFF7BEB14EB531100632211 /* 210-twitterbird@2x.png */,
+				2EEC09CB1523B2E100E6812E /* 281-crown.png */,
+				2EEC09CC1523B2E100E6812E /* 281-crown@2x.png */,
 				2EFF7BEC14EB531100632211 /* 286-speechbubble.png */,
 				2EFF7BED14EB531100632211 /* 286-speechbubble@2x.png */,
 			);
@@ -1914,6 +1932,12 @@
 				2E5565F015223CEC00606625 /* TokPromo@2x.png in Resources */,
 				2E5565F91522A2F300606625 /* 108-badge.png in Resources */,
 				2E5565FA1522A2F300606625 /* 108-badge@2x.png in Resources */,
+				2EEC09CD1523B2E100E6812E /* 24-gift-bar.png in Resources */,
+				2EEC09CE1523B2E100E6812E /* 24-gift-bar@2x.png in Resources */,
+				2EEC09CF1523B2E100E6812E /* 112-group-bar.png in Resources */,
+				2EEC09D01523B2E100E6812E /* 112-group-bar@2x.png in Resources */,
+				2EEC09D11523B2E100E6812E /* 281-crown.png in Resources */,
+				2EEC09D21523B2E100E6812E /* 281-crown@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2119,8 +2143,8 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 					armv6,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: TikTok Media Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TikTok Media Ltd.";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -2129,8 +2153,8 @@
 				INFOPLIST_FILE = "Resources/TikTok-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "BDB6BDE7-0B17-4EAB-9CB4-9213AC2EA685";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BDB6BDE7-0B17-4EAB-9CB4-9213AC2EA685";
 				SDKROOT = iphoneos;
 			};
 			name = AdHoc;
@@ -2156,8 +2180,8 @@
 					"\"$(SRCROOT)/Libraries\"",
 				);
 				PRODUCT_NAME = TikTok;
-				PROVISIONING_PROFILE = "5979DE38-0195-4A9F-BFC6-DA33A42CC7AF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5979DE38-0195-4A9F-BFC6-DA33A42CC7AF";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = AdHoc;
