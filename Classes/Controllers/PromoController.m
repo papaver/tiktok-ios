@@ -167,7 +167,6 @@ enum ViewTag
 
         // verify promo code succeeded
         NSString *status = [response objectForKey:kTikTokApiKeyStatus];
-        NSLog(@"status: %@", status);
         if ([status isEqualToString:kTikTokApiStatusOkay]) {
             message = NSLocalizedString(@"PROMO_SUCCESS", nil);
             [self syncCoupons];

@@ -10,11 +10,13 @@
 // imports
 //------------------------------------------------------------------------------
 
+#import <Twitter/Twitter.h>
 #import "Coupon.h"
 #import "CouponViewController.h"
 #import "CouponTableViewCell.h"
 #import "CouponDetailViewController.h"
 #import "Database.h"
+#import "FacebookManager.h"
 #import "GradientView.h"
 #import "IconManager.h"
 #import "Merchant.h"
@@ -22,6 +24,7 @@
 #import "Settings.h"
 #import "TikTokApi.h"
 #import "UIDefaults.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // defines
@@ -47,6 +50,14 @@ enum CouponTag {
     kTagRedeemedFilter = 11,
 };
 
+enum ActionButton
+{
+    kActionButtonFacebook = 0,
+    kActionButtonTwitter  = 1,
+    kActionButtonSMS      = 2,
+    kActionButtonEmail    = 3,
+};
+
 //------------------------------------------------------------------------------
 // statics
 //------------------------------------------------------------------------------
@@ -54,13 +65,15 @@ enum CouponTag {
 static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
-// interface definition 
+// interface definition
 //------------------------------------------------------------------------------
 
 @interface CouponViewController ()
     - (void) setupRefreshHeader;
     - (void) setupFilterButtons;
+    - (void) setupMoreButtons;
     - (void) setupFilterPopoverController;
+    - (void) setupMorePopoverController;
     - (WEPopoverContainerViewProperties*) popoverViewProperties;
     - (void) updateExpiration:(NSTimer*)timer;
     - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
@@ -77,7 +90,18 @@ static NSString *sCouponCacheName = @"coupon_table";
     - (void) filterDealsRedeemed:(id)sender;
     - (void) filterDealsActive:(id)sender;
     - (void) filterPopup;
-@end 
+    - (void) morePopup;
+    - (void) redeemPromoCode:(id)sender;
+    - (void) shareApp:(id)sender;
+    - (void) shareTwitter;
+    - (void) shareFacebook;
+    - (void) setupFacebook;
+    - (void) postDealToFacebook;
+    - (void) setupTwitter;
+    - (void) tweetDealOnTwitter;
+    - (void) shareSMS;
+    - (void) shareEmail;
+@end
 
 //------------------------------------------------------------------------------
 // interface implementation
@@ -90,7 +114,8 @@ static NSString *sCouponCacheName = @"coupon_table";
 @synthesize cellView                 = mCellView;
 @synthesize tableView                = mTableView;
 @synthesize fetchedCouponsController = mFetchedCouponsController;
-@synthesize popoverController        = mPopoverController;
+@synthesize popoverControllerFilter  = mPopoverControllerFilter;
+@synthesize popoverControllerMore    = mPopoverControllerMore;
 
 //------------------------------------------------------------------------------
 #pragma mark - View lifecycle
@@ -115,7 +140,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // add navitems
     [self setupFilterButtons];
-    [self setupLeftButtons];
+    [self setupMoreButtons];
 
     // setup the refresh header
     [self setupRefreshHeader];
@@ -127,7 +152,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) setupRefreshHeader
 {
-    // make sure reload header is not already loaded 
+    // make sure reload header is not already loaded
     if (!mRefreshHeaderView) {
         CGRect frame;
         frame.origin.x    = 0.0;
@@ -135,17 +160,17 @@ static NSString *sCouponCacheName = @"coupon_table";
         frame.size.width  = self.view.frame.size.width;
         frame.size.height = self.tableView.bounds.size.height;
 
-        // setup a new header view 
-        EGORefreshTableHeaderView *headerView = 
+        // setup a new header view
+        EGORefreshTableHeaderView *headerView =
             [[EGORefreshTableHeaderView alloc] initWithFrame:frame
                                               arrowImageName:@"Tik.png"
-                                                   textColor:[UIColor brownColor]];  
+                                                   textColor:[UIColor brownColor]];
         headerView.delegate = self;
 
         // add a background image
-        CGRect backgroundFrame  = CGRectMake(0.0f, 0.0f, 
-                                             frame.size.width, frame.size.height); 
-        UIImageView *background = [[UIImageView alloc] initWithFrame:backgroundFrame]; 
+        CGRect backgroundFrame  = CGRectMake(0.0f, 0.0f,
+                                             frame.size.width, frame.size.height);
+        UIImageView *background = [[UIImageView alloc] initWithFrame:backgroundFrame];
         background.image        = [UIImage imageNamed:@"CouponDetailBackgroundTexture.png"];
         [headerView insertSubview:background atIndex:0];
 
@@ -159,7 +184,7 @@ static NSString *sCouponCacheName = @"coupon_table";
         [headerView release];
         [background release];
     }
-    
+
     //  update the last update date
     [mRefreshHeaderView refreshLastUpdatedDate];
 }
@@ -169,14 +194,14 @@ static NSString *sCouponCacheName = @"coupon_table";
 - (void) setupFilterButtons
 {
     // create a bar button item for filters
-    UIBarButtonItem *filterButton = 
+    UIBarButtonItem *filterButton =
         [[UIBarButtonItem alloc] initWithTitle:@"Filter"
-                                         style:UIBarButtonItemStyleBordered 
-                                        target:self 
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
                                         action:@selector(filterPopup)];
 
     // add to navbar
-    self.navigationItem.rightBarButtonItem = filterButton;
+    self.navigationItem.leftBarButtonItem = filterButton;
 
     // cleanup
     [filterButton release];
@@ -184,30 +209,19 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) setupLeftButtons
+- (void) setupMoreButtons
 {
     // create a bar button item for filters
-    UIBarButtonItem *promoButton =
-        [[UIBarButtonItem alloc] initWithTitle:@"Promo"
-                                         style:UIBarButtonItemStyleBordered
-                                        target:self
-                                        action:@selector(redeemPromoCode)];
+    UIBarButtonItem *moreButton =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                      target:self
+                                                      action:@selector(morePopup)];
 
     // add to navbar
-    self.navigationItem.leftBarButtonItem = promoButton;
+    self.navigationItem.rightBarButtonItem = moreButton;
 
     // cleanup
-    [promoButton release];
-}
-
-//------------------------------------------------------------------------------
-
-- (void) redeemPromoCode
-{
-    PromoController *promoController = [[PromoController alloc] init];
-    [self presentViewController:promoController
-                       animated:YES
-                     completion:nil];
+    [moreButton release];
 }
 
 //------------------------------------------------------------------------------
@@ -215,11 +229,11 @@ static NSString *sCouponCacheName = @"coupon_table";
 - (void) setupFilterPopoverController
 {
     // create popup and content view controllers
-    UIViewController *contentViewController = 
+    UIViewController *contentViewController =
         [[UIViewController alloc] init];
-        
+
     // create active button
-    UISegmentedControl *activeButton   = 
+    UISegmentedControl *activeButton   =
         [[UISegmentedControl alloc] initWithItems:$array(@"Active Only")];
     activeButton.tag                   = kTagActiveFilter;
     activeButton.tintColor             = [UIColor darkGrayColor];
@@ -229,7 +243,7 @@ static NSString *sCouponCacheName = @"coupon_table";
            forControlEvents:UIControlEventValueChanged];
 
     // create redeemed button
-    UISegmentedControl *redeemedButton   = 
+    UISegmentedControl *redeemedButton   =
         [[UISegmentedControl alloc] initWithItems:$array(@"Redeemed Only")];
     redeemedButton.tag                   = kTagRedeemedFilter;
     redeemedButton.tintColor             = [UIColor darkGrayColor];
@@ -265,13 +279,13 @@ static NSString *sCouponCacheName = @"coupon_table";
     UIView *view = [[UIView alloc] initWithFrame:frame];
     [view addSubview:activeButton];
     [view addSubview:redeemedButton];
-        
+
     // set view on controller
     contentViewController.view                        = view;
     contentViewController.contentSizeForViewInPopover = frame.size;
 
     // create the popup controller
-    WEPopoverController *popoverController = [[WEPopoverController alloc] 
+    WEPopoverController *popoverController = [[WEPopoverController alloc]
         initWithContentViewController:contentViewController];
 
     // setup popover
@@ -280,7 +294,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     popoverController.containerViewProperties = [self popoverViewProperties];
 
     // save controller
-    self.popoverController = popoverController;
+    self.popoverControllerFilter = popoverController;
 
     // cleanup
     [view release];
@@ -292,50 +306,130 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (WEPopoverContainerViewProperties*) popoverViewProperties 
+- (void) setupMorePopoverController
 {
-	WEPopoverContainerViewProperties *props = 
-        [[WEPopoverContainerViewProperties alloc] autorelease];
+    // create popup and content view controllers
+    UIViewController *contentViewController =
+        [[UIViewController alloc] init];
 
-	NSString *backgroundImageName = nil;
-	CGFloat backgroundMargin      = 0.0;
-	CGFloat backgroundCapSize     = 0.0;
-	CGFloat contentMargin         = 4.0;
-	
-	backgroundImageName = @"popoverBg.png";
-	
-	// these constants are determined by the popoverBg.png image file and are 
-    // image dependent, margin width of 13 pixels on all sides popoverBg.png 
-    // margin = (62 pixels wide - 36 pixel background) / 2 == 26 / 2 == 13 
-    // size   = imageSize/2  == 62 / 2 == 31 pixels
-	backgroundMargin  = 13; 
-	backgroundCapSize = 31; 
-	
-	props.leftBgMargin        = backgroundMargin;
-	props.rightBgMargin       = backgroundMargin;
-	props.topBgMargin         = backgroundMargin;
-	props.bottomBgMargin      = backgroundMargin;
-	props.leftBgCapSize       = backgroundCapSize;
-	props.topBgCapSize        = backgroundCapSize;
-	props.bgImageName         = backgroundImageName;
-	props.leftContentMargin   = contentMargin;
-	props.rightContentMargin  = contentMargin - 1; 
-	props.topContentMargin    = contentMargin; 
-	props.bottomContentMargin = contentMargin;
-	
-	props.arrowMargin = 4.0;
-	
-	props.upArrowImageName    = @"popoverArrowUp.png";
-	props.downArrowImageName  = @"popoverArrowDown.png";
-	props.leftArrowImageName  = @"popoverArrowLeft.png";
-	props.rightArrowImageName = @"popoverArrowRight.png";
+    // create active button
+    UISegmentedControl *shareButton   =
+        [[UISegmentedControl alloc] initWithItems:$array(@"Share App")];
+    shareButton.momentary             = YES;
+    shareButton.tintColor             = [UIDefaults getTikColor];
+    shareButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    [shareButton addTarget:self
+                    action:@selector(shareApp:)
+          forControlEvents:UIControlEventValueChanged];
 
-	return props;	
+    // create redeemed button
+    UISegmentedControl *redeemedButton   =
+        [[UISegmentedControl alloc] initWithItems:$array(@"Redeem Promo")];
+    redeemedButton.momentary             = YES;
+    redeemedButton.tintColor             = [UIDefaults getTikColor];
+    redeemedButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    [redeemedButton addTarget:self
+                       action:@selector(redeemPromoCode:)
+             forControlEvents:UIControlEventValueChanged];
+
+    // layout the buttons properly
+    CGFloat buffer          = 5.0;
+    CGRect activeFrame      = shareButton.frame;
+    CGRect redeemedFrame    = redeemedButton.frame;
+    activeFrame.origin.x   += buffer;
+    activeFrame.origin.y   += buffer;
+    redeemedFrame.origin.x += buffer;
+    redeemedFrame.origin.y  = activeFrame.origin.y + activeFrame.size.height + buffer;
+
+    // resize the buttons to have equal width
+    CGFloat maxWidth         = MAX(activeFrame.size.width, redeemedFrame.size.width);
+    activeFrame.size.width   = maxWidth;
+    redeemedFrame.size.width = maxWidth;
+
+    // update the frames
+    shareButton.frame    = activeFrame;
+    redeemedButton.frame = redeemedFrame;
+
+    // create a view to hold the buttons
+    CGRect frame;
+    frame.origin.x    = 0.0;
+    frame.origin.y    = 0.0;
+    frame.size.width  = maxWidth + buffer * 2.0;
+    frame.size.height = redeemedFrame.origin.y + redeemedFrame.size.height + buffer;
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    [view addSubview:shareButton];
+    [view addSubview:redeemedButton];
+
+    // set view on controller
+    contentViewController.view                        = view;
+    contentViewController.contentSizeForViewInPopover = frame.size;
+
+    // create the popup controller
+    WEPopoverController *popoverController = [[WEPopoverController alloc]
+        initWithContentViewController:contentViewController];
+
+    // setup popover
+    popoverController.delegate                = self;
+    popoverController.passthroughViews        = $array(self.navigationController.navigationBar);
+    popoverController.containerViewProperties = [self popoverViewProperties];
+
+    // save controller
+    self.popoverControllerMore = popoverController;
+
+    // cleanup
+    [view release];
+    [shareButton release];
+    [redeemedButton release];
+    [contentViewController release];
+    [popoverController release];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) viewWillAppear:(BOOL)animated 
+- (WEPopoverContainerViewProperties*) popoverViewProperties
+{
+    WEPopoverContainerViewProperties *props =
+        [[WEPopoverContainerViewProperties alloc] autorelease];
+
+    NSString *backgroundImageName = nil;
+    CGFloat backgroundMargin      = 0.0;
+    CGFloat backgroundCapSize     = 0.0;
+    CGFloat contentMargin         = 4.0;
+
+    backgroundImageName = @"popoverBg.png";
+
+    // these constants are determined by the popoverBg.png image file and are
+    // image dependent, margin width of 13 pixels on all sides popoverBg.png
+    // margin = (62 pixels wide - 36 pixel background) / 2 == 26 / 2 == 13
+    // size   = imageSize/2  == 62 / 2 == 31 pixels
+    backgroundMargin  = 13;
+    backgroundCapSize = 31;
+
+    props.leftBgMargin        = backgroundMargin;
+    props.rightBgMargin       = backgroundMargin;
+    props.topBgMargin         = backgroundMargin;
+    props.bottomBgMargin      = backgroundMargin;
+    props.leftBgCapSize       = backgroundCapSize;
+    props.topBgCapSize        = backgroundCapSize;
+    props.bgImageName         = backgroundImageName;
+    props.leftContentMargin   = contentMargin;
+    props.rightContentMargin  = contentMargin - 1;
+    props.topContentMargin    = contentMargin;
+    props.bottomContentMargin = contentMargin;
+
+    props.arrowMargin = 4.0;
+
+    props.upArrowImageName    = @"popoverArrowUp.png";
+    props.downArrowImageName  = @"popoverArrowDown.png";
+    props.leftArrowImageName  = @"popoverArrowLeft.png";
+    props.rightArrowImageName = @"popoverArrowRight.png";
+
+    return props;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
@@ -347,7 +441,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 //------------------------------------------------------------------------------
 
 /*
-- (void) viewDidAppear:(BOOL)animated 
+- (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 }
@@ -356,7 +450,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 //------------------------------------------------------------------------------
 
 /*
-- (void) viewWillDisappear:(BOOL)animated 
+- (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 }
@@ -365,7 +459,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 //------------------------------------------------------------------------------
 
 /*
-- (void) viewDidDisappear:(BOOL)animated 
+- (void) viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
 }
@@ -376,7 +470,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Override to allow orientations other than the default portrait orientation.
  * /
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations.
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -390,7 +484,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Customize the number of sections in the table view.
  */
-- (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView 
+- (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView
 {
     // currently all the coupons are grouped together in one section
     return 1;
@@ -400,10 +494,10 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 /**
  * Customize the number of rows in the table view.
- */ 
-- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section 
+ */
+- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = 
+    id <NSFetchedResultsSectionInfo> sectionInfo =
         [[self.fetchedCouponsController sections] objectAtIndex:section];
     NSInteger objectCount = [sectionInfo numberOfObjects];
     return objectCount;
@@ -413,7 +507,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 /**
  * Customize the height of the cell at the given index.
- */ 
+ */
 - (CGFloat) tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // use the height from the cell view prototype
@@ -425,11 +519,11 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Customize the appearance of table view cells.
  */
-- (UITableViewCell*) tableView:(UITableView*)tableView 
-         cellForRowAtIndexPath:(NSIndexPath*)indexPath 
+- (UITableViewCell*) tableView:(UITableView*)tableView
+         cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     static NSString *sCellId = @"coupon_cell";
-    
+
     // only create as many coupons as are in view at the same time
     CouponTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:sCellId];
     if (cell == nil) {
@@ -442,7 +536,7 @@ static NSString *sCouponCacheName = @"coupon_table";
         background.image        = [UIImage imageNamed:@"CellBackground.png"];
     }
 
-    // configure the cell 
+    // configure the cell
     [self configureCell:cell atIndexPath:indexPath];
 
     return cell;
@@ -453,7 +547,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Override to support conditional editing of the table view.
  */
-- (BOOL) tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath 
+- (BOOL) tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // table rows are not editable
     return NO;
@@ -464,20 +558,20 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Override to support editing the table view.
  * /
-- (void) tableView:(UITableView*)tableView 
-    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
-     forRowAtIndexPath:(NSIndexPath*)indexPath 
+- (void) tableView:(UITableView*)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    
+
     // delete the row from the data source.
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                          withRowAnimation:UITableViewRowAnimationFade];
 
-    // create a new instance of the appropriate class, insert it into the array, 
+    // create a new instance of the appropriate class, insert it into the array,
     //  and add a new row to the table view.
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-    }   
+    }
 }
 */
 
@@ -486,9 +580,9 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Override to support rearranging the table view.
  */
-- (void) tableView:(UITableView*)tableView 
-    moveRowAtIndexPath:(NSIndexPath*)fromIndexPath 
-           toIndexPath:(NSIndexPath*)toIndexPath 
+- (void) tableView:(UITableView*)tableView
+    moveRowAtIndexPath:(NSIndexPath*)fromIndexPath
+           toIndexPath:(NSIndexPath*)toIndexPath
 {
     // items cannot be moved
 }
@@ -498,7 +592,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Override to support conditional rearranging of the table view.
  */
-- (BOOL) tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath 
+- (BOOL) tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // items cannot be re-ordered
     return NO;
@@ -618,7 +712,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
+- (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon
 {
     // fix the opacity
     for (UIView *view in cell.subviews) {
@@ -638,7 +732,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) updateActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon 
+- (void) updateActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon
 {
     // color timer
     GradientView *color = (GradientView*)[cell viewWithTag:kTagColorTimer];
@@ -651,8 +745,8 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) setupIconForCell:(UIView*)cell 
-              atIndexPath:(NSIndexPath*)indexPath 
+- (void) setupIconForCell:(UIView*)cell
+              atIndexPath:(NSIndexPath*)indexPath
                withCoupon:(Coupon*)coupon
 {
     IconManager *iconManager = [IconManager getInstance];
@@ -671,12 +765,12 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) setIcon:(UIImage*)image forCell:(UIView*)cell
 {
-    UIImageView *icon                  
+    UIImageView *icon
         = (UIImageView*)[cell viewWithTag:kTagIcon];
-    UIActivityIndicatorView *spinner 
+    UIActivityIndicatorView *spinner
         = (UIActivityIndicatorView*)[cell viewWithTag:kTagIconActivity];
 
-    // update icon 
+    // update icon
     icon.image  = image;
     icon.hidden = image == nil;
     icon.alpha  = image == nil ? 0.0f : 1.0f;
@@ -693,16 +787,16 @@ static NSString *sCouponCacheName = @"coupon_table";
 #pragma mark - TableView Delegate
 //------------------------------------------------------------------------------
 
-- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath 
+- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // [moiz] this should be cached in some way, causes animation hitch eveytime
     //  it loads...
-    CouponDetailViewController *detailViewController = [[CouponDetailViewController alloc] 
+    CouponDetailViewController *detailViewController = [[CouponDetailViewController alloc]
         initWithNibName:@"CouponDetailViewController" bundle:nil];
 
     // grab coupon at the given index path
     Coupon* coupon = [self.fetchedCouponsController objectAtIndexPath:indexPath];
-        
+
     // set coupon to view
     [detailViewController setCoupon:coupon];
 
@@ -737,7 +831,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 {
     // submit the request to retrive the image and update the cell
     IconManager *iconManager = [IconManager getInstance];
-    [iconManager requestImage:coupon.iconData 
+    [iconManager requestImage:coupon.iconData
         withCompletionHandler:^(UIImage* image, NSError *error) {
             if (image) {
                 UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -781,11 +875,11 @@ static NSString *sCouponCacheName = @"coupon_table";
     NSManagedObjectContext *context = [[Database getInstance] context];
 
     // create an entity description object
-    NSEntityDescription *description = [NSEntityDescription 
+    NSEntityDescription *description = [NSEntityDescription
         entityForName:@"Coupon" inManagedObjectContext:context];
-                                                   
+
     // create a sort descriptor
-    NSSortDescriptor *sortByEndDate = [[NSSortDescriptor alloc] 
+    NSSortDescriptor *sortByEndDate = [[NSSortDescriptor alloc]
         initWithKey:@"endTime" ascending:NO];
 
     // create a predicate
@@ -801,9 +895,9 @@ static NSString *sCouponCacheName = @"coupon_table";
     request.sortDescriptors = $array(sortByEndDate);
 
     // create a results controller from the request
-    NSFetchedResultsController *fetchedCouponsController = 
-        [[NSFetchedResultsController alloc] initWithFetchRequest:request 
-                                            managedObjectContext:context 
+    NSFetchedResultsController *fetchedCouponsController =
+        [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                            managedObjectContext:context
                                               sectionNameKeyPath:nil
                                                        cacheName:sCouponCacheName];
 
@@ -837,18 +931,18 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) controller:(NSFetchedResultsController*)controller 
-   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo 
-            atIndex:(NSUInteger)sectionIndex 
+- (void) controller:(NSFetchedResultsController*)controller
+   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+            atIndex:(NSUInteger)sectionIndex
       forChangeType:(NSFetchedResultsChangeType)type
 {
     switch (type) {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] 
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationFade];
             break;
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] 
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
                           withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
@@ -856,11 +950,11 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) controller:(NSFetchedResultsController*)controller 
-    didChangeObject:(id)object 
-        atIndexPath:(NSIndexPath*)indexPath 
-      forChangeType:(NSFetchedResultsChangeType)type 
-       newIndexPath:(NSIndexPath*)newIndexPath 
+- (void) controller:(NSFetchedResultsController*)controller
+    didChangeObject:(id)object
+        atIndexPath:(NSIndexPath*)indexPath
+      forChangeType:(NSFetchedResultsChangeType)type
+       newIndexPath:(NSIndexPath*)newIndexPath
 {
     switch (type) {
         case NSFetchedResultsChangeInsert:
@@ -876,9 +970,9 @@ static NSString *sCouponCacheName = @"coupon_table";
                     atIndexPath:indexPath];
             break;
         case NSFetchedResultsChangeMove:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
@@ -886,7 +980,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) controllerDidChangeContent:(NSFetchedResultsController*)controller 
+- (void) controllerDidChangeContent:(NSFetchedResultsController*)controller
 {
     [self.tableView endUpdates];
 }
@@ -895,7 +989,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 #pragma mark - ScrollView Delegates
 //-----------------------------------------------------------------------------
 
-- (void) scrollViewDidScroll:(UIScrollView*)scrollView 
+- (void) scrollViewDidScroll:(UIScrollView*)scrollView
 {
     [mRefreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
 }
@@ -916,7 +1010,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - EGORefreshTableHeader Delegate 
+#pragma mark - EGORefreshTableHeader Delegate
 //------------------------------------------------------------------------------
 
 - (void) egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
@@ -926,14 +1020,14 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (BOOL) egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view 
+- (BOOL) egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
 {
-    return mReloading; 
+    return mReloading;
 }
 
 //------------------------------------------------------------------------------
 
-- (NSDate*) egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view 
+- (NSDate*) egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
 {
     return [NSDate date];
 }
@@ -942,7 +1036,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 #pragma mark - Data Source Loading / Reloading Methods
 //------------------------------------------------------------------------------
 
-- (void) reloadTableViewDataSource 
+- (void) reloadTableViewDataSource
 {
     // don't try to reload twice
     if (mReloading) return;
@@ -971,7 +1065,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) doneLoadingTableViewData 
+- (void) doneLoadingTableViewData
 {
     mReloading = NO;
     [mRefreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
@@ -1005,13 +1099,13 @@ static NSString *sCouponCacheName = @"coupon_table";
     [NSFetchedResultsController deleteCacheWithName:sCouponCacheName];
 
     // update the fetch request
-    NSFetchRequest *request = self.fetchedCouponsController.fetchRequest; 
+    NSFetchRequest *request = self.fetchedCouponsController.fetchRequest;
     request.predicate       = predicate;
 
     // update the request in the fetch controller
     NSError *error = nil;
     if (![self.fetchedCouponsController performFetch:&error]) {
-        NSLog(@"CouponViewController: Fetching of coupons failed: %@, %@", 
+        NSLog(@"CouponViewController: Fetching of coupons failed: %@, %@",
             error, [error userInfo]);
     }
 
@@ -1024,18 +1118,48 @@ static NSString *sCouponCacheName = @"coupon_table";
 - (void) filterPopup
 {
     // lazy create popover controller
-    if (self.popoverController == nil) {
+    if (self.popoverControllerFilter == nil) {
         [self setupFilterPopoverController];
     }
 
     // display popover if visible else dismiss
-    if (!self.popoverController.popoverVisible) {
-        [self.popoverController 
-            presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem
-                   permittedArrowDirections:(UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown) 
+    if (!self.popoverControllerFilter.popoverVisible) {
+        [self.popoverControllerFilter
+            presentPopoverFromBarButtonItem:self.navigationItem.leftBarButtonItem
+                   permittedArrowDirections:(UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown)
                                    animated:YES];
     } else {
-        [self.popoverController dismissPopoverAnimated:YES];
+        [self.popoverControllerFilter dismissPopoverAnimated:YES];
+    }
+
+    // dismiss more popover
+    if (self.popoverControllerMore.popoverVisible) {
+        [self.popoverControllerMore dismissPopoverAnimated:YES];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) morePopup
+{
+    // lazy create popover controller
+    if (self.popoverControllerMore == nil) {
+        [self setupMorePopoverController];
+    }
+
+    // display popover if visible else dismiss
+    if (!self.popoverControllerMore.popoverVisible) {
+        [self.popoverControllerMore
+            presentPopoverFromBarButtonItem:self.navigationItem.rightBarButtonItem
+                   permittedArrowDirections:(UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown)
+                                   animated:YES];
+    } else {
+        [self.popoverControllerMore dismissPopoverAnimated:YES];
+    }
+
+    // dismiss filter popover
+    if (self.popoverControllerFilter.popoverVisible) {
+        [self.popoverControllerFilter dismissPopoverAnimated:YES];
     }
 }
 
@@ -1055,9 +1179,9 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // grab the filter buttons
     UIView *parentView = [sender superview];
-    UISegmentedControl *activeButton   = 
+    UISegmentedControl *activeButton   =
         (UISegmentedControl*)[parentView viewWithTag:kTagActiveFilter];
-    UISegmentedControl *redeemedButton = 
+    UISegmentedControl *redeemedButton =
         (UISegmentedControl*)[parentView viewWithTag:kTagRedeemedFilter];
 
     // calculate the new states
@@ -1065,7 +1189,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     bool activeOnly   = [activeButton.tintColor isEqual:[UIDefaults getTikColor]];
 
     // update the color
-    redeemedButton.tintColor = redeemedOnly ? 
+    redeemedButton.tintColor = redeemedOnly ?
         [UIDefaults getTikColor] : [UIColor darkGrayColor];;
 
     [self updateFilterByReedmeedOnly:redeemedOnly activeOnly:activeOnly];
@@ -1087,9 +1211,9 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // grab the filter buttons
     UIView *parentView = [sender superview];
-    UISegmentedControl *activeButton   = 
+    UISegmentedControl *activeButton   =
         (UISegmentedControl*)[parentView viewWithTag:kTagActiveFilter];
-    UISegmentedControl *redeemedButton = 
+    UISegmentedControl *redeemedButton =
         (UISegmentedControl*)[parentView viewWithTag:kTagRedeemedFilter];
 
     // calculate the new states
@@ -1097,17 +1221,17 @@ static NSString *sCouponCacheName = @"coupon_table";
     bool activeOnly   = ![activeButton.tintColor isEqual:[UIDefaults getTikColor]];
 
     // update the color
-    activeButton.tintColor = activeOnly ? 
+    activeButton.tintColor = activeOnly ?
         [UIDefaults getTikColor] : [UIColor darkGrayColor];
 
     [self updateFilterByReedmeedOnly:redeemedOnly activeOnly:activeOnly];
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - WEPopoverController Delegate 
+#pragma mark - WEPopoverController Delegate
 //------------------------------------------------------------------------------
 
-- (void) popoverControllerDidDismissPopover:(WEPopoverController*)popoverController 
+- (void) popoverControllerDidDismissPopover:(WEPopoverController*)popoverController
 {
 }
 
@@ -1116,10 +1240,357 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * The popover is automatically dismissed if you click outside it, unless you,
  * return NO here.
- */ 
-- (BOOL) popoverControllerShouldDismissPopover:(WEPopoverController*)popoverController 
+ */
+- (BOOL) popoverControllerShouldDismissPopover:(WEPopoverController*)popoverController
 {
     return YES;
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Events
+//------------------------------------------------------------------------------
+
+- (void) redeemPromoCode:(id)sender
+{
+    // close poppover
+    [self.popoverControllerMore dismissPopoverAnimated:YES];
+
+    // present promo controller
+    PromoController *controller = [[PromoController alloc] init];
+    [self presentViewController:controller
+                       animated:YES
+                     completion:nil];
+
+    // cleanup
+    [controller release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareApp:(id)sender
+{
+    // close poppover
+    [self.popoverControllerMore dismissPopoverAnimated:YES];
+
+    // setup action sheet handler
+    UIActionSheetSelectionHandler handler = ^(NSInteger buttonIndex) {
+        switch (buttonIndex) {
+            case kActionButtonFacebook:
+                [self shareFacebook];
+                break;
+            case kActionButtonTwitter:
+                [self shareTwitter];
+                break;
+            case kActionButtonSMS:
+                [self shareSMS];
+                break;
+            case kActionButtonEmail:
+                [self shareEmail];
+                break;
+            default:
+                break;
+        }
+    };
+
+    // setup action sheet
+    UIActionSheet *actionSheet =
+        [[UIActionSheet alloc] initWithTitle:@"Share TikTok App"
+                                 withHandler:handler
+                           cancelButtonTitle:@"Cancel"
+                      destructiveButtonTitle:nil
+                           otherButtonTitles:@"Facebook", @"Twitter", @"SMS", @"Email", nil];
+
+    // show from toolbar
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+
+    // cleanup
+    [actionSheet release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareTwitter
+{
+    // [iOS4] disable twitter, to much effort to add backwords compatibilty
+    Class twitter = NSClassFromString(@"TWTweetComposeViewController");
+     if (!twitter) {
+        NSString *title   = NSLocalizedString(@"TWITTER", nil);
+        NSString *message = NSLocalizedString(@"TWITTER_UPGRADE", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+        return;
+     }
+
+    // tweet deal if twitter setup, else request account setup
+    if ([TWTweetComposeViewController canSendTweet]) {
+        [self tweetDealOnTwitter];
+    } else {
+        [self setupTwitter];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareFacebook
+{
+    // post deal if logged on, else request connect first
+    FacebookManager *manager = [FacebookManager getInstance];
+    if ([manager.facebook isSessionValid]) {
+        [self postDealToFacebook];
+    } else {
+        [self setupFacebook];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareEmail
+{
+    // only send email if supported by the device
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *controller =
+            [[MFMailComposeViewController alloc] init];
+
+        // present the email controller
+        [controller setSubject:$string(@"TikTok: Checkout this amazing daily deal app!")];
+        NSString *details = $string(@"<h3>TikTok</h3>"
+                                    @"<a href='http://www.tiktok.com/download?ref=%@'>"
+                                    @"Get your deal on!</a>", [Utilities getConsumerId]);
+        [controller setMessageBody:details isHTML:YES];
+
+        // setup completion handler
+        controller.completionHandler = ^(MFMailComposeViewController* controller,
+                                         MFMailComposeResult result,
+                                         NSError* error) {
+            switch (result) {
+                case MFMailComposeResultSaved:
+                    break;
+                case MFMailComposeResultSent: {
+                    [Analytics passCheckpoint:@"App Emailed"];
+                    break;
+                }
+                case MFMailComposeResultFailed:
+                    NSLog(@"CouponViewController: email failed: %@", error);
+                    break;
+                default:
+                    break;
+            }
+
+            // dismiss controller
+            [self dismissModalViewControllerAnimated:YES];
+        };
+
+        // present controller
+        [self presentModalViewController:controller animated:YES];
+
+        // cleanup
+        [controller release];
+
+    // let user know email is not possible on this device
+    } else {
+        NSString *title   = NSLocalizedString(@"DEVICE_SUPPORT", nil);
+        NSString *message = NSLocalizedString(@"EMAIL_NO_SUPPORTED", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareSMS
+{
+    // only send text if supported by the device
+    if ([MFMessageComposeViewController canSendText]) {
+        MFMessageComposeViewController *controller =
+            [[MFMessageComposeViewController alloc] init];
+
+        // present sms controller
+        controller.body     = $string(@"TikTok: Checkout this awesome new daily "
+                                      @"deal app: www.tiktok.com/download?ref=%@",
+                                      [Utilities getConsumerId]);
+        controller.completionHandler = ^(MFMessageComposeViewController* controller,
+                                         MessageComposeResult result) {
+            switch (result) {
+                case MessageComposeResultSent: {
+                    [Analytics passCheckpoint:@"App SMSed"];
+                    break;
+                }
+                case MessageComposeResultFailed:
+                    NSLog(@"CouponViewController: sms failed.");
+                    break;
+                default:
+                    break;
+            }
+
+            // dismiss controller
+            [self dismissModalViewControllerAnimated:YES];
+        };
+
+        [self presentModalViewController:controller animated:YES];
+
+        // cleanup
+        [controller release];
+
+    // let user know sms is not possible on this device...
+    } else {
+        NSString *title   = NSLocalizedString(@"DEVICE_SUPPORT", nil);
+        NSString *message = NSLocalizedString(@"SMS_NO_SUPPORTED", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+    }
+}
+
+//------------------------------------------------------------------------------
+#pragma - Sharing
+//------------------------------------------------------------------------------
+
+- (void) setupTwitter
+{
+    NSString *title   = NSLocalizedString(@"TWITTER_SUPPORT", nil);
+    NSString *message = NSLocalizedString(@"TWITTER_NOT_SETUP", nil);
+
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            UIApplication *application = [UIApplication sharedApplication];
+            [application openURL:[NSURL URLWithString:@"prefs:root=TWITTER"]];
+        }
+    };
+
+    // display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Settings", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) tweetDealOnTwitter
+{
+    TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+
+    // grab icon from view
+
+    // setup twitter controller
+    NSString *details = $string(@"TikTok: Checkout this new dails deals app: "
+                                @"www.tiktok.com/download?ref=%@",
+                                [Utilities getConsumerId]);
+    [twitter setInitialText:details];
+    [twitter addImage:[UIImage imageNamed:@"TopNavBarLogo"]];
+    [twitter addURL:[NSURL URLWithString:$string(@"www.tiktok.com/download?ref=%@",
+        [Utilities getConsumerId])]];
+
+    // setup completion handler
+    twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) {
+        switch (result) {
+            case TWTweetComposeViewControllerResultCancelled:
+                break;
+            case TWTweetComposeViewControllerResultDone: {
+                [Analytics passCheckpoint:@"App Tweeted"];
+
+                // alert user of successful tweet
+                NSString *title   = NSLocalizedString(@"TWITTER", nil);
+                NSString *message = NSLocalizedString(@"TWITTER_APP_POST", nil);
+                [Utilities displaySimpleAlertWithTitle:title
+                                            andMessage:message];
+                break;
+            }
+        }
+
+        // dismiss the controller
+        [self dismissModalViewControllerAnimated:YES];
+    };
+
+    // display controller
+    [self presentModalViewController:twitter animated:YES];
+
+    // cleanup
+    [twitter release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupFacebook
+{
+    NSString *title   = NSLocalizedString(@"FACEBOOK_SUPPORT", nil);
+    NSString *message = NSLocalizedString(@"FACEBOOK_NOT_SETUP", nil);
+
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            FacebookManager *manager = [FacebookManager getInstance];
+            [manager authorizeWithSucessHandler:^{
+                [self postDealToFacebook];
+            }];
+        }
+    };
+
+    // display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Facebook", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) postDealToFacebook
+{
+    [Analytics passCheckpoint:@"App Facebooked"];
+
+    NSString *icon    = @"https://furious-window-5155.herokuapp.com/images/logo.png";
+    NSString *link    = $string(@"http://www.tiktok.com/download?ref=%@", [Utilities getConsumerId]);
+    NSString *details = $string(@"Checkout this new daily deals app TikTok!");
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        link,      @"link",
+        @"TikTok", @"name",
+        icon,      @"picture",
+        link,      @"caption",
+        details,   @"description",
+        nil];
+
+    // post share on facebook
+    FacebookManager *manager = [FacebookManager getInstance];
+    [manager.facebook dialog:@"feed" andParams:params andDelegate:self];
+}
+
+//------------------------------------------------------------------------------
+#pragma - Facebook delegate
+//------------------------------------------------------------------------------
+
+- (void) dialogCompleteWithUrl:(NSURL*)url
+{
+    // make sure post actually went through.. fucking pos facebook...
+    NSString *query = url.query;
+    if (!query || ([query rangeOfString:@"post_id"].location == NSNotFound)) {
+        return;
+    }
+
+    // alert user of successful facebook post
+    NSString *title   = NSLocalizedString(@"FACEBOOK", nil);
+    NSString *message = NSLocalizedString(@"FACEBOOK_APP_POST", nil);
+    [Utilities displaySimpleAlertWithTitle:title
+                                andMessage:message];
+
+    NSLog(@"CouponViewController: facebook request did load");
+}
+
+//------------------------------------------------------------------------------
+
+- (void) dialog:(FBDialog*)dialog didFailWithError:(NSError*)error
+{
+    NSLog(@"CouponViewController: Facebook share failed: %@", error);
+}
+
+//------------------------------------------------------------------------------
+
+- (BOOL) dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL*)url
+{
+    return NO;
 }
 
 //------------------------------------------------------------------------------
@@ -1129,7 +1600,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 /**
  * Releases the view if it doesn't have a superview.
  */
-- (void) didReceiveMemoryWarning 
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
@@ -1137,22 +1608,24 @@ static NSString *sCouponCacheName = @"coupon_table";
 //------------------------------------------------------------------------------
 
 /**
- * Relinquish ownership of anything that can be recreated in viewDidLoad 
+ * Relinquish ownership of anything that can be recreated in viewDidLoad
  * or on demand.
  */
-- (void) viewDidUnload 
+- (void) viewDidUnload
 {
     // for example: self.myOutlet = nil;
 }
 
 //------------------------------------------------------------------------------
 
-- (void) dealloc 
+- (void) dealloc
 {
-    mPopoverController.delegate        = nil;
+    mPopoverControllerFilter.delegate  = nil;
+    mPopoverControllerMore.delegate    = nil;
     mFetchedCouponsController.delegate = nil;
 
-    [mPopoverController release];
+    [mPopoverControllerFilter release];
+    [mPopoverControllerMore release];
     [mFetchedCouponsController release];
     [mRefreshHeaderView release];
     [mTableView release];

@@ -14,6 +14,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
+#import "FBConnect.h"
 #import "WEPopoverController.h"
 
 //------------------------------------------------------------------------------
@@ -24,13 +25,16 @@
                                                     UITableViewDelegate, 
                                                     UITableViewDataSource,
                                                     EGORefreshTableHeaderDelegate,
-                                                    WEPopoverControllerDelegate>
+                                                    WEPopoverControllerDelegate,
+                                                    FBRequestDelegate,
+                                                    FBDialogDelegate>
 {
     UITableViewCell            *mCellView;
     UITableView                *mTableView;
     NSFetchedResultsController *mFetchedCouponsController;
     EGORefreshTableHeaderView  *mRefreshHeaderView;
-    WEPopoverController        *mPopoverController;
+    WEPopoverController        *mPopoverControllerFilter;
+    WEPopoverController        *mPopoverControllerMore;
     BOOL                        mReloading;
 }
 
@@ -39,7 +43,8 @@
 @property (nonatomic, retain) IBOutlet UITableViewCell             *cellView;
 @property (nonatomic, retain) IBOutlet UITableView                 *tableView;
 @property (nonatomic, retain)          NSFetchedResultsController  *fetchedCouponsController;
-@property (nonatomic, retain)          WEPopoverController         *popoverController;
+@property (nonatomic, retain)          WEPopoverController         *popoverControllerFilter;
+@property (nonatomic, retain)          WEPopoverController         *popoverControllerMore;
     
 //------------------------------------------------------------------------------
 
