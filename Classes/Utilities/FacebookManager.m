@@ -12,6 +12,7 @@
 
 #import "FacebookManager.h"
 #import "Constants.h"
+#import "TikTokApi.h"
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -108,6 +109,10 @@
     [defaults setObject:[self.facebook accessToken]    forKey:@"FBAccessTokenKey"];
     [defaults setObject:[self.facebook expirationDate] forKey:@"FBExpirationDateKey"];
     [defaults synchronize];
+
+    // push facebook token to server
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"fb"), $array(self.facebook.accessToken))];
 }
 
 //-----------------------------------------------------------------------------
