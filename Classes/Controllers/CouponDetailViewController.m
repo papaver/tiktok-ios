@@ -954,9 +954,8 @@ static NSUInteger sObservationContext;
     // setup twitter controller
     NSString *city      = [[self.coupon.merchant getCity] lowercaseString];
     NSString *formatted = [self.coupon.title capitalizedString];
-    NSString *deal      = $string(@"@tiktok #%@ - I just scored a #deal... %@ at %@! "
-                                  @"FREE deals at www.tiktok.com!",
-                                  city, formatted, self.coupon.merchant.name);
+    NSString *deal      = $string(@"I just got %@ from %@! #FREEisBETTER #%@",
+                                  formatted, self.coupon.merchant.name, city);
     [twitter setInitialText:deal];
     [twitter addImage:[self imageForIcon:icon.image]];
 
