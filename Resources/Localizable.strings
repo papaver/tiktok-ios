@@ -24,6 +24,7 @@
 "FACEBOOK_SUPPORT"             = "Facebook Setup";
 "FACEBOOK_NOT_SETUP"           = "You are not currently connected to Facebook.  Connect before posting.";
 "FACEBOOK_DEAL_POST"           = "Your deal has been posted!";
+"FACEBOOK_APP_POST"            = "Thanks for posting about TikTok!";
 
 "LOCATION_REQUEST"             = "We'll only use your location to show you local deals nearby.";
 "LOCATION_SERVICE"             = "Location Service";
