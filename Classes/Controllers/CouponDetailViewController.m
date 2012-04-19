@@ -821,6 +821,10 @@ static NSUInteger sObservationContext;
         NSString *deal      = $string(@"<h3>TikTok</h3>"
                                       @"<b>%@</b> at <b>%@</b>"
                                       @"<br><br>"
+                                      @"I just scored this awesome deal with my TikTok app. "
+                                      @"Sad you missed it? Don't be a square... download the "
+                                      @"app and start getting your own deals right now."
+                                      @"<br><br>"
                                       @"<a href='http://www.tiktok.com'>Get your deal on!</a>", 
                                       formatted, merchant);
         [controller setMessageBody:deal isHTML:YES];
@@ -1022,8 +1026,10 @@ static NSUInteger sObservationContext;
     [Analytics passCheckpoint:@"Deal Facebooked"];
 
     NSString *formatted = [self.coupon.title capitalizedString];
-    NSString *deal      = $string(@"%@ at %@! "
-                                  @"Grab your free deal at www.tiktok.com!",
+    NSString *deal      = $string(@"%@ at %@! - "
+                                  @"I just scored this awesome deal with my TikTok app. "
+                                  @"Sad you missed it? Don't be a square... download the "
+                                  @"app and start getting your own deals right now.",
                                   formatted, self.coupon.merchant.name);
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
         @"www.tiktok.com",   @"link",
