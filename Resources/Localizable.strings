@@ -18,6 +18,7 @@
 "TWITTER_UPGRADE"              = "Update your device to iOS 5.0+ for twitter support.";
 "TWITTER_NOT_SETUP"            = "There are no twitter accounts configured on this device.  You can setup an account in Settings.";
 "TWITTER_DEAL_POST"            = "Your deal has been tweeted!";
+"TWITTER_APP_POST"             = "Thanks for tweeting about TikTok!";
 
 "FACEBOOK"                     = "Facebook";
 "FACEBOOK_SUPPORT"             = "Facebook Setup";
