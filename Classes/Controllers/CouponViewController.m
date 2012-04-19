@@ -1433,7 +1433,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 {
     [Analytics passCheckpoint:@"App Facebooked"];
 
-    NSString *icon    = @"https://furious-window-5155.herokuapp.com/images/logo.png";
+    NSString *icon    = @"https://www.tiktok.com/images/logo.png";
     NSString *link    = $string(@"http://www.tiktok.com/download?ref=%@", [Utilities getConsumerId]);
     NSString *details = $string(@"Checkout this new daily deals app TikTok!");
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
