@@ -1366,9 +1366,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     // grab icon from view
 
     // setup twitter controller
-    NSString *details = $string(@"TikTok: Checkout this new dails deals app: "
-                                @"www.tiktok.com/download?ref=%@",
-                                [Utilities getConsumerId]);
+    NSString *details = $string(@"TikTok: Checkout this new daily deals app!");
     [twitter setInitialText:details];
     [twitter addImage:[UIImage imageNamed:@"TopNavBarLogo"]];
     [twitter addURL:[NSURL URLWithString:$string(@"www.tiktok.com/download?ref=%@",
