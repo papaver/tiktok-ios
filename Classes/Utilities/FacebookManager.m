@@ -134,11 +134,15 @@
 - (void) fbDidLogin 
 {
     [self saveFacebookData];
-    mSuccessHandler();
 
-    // release handler
-    [mSuccessHandler release];
-    mSuccessHandler = nil;
+    // run handler if setup
+    if (mSuccessHandler != nil) {
+        mSuccessHandler();
+
+        // release handler
+        [mSuccessHandler release];
+        mSuccessHandler = nil;
+    }
 }
 
 //-----------------------------------------------------------------------------
