@@ -143,19 +143,18 @@
     // sync new coupons if coupon notifications
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
-
-        // sync any newly available coupons
-        NSDate *lastUpdate     = [NSDate date];
-        __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-        api.completionHandler  = ^(NSDictionary *response) {
-            [[Settings getInstance] setLastUpdate:lastUpdate];
-        };
-
-        // sync coupons
-        Settings *settings = [Settings getInstance];
-        [api syncActiveCoupons:settings.lastUpdate];
     }
 
+    // sync any newly available coupons
+    NSDate *lastUpdate     = [NSDate date];
+    __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.completionHandler  = ^(NSDictionary *response) {
+        [[Settings getInstance] setLastUpdate:lastUpdate];
+    };
+
+    // sync coupons
+    Settings *settings = [Settings getInstance];
+    [api syncActiveCoupons:settings.lastUpdate];
 }
 
 //------------------------------------------------------------------------------
