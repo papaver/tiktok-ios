@@ -1149,13 +1149,31 @@ static NSString *sCouponCacheName = @"coupon_table";
 #pragma mark - Events
 //------------------------------------------------------------------------------
 
+/**
+ * [moiz] something is breaking here, haven't been able to reproduce the error.
+ *   May be related to ios version, possibly a corrupt install?
+ */
 - (void) redeemPromoCode:(id)sender
 {
     // present promo controller
     PromoController *controller = [[PromoController alloc] init];
-    [self presentViewController:controller
-                       animated:YES
-                     completion:nil];
+
+    @try {
+        [self presentViewController:controller
+                        animated:YES
+                        completion:nil];
+    } @catch (NSException *exception) {
+        NSString *name         = [exception name];
+        NSDictionary *userInfo = [exception userInfo];
+        NSArray *stack         = [exception callStackReturnAddresses];
+        RLog(@"Exception: %@ | %@ | %@", name, stack, userInfo);
+        RLog(@" address self: %p", self);
+        @try {
+            RLog(@" class controller: %@, self: %@",
+                [[controller class] description], [[self class] description]);
+        } @catch (NSException *exception) {
+        }
+    }
 
     // cleanup
     [controller release];

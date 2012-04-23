@@ -38,11 +38,6 @@ uncaughtExceptionHandler(NSException *exception)
 
 + (void) startSession
 {
-    // start up test flight
-    if (ANALYTICS_TESTFLIGHT) {
-        [TestFlight takeOff:TESTFLIGHT_API_KEY];
-    }
-
     // start up flurry
     if (ANALYTICS_FLURRY) {
 
@@ -55,6 +50,11 @@ uncaughtExceptionHandler(NSException *exception)
         NSString *apiKey = ANALYTICS_FLURRY_DEBUG ? FLURRY_DEV_API_KEY : FLURRY_API_KEY;
         [FlurryAnalytics setSecureTransportEnabled:YES];
         [FlurryAnalytics startSession:apiKey];
+    }
+
+    // start up test flight
+    if (ANALYTICS_TESTFLIGHT) {
+        [TestFlight takeOff:TESTFLIGHT_API_KEY];
     }
 }
 

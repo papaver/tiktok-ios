@@ -7,26 +7,32 @@
 //
 
 //------------------------------------------------------------------------------
-// Analytics 
+// Analytics
 //------------------------------------------------------------------------------
 
 /**
  * DebugMode:
  *   TestFlight
  *   FlurryAnalytics w/ Dev ApiKey
- *   
+ *
  * ProductionMode:
  *   FlurryAnalytics w/ Production ApiKey
  */
 
 #define ANALYTICS_MODE_DEBUG    0
 
-#define ANALYTICS_TESTFLIGHT    ANALYTICS_MODE_DEBUG
+#define ANALYTICS_TESTFLIGHT    1
 #define ANALYTICS_FLURRY        1
 #define ANALYTICS_FLURRY_DEBUG  ANALYTICS_MODE_DEBUG
 
 //------------------------------------------------------------------------------
-// TikTokApi 
+// TikTokApi
 //------------------------------------------------------------------------------
 
 #define TIKTOKAPI_STAGING 0
+
+//------------------------------------------------------------------------------
+// TestFlight Remote Logging
+//------------------------------------------------------------------------------
+
+#define RLog(__FORMAT__, ...) TFLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
