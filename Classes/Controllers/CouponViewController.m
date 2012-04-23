@@ -616,7 +616,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 {
     const static CGFloat expiredAlpha = 0.4;
     static NSString *offerText        = @"Offer is no longer available.";
-    static NSString *timerText        = @"TIMES UP!";
+    static NSString *timerText        = @"TIME'S UP!";
 
     // expire text
     UILabel *textTime  = (UILabel*)[cell viewWithTag:kTagTextTime];

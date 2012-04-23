@@ -616,7 +616,7 @@ static NSUInteger sObservationContext;
 
     // update the timer label
     UILabel *label = (UILabel*)[self.view viewWithTag:kTagTextTimer];
-    label.text     = @"TIMES UP!";
+    label.text     = @"TIME'S UP!";
 
     // update the opacity for all the coupons
     for (UIView *view in self.view.subviews) {
