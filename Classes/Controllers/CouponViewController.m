@@ -812,9 +812,9 @@ static NSString *sCouponCacheName = @"coupon_table";
         initWithKey:@"endTime" ascending:NO];
 
     // create a predicate
-    NSDate *threeDaysAgo   = [[NSDate date] dateByAddingTimeInterval:(-3 * SECONDS_PER_DAY)];
+    NSDate *oneDayAgo      = [[NSDate date] dateByAddingTimeInterval:(-1 * SECONDS_PER_DAY)];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
-            @"endTime > %@", threeDaysAgo];
+            @"endTime > %@", oneDayAgo];
 
     // create a fetch request
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -1006,8 +1006,8 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 - (void) updateFilterByReedmeedOnly:(bool)redeemedOnly activeOnly:(bool)activeOnly
 {
-    NSDate *now          = [NSDate date];
-    NSDate *threeDaysAgo = [now dateByAddingTimeInterval:(-3 * SECONDS_PER_DAY)];
+    NSDate *now       = [NSDate date];
+    NSDate *oneDayAgo = [now dateByAddingTimeInterval:(-1 * SECONDS_PER_DAY)];
 
     NSPredicate *predicate = nil;
     if (redeemedOnly && activeOnly) {
@@ -1015,13 +1015,13 @@ static NSString *sCouponCacheName = @"coupon_table";
             @"wasRedeemed == %@ && endTime > %@", $numb(YES), now];
     } else if (redeemedOnly) {
         predicate = [NSPredicate predicateWithFormat:
-            @"wasRedeemed == %@ && endTime > %@", $numb(YES), threeDaysAgo];
+            @"wasRedeemed == %@ && endTime > %@", $numb(YES), oneDayAgo];
     } else if (activeOnly) {
         predicate = [NSPredicate predicateWithFormat:
             @"endTime > %@", now];
     } else {
         predicate = [NSPredicate predicateWithFormat:
-            @"endTime > %@", threeDaysAgo];
+            @"endTime > %@", oneDayAgo];
     }
 
     // clear the cache
