@@ -143,8 +143,13 @@ enum ViewTag
 
 - (IBAction) close
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES
-                                                      completion:nil];
+    // [iOS4] fix for newer function
+    if ($has_selector(self, presentingViewController)) {
+        [self.presentingViewController dismissViewControllerAnimated:YES
+                                                          completion:nil];
+    } else {
+        [self.parentViewController dismissModalViewControllerAnimated:YES];
+    }
 }
 
 //------------------------------------------------------------------------------

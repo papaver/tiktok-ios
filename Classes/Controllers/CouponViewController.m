@@ -1158,21 +1158,13 @@ static NSString *sCouponCacheName = @"coupon_table";
     // present promo controller
     PromoController *controller = [[PromoController alloc] init];
 
-    @try {
+    // [iOS4] fix for newer function
+    if ($has_selector(self, presentViewController:animated:completion:)) {
         [self presentViewController:controller
-                        animated:YES
-                        completion:nil];
-    } @catch (NSException *exception) {
-        NSString *name         = [exception name];
-        NSDictionary *userInfo = [exception userInfo];
-        NSArray *stack         = [exception callStackReturnAddresses];
-        RLog(@"Exception: %@ | %@ | %@", name, stack, userInfo);
-        RLog(@" address self: %p", self);
-        @try {
-            RLog(@" class controller: %@, self: %@",
-                [[controller class] description], [[self class] description]);
-        } @catch (NSException *exception) {
-        }
+                           animated:YES
+                          completion:nil];
+    } else {
+        [self presentModalViewController:controller animated:YES];
     }
 
     // cleanup
