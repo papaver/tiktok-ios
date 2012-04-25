@@ -689,38 +689,21 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-/**
- * [moiz] something is breaking here, haven't been able to reproduce the error.
- *   May be related to ios version, possibly a corrupt install?
- */
 - (void) removeSoldOutObserver
-{
-    @try {
-        [self removeSoldOutObserver_tracked];
-    } @catch (NSException *exception) {
-        NSString *name         = [exception name];
-        NSDictionary *userInfo = [exception userInfo];
-        NSArray *stack         = [exception callStackReturnAddresses];
-        RLog(@"Exception: %@ | %@ | %@", name, stack, userInfo);
-        RLog(@" address coupon: %p, self: %p", mCoupon, self);
-        @try {
-            RLog(@" class coupon: %@, self: %@",
-                 [[mCoupon class] description], [[self class] description]);
-        } @catch (NSException *exception) {
-        }
-    }
-}
-
-//------------------------------------------------------------------------------
-
-- (void) removeSoldOutObserver_tracked
 {
     // only remove observer if we are still listening
     if (mHasObserver) {
         mHasObserver = false;
-        [self.coupon removeObserver:self
-                         forKeyPath:@"isSoldOut"
-                            context:&sObservationContext];
+
+        // [iOS4] fix for newer function
+        if ($has_selector(self.coupon, removeObserver:forKeyPath:context:)) {
+            [self.coupon removeObserver:self
+                             forKeyPath:@"isSoldOut"
+                                context:&sObservationContext];
+        } else {
+            [self.coupon removeObserver:self
+                             forKeyPath:@"isSoldOut"];
+        }
     }
 }
 
