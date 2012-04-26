@@ -144,6 +144,7 @@
 
 - (void) dealloc
 {
+    mWebView.delegate = nil;
     [super dealloc];
 }
 
