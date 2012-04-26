@@ -823,12 +823,15 @@ static NSString *sCouponCacheName = @"coupon_table";
     request.predicate       = predicate;
     request.sortDescriptors = $array(sortByEndDate);
 
+    // clear the cache, can't use cache with predicates...
+    [NSFetchedResultsController deleteCacheWithName:sCouponCacheName];
+
     // create a results controller from the request
     NSFetchedResultsController *fetchedCouponsController =
         [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                             managedObjectContext:context
                                               sectionNameKeyPath:nil
-                                                       cacheName:sCouponCacheName];
+                                                       cacheName:nil];
 
     // save the controller
     self.fetchedCouponsController          = fetchedCouponsController;
@@ -1024,7 +1027,7 @@ static NSString *sCouponCacheName = @"coupon_table";
             @"endTime > %@", oneDayAgo];
     }
 
-    // clear the cache
+    // clear the cache, can't use cache with predicates...
     [NSFetchedResultsController deleteCacheWithName:sCouponCacheName];
 
     // update the fetch request
