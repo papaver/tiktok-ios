@@ -140,6 +140,18 @@ uncaughtSignalHandler(int signal)
 
 //-----------------------------------------------------------------------------
 
++ (void) setUserLocation:(CLLocation*)location
+{
+    if (ANALYTICS_FLURRY) {
+        [FlurryAnalytics setLatitude:location.coordinate.latitude
+                           longitude:location.coordinate.longitude
+                  horizontalAccuracy:location.horizontalAccuracy
+                    verticalAccuracy:location.verticalAccuracy];
+    }
+}
+
+//-----------------------------------------------------------------------------
+
 + (void) passCheckpoint:(NSString*)checkpoint
 {
     if (ANALYTICS_TESTFLIGHT) {

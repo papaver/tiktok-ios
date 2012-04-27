@@ -168,6 +168,9 @@ static LocationTracker *sLocationTracker;
     // push the current location to the server
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     [api updateCurrentLocation:newLocation.coordinate];
+
+    // record location for analytics
+    [Analytics setUserLocation:newLocation];
 }
 
 //------------------------------------------------------------------------------

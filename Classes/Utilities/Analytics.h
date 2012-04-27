@@ -50,6 +50,11 @@ void uncaughtSignalHandler(int signal);
 + (void) setUserAgeWithBirthday:(NSDate*)birthday;
 
 /**
+ * Sets the location of the user.
+ */
++ (void) setUserLocation:(CLLocation*)location;
+
+/**
  * Sets the age of the user.
  */
 + (void) passCheckpoint:(NSString*)checkpoint;
