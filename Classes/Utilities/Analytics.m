@@ -15,7 +15,6 @@
 #import "FlurryAnalytics.h"
 #import "TestFlight.h"
 #import "TestFlight+Extensions.h"
-#import "UncaughtExceptionHandler.h"
 
 #include <libkern/OSAtomic.h>
 #include <execinfo.h>
