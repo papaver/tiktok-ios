@@ -324,7 +324,7 @@
          annotation:(id)annotation 
 {
     // facebook
-    if ([[url absoluteString] hasPrefix:$string(@"fb%@",FACEBOOK_API_KEY)]) {
+    if ([[url absoluteString] hasPrefix:$string(@"fb%@", FACEBOOK_API_KEY)]) {
         FacebookManager* facebookManager = [FacebookManager getInstance];
         return [facebookManager.facebook handleOpenURL:url];
     }
@@ -336,7 +336,7 @@
 - (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)url 
 {
     // facebook
-    if ([[url absoluteString] hasPrefix:$string(@"fb%@",FACEBOOK_API_KEY)]) {
+    if ([[url absoluteString] hasPrefix:$string(@"fb%@", FACEBOOK_API_KEY)]) {
         FacebookManager* facebookManager = [FacebookManager getInstance];
         return [facebookManager.facebook handleOpenURL:url];
     }

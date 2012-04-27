@@ -17,6 +17,7 @@
 //-----------------------------------------------------------------------------
 
 void uncaughtExceptionHandler(NSException *exception);
+void uncaughtSignalHandler(int signal);
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -52,6 +53,11 @@ void uncaughtExceptionHandler(NSException *exception);
  * Sets the age of the user.
  */
 + (void) passCheckpoint:(NSString*)checkpoint;
+
+/**
+ * Log error to remove server.
+ */
++ (void) logRemoteError:(NSString*)name withMessage:(NSString*)message;
 
 //-----------------------------------------------------------------------------
 

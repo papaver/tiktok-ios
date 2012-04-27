@@ -7,7 +7,7 @@
 //
 
 //-----------------------------------------------------------------------------
-// includes 
+// includes
 //-----------------------------------------------------------------------------
 
 #import "Analytics.h"
@@ -15,16 +15,52 @@
 #import "FlurryAnalytics.h"
 #import "TestFlight.h"
 #import "TestFlight+Extensions.h"
+#import "UncaughtExceptionHandler.h"
+
+#include <libkern/OSAtomic.h>
+#include <execinfo.h>
 
 //-----------------------------------------------------------------------------
-// exception handler
+// statics
 //-----------------------------------------------------------------------------
 
-void 
-uncaughtExceptionHandler(NSException *exception) 
+const NSInteger UncaughtExceptionHandlerSkipAddressCount   = 4;
+const NSInteger UncaughtExceptionHandlerReportAddressCount = 5;
+
+//-----------------------------------------------------------------------------
+// interface definition
+//-----------------------------------------------------------------------------
+
+@interface Analytics ()
+    + (NSArray*) backtrace;
+    + (NSString*) getDeviceInfo;
+@end
+
+//-----------------------------------------------------------------------------
+// exception/signal handler
+//-----------------------------------------------------------------------------
+
+void
+uncaughtExceptionHandler(NSException *exception)
 {
     if (ANALYTICS_FLURRY) {
-        [FlurryAnalytics logError:@"Uncaught" message:@"Crash!" exception:exception];
+        NSString *name         = [exception name];
+        NSString *info         = [Analytics getDeviceInfo];
+        NSString *message      = $string(@"DeviceInfo: \n%@", info);
+        [FlurryAnalytics logError:name message:message exception:exception];
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void
+uncaughtSignalHandler(int signal)
+{
+    if (ANALYTICS_FLURRY) {
+        NSString *name     = $string(@"Signal %d", signal);
+        NSString *info     = [Analytics getDeviceInfo];
+        NSString *message  = $string(@"Device: %@", info);
+        [FlurryAnalytics logError:name message:message exception:nil];
     }
 }
 
@@ -41,10 +77,19 @@ uncaughtExceptionHandler(NSException *exception)
     // start up flurry
     if (ANALYTICS_FLURRY) {
 
-        // setup flurry crash handler if testflight is disabled
-        if (!ANALYTICS_TESTFLIGHT) {
-            NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-        }
+        // setup flurry exception handler if testflight is disabled
+        NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+
+        // setup flurry signal handler if testflight is disabled
+        struct sigaction signalAction;
+        memset(&signalAction, 0, sizeof(signalAction));
+        signalAction.sa_handler = &uncaughtSignalHandler;
+        sigaction(SIGABRT, &signalAction, NULL);
+        sigaction(SIGILL,  &signalAction, NULL);
+        sigaction(SIGSEGV, &signalAction, NULL);
+        sigaction(SIGFPE,  &signalAction, NULL);
+        sigaction(SIGBUS,  &signalAction, NULL);
+        sigaction(SIGPIPE, &signalAction, NULL);
 
         // use proper api key
         NSString *apiKey = ANALYTICS_FLURRY_DEBUG ? FLURRY_DEV_API_KEY : FLURRY_API_KEY;
@@ -83,12 +128,12 @@ uncaughtExceptionHandler(NSException *exception)
     if (ANALYTICS_FLURRY) {
 
         // calculate the age of the user from the birthday
-        NSDateComponents* ageComponents = 
-            [[NSCalendar currentCalendar] components:NSYearCalendarUnit 
+        NSDateComponents* ageComponents =
+            [[NSCalendar currentCalendar] components:NSYearCalendarUnit
                                             fromDate:birthday
-                                            toDate:[NSDate date]
-                                            options:0];
-    
+                                              toDate:[NSDate date]
+                                             options:0];
+
         [FlurryAnalytics setAge:ageComponents.year];
     }
 }
@@ -104,6 +149,47 @@ uncaughtExceptionHandler(NSException *exception)
     if (ANALYTICS_FLURRY) {
         [FlurryAnalytics logEvent:checkpoint];
     }
+}
+
+//-----------------------------------------------------------------------------
+
++ (void) logRemoteError:(NSString*)name withMessage:(NSString*)message
+{
+    if (ANALYTICS_FLURRY) {
+        [FlurryAnalytics logError:name message:message exception:nil];
+    }
+}
+
+//-----------------------------------------------------------------------------
+
++ (NSArray*) backtrace
+{
+    void* callstack[128];
+    int frames  = backtrace(callstack, 128);
+    char **strs = backtrace_symbols(callstack, frames);
+
+    // convert the strings into a nsstring array
+    NSMutableArray *backtrace = [NSMutableArray arrayWithCapacity:frames];
+    int index                 = UncaughtExceptionHandlerSkipAddressCount;
+    int count                 = (UncaughtExceptionHandlerSkipAddressCount +
+                                 UncaughtExceptionHandlerReportAddressCount);
+    for ( ; index < count; ++index) {
+        [backtrace addObject:[NSString stringWithUTF8String:strs[index]]];
+    }
+
+    // cleanup
+    free(strs);
+
+    return backtrace;
+}
+
+//-----------------------------------------------------------------------------
+
++ (NSString*) getDeviceInfo
+{
+    UIDevice *device = [UIDevice currentDevice];
+    NSString *info   = $string(@"%@ %@", device.systemName, device.systemVersion);
+    return info;
 }
 
 //-----------------------------------------------------------------------------
