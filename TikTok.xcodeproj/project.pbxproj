@@ -320,6 +320,9 @@
 		2EF0EBEE149D863500A68993 /* SplashPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE7149D863500A68993 /* SplashPage.png */; };
 		2EF0EBEF149D863500A68993 /* TopNavBarLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */; };
 		2EF0EBF1149D869D00A68993 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBF0149D869D00A68993 /* Default.png */; };
+		2EF82A491551F7EA00021B79 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF82A481551F7EA00021B79 /* Logger.m */; };
+		2EF82A4C1551FFFE00021B79 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF82A4B1551FFFE00021B79 /* LogViewController.m */; };
+		2EF82A4E1552009400021B79 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EF82A4D1552009400021B79 /* LogViewController.xib */; };
 		2EFB99F114C63FF800FD69E8 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F014C63FF800FD69E8 /* JSONKit.m */; };
 		2EFB99F414C6408C00FD69E8 /* GoogleMapsApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F314C6408C00FD69E8 /* GoogleMapsApi.m */; };
 		2EFB99F714C77B0300FD69E8 /* CouponAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB99F614C77B0300FD69E8 /* CouponAnnotation.m */; };
@@ -796,6 +799,11 @@
 		2EF0EBE7149D863500A68993 /* SplashPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashPage.png; sourceTree = "<group>"; };
 		2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TopNavBarLogo.png; sourceTree = "<group>"; };
 		2EF0EBF0149D869D00A68993 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
+		2EF82A471551F7EA00021B79 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		2EF82A481551F7EA00021B79 /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
+		2EF82A4A1551FFFE00021B79 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
+		2EF82A4B1551FFFE00021B79 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
+		2EF82A4D1552009400021B79 /* LogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
 		2EFB99EF14C63FF800FD69E8 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		2EFB99F014C63FF800FD69E8 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		2EFB99F214C6408C00FD69E8 /* GoogleMapsApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleMapsApi.h; sourceTree = "<group>"; };
@@ -1067,6 +1075,7 @@
 				2EFF7BE114EB50F000632211 /* KarmaViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
+				2EF82A4D1552009400021B79 /* LogViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
 				2E5565EB1522397800606625 /* PromoController.xib */,
 				2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */,
@@ -1454,6 +1463,8 @@
 				2EE5D44F14B65CD500D0539C /* KeychainUtilities.m */,
 				2E986F13138DFCEE00A301BA /* LocationTracker.h */,
 				2E986F14138DFCEE00A301BA /* LocationTracker.m */,
+				2EF82A471551F7EA00021B79 /* Logger.h */,
+				2EF82A481551F7EA00021B79 /* Logger.m */,
 				2EC672B51490028500AC5CDF /* Macros.h */,
 				2EA2286814CDEEF500466166 /* NetworkConnectivity.h */,
 				2EA2286914CDEEF500466166 /* NetworkConnectivity.m */,
@@ -1599,6 +1610,8 @@
 				2E1144CF13946D7900D72753 /* LocationMapViewController.m */,
 				2E31269414C8DFFE00477805 /* LocationPickerViewController.h */,
 				2E31269514C8DFFE00477805 /* LocationPickerViewController.m */,
+				2EF82A4A1551FFFE00021B79 /* LogViewController.h */,
+				2EF82A4B1551FFFE00021B79 /* LogViewController.m */,
 				2EE8581514ABABBB008055AD /* MerchantViewController.h */,
 				2EE8581614ABABBB008055AD /* MerchantViewController.m */,
 				2E5565E81522395700606625 /* PromoController.h */,
@@ -1938,6 +1951,7 @@
 				2EEC09D01523B2E100E6812E /* 112-group-bar@2x.png in Resources */,
 				2EEC09D11523B2E100E6812E /* 281-crown.png in Resources */,
 				2EEC09D21523B2E100E6812E /* 281-crown@2x.png in Resources */,
+				2EF82A4E1552009400021B79 /* LogViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2075,6 +2089,8 @@
 				2E3BFC2114EDD61700E77147 /* LineChartView.m in Sources */,
 				2EE0D88514F3380E0093D59B /* UIImage+FromView.m in Sources */,
 				2E5565EA1522395700606625 /* PromoController.m in Sources */,
+				2EF82A491551F7EA00021B79 /* Logger.m in Sources */,
+				2EF82A4C1551FFFE00021B79 /* LogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
