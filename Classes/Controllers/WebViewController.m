@@ -57,8 +57,11 @@
 
     [self waitForLoad];
 
+    // make sure url is properly formatted
+    NSString *url = [self formattedUrl];
+
     // load requset
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request]; 
 }
 
@@ -84,6 +87,17 @@
 
 //------------------------------------------------------------------------------
 #pragma mark - Helper Functions
+//------------------------------------------------------------------------------
+
+- (NSString*) formattedUrl
+{
+    NSString *url = self.url;
+    if (![self.url hasPrefix:@"http"]) {
+        url = $string(@"http://%@", self.url);
+    }
+    return url;
+}
+
 //------------------------------------------------------------------------------
 
 - (void) waitForLoad
@@ -113,7 +127,7 @@
 - (void) webViewDidFinishLoad:(UIWebView*)webView
 {
     NSString *state = [webView stringByEvaluatingJavaScriptFromString:@"document.readyState"];  
-    if ([state isEqualToString:@"complete"]) {
+    if ([state isEqualToString:@"complete"] || [state isEqualToString:@"interactive"]) {
         [self showWebPage];
     }
 }
