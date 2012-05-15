@@ -145,16 +145,9 @@
         application.applicationIconBadgeNumber = 0;
     }
 
-    // sync any newly available coupons
-    NSDate *lastUpdate     = [NSDate date];
-    __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    api.completionHandler  = ^(NSDictionary *response) {
-        [[Settings getInstance] setLastUpdate:lastUpdate];
-    };
-
     // sync coupons
     Settings *settings = [Settings getInstance];
-    [api syncActiveCoupons:settings.lastUpdate];
+    [self syncCoupons:settings.lastUpdate];
 }
 
 //------------------------------------------------------------------------------
@@ -241,16 +234,9 @@
     // cleat out badge
     application.applicationIconBadgeNumber = 0;
 
-    // sync any newly available coupons
-    NSDate *lastUpdate     = [NSDate date];
-    __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    api.completionHandler  = ^(NSDictionary *response) {
-        [[Settings getInstance] setLastUpdate:lastUpdate];
-    };
-
     // sync coupons
     Settings *settings = [Settings getInstance];
-    [api syncActiveCoupons:settings.lastUpdate];
+    [self syncCoupons:settings.lastUpdate];
 }
 
 //------------------------------------------------------------------------------
@@ -273,6 +259,21 @@
 
 //------------------------------------------------------------------------------
 #pragma - Helper Functions
+//------------------------------------------------------------------------------
+
+- (void) syncCoupons:(NSDate*)lastUpdate
+{
+    // sync any newly available coupons
+    NSDate *currentDate    = [NSDate date];
+    __block TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.completionHandler  = ^(NSDictionary *response) {
+        [[Settings getInstance] setLastUpdate:currentDate];
+    };
+
+    // sync coupons
+    [api syncActiveCoupons:lastUpdate];
+}
+
 //------------------------------------------------------------------------------
 
 - (void) handleNotificationsForApplication:(UIApplication*)application
