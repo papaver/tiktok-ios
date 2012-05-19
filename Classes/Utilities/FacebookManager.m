@@ -147,7 +147,30 @@
 
 //-----------------------------------------------------------------------------
 
+- (void) fbDidNotLogin:(BOOL)cancelled
+{
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) fbDidExtendToken:(NSString*)accessToken
+                expiresAt:(NSDate*)expiresAt;
+{
+    self.facebook.accessToken    = accessToken;
+    self.facebook.expirationDate = expiresAt;
+    [self saveFacebookData];
+}
+
+//-----------------------------------------------------------------------------
+
 - (void) fbDidLogout 
+{
+    [self clearFacebookData];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) fbSessionInvalidated
 {
     [self clearFacebookData];
 }

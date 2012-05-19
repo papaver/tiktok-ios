@@ -218,6 +218,7 @@
 		2EB87EE5149FEED600F01C26 /* CellIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */; };
 		2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBAC7931399D9BE001FD98D /* CoreData.framework */; };
 		2EBD78061567370600EB3E8D /* Appirater+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD78051567370600EB3E8D /* Appirater+Extensions.m */; };
+		2EBD780915674B8100EB3E8D /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD780815674B8100EB3E8D /* FBFrictionlessRequestSettings.m */; };
 		2EC5A54514E4C4290059762C /* TikPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54414E4C4290059762C /* TikPin.png */; };
 		2EC5A54714E4C70A0059762C /* TikPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54614E4C70A0059762C /* TikPin@2x.png */; };
 		2EC5A54A14E4CA740059762C /* TokPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54814E4CA740059762C /* TokPin.png */; };
@@ -652,6 +653,8 @@
 		2EBD7803156734EB00EB3E8D /* AppiraterConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppiraterConfig.h; sourceTree = "<group>"; };
 		2EBD78041567370600EB3E8D /* Appirater+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Appirater+Extensions.h"; sourceTree = "<group>"; };
 		2EBD78051567370600EB3E8D /* Appirater+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Appirater+Extensions.m"; sourceTree = "<group>"; };
+		2EBD780715674B8100EB3E8D /* FBFrictionlessRequestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFrictionlessRequestSettings.h; sourceTree = "<group>"; };
+		2EBD780815674B8100EB3E8D /* FBFrictionlessRequestSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFrictionlessRequestSettings.m; sourceTree = "<group>"; };
 		2EC5A54414E4C4290059762C /* TikPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikPin.png; sourceTree = "<group>"; };
 		2EC5A54614E4C70A0059762C /* TikPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TikPin@2x.png"; sourceTree = "<group>"; };
 		2EC5A54814E4CA740059762C /* TokPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokPin.png; sourceTree = "<group>"; };
@@ -1676,6 +1679,8 @@
 				2EE5D42B14B25D5200D0539C /* FBConnect.h */,
 				2EE5D42D14B25D5200D0539C /* FBDialog.h */,
 				2EE5D42E14B25D5200D0539C /* FBDialog.m */,
+				2EBD780715674B8100EB3E8D /* FBFrictionlessRequestSettings.h */,
+				2EBD780815674B8100EB3E8D /* FBFrictionlessRequestSettings.m */,
 				2EE5D42F14B25D5200D0539C /* FBLoginDialog.h */,
 				2EE5D43014B25D5200D0539C /* FBLoginDialog.m */,
 				2EE5D43114B25D5200D0539C /* FBRequest.h */,
@@ -2113,6 +2118,7 @@
 				2EF82A4C1551FFFE00021B79 /* LogViewController.m in Sources */,
 				2E87CE62156347C800B38D99 /* Appirater.m in Sources */,
 				2EBD78061567370600EB3E8D /* Appirater+Extensions.m in Sources */,
+				2EBD780915674B8100EB3E8D /* FBFrictionlessRequestSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
