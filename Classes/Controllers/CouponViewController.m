@@ -554,7 +554,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // update the coupon headline
     UILabel *headline = (UILabel*)[cell viewWithTag:kTagTitle];
-    [headline setText:[coupon.title capitalizedString]];
+    [headline setText:[coupon getTitleWithFormatting]];
 
     // setup icon
     [self setupIconForCell:cell atIndexPath:indexPath withCoupon:coupon];

@@ -368,7 +368,7 @@ static NSUInteger sObservationContext;
 {
     // title
     UITextView *title = (UITextView*)[self.view viewWithTag:kTagTitle];
-    title.text        = [self.coupon.title capitalizedString];
+    title.text        = [self.coupon getTitleWithFormatting];
 
     // details
     UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];

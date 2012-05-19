@@ -59,7 +59,7 @@
     [request setEntity:description];
 
     // setup the request to lookup the specific coupon by name
-    NSPredicate *predicate = 
+    NSPredicate *predicate =
         [NSPredicate predicateWithFormat:@"couponId == %@", couponId];
     [request setPredicate:predicate];
 
@@ -78,7 +78,7 @@
 
 //------------------------------------------------------------------------------
 
-+ (Coupon*) getOrCreateCouponWithJsonData:(NSDictionary*)data 
++ (Coupon*) getOrCreateCouponWithJsonData:(NSDictionary*)data
                               fromContext:(NSManagedObjectContext*)context
 {
     // check if coupon already exists in the store
@@ -88,10 +88,10 @@
         return coupon;
     }
 
-    // create merchant from json 
+    // create merchant from json
     NSDictionary *merchantData = [data objectForKey:@"merchant"];
-    Merchant *merchant = 
-        [Merchant getOrCreateMerchantWithJsonData:merchantData 
+    Merchant *merchant =
+        [Merchant getOrCreateMerchantWithJsonData:merchantData
                                       fromContext:context];
 
     // skip out if we can't retrive a merchant from the context
@@ -101,8 +101,8 @@
     }
 
     // create a new coupon object
-    coupon = [[NSEntityDescription 
-        insertNewObjectForEntityForName:@"Coupon" 
+    coupon = [[NSEntityDescription
+        insertNewObjectForEntityForName:@"Coupon"
                  inManagedObjectContext:context]
                 initWithJsonDictionary:data];
     coupon.merchant = merchant;
@@ -130,7 +130,7 @@
 //------------------------------------------------------------------------------
 
 - (Coupon*) initWithJsonDictionary:(NSDictionary*)data
-{ 
+{
     NSNumber *enableTime = [data objectForKey:@"enable_time_in_tvsec"];
     NSNumber *expireTime = [data objectForKey:@"expiry_time_in_tvsec"];
 
@@ -150,7 +150,7 @@
 
 //------------------------------------------------------------------------------
 
-- (BOOL) isExpired 
+- (BOOL) isExpired
 {
     NSTimeInterval seconds = [self.endTime timeIntervalSinceNow];
     return seconds <= 0.0;
@@ -234,25 +234,37 @@
 {
     // return the default color if expired
     if ([self isExpired]) return @"00:00:00";
-    
+
     // calculate inter value
     NSTimeInterval secondsLeft  = [self.endTime timeIntervalSinceNow];
     CGFloat minutesLeft         = secondsLeft / 60.0;
 
     // update the coupon expire timer
-    NSString *timer = $string(@"%.2d:%.2d:%.2d", 
+    NSString *timer = $string(@"%.2d:%.2d:%.2d",
         (int)minutesLeft / 60, (int)minutesLeft % 60, (int)secondsLeft % 60);
     return timer;
 }
 
 //------------------------------------------------------------------------------
 
+- (NSString*) getTitleWithFormatting
+{
+    NSString* title = [[[self.title capitalizedString]
+        stringByReplacingOccurrencesOfString:@"Free" withString:@"FREE"]
+        stringByReplacingOccurrencesOfString:@"Entree" withString:@"Entrée"];
+    return title;
+}
+
+//------------------------------------------------------------------------------
+
 - (NSString*) getDetailsWithTerms
 {
-    NSString* detailsWithTerms = $string(@"%@\n\n"
-                                         @"TikTok Terms and Conditions:\n"
-                                         @"www.tiktok.com/terms\n", self.details);
-    return detailsWithTerms;
+    NSString* details = $string(@"%@\n\n"
+                                @"TikTok Terms and Conditions:\n"
+                                @"www.tiktok.com/terms\n", self.details);
+    return [[details
+        stringByReplacingOccurrencesOfString:@"Entree" withString:@"Entrée"]
+        stringByReplacingOccurrencesOfString:@"entree" withString:@"entrée"];
 }
 
 //------------------------------------------------------------------------------

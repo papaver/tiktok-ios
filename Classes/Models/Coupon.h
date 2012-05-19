@@ -84,6 +84,11 @@
 - (NSString*) getExpirationTimer;
 
 /**
+ * Returns the headline with extra formatting.
+ */
+- (NSString*) getTitleWithFormatting;
+
+/**
  * Returns the details with terms and conditions attached to the bottom.
  */
 - (NSString*) getDetailsWithTerms;
