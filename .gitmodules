@@ -22,3 +22,6 @@
 [submodule "ThirdParty/WEPopover"]
 	path = ThirdParty/WEPopover
 	url = https://github.com/papaver/WEPopover.git
+[submodule "ThirdParty/Appirater"]
+	path = ThirdParty/Appirater
+	url = https://github.com/arashpayan/appirater.git

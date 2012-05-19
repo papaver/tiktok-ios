@@ -24,4 +24,6 @@
     #import "Debug.h"
     #import "Macros.h"
     #import "Analytics.h"
+    #import "AppiraterConfig.h"
+    #import "Appirater+Extensions.h"
 #endif

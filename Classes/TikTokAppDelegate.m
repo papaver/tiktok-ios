@@ -70,6 +70,9 @@
     // we need this to allow events to propagate through properly
     [self.window makeKeyAndVisible];
 
+    // alert appirater of app launch
+    [Appirater appLaunched:YES];
+
     return YES;
 }
 
@@ -122,6 +125,9 @@
 - (void) applicationWillEnterForeground:(UIApplication*)application 
 {
     [LocationTracker startLocationTracking];
+
+    // alert appirater of app foreground
+    [Appirater appEnteredForeground:YES];
 }
 
 //------------------------------------------------------------------------------

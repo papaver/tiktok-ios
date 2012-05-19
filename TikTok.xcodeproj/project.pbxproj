@@ -166,6 +166,7 @@
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
+		2E87CE62156347C800B38D99 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E87CE61156347C800B38D99 /* Appirater.m */; };
 		2E89C2E114DBCB2B0052751D /* 15-tags@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */; };
 		2E89C2E214DBCB2B0052751D /* 103-map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */; };
 		2E89C2E314DBCB2B0052751D /* 123-id-card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2E014DBCB2B0052751D /* 123-id-card@2x.png */; };
@@ -216,6 +217,7 @@
 		2EB87EE4149FEED600F01C26 /* CellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */; };
 		2EB87EE5149FEED600F01C26 /* CellIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */; };
 		2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBAC7931399D9BE001FD98D /* CoreData.framework */; };
+		2EBD78061567370600EB3E8D /* Appirater+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD78051567370600EB3E8D /* Appirater+Extensions.m */; };
 		2EC5A54514E4C4290059762C /* TikPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54414E4C4290059762C /* TikPin.png */; };
 		2EC5A54714E4C70A0059762C /* TikPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54614E4C70A0059762C /* TikPin@2x.png */; };
 		2EC5A54A14E4CA740059762C /* TokPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54814E4CA740059762C /* TokPin.png */; };
@@ -585,6 +587,8 @@
 		2E821F84136B1F2A00507F66 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
 		2E821F8E136C2DCB00507F66 /* TikTokApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokApi.h; sourceTree = "<group>"; };
 		2E821F8F136C2DCB00507F66 /* TikTokApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokApi.m; sourceTree = "<group>"; };
+		2E87CE60156347C800B38D99 /* Appirater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appirater.h; sourceTree = "<group>"; };
+		2E87CE61156347C800B38D99 /* Appirater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Appirater.m; sourceTree = "<group>"; };
 		2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "15-tags@2x.png"; sourceTree = "<group>"; };
 		2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "103-map@2x.png"; sourceTree = "<group>"; };
 		2E89C2E014DBCB2B0052751D /* 123-id-card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card@2x.png"; sourceTree = "<group>"; };
@@ -645,6 +649,9 @@
 		2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CellIcon@2x.png"; sourceTree = "<group>"; };
 		2EB87EE814A0029700F01C26 /* TikTok.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TikTok.entitlements; sourceTree = "<group>"; };
 		2EBAC7931399D9BE001FD98D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2EBD7803156734EB00EB3E8D /* AppiraterConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppiraterConfig.h; sourceTree = "<group>"; };
+		2EBD78041567370600EB3E8D /* Appirater+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Appirater+Extensions.h"; sourceTree = "<group>"; };
+		2EBD78051567370600EB3E8D /* Appirater+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Appirater+Extensions.m"; sourceTree = "<group>"; };
 		2EC5A54414E4C4290059762C /* TikPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikPin.png; sourceTree = "<group>"; };
 		2EC5A54614E4C70A0059762C /* TikPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TikPin@2x.png"; sourceTree = "<group>"; };
 		2EC5A54814E4CA740059762C /* TokPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokPin.png; sourceTree = "<group>"; };
@@ -1413,6 +1420,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2E87CE5F1563478300B38D99 /* Appirater */ = {
+			isa = PBXGroup;
+			children = (
+				2E87CE60156347C800B38D99 /* Appirater.h */,
+				2E87CE61156347C800B38D99 /* Appirater.m */,
+			);
+			path = Appirater;
+			sourceTree = "<group>";
+		};
 		2E8E78C814E5897200806A20 /* FlurryAnalytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1444,6 +1460,7 @@
 			children = (
 				2EAE8A8114E5F74400076EDA /* Analytics.h */,
 				2EAE8A8214E5F74400076EDA /* Analytics.m */,
+				2EBD7803156734EB00EB3E8D /* AppiraterConfig.h */,
 				2EE5D44614B3D58F00D0539C /* Constants.h */,
 				2E201E4414B7AC17001E9051 /* Database.h */,
 				2E201E4514B7AC17001E9051 /* Database.m */,
@@ -1483,6 +1500,7 @@
 		2EC6725B148FFE4500AC5CDF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				2E87CE5F1563478300B38D99 /* Appirater */,
 				2EC6725C148FFE5E00AC5CDF /* AsiHttpRequest */,
 				2E5FEAEF14A1B75800B516FE /* Box2D */,
 				2E259E4314D266DE007481F2 /* EGOTableViewPullRefresh */,
@@ -1678,6 +1696,8 @@
 		2EE5D44A14B624FF00D0539C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				2EBD78041567370600EB3E8D /* Appirater+Extensions.h */,
+				2EBD78051567370600EB3E8D /* Appirater+Extensions.m */,
 				2E6CCF4914C5E7A3006836F0 /* MFMailComposeViewController+Handlers.h */,
 				2E6CCF4A14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m */,
 				2E6CCF4C14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.h */,
@@ -2091,6 +2111,8 @@
 				2E5565EA1522395700606625 /* PromoController.m in Sources */,
 				2EF82A491551F7EA00021B79 /* Logger.m in Sources */,
 				2EF82A4C1551FFFE00021B79 /* LogViewController.m in Sources */,
+				2E87CE62156347C800B38D99 /* Appirater.m in Sources */,
+				2EBD78061567370600EB3E8D /* Appirater+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
