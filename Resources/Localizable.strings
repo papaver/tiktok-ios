@@ -47,3 +47,6 @@
 "PROMO_FAIL"                   = "Failed to redeem promotion, try again.";
 "PROMO_USED"                   = "Promotion code can only be redeemed once, try another code.";
 "PROMO_INVALID"                = "The promotion code you entered was not recognized, try another code.";
+
+"CITIES"                       = "Cities";
+"CITIES_SYNC_FAIL"             = "Failed to sync city data from server.  Try again.";

@@ -87,6 +87,7 @@ typedef void (^TikTokApiErrorHandler)(ASIHTTPRequest*);
 - (void) updateSettingsWorkLocation:(CLLocation*)work;
 - (void) syncKarmaPoints;
 - (void) redeemPromotion:(NSString*)promoCode;
+- (void) cities;
 
 //------------------------------------------------------------------------------
 

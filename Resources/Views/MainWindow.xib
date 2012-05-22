@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11D50d</string>
+		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1179</string>
@@ -147,12 +147,12 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
-				<object class="IBUIViewController" key="IBUISelectedViewController" id="351734599">
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="998064767">
-						<string key="IBUITitle">Karma</string>
+				<object class="IBUIViewController" key="IBUISelectedViewController" id="658004533">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="652499845">
+						<string key="IBUITitle">Cities</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">281-crown.png</string>
+							<string key="NSResourceName">178-city.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -214,7 +214,24 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
-					<reference ref="351734599"/>
+					<object class="IBUIViewController" id="351734599">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="998064767">
+							<string key="IBUITitle">Karma</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">281-crown.png</string>
+							</object>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+						<reference key="IBUIParentViewController" ref="251336502"/>
+						<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+							<int key="IBUIInterfaceOrientation">1</int>
+							<int key="interfaceOrientation">1</int>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIHorizontal">NO</bool>
+					</object>
 					<object class="IBUIViewController" id="947517186">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="638266836">
 							<string key="IBUITitle">Settings</string>
@@ -235,6 +252,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
+					<reference ref="658004533"/>
 				</object>
 				<object class="IBUITabBar" key="IBUITabBar" id="287873042">
 					<reference key="NSNextResponder"/>
@@ -363,6 +381,7 @@
 							<reference ref="843271522"/>
 							<reference ref="597387139"/>
 							<reference ref="351734599"/>
+							<reference ref="658004533"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Main Tab Bar Controller</string>
@@ -464,6 +483,20 @@
 						<reference key="object" ref="998064767"/>
 						<reference key="parent" ref="351734599"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">219</int>
+						<reference key="object" ref="658004533"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="652499845"/>
+						</object>
+						<reference key="parent" ref="251336502"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">220</int>
+						<reference key="object" ref="652499845"/>
+						<reference key="parent" ref="658004533"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -492,6 +525,9 @@
 					<string>217.CustomClassName</string>
 					<string>217.IBPluginDependency</string>
 					<string>218.IBPluginDependency</string>
+					<string>219.CustomClassName</string>
+					<string>219.IBPluginDependency</string>
+					<string>220.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 					<string>53.IBPluginDependency</string>
@@ -529,6 +565,9 @@
 					<string>KarmaViewController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>CitiesViewController</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>TikTokAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -551,7 +590,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">218</int>
+			<int key="maxID">220</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
@@ -573,6 +612,7 @@
 				<string>103-map.png</string>
 				<string>123-id-card.png</string>
 				<string>15-tags.png</string>
+				<string>178-city.png</string>
 				<string>281-crown.png</string>
 				<string>TopNavBarLogo.png</string>
 			</object>
@@ -581,6 +621,7 @@
 				<string>{26, 21}</string>
 				<string>{24, 17}</string>
 				<string>{24, 25}</string>
+				<string>{23, 27}</string>
 				<string>{26, 17}</string>
 				<string>{67, 41}</string>
 			</object>
