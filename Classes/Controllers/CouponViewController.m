@@ -561,8 +561,11 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // configure redeemed sash
     UIImageView* sash = (UIImageView*)[cell viewWithTag:kTagSash];
-    sash.hidden       = !coupon.wasRedeemed.boolValue && !coupon.isSoldOut.boolValue;
-    sash.image        = coupon.wasRedeemed.boolValue ? [UIImage imageNamed:@"RedeemedSash.png"] :
+    sash.hidden       = !coupon.wasRedeemed.boolValue &&
+                        !coupon.isSoldOut.boolValue &&
+                        coupon.isRedeemable.boolValue;
+    sash.image        = !coupon.isRedeemable.boolValue ? [UIImage imageNamed:@"InfoSash.png"] :
+                        coupon.wasRedeemed.boolValue ? [UIImage imageNamed:@"RedeemedSash.png"] :
                         coupon.isSoldOut.boolValue ? [UIImage imageNamed:@"SoldOutSash.png"] : nil;
 
     // update the cell to reflect the state of the coupon

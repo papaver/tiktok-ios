@@ -42,6 +42,7 @@
 @property (nonatomic, retain)   Merchant *merchant;
 @property (nonatomic, assign)   NSNumber *wasRedeemed;
 @property (nonatomic, assign)   NSNumber *isSoldOut;
+@property (nonatomic, assign)   NSNumber *isRedeemable;
 
 //------------------------------------------------------------------------------
 

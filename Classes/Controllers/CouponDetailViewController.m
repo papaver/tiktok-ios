@@ -67,6 +67,7 @@ typedef enum _CouponState
     kStateActive  = 1,
     kStateExpired = 2,
     kStateSoldOut = 3,
+    kStateInfo    = 4,
 } CouponState;
 
 //------------------------------------------------------------------------------
@@ -203,11 +204,12 @@ static NSUInteger sObservationContext;
     static struct YTable {
         NSUInteger cs;
         CGFloat    h;
-    } sYTable[4] = {
+    } sYTable[5] = {
         { kStateDefault , -120.0 },
         { kStateActive  ,  -60.0 },
         { kStateExpired ,    0.0 },
         { kStateSoldOut ,   60.0 },
+        { kStateInfo    ,  120.0 },
     };
 
     // get the coupon state
@@ -264,6 +266,8 @@ static NSUInteger sObservationContext;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+//------------------------------------------------------------------------------
 
 - (void) observeValueForKeyPath:(NSString*)keyPath
                        ofObject:(id)object
@@ -625,8 +629,8 @@ static NSUInteger sObservationContext;
         } 
     }
 
-    // animate barcode
-    if (!self.coupon.wasRedeemed.boolValue) {
+    // animate banner
+    if (!self.coupon.wasRedeemed.boolValue && self.coupon.isRedeemable.boolValue) {
         UIView *view   = [self.barcodeView viewWithTag:kTagBarcodeSlideView];
         CGRect frame   = view.frame;
         frame.origin.y = 0.0;
@@ -667,6 +671,7 @@ static NSUInteger sObservationContext;
     state            = coupon.isSoldOut.boolValue ? kStateSoldOut : state;
     state            = coupon.isExpired ? kStateExpired : state;
     state            = coupon.wasRedeemed.boolValue ? kStateActive : state;
+    state            = !coupon.isRedeemable.boolValue ? kStateInfo : state;
     return state;
 }
 

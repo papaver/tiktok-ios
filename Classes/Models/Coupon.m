@@ -41,6 +41,7 @@
 @dynamic wasRedeemed;
 @dynamic isSoldOut;
 @dynamic barcode;
+@dynamic isRedeemable;
 @dynamic merchant;
 
 //------------------------------------------------------------------------------
@@ -134,16 +135,17 @@
     NSNumber *enableTime = [data objectForKey:@"enable_time_in_tvsec"];
     NSNumber *expireTime = [data objectForKey:@"expiry_time_in_tvsec"];
 
-    self.couponId    = [data objectForKey:@"id"];
-    self.details     = [data objectForKey:@"description"];
-    self.title       = [data objectForKey:@"headline"];
-    self.startTime   = [NSDate dateWithTimeIntervalSince1970:enableTime.intValue];
-    self.endTime     = [NSDate dateWithTimeIntervalSince1970:expireTime.intValue];
-    self.iconId      = [data objectForKey:@"icon_uid"];
-    self.iconUrl     = [data objectForKey:@"icon_url"];
-    self.barcode     = [data objectForKey:@"barcode_number"];
-    self.wasRedeemed = [data objectForComplexKey:@"redeemed"];
-    self.isSoldOut   = $numb(NO);
+    self.couponId     = [data objectForKey:@"id"];
+    self.details      = [data objectForKey:@"description"];
+    self.title        = [data objectForKey:@"headline"];
+    self.startTime    = [NSDate dateWithTimeIntervalSince1970:enableTime.intValue];
+    self.endTime      = [NSDate dateWithTimeIntervalSince1970:expireTime.intValue];
+    self.iconId       = [data objectForKey:@"icon_uid"];
+    self.iconUrl      = [data objectForKey:@"icon_url"];
+    self.barcode      = [data objectForKey:@"barcode_number"];
+    self.wasRedeemed  = [data objectForComplexKey:@"redeemed"];
+    self.isSoldOut    = $numb(NO);
+    self.isRedeemable = [data objectForKey:@"is_redeemable"];
 
     return self;
 }

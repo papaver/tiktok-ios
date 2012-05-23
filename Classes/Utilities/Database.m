@@ -7,7 +7,7 @@
 //
 
 //-----------------------------------------------------------------------------
-// includes 
+// includes
 //-----------------------------------------------------------------------------
 
 #import "Database.h"
@@ -19,7 +19,7 @@
 @interface Database ()
     + (NSURL*) applicationDocumentsDirectory;
     + (NSURL*) getStorageUrl;
-@end    
+@end
 
 //-----------------------------------------------------------------------------
 // interface implementation
@@ -74,7 +74,7 @@
 //------------------------------------------------------------------------------
 
 /**
- * Returns the managed object model for the application.  If the model doesn't 
+ * Returns the managed object model for the application.  If the model doesn't
  * exist, it is created from the model.
  */
 - (NSManagedObjectModel*) model
@@ -83,7 +83,7 @@
     if (mManagedObjectModel != nil)  return mManagedObjectModel;
 
     // allocate a new model from the data model on disk
-    NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"DataModel" ofType:@"mom"];
+    NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"DataModel" ofType:@"momd"];
     NSURL *modelUrl     = [NSURL fileURLWithPath:modelPath];
     mManagedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelUrl];
 
@@ -93,27 +93,33 @@
 //------------------------------------------------------------------------------
 
 /**
- * Returns the persistant store coordinator for the application.  If the 
+ * Returns the persistant store coordinator for the application.  If the
  * coordinator doesn't already exist, it is created and the application's store
  * is added to it.
  */
 - (NSPersistentStoreCoordinator*) coordinator
 {
     // lazy allocation
-    if (mPersistantStoreCoordinator != nil) return mPersistantStoreCoordinator; 
+    if (mPersistantStoreCoordinator != nil) return mPersistantStoreCoordinator;
 
     // construct path to storage on disk
     NSURL *storageUrl = [Database getStorageUrl];
 
+    // options to allow auto migration
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+        [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
+        nil];
+
     // allocate a persistant store coordinator, attached to the storage db
     NSError *error = nil;
-    mPersistantStoreCoordinator = [[NSPersistentStoreCoordinator alloc] 
+    mPersistantStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
         initWithManagedObjectModel:self.model];
-    bool result = [mPersistantStoreCoordinator 
-        addPersistentStoreWithType:NSSQLiteStoreType 
-                     configuration:nil 
-                               URL:storageUrl 
-                           options:nil 
+    bool result = [mPersistantStoreCoordinator
+        addPersistentStoreWithType:NSSQLiteStoreType
+                     configuration:nil
+                               URL:storageUrl
+                           options:options
                              error:&error];
 
     // make sure the persistant store was setup properly
@@ -122,29 +128,29 @@
         /*
          * Typical reasons for an error here include:
          *  - The persistant store is not accessible.
-         *  - The schema for the persistant store is incompatible with the 
+         *  - The schema for the persistant store is incompatible with the
          *    current managed object model.
          *
-         * If the persistant store is no accessible, there is typically 
-         * something wrong with the file path.  Often the file URL is pointing 
-         * into the applications resource directory instead of the writable 
+         * If the persistant store is no accessible, there is typically
+         * something wrong with the file path.  Often the file URL is pointing
+         * into the applications resource directory instead of the writable
          * directoy.
          *
-         * If you encounter schema incompatibility errors during development, 
+         * If you encounter schema incompatibility errors during development,
          * you can reduce thier frequency by:
          *
          *   - Simply deleting the existing store:
-         *       [[NSFileManager defaultManager] removeItemAtURL:storeURL 
+         *       [[NSFileManager defaultManager] removeItemAtURL:storeURL
          *                                                 error:nil];
          *
-         *   - Performing automatic lightweight migration by passing the 
+         *   - Performing automatic lightweight migration by passing the
          *     following directory as the options parameter:
          *       [NSDictionary dictionaryWithObjectsAndKeys:
          *           [NSNumber numberWithBool:YES], NSMigratePersistantStoresAutomaticallyOption,
          *           [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
          *           nil];
          *
-         * Lightweight migration will only work for a limited set of schema 
+         * Lightweight migration will only work for a limited set of schema
          * changes.
          */
 
@@ -164,8 +170,8 @@
 
 + (NSURL*) applicationDocumentsDirectory
 {
-    return [[[NSFileManager defaultManager] 
-        URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] 
+    return [[[NSFileManager defaultManager]
+        URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]
         lastObject];
 }
 
@@ -174,7 +180,7 @@
 + (NSURL*) getStorageUrl
 {
     // construct path to storage on disk
-    NSURL *storageUrl = [[self applicationDocumentsDirectory] 
+    NSURL *storageUrl = [[self applicationDocumentsDirectory]
         URLByAppendingPathComponent:@"TikTok.sqlite"];
     return storageUrl;
 }
@@ -183,7 +189,7 @@
 #pragma mark - Memory Management
 //-----------------------------------------------------------------------------
 
-- (void) dealloc 
+- (void) dealloc
 {
     [mManagedObjectContext release];
     [mManagedObjectModel release];
