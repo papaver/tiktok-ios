@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 // enums
 //------------------------------------------------------------------------------
- 
+
 enum TableSections
 {
     kSectionBasic    = 0,
@@ -34,6 +34,7 @@ enum TableRows
 {
     kRowName     = 0,
     kRowEmail    = 1,
+    kRowTwitter  = 2,
     kRowHome     = 0,
     kRowWork     = 1,
     kRowGender   = 0,
@@ -44,6 +45,7 @@ enum ViewTags
 {
     kTagNameField         = 1,
     kTagEmailField        = 1,
+    kTagTwitterField      = 1,
     kTagFacebook          = 2,
     kTagTutorialArrow     = 4,
     kTagTutorialText      = 5,
@@ -58,15 +60,16 @@ enum ViewTags
 @interface SettingsViewController ()
     - (void) setupTutorialForStage:(TutorialStage)stage;
     - (void) setupTutorialStageStart;
-    - (void) setupTutorialStage:(TutorialStage)stage 
-                characterOrigin:(CGPoint)characterOrigin 
-                    arrowOrigin:(CGPoint)arrowOrigin 
-                    textFrame:(CGRect)textFrame 
-                tutorialText:(NSString*)tutorialText;
+    - (void) setupTutorialStage:(TutorialStage)stage
+                characterOrigin:(CGPoint)characterOrigin
+                    arrowOrigin:(CGPoint)arrowOrigin
+                      textFrame:(CGRect)textFrame
+                   tutorialText:(NSString*)tutorialText;
     - (void) setupTutorialStageFacebook;
     - (void) setupTutorialStageUserInfo;
     - (void) setupTutorialStageMisc;
     - (void) setupTutorialStageLocation;
+    - (void) setupTutorialStageTwitter;
     - (void) setupTutorialStageComplete;
     - (UIImage*) tutorialCharacterImageForStage:(TutorialStage)stage;
     - (UIImage*) tutorialArrowImageForStage:(TutorialStage)stage;
@@ -97,6 +100,7 @@ enum ViewTags
 @synthesize tableView              = mTableView;
 @synthesize nameCell               = mNameCell;
 @synthesize emailCell              = mEmailCell;
+@synthesize twitterCell            = mTwitterCell;
 @synthesize birthdayCell           = mBirthdayCell;
 @synthesize dateInputView          = mInputView;
 @synthesize dateInputAccessoryView = mInputAccessoryView;
@@ -128,7 +132,7 @@ enum ViewTags
     // setup navigation info
     self.title = @"Settings";
 
-    // [iOS4] fix for black corners 
+    // [iOS4] fix for black corners
     self.tableView.backgroundColor = [UIColor clearColor];
 
     // [iOS4] fix for missing font bradley hand bold
@@ -138,13 +142,15 @@ enum ViewTags
         text.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
         tapme.font = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
     }
-    
+
     // load available data
-    Settings *settings      = [Settings getInstance];
-    UITextField *nameField  = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
-    UITextField *emailField = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
-    nameField.text          = settings.name;
-    emailField.text         = settings.email;
+    Settings *settings        = [Settings getInstance];
+    UITextField *nameField    = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
+    UITextField *emailField   = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
+    UITextField *twitterField = (UITextField*)[self.twitterCell viewWithTag:kTagTwitterField];
+    nameField.text            = settings.name;
+    emailField.text           = settings.email;
+    twitterField.text         = settings.twitter;
 
     // save birthday cell
     self.birthdayCell = [self getReusableBirthdayCell];
@@ -154,8 +160,15 @@ enum ViewTags
     NSArray *sectionDetails  = $array(@"Gender", @"Birthday");
     NSArray *sectionLocation = $array(@"Home Location", @"Work Location");
     mTableData = [$dict(
-        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)), 
-        $array(sectionBasic, sectionDetails, sectionLocation)) 
+        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)),
+        $array(sectionBasic, sectionDetails, sectionLocation))
+        retain];
+
+    // completed version will look a little different
+    NSArray *sectionBasicFinal = $array(@"Name", @"Email", @"Twitter Handle");
+    mTableDataFinal = [$dict(
+        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)),
+        $array(sectionBasicFinal, sectionDetails, sectionLocation))
         retain];
 
     // add facebook connect to navbar
@@ -169,7 +182,7 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
-- (void) viewWillAppear:(BOOL)animated 
+- (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self updateFacebookConnect];
@@ -180,7 +193,7 @@ enum ViewTags
 /**
  * Override to allow orientations other than the default portrait orientation.
  * /
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations.
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -216,6 +229,9 @@ enum ViewTags
         case kTutorialStageLocation:
             [self setupTutorialStageLocation];
             break;
+        case kTutorialStageTwitter:
+            [self setupTutorialStageTwitter];
+            break;
         case kTutorialStageComplete:
             [self setupTutorialStageComplete];
             break;
@@ -241,11 +257,11 @@ enum ViewTags
     [character setImage:characterImage forState:UIControlStateNormal];
 
     // position tik in the middle of the screen
-    CGRect frame      = self.view.frame; 
+    CGRect frame      = self.view.frame;
     frame.origin.x    = (frame.size.width / 2.0) - (characterImage.size.width / 2.0);
     frame.origin.y    = (367.0 / 2.0) - (characterImage.size.height / 2.0);
-    frame.size.width  = characterImage.size.width; 
-    frame.size.height = characterImage.size.height; 
+    frame.size.width  = characterImage.size.width;
+    frame.size.height = characterImage.size.height;
     character.frame   = frame;
 
     // reposition tapme under the character
@@ -254,10 +270,10 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
-- (void) setupTutorialStage:(TutorialStage)stage 
-            characterOrigin:(CGPoint)characterOrigin 
-                arrowOrigin:(CGPoint)arrowOrigin 
-                  textFrame:(CGRect)textFrame 
+- (void) setupTutorialStage:(TutorialStage)stage
+            characterOrigin:(CGPoint)characterOrigin
+                arrowOrigin:(CGPoint)arrowOrigin
+                  textFrame:(CGRect)textFrame
                tutorialText:(NSString*)tutorialText
 {
     CGRect frame;
@@ -281,21 +297,21 @@ enum ViewTags
     text.hidden        = NO;
     text.numberOfLines = 4;
 
-    // position tik 
+    // position tik
     frame.origin.x    = characterOrigin.x;
     frame.origin.y    = characterOrigin.y;
-    frame.size.width  = characterImage.size.width; 
-    frame.size.height = characterImage.size.height; 
+    frame.size.width  = characterImage.size.width;
+    frame.size.height = characterImage.size.height;
     character.frame   = frame;
 
-    // position arrow 
+    // position arrow
     frame.origin.x    = arrowOrigin.x;
     frame.origin.y    = arrowOrigin.y;
     frame.size.width  = arrowImage.size.width;
     frame.size.height = arrowImage.size.height;
     arrow.frame       = frame;
-    
-    // position text 
+
+    // position text
     text.frame = textFrame;
 
     // reposition tapme under the character
@@ -310,7 +326,10 @@ enum ViewTags
              characterOrigin:CGPointMake(51.0, 23.0)
                  arrowOrigin:CGPointMake(120.0, 20.0)
                    textFrame:CGRectMake(41.0, 145.0, 179.0 * 2, 94.0)
-                tutorialText:@"Connect to Facebook,\nallow us to customize\nyour deals and cater to\nYOU!"];
+                tutorialText:@"Connect to Facebook,\n"
+                             @"allow us to customize\n"
+                             @"your deals and cater to\n"
+                             @"YOU!"];
 }
 
 //------------------------------------------------------------------------------
@@ -321,7 +340,9 @@ enum ViewTags
              characterOrigin:CGPointMake(220.0, 145.0)
                  arrowOrigin:CGPointMake(77.0, 145.0)
                    textFrame:CGRectMake(90.0, 241.0, 188.0 * 2, 80.0)
-                tutorialText:@"Fill out your name and\nemail if you feel like it,\nor just stay anonymous."];
+                tutorialText:@"Fill out your name and\n"
+                             @"email if you feel like it,\n"
+                             @"or just stay anonymous."];
 }
 
 //------------------------------------------------------------------------------
@@ -332,7 +353,8 @@ enum ViewTags
              characterOrigin:CGPointMake(198.0, 67.0)
                  arrowOrigin:CGPointMake(53.0, 69.0)
                    textFrame:CGRectMake(70.0, 8.0, 196.0 * 2, 60.0)
-                tutorialText:@"Let us send you special\ndeals on your birthday!"];
+                tutorialText:@"Let us send you special\n"
+                             @"deals on your birthday!"];
 }
 
 //------------------------------------------------------------------------------
@@ -343,7 +365,21 @@ enum ViewTags
              characterOrigin:CGPointMake(203.0, 174.0)
                  arrowOrigin:CGPointMake(60.0, 182.0)
                    textFrame:CGRectMake(110.0, 120.0, 166.0 * 2, 60.0)
-                tutorialText:@"We want to send you\nconvenient deals!"];
+                tutorialText:@"We want to send you\n"
+                             @"convenient deals!"];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStageTwitter
+{
+    [self setupTutorialStage:kTutorialStageTwitter
+             characterOrigin:CGPointMake(220.0, 100.0)
+                 arrowOrigin:CGPointMake(77.0, 100.0)
+                   textFrame:CGRectMake(90.0, 206.0, 188.0 * 2, 80.0)
+                tutorialText:@"Fill out your twitter\n"
+                             @"handle so we can follow\n"
+                             @"you on Twitter!"];
 }
 
 //------------------------------------------------------------------------------
@@ -373,7 +409,7 @@ enum ViewTags
 {
     NSString *imageName = $string(@"SettingsTutorialChar%02d.png", (NSUInteger)stage);
     UIImage *image      = [UIImage imageNamed:imageName];
-    return image; 
+    return image;
 }
 
 //------------------------------------------------------------------------------
@@ -382,7 +418,7 @@ enum ViewTags
 {
     NSString *imageName = $string(@"SettingsTutorialArrow%02d.png", (NSUInteger)stage);
     UIImage *image      = [UIImage imageNamed:imageName];
-    return image; 
+    return image;
 }
 
 //------------------------------------------------------------------------------
@@ -403,24 +439,25 @@ enum ViewTags
 - (void) addTutorialBarButton
 {
     UIImage *image = [UIImage imageNamed:@"Tik.png"];
-    
+
     // resize the image
     CGSize size = CGSizeMake(48.0, 48.0);
     UIGraphicsBeginImageContext(size);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    image = UIGraphicsGetImageFromCurrentImageContext();    
+    image = UIGraphicsGetImageFromCurrentImageContext();
     image = [UIImage imageWithCGImage:[image CGImage] scale:2.0 orientation:UIImageOrientationUp];
     UIGraphicsEndImageContext();
 
     // create the button
-    UIBarButtonItem *infoButton = 
+    UIBarButtonItem *infoButton =
         [[UIBarButtonItem alloc] initWithImage:image
-                                         style:UIBarButtonItemStyleBordered 
-                                        target:self 
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
                                         action:@selector(restartTutorial)];
 
     // add to nav bar
     self.navigationItem.leftBarButtonItem = infoButton;
+    self.tabBarController.navigationItem.leftBarButtonItem = infoButton;
 
     // cleanup
     [infoButton release];
@@ -447,7 +484,7 @@ enum ViewTags
     button.frame  = CGRectMake(0.0, 0.0, image.size.width, image.size.height);
 
     // add to nav bar
-    UIBarButtonItem *facebookItem = 
+    UIBarButtonItem *facebookItem =
         [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = facebookItem;
 
@@ -477,7 +514,7 @@ enum ViewTags
 
     // update the button
     [facebookButton setImage:image forState:UIControlStateNormal];
-    [facebookButton addTarget:self 
+    [facebookButton addTarget:self
                        action:selector
              forControlEvents:UIControlEventTouchUpInside];
 }
@@ -534,7 +571,7 @@ enum ViewTags
 
     UITextField *nameField = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
     Settings *settings     = [Settings getInstance];
-    settings.name          = nameField.text; 
+    settings.name          = nameField.text;
 }
 
 //------------------------------------------------------------------------------
@@ -545,7 +582,18 @@ enum ViewTags
 
     UITextField *emailField = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
     Settings *settings      = [Settings getInstance];
-    settings.email          = emailField.text; 
+    settings.email          = emailField.text;
+}
+
+//------------------------------------------------------------------------------
+
+- (IBAction) saveTwitter:(id)sender
+{
+    [Analytics passCheckpoint:@"Settings Twitter"];
+
+    UITextField *twitterField = (UITextField*)[self.twitterCell viewWithTag:kTagTwitterField];
+    Settings *settings        = [Settings getInstance];
+    settings.twitter          = twitterField.text;
 }
 
 //------------------------------------------------------------------------------
@@ -588,7 +636,7 @@ enum ViewTags
 #pragma mark - UITableView protocol
 //------------------------------------------------------------------------------
 
-- (BOOL) textFieldShouldReturn:(UITextField*)textField 
+- (BOOL) textFieldShouldReturn:(UITextField*)textField
 {
     [textField resignFirstResponder];
     return YES;
@@ -601,26 +649,38 @@ enum ViewTags
 /**
  * Customize the number of sections in the table view.
  */
-- (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView 
+- (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView
 {
-    return [mTableData count];
+    if (mTutorialStage == kTutorialStageTwitter) {
+        return 1;
+    } else if (mTutorialStage == kTutorialStageComplete) {
+        return [mTableDataFinal count];
+    } else {
+        return [mTableData count];
+    }
 }
 
 //------------------------------------------------------------------------------
 
 /**
  * Customize the number of rows in the table view.
- */ 
-- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section 
+ */
+- (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[mTableData objectForKey:$numi(section)] count];
+    if (mTutorialStage == kTutorialStageTwitter) {
+        return 1;
+    } else if (mTutorialStage == kTutorialStageComplete) {
+        return [[mTableDataFinal objectForKey:$numi(section)] count];
+    } else {
+        return [[mTableData objectForKey:$numi(section)] count];
+    }
 }
 
 //------------------------------------------------------------------------------
 
 /**
  * Customize the height of the cell at the given index.
- * / 
+ * /
 - (CGFloat) tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
 }
@@ -631,13 +691,19 @@ enum ViewTags
 /**
  * Customize the appearance of table view cells.
  */
-- (UITableViewCell*) tableView:(UITableView*)tableView 
-         cellForRowAtIndexPath:(NSIndexPath*)indexPath 
+- (UITableViewCell*) tableView:(UITableView*)tableView
+         cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     UITableViewCell *cell = nil;
 
+    // deal with extra twitter tutorial
+    if ((mTutorialStage == kTutorialStageTwitter) && (indexPath.section == kSectionBasic)) {
+        return [self tableViewForTwitter:tableView cellForRowAtIndexPath:indexPath];
+    }
+
     // grab the title from the table data
-    NSString *title = 
+    NSString *title = (mTutorialStage == kTutorialStageComplete) ?
+        [[mTableDataFinal objectForKey:$numi(indexPath.section)] objectAtIndex:indexPath.row] :
         [[mTableData objectForKey:$numi(indexPath.section)] objectAtIndex:indexPath.row];
 
     // grab the settings object
@@ -652,6 +718,9 @@ enum ViewTags
                     break;
                 case kRowEmail:
                     cell = self.emailCell;
+                    break;
+                case kRowTwitter:
+                    cell = self.twitterCell;
                     break;
                 default:
                     break;
@@ -706,6 +775,16 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
+- (UITableViewCell*) tableViewForTwitter:(UITableView*)tableView
+                   cellForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    UITableViewCell *cell = self.twitterCell;
+    cell.hidden           = NO;
+    return cell;
+}
+
+//------------------------------------------------------------------------------
+
 - (UITableViewCell*) getReusableCell
 {
     static NSString *sCellId = @"generic";
@@ -713,7 +792,7 @@ enum ViewTags
     // check if reuasable cell exists
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:sCellId];
     if (!cell) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
             reuseIdentifier:sCellId] autorelease];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -727,10 +806,10 @@ enum ViewTags
     static NSString *sCellId = @"date";
 
     // check if reuasable cell exists
-    InputTableViewCell *cell = 
+    InputTableViewCell *cell =
         (InputTableViewCell*)[self.tableView dequeueReusableCellWithIdentifier:sCellId];
     if (!cell) {
-        cell = [[[InputTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 
+        cell = [[[InputTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
             reuseIdentifier:sCellId] autorelease];
         cell.accessoryType      = UITableViewCellAccessoryNone;
         cell.inputView          = self.dateInputView;
@@ -744,7 +823,7 @@ enum ViewTags
 /**
  * Override to support conditional editing of the table view.
  */
-- (BOOL) tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath 
+- (BOOL) tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // table rows are not editable
     return NO;
@@ -755,20 +834,20 @@ enum ViewTags
 /**
  * Override to support editing the table view.
  * /
-- (void) tableView:(UITableView*)tableView 
-    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
-     forRowAtIndexPath:(NSIndexPath*)indexPath 
+- (void) tableView:(UITableView*)tableView
+    commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+     forRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    
+
     // delete the row from the data source.
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                          withRowAnimation:UITableViewRowAnimationFade];
 
-    // create a new instance of the appropriate class, insert it into the array, 
+    // create a new instance of the appropriate class, insert it into the array,
     //  and add a new row to the table view.
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-    }   
+    }
 }
 */
 
@@ -777,9 +856,9 @@ enum ViewTags
 /**
  * Override to support rearranging the table view.
  */
-- (void) tableView:(UITableView*)tableView 
-    moveRowAtIndexPath:(NSIndexPath*)fromIndexPath 
-           toIndexPath:(NSIndexPath*)toIndexPath 
+- (void) tableView:(UITableView*)tableView
+    moveRowAtIndexPath:(NSIndexPath*)fromIndexPath
+           toIndexPath:(NSIndexPath*)toIndexPath
 {
     // items cannot be moved
 }
@@ -789,7 +868,7 @@ enum ViewTags
 /**
  * Override to support conditional rearranging of the table view.
  */
-- (BOOL) tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath 
+- (BOOL) tableView:(UITableView*)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // items cannot be re-ordered
     return NO;
@@ -799,16 +878,16 @@ enum ViewTags
 #pragma mark - TableView Delegate
 //------------------------------------------------------------------------------
 
-- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath 
+- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
     // details sections
     if (indexPath.section == kSectionDetails) {
 
         switch (indexPath.row) {
-            case kRowGender: 
+            case kRowGender:
                 [self updateGenderAtIndexPath:indexPath];
                 break;
-            case kRowBirthday: 
+            case kRowBirthday:
                 [self updateBirthdayAtIndexPath:indexPath];
                 break;
             default:
@@ -819,10 +898,10 @@ enum ViewTags
     } else if (indexPath.section == kSectionLocation) {
 
         switch (indexPath.row) {
-            case kRowHome: 
+            case kRowHome:
                 [self updateHomeLocationAtIndexPath:indexPath];
                 break;
-            case kRowWork: 
+            case kRowWork:
                 [self updateWorkLocationAtIndexPath:indexPath];
                 break;
             default:
@@ -836,7 +915,7 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
-- (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section 
+- (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == kSectionBasic) {
         return self.basicHeader.frame.size.height;
@@ -858,6 +937,7 @@ enum ViewTags
 
     // show correctly for tutorial
     header.hidden = (mTutorialStage != kTutorialStageUserInfo) &&
+                    (mTutorialStage != kTutorialStageTwitter) &&
                     (mTutorialStage != kTutorialStageComplete);
 
     return header;
@@ -872,7 +952,7 @@ enum ViewTags
     [Analytics passCheckpoint:@"Settings Gender"];
 
     // create a string picker controller
-    StringPickerViewController *controller = [[StringPickerViewController alloc] 
+    StringPickerViewController *controller = [[StringPickerViewController alloc]
         initWithNibName:@"StringPickerViewController" bundle:nil];
 
     // setup controller to pick gender
@@ -918,12 +998,12 @@ enum ViewTags
     [Analytics passCheckpoint:@"Settings Work Location"];
 
     // create a location picker
-    LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
+    LocationPickerViewController *controller = [[LocationPickerViewController alloc]
         initWithNibName:@"LocationPickerViewController" bundle:nil];
-        
+
     // setup the location to point to current work address if set
     __block Settings *settings = [Settings getInstance];
-    controller.location        = settings.work; 
+    controller.location        = settings.work;
 
     // save the location and reverse geocode the location
     controller.saveHandler = ^(CLLocation *location) {
@@ -960,12 +1040,12 @@ enum ViewTags
     [Analytics passCheckpoint:@"Settings Home Location"];
 
     // create a location picker
-    LocationPickerViewController *controller = [[LocationPickerViewController alloc] 
+    LocationPickerViewController *controller = [[LocationPickerViewController alloc]
         initWithNibName:@"LocationPickerViewController" bundle:nil];
-        
+
     // setup the location to point to the current home address if set
     __block Settings *settings = [Settings getInstance];
-    controller.location        = settings.home; 
+    controller.location        = settings.home;
 
     // save the location and reverse geocode the location
     controller.saveHandler = ^(CLLocation *location) {
@@ -1001,8 +1081,8 @@ enum ViewTags
 {
     static NSArray *keys = nil;
     if (keys == nil) {
-        keys = [$array(@"subpremise", @"premise", @"neighborhood", 
-            @"sublocality", @"locality", @"colloquial_area", 
+        keys = [$array(@"subpremise", @"premise", @"neighborhood",
+            @"sublocality", @"locality", @"colloquial_area",
             @"administrative_area_level_3") retain];
     }
 
@@ -1035,7 +1115,7 @@ enum ViewTags
         }
     }
 
-    // go through the list and find the smallest locality 
+    // go through the list and find the smallest locality
     NSString *locality = nil;
     for (NSString *key in keys) {
         NSString *value = [localities objectForKey:key];
@@ -1081,7 +1161,7 @@ enum ViewTags
 /**
  * Releases the view if it doesn't have a superview.
  */
-- (void) didReceiveMemoryWarning 
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
@@ -1089,16 +1169,16 @@ enum ViewTags
 //------------------------------------------------------------------------------
 
 /**
- * Relinquish ownership of anything that can be recreated in viewDidLoad 
+ * Relinquish ownership of anything that can be recreated in viewDidLoad
  * or on demand.
- */ 
-- (void) viewDidUnload 
+ */
+- (void) viewDidUnload
 {
 }
 
 //------------------------------------------------------------------------------
 
-- (void) dealloc 
+- (void) dealloc
 {
     [mBasicHeader release];
     [mNameCell release];
@@ -1106,6 +1186,7 @@ enum ViewTags
     [mBirthdayCell release];
     [mTableView release];
     [mTableData release];
+    [mTableDataFinal release];
     [super dealloc];
 }
 

@@ -155,7 +155,6 @@ enum TableRow
 
         // verify sync succeeded
         NSString *status = [response objectForKey:kTikTokApiKeyStatus];
-        NSLog(@"status: %@", status);
         if ([status isEqualToString:kTikTokApiStatusOkay]) {
 
             // grab points
@@ -164,7 +163,8 @@ enum TableRow
             NSString *facebook    = $string(@"%@", [results objectForKey:@"fb"]);
             NSString *sms         = $string(@"%@", [results objectForKey:@"sms"]);
             NSString *email       = $string(@"%@", [results objectForKey:@"email"]);
-            NSString *referral    = $string(@"%@", [results objectForKey:@"referral"]);
+            NSString *referral    = $string(@"%@", $numi([[results objectForKey:@"referral"] floatValue] +
+                                                         [[results objectForKey:@"merchant_referral"] floatValue]));
 
             // cache for easy access
             [mKarmaPoints release];

@@ -7,7 +7,7 @@
 //
 
 //-----------------------------------------------------------------------------
-// includes 
+// includes
 //-----------------------------------------------------------------------------
 
 #import "Settings.h"
@@ -19,6 +19,7 @@
 
 #define KEY_NAME       @"TTS_name"
 #define KEY_EMAIL      @"TTS_email"
+#define KEY_TWITTER    @"TTS_twitter"
 #define KEY_GENDER     @"TTS_gender"
 #define KEY_BIRTHDAY   @"TTS_birthday"
 #define KEY_HOME       @"TTS_home"
@@ -109,7 +110,7 @@
 
     NSNumber *latitude   = [dict objectForKey:@"lat"];
     NSNumber *longitude  = [dict objectForKey:@"long"];
-    CLLocation *location = 
+    CLLocation *location =
         [[[CLLocation alloc] initWithLatitude:[latitude doubleValue]
                                     longitude:[longitude doubleValue]] autorelease];
     return location;
@@ -121,7 +122,7 @@
 {
     NSNumber *latitude  = $numd(location.coordinate.latitude);
     NSNumber *longitude = $numd(location.coordinate.longitude);
-    NSDictionary *dict  = $dict($array(@"lat", @"long"), 
+    NSDictionary *dict  = $dict($array(@"lat", @"long"),
                                 $array(latitude, longitude));
     [self saveValue:dict forKey:key];
 }
@@ -136,6 +137,7 @@
 
     [settings clearValueForKey:KEY_NAME];
     [settings clearValueForKey:KEY_EMAIL];
+    [settings clearValueForKey:KEY_TWITTER];
     [settings clearValueForKey:KEY_GENDER];
     [settings clearValueForKey:KEY_BIRTHDAY];
     [settings clearValueForKey:KEY_HOME];
@@ -150,14 +152,14 @@
 #pragma - Properties
 //-----------------------------------------------------------------------------
 
-- (NSString*) name 
+- (NSString*) name
 {
     return [self loadValueForKey:KEY_NAME];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setName:(NSString*)name 
+- (void) setName:(NSString*)name
 {
     [self saveValue:name forKey:KEY_NAME];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -166,14 +168,14 @@
 
 //-----------------------------------------------------------------------------
 
-- (NSString*) email 
+- (NSString*) email
 {
     return [self loadValueForKey:KEY_EMAIL];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setEmail:(NSString*)email 
+- (void) setEmail:(NSString*)email
 {
     [self saveValue:email forKey:KEY_EMAIL];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -182,27 +184,43 @@
 
 //-----------------------------------------------------------------------------
 
-- (NSString*) gender 
+- (NSString*) twitter
+{
+    return [self loadValueForKey:KEY_TWITTER];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setTwitter:(NSString*)twitter
+{
+    [self saveValue:twitter forKey:KEY_TWITTER];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"twh"), $array(twitter))];
+}
+
+//-----------------------------------------------------------------------------
+
+- (NSString*) gender
 {
     return [self loadValueForKey:KEY_GENDER];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setGender:(NSString*)gender 
+- (void) setGender:(NSString*)gender
 {
     [self saveValue:gender forKey:KEY_GENDER];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
-    [api updateSettings:$dict($array(@"sex"), 
+    [api updateSettings:$dict($array(@"sex"),
                               $array([gender substringToIndex:1]))];
-    
+
     // save analytics data
     [Analytics setUserGender:gender];
 }
 
 //-----------------------------------------------------------------------------
 
-- (NSDate*) birthday 
+- (NSDate*) birthday
 {
     return [self loadValueForKey:KEY_BIRTHDAY];
 }
@@ -231,7 +249,7 @@
 
 //-----------------------------------------------------------------------------
 
-- (void) setBirthday:(NSDate*)birthday 
+- (void) setBirthday:(NSDate*)birthday
 {
     [self saveValue:birthday forKey:KEY_BIRTHDAY];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -243,14 +261,14 @@
 
 //-----------------------------------------------------------------------------
 
-- (CLLocation*) home 
+- (CLLocation*) home
 {
     return [self loadLocationForKey:KEY_HOME];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setHome:(CLLocation*)home 
+- (void) setHome:(CLLocation*)home
 {
     [self saveLocation:home forKey:KEY_HOME];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
@@ -259,76 +277,76 @@
 
 //-----------------------------------------------------------------------------
 
-- (NSString*) homeLocality 
+- (NSString*) homeLocality
 {
     return [self loadValueForKey:KEY_HOMELOC];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setHomeLocality:(NSString*)homeLocality 
+- (void) setHomeLocality:(NSString*)homeLocality
 {
     [self saveValue:homeLocality forKey:KEY_HOMELOC];
 }
 
 //-----------------------------------------------------------------------------
 
-- (CLLocation*) work 
+- (CLLocation*) work
 {
     return [self loadLocationForKey:KEY_WORK];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setWork:(CLLocation*)work 
+- (void) setWork:(CLLocation*)work
 {
     [self saveLocation:work forKey:KEY_WORK];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     [api updateSettingsWorkLocation:work];
 }
-       
+
 //-----------------------------------------------------------------------------
 
-- (NSString*) workLocality 
+- (NSString*) workLocality
 {
     return [self loadValueForKey:KEY_WORKLOC];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setWorkLocality:(NSString*)workLocality 
+- (void) setWorkLocality:(NSString*)workLocality
 {
     [self saveValue:workLocality forKey:KEY_WORKLOC];
 }
 
 //-----------------------------------------------------------------------------
 
-- (NSDate*) lastUpdate 
+- (NSDate*) lastUpdate
 {
     return [self loadValueForKey:KEY_LASTUPDATE];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setLastUpdate:(NSDate*)lastUpdate 
+- (void) setLastUpdate:(NSDate*)lastUpdate
 {
     [self saveValue:lastUpdate forKey:KEY_LASTUPDATE];
 }
-       
+
 //-----------------------------------------------------------------------------
 
-- (NSNumber*) tutorialIndex 
+- (NSNumber*) tutorialIndex
 {
     return [self loadValueForKey:KEY_TUTORIAL];
 }
 
 //-----------------------------------------------------------------------------
 
-- (void) setTutorialIndex:(NSNumber*)tutorialIndex 
+- (void) setTutorialIndex:(NSNumber*)tutorialIndex
 {
     [self saveValue:tutorialIndex forKey:KEY_TUTORIAL];
 }
-       
+
 //-----------------------------------------------------------------------------
 #pragma - Memory Management
 //-----------------------------------------------------------------------------
