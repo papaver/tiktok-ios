@@ -55,10 +55,12 @@ uncaughtExceptionHandler(NSException *exception)
 void
 uncaughtSignalHandler(int signal)
 {
+    // [moiz] technically its not safe to run obj-c code in a signal handler
     if (ANALYTICS_FLURRY) {
         NSString *name     = $string(@"Signal %d", signal);
         NSString *info     = [Analytics getDeviceInfo];
-        NSString *message  = $string(@"Device: %@", info);
+        NSArray *backtrace = [Analytics backtrace];
+        NSString *message  = $string(@"Device: %@, Backtrace: %@", info, backtrace);
         [FlurryAnalytics logError:name message:message exception:nil];
     }
 }
@@ -79,6 +81,7 @@ uncaughtSignalHandler(int signal)
         // setup flurry exception handler if testflight is disabled
         NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 
+        /* [moiz] this is just creating useless spam...
         // setup flurry signal handler if testflight is disabled
         struct sigaction signalAction;
         memset(&signalAction, 0, sizeof(signalAction));
@@ -89,6 +92,7 @@ uncaughtSignalHandler(int signal)
         sigaction(SIGFPE,  &signalAction, NULL);
         sigaction(SIGBUS,  &signalAction, NULL);
         sigaction(SIGPIPE, &signalAction, NULL);
+        */
 
         // use proper api key
         NSString *apiKey = ANALYTICS_FLURRY_DEBUG ? FLURRY_DEV_API_KEY : FLURRY_API_KEY;

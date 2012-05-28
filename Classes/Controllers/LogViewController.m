@@ -12,6 +12,7 @@
 
 #import "LogViewController.h"
 #import "Logger.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -216,6 +217,9 @@
 
 - (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
+    NSString *title   = @"Log Message";
+    NSString *message = [mTableData objectAtIndex:[mTableData count] - indexPath.row - 1];
+    [Utilities displaySimpleAlertWithTitle:title andMessage:message];
 }
 
 //------------------------------------------------------------------------------
