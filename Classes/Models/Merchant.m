@@ -35,6 +35,7 @@
 @dynamic twitterUrl;
 @dynamic facebookUrl;
 @dynamic websiteUrl;
+@dynamic lastUpdated;
 @dynamic coupons;
 
 //------------------------------------------------------------------------------
@@ -79,6 +80,14 @@
     NSNumber *merchantId = [data objectForKey:@"id"];
     Merchant *merchant   = [Merchant getMerchantById:merchantId fromContext:context];
     if (merchant != nil) {
+
+        // update merchant data if required
+        NSNumber *lastUpdatedSeconds = [data objectForKey:@"last_update"];
+        NSDate *lastUpdated = [NSDate dateWithTimeIntervalSince1970:lastUpdatedSeconds.intValue];
+        if ([merchant.lastUpdated compare:lastUpdated] == NSOrderedAscending) {
+            [merchant initWithJsonDictionary:data];
+        }
+
         return merchant;
     }
 
@@ -113,6 +122,8 @@
 
 - (Merchant*) initWithJsonDictionary:(NSDictionary*)data
 {
+    NSNumber *lastUpdated = [data objectForKey:@"last_update"];
+
     self.merchantId  = [data objectForKey:@"id"];
     self.name        = [data objectForKey:@"name"];
     self.address     = [data objectForKey:@"full_address"];
@@ -124,6 +135,7 @@
     self.iconUrl     = [data objectForKey:@"icon_url"];
     self.websiteUrl  = [data objectForKey:@"web_url"];
     self.category    = [data objectForKey:@"category"];
+    self.lastUpdated = [NSDate dateWithTimeIntervalSince1970:lastUpdated.intValue];
 
     return self;
 }
