@@ -78,22 +78,6 @@ enum StartupTag
         shakeText.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
     }
 
-    // register device with server if no customer id found
-    NSString *customerId  = [Utilities getConsumerId];
-    if (!customerId) { 
-        [self purgeData];
-        [self registerDevice];
-    } else {
-        [self validateRegistration];
-    }
-
-    // start fake progress bar timer
-    mTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 
-                                              target:self 
-                                            selector:@selector(progressBar:) 
-                                            userInfo:nil 
-                                             repeats:YES];
-
     // initialize variables
     mPause               = false;
     mComplete            = false;
@@ -102,11 +86,28 @@ enum StartupTag
     mRegistrationTimeout = [ASIHTTPRequest defaultTimeOutSeconds];
 
     // setup gesture recognizer
-    UIView *shakeIcon = [self.view viewWithTag:kTagShakeIcon]; 
-    UITapGestureRecognizer* gestureRecognizer = 
+    UIView *shakeIcon = [self.view viewWithTag:kTagShakeIcon];
+    UITapGestureRecognizer* gestureRecognizer =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pauseStartup)];
     [shakeIcon setUserInteractionEnabled:YES];
     [shakeIcon addGestureRecognizer:gestureRecognizer];
+    [gestureRecognizer release];
+
+    // register device with server if no customer id found
+    NSString *customerId  = [Utilities getConsumerId];
+    if (!customerId) {
+        [self purgeData];
+        [self registerDevice];
+    } else {
+        [self validateRegistration];
+    }
+
+    // start fake progress bar timer
+    mTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                              target:self
+                                            selector:@selector(progressBar:)
+                                            userInfo:nil
+                                             repeats:YES];
 }
 
 //------------------------------------------------------------------------------
@@ -131,7 +132,7 @@ enum StartupTag
 
 //------------------------------------------------------------------------------
 
-- (void) viewWillDisappear:(BOOL)animated 
+- (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 
@@ -174,7 +175,7 @@ enum StartupTag
 
 - (void) runStartupProcess
 {
-    // set user id for analytics session 
+    // set user id for analytics session
     [Analytics setUserId:[Utilities getDeviceId]];
 
     // kick of registration for notifications
@@ -191,10 +192,10 @@ enum StartupTag
 
 - (void) registerDevice
 {
-    // [moiz::memleak] is the self referencing of the block going to cause a 
+    // [moiz::memleak] is the self referencing of the block going to cause a
     //  memory leak in the api.json call?
-    
-    NSLog(@"StartupController: registering device id...");
+
+    NSLog(@"StartupController: Registering device id...");
 
     // generate a new device id
     NSString *newDeviceId = [Utilities getDeviceId];
@@ -207,7 +208,7 @@ enum StartupTag
     api.timeOut = mRegistrationTimeout;
 
     // setup a completion handler to save id after server registration
-    api.completionHandler = ^(NSDictionary *response) { 
+    api.completionHandler = ^(NSDictionary *response) {
 
         // verify registeration succeeded
         NSString *status = [response objectForKey:kTikTokApiKeyStatus];
@@ -217,13 +218,13 @@ enum StartupTag
             NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
             NSString *consumerId  = $string(@"%@", [results objectForKey:@"id"]);
 
-            // cache the customer/device id 
+            // cache the customer/device id
             [Utilities cacheDeviceId:newDeviceId];
             [Utilities cacheConsumerId:consumerId];
 
             // allow the startup process to continue
             [self runStartupProcess];
-            
+
         // something went horribly wrong...
         } else {
             NSString *error = [response objectForKey:kTikTokApiKeyError];
@@ -238,7 +239,7 @@ enum StartupTag
 
     // most probably we lost network connection, so put up a HUD and wait till
     // we get connectivity back, one we do restart the startup process
-    api.errorHandler = ^(ASIHTTPRequest* request) { 
+    api.errorHandler = ^(ASIHTTPRequest* request) {
         mRegistrationTimeout *= 2.0f;
         [self waitForInternetConnection];
     };
@@ -251,17 +252,17 @@ enum StartupTag
 
 - (void) validateRegistration
 {
-    NSLog(@"StartupController: validating registration with server...");
+    NSLog(@"StartupController: Validating registration with server...");
 
     // setup an instance of the tiktok api to check registration
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     api.timeOut = mRegistrationTimeout;
 
-    // setup a completion handler 
-    api.completionHandler = ^(NSDictionary *response) { 
+    // setup a completion handler
+    api.completionHandler = ^(NSDictionary *response) {
         bool isRegistered = false;
 
-        // parse out registration status 
+        // parse out registration status
         NSString *status = [response objectForKey:kTikTokApiKeyStatus];
         if ([status isEqualToString:kTikTokApiStatusOkay]) {
             NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
@@ -271,11 +272,11 @@ enum StartupTag
         // allow the startup process to continue
         if (isRegistered) {
             [self runStartupProcess];
-            
+
         // rerun registration process if server no longer registered
         } else {
 
-            // clean up existing keychain and cached data and 
+            // clean up existing keychain and cached data and
             // re-register with the server
             [Utilities clearConsumerId];
             [Utilities clearNotificationToken];
@@ -286,7 +287,7 @@ enum StartupTag
 
     // most probably we lost network connection, so put up a HUD and wait till
     // we get connectivity back, one we do restart the startup process
-    api.errorHandler = ^(ASIHTTPRequest* request) { 
+    api.errorHandler = ^(ASIHTTPRequest* request) {
         mRegistrationTimeout *= 2.0f;
         [self waitForInternetConnection];
     };
@@ -302,12 +303,12 @@ enum StartupTag
     // don't re-register
     if (mNotifications) return;
 
-    NSLog(@"StartupController: registering with notification server...");
+    NSLog(@"StartupController: Registering with notification server...");
 
     // register with apn server
     UIApplication *application = [UIApplication sharedApplication];
     [application registerForRemoteNotificationTypes:
-        (UIRemoteNotificationTypeBadge | 
+        (UIRemoteNotificationTypeBadge |
          UIRemoteNotificationTypeSound |
          UIRemoteNotificationTypeAlert)];
 
@@ -323,7 +324,7 @@ enum StartupTag
     if (mLocations) return;
 
     NSLog(@"StartupController: Setting up location tracking...");
-    
+
     // start up tracking
     [LocationTracker startLocationTracking];
 
@@ -340,7 +341,7 @@ enum StartupTag
 
     // trigger completion handler
     NSDate *lastUpdate    = [NSDate date];
-    api.completionHandler = ^(NSDictionary *response) { 
+    api.completionHandler = ^(NSDictionary *response) {
         mComplete = true;
 
         // run completion handler
@@ -351,7 +352,7 @@ enum StartupTag
     };
 
     // lost connection? fuck... restart startup process for now...
-    api.errorHandler = ^(ASIHTTPRequest* request) { 
+    api.errorHandler = ^(ASIHTTPRequest* request) {
         [self waitForInternetConnection];
     };
 
@@ -378,12 +379,12 @@ enum StartupTag
 
 - (void) waitForInternetConnection
 {
-    // wait for internet connection 
+    // wait for internet connection
     [NetworkConnectivity waitForNetworkWithConnectionHandler:^() {
 
         // register device with server if no customer id found
         NSString *customerId  = [Utilities getConsumerId];
-        if (!customerId) { 
+        if (!customerId) {
             [self purgeData];
             [self registerDevice];
         } else {
@@ -400,10 +401,10 @@ enum StartupTag
         }
 
         // start fake progress bar timer
-        mTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 
-                                                target:self 
-                                                selector:@selector(progressBar:) 
-                                                userInfo:nil 
+        mTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                                target:self
+                                                selector:@selector(progressBar:)
+                                                userInfo:nil
                                                 repeats:YES];
     }];
 }
@@ -456,7 +457,6 @@ enum StartupTag
 - (void) dealloc
 {
     [mTimer invalidate];
-    [mTimer release];
     [mPhysicsController release];
     [mCompletionHandler release];
     [super dealloc];

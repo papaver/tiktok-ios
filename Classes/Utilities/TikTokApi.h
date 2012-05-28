@@ -80,7 +80,7 @@ typedef void (^TikTokApiErrorHandler)(ASIHTTPRequest*);
 - (void) validateRegistration;
 - (void) registerNotificationToken:(NSString*)token;
 - (void) syncActiveCoupons:(NSDate*)date;
-- (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate;
+- (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate async:(bool)async;
 - (void) updateCoupon:(NSNumber*)couponId attribute:(TikTokApiCouponAttribute)attribute;
 - (void) updateSettings:(NSDictionary*)settings;
 - (void) updateSettingsHomeLocation:(CLLocation*)home;

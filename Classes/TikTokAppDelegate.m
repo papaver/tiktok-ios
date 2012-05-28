@@ -15,10 +15,21 @@
 #import "Database.h"
 #import "FacebookManager.h"
 #import "LocationTracker.h"
+#import "Logger.h"
 #import "TikTokApi.h"
 #import "StartupViewController.h"
 #import "Settings.h"
 #import "Utilities.h"
+
+//------------------------------------------------------------------------------
+// defines
+//------------------------------------------------------------------------------
+
+#define appState(app) [self getStringForActiveState:app.applicationState]
+
+#if LOGGING_APP_DELEGATE
+    #define NSLog(...) [Logger logInfo:$string(__VA_ARGS__)]
+#endif
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -28,7 +39,8 @@
     - (void) handleNotificationsForApplication:(UIApplication*)application
                                    withOptions:(NSDictionary*)launchOptions;
     - (void) setupNavigationController;
-@end 
+    - (NSString*) getStringForActiveState:(UIApplicationState)state;
+@end
 
 //------------------------------------------------------------------------------
 // interface implemenation
@@ -47,31 +59,33 @@
 #pragma mark - Application lifecycle
 //------------------------------------------------------------------------------
 
-- (BOOL) application:(UIApplication*)application 
-    didFinishLaunchingWithOptions:(NSDictionary*)launchOptions 
-{    
+- (BOOL) application:(UIApplication*)application
+    didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
+{
     // override point for customization after application launch.
-    NSLog(@"Application did finish launching with options.");
+    NSLog(@"Application: Did Finish Launching With Options: %@", appState(application));
+    NSLog(@"Application: Launch Options: %@", launchOptions);
 
     // start up analytics session
     [Analytics startSession];
 
-    // handle any notification sent to the app on startup
-    [self handleNotificationsForApplication:application withOptions:launchOptions];
-
     // have to manually add the tabbar controller to the navigation controller
     [self setupNavigationController];
 
-    // set startup completion handler to show navigation controller 
+    // set startup completion handler to show navigation controller
     self.startupController.completionHandler = ^{
         self.window.rootViewController = self.navigationController;
     };
 
-    // we need this to allow events to propagate through properly
-    [self.window makeKeyAndVisible];
+    // handle any notification sent to the app on startup
+    [self handleNotificationsForApplication:application withOptions:launchOptions];
 
-    // alert appirater of app launch
-    [Appirater appLaunched:YES];
+    // check if we were woken up because of background location services
+    id locationValue = [launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey];
+    if (locationValue) {
+        NSLog(@"Application woken up by background location services.");
+        [LocationTracker startLocationTracking];
+    }
 
     return YES;
 }
@@ -79,15 +93,18 @@
 //------------------------------------------------------------------------------
 
 /**
- * Sent when the application is about to move from active to inactive state. 
- * This can occur for certain types of temporary interruptions (such as an 
- * incoming phone call or SMS message) or when the user quits the application 
+ * Sent when the application is about to move from active to inactive state.
+ * This can occur for certain types of temporary interruptions (such as an
+ * incoming phone call or SMS message) or when the user quits the application
  * and it begins the transition to the background state.
- * Use this method to pause ongoing tasks, disable timers, and throttle down 
+ * Use this method to pause ongoing tasks, disable timers, and throttle down
  * OpenGL ES frame rates. Games should use this method to pause the game.
  */
-- (void) applicationWillResignActive:(UIApplication*)application 
+- (void) applicationWillResignActive:(UIApplication*)application
 {
+    NSLog(@"Application: Will Resign Active: %@", appState(application));
+
+    // save the database
     NSError *error = nil;
     [[[Database getInstance] context] save:&error];
     if (error != nil) {
@@ -98,16 +115,16 @@
 //------------------------------------------------------------------------------
 
 /**
- * Use this method to release shared resources, save user data, invalidate 
- * timers, and store enough application state information to restore your 
- * application to its current state in case it is terminated later. 
- * If your application supports background execution, called instead of 
+ * Use this method to release shared resources, save user data, invalidate
+ * timers, and store enough application state information to restore your
+ * application to its current state in case it is terminated later.
+ * If your application supports background execution, called instead of
  * applicationWillTerminate: when the user quits.
  */
-- (void) applicationDidEnterBackground:(UIApplication*)application 
+- (void) applicationDidEnterBackground:(UIApplication*)application
 {
-    NSLog(@"Application entered background state.");
-    [LocationTracker stopLocationTracking];
+    NSLog(@"Application: Did Enter Background: %@", appState(application));
+    [LocationTracker backgroundLocationTracking];
 
     /* local notification example
     [Utilities postLocalNotificationInBackgroundWithBody:@"App entered background"
@@ -119,37 +136,16 @@
 //------------------------------------------------------------------------------
 
 /**
- * Called as part of transition from the background to the inactive state: 
+ * Called as part of transition from the background to the inactive state:
  * here you can undo many of the changes made on entering the background.
  */
-- (void) applicationWillEnterForeground:(UIApplication*)application 
+- (void) applicationWillEnterForeground:(UIApplication*)application
 {
-    [LocationTracker startLocationTracking];
+    NSLog(@"Application: Will Enter Foreground: %@", appState(application));
+    [LocationTracker foregroundLocationTracking];
 
     // alert appirater of app foreground
     [Appirater appEnteredForeground:YES];
-}
-
-//------------------------------------------------------------------------------
-
-/**
- * Restart any tasks that were paused (or not yet started) while the 
- * application was inactive. If the application was previously in the 
- * background, optionally refresh the user interface.
- */
-- (void) applicationDidBecomeActive:(UIApplication*)application 
-{
-    NSLog(@"Application entered foreground state.");
-
-    // restart location services
-    if ([LocationTracker isInitialized]) {
-        [LocationTracker startLocationTracking];
-    }
-
-    // sync new coupons if coupon notifications
-    if (application.applicationIconBadgeNumber != 0) {
-        application.applicationIconBadgeNumber = 0;
-    }
 
     // sync coupons
     Settings *settings = [Settings getInstance];
@@ -159,23 +155,51 @@
 //------------------------------------------------------------------------------
 
 /**
+ * Restart any tasks that were paused (or not yet started) while the
+ * application was inactive. If the application was previously in the
+ * background, optionally refresh the user interface.
+ */
+- (void) applicationDidBecomeActive:(UIApplication*)application
+{
+    NSLog(@"Application: Did Become Active: %@", appState(application));
+
+    // make sure there is a window attached
+    if (!self.window.subviews.count) {
+
+        // attach startup view to window
+        self.window.rootViewController = self.startupController;
+
+        // we need this to allow events to propagate through properly
+        [self.window makeKeyAndVisible];
+
+        // alert appirater of app launch
+        [Appirater appLaunched:YES];
+    }
+
+    // clear out notifications
+    if (application.applicationIconBadgeNumber != 0) {
+        application.applicationIconBadgeNumber = 0;
+    }
+}
+
+//------------------------------------------------------------------------------
+
+/**
  * Called when the application is about to terminate.
  * See also applicationDidEnterBackground:.
  */
-- (void) applicationWillTerminate:(UIApplication*)application 
+- (void) applicationWillTerminate:(UIApplication*)application
 {
-    NSLog(@"Application will terminate.");
-
-    // stop location services
-    [LocationTracker stopLocationTracking];
+    NSLog(@"Application: Will Terminate: %@", appState(application));
+    [LocationTracker backgroundLocationTracking];
 }
 
 //------------------------------------------------------------------------------
 #pragma mark - Notifications
 //------------------------------------------------------------------------------
 
-- (void) application:(UIApplication*)application 
-    didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken 
+- (void) application:(UIApplication*)application
+    didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     NSLog(@"Notifications: Registering device, token: %@.", deviceToken);
 
@@ -202,7 +226,7 @@
 }
 
 //------------------------------------------------------------------------------
- 
+
 - (void) application:(UIApplication*)application
     didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
@@ -224,7 +248,7 @@
 - (void) application:(UIApplication*)application
     didReceiveLocalNotification:(UILocalNotification*)notification
 {
-    NSLog(@"Application did recieve local notification.");
+    NSLog(@"Application: Did Recieve Local Notification.");
 }
 
 //------------------------------------------------------------------------------
@@ -232,10 +256,10 @@
 /**
  * Handling a remote notification when an application is already running.
  */
-- (void) application:(UIApplication*)application 
+- (void) application:(UIApplication*)application
     didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
-    NSLog(@"Application did recieve remote notification.");
+    NSLog(@"Application: Did Recieve Remote Notification.");
 
     // cleat out badge
     application.applicationIconBadgeNumber = 0;
@@ -254,7 +278,7 @@
  * navigation bar and allow the navbar items to propate up correctly, else since
  * the nav bar doesn't correctly pass up the items.
  */
-- (void) tabBarController:(UITabBarController*)tabBarController 
+- (void) tabBarController:(UITabBarController*)tabBarController
   didSelectViewController:(UIViewController*)viewController
 {
     tabBarController.title                             = viewController.title;
@@ -298,6 +322,8 @@
     NSDictionary *userInfo =
         [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (userInfo) {
+        Settings *settings = [Settings getInstance];
+        [self syncCoupons:settings.lastUpdate];
     }
 }
 
@@ -305,17 +331,31 @@
 
 - (void) setupNavigationController
 {
-    // hacky... force the initial view to load so we can get the nav bar icaons 
+    // hacky... force the initial view to load so we can get the nav bar icaons
     // to appear correctly through the tab bar delegate
-    UIViewController *viewController = 
+    UIViewController *viewController =
         [self.tabBarController.viewControllers objectAtIndex:0];
     [viewController view];
     [self tabBarController:self.tabBarController didSelectViewController:viewController];
 
     // manually add the tabbar controller to the navigation controller
-    [self.navigationController setViewControllers:$array(self.tabBarController) 
+    [self.navigationController setViewControllers:$array(self.tabBarController)
                                          animated:NO];
     [self.navigationController setToolbarHidden:YES animated:NO];
+}
+
+//------------------------------------------------------------------------------
+
+- (NSString*) getStringForActiveState:(UIApplicationState)state
+{
+    switch (state) {
+        case UIApplicationStateActive:
+            return @"UIApplicationStateActive";
+        case UIApplicationStateInactive:
+            return @"UIApplicationStateInactive";
+        case UIApplicationStateBackground:
+            return @"UIApplicationStateBackground";
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -325,10 +365,10 @@
 /**
  * For 4.2+ support
  */
-- (BOOL) application:(UIApplication*)application 
+- (BOOL) application:(UIApplication*)application
             openURL:(NSURL*)url
-  sourceApplication:(NSString*)sourceApplication 
-         annotation:(id)annotation 
+  sourceApplication:(NSString*)sourceApplication
+         annotation:(id)annotation
 {
     // facebook
     if ([[url absoluteString] hasPrefix:$string(@"fb%@", FACEBOOK_API_KEY)]) {
@@ -340,7 +380,7 @@
 
 //------------------------------------------------------------------------------
 
-- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)url 
+- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)url
 {
     // facebook
     if ([[url absoluteString] hasPrefix:$string(@"fb%@", FACEBOOK_API_KEY)]) {
@@ -355,16 +395,16 @@
 //------------------------------------------------------------------------------
 
 /**
- * Free up as much memory as possible by purging cached data objects that can 
+ * Free up as much memory as possible by purging cached data objects that can
  * be recreated (or reloaded from disk) later.
  */
-- (void) applicationDidReceiveMemoryWarning:(UIApplication*)application 
+- (void) applicationDidReceiveMemoryWarning:(UIApplication*)application
 {
 }
 
 //------------------------------------------------------------------------------
 
-- (void) dealloc 
+- (void) dealloc
 {
     [mStartupController release];
     [mNavigationController release];

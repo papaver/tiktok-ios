@@ -19,6 +19,7 @@
 #import "FacebookManager.h"
 #import "GradientView.h"
 #import "IconManager.h"
+#import "LogViewController.h"
 #import "Merchant.h"
 #import "PromoController.h"
 #import "Settings.h"
@@ -72,6 +73,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     - (void) setupRefreshHeader;
     - (void) setupFilterButtons;
     - (void) setupNavButtons;
+    - (void) openLog;
     - (void) setupFilterPopoverController;
     - (WEPopoverContainerViewProperties*) popoverViewProperties;
     - (void) updateExpiration:(NSTimer*)timer;
@@ -137,9 +139,6 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // add navitems
     [self setupNavButtons];
-
-    // [moiz] removed for the time being...
-    //[self setupFilterButtons];
 
     // setup the refresh header
     [self setupRefreshHeader];
@@ -231,6 +230,25 @@ static NSString *sCouponCacheName = @"coupon_table";
     // cleanup
     [shareButton release];
     [redeemButton release];
+
+    // add debug gesture recognizer to logo
+    if (LOGGING_VIEWER) {
+        UIView *logo = self.navigationItem.titleView;
+        UITapGestureRecognizer* gestureRecognizer =
+            [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openLog)];
+        [logo setUserInteractionEnabled:YES];
+        [logo addGestureRecognizer:gestureRecognizer];
+        [gestureRecognizer release];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) openLog
+{
+    LogViewController *controller = [[LogViewController alloc] init];
+    [self presentModalViewController:controller animated:YES];
+    [controller release];
 }
 
 //------------------------------------------------------------------------------

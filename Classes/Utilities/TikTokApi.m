@@ -307,7 +307,7 @@
 
 //------------------------------------------------------------------------------
 
-- (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate
+- (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate async:(bool)async
 {
     // construct the consumer settings url path 
     NSURL *url = [[[NSURL alloc] initWithString:
@@ -336,7 +336,11 @@
     }];
 
     // initiate the request
-    [TikTokApi startAsyncRequest:request];
+    if (async) {
+        [TikTokApi startAsyncRequest:request];
+    } else {
+        [request startSynchronous];
+    }
 }
 
 //------------------------------------------------------------------------------
