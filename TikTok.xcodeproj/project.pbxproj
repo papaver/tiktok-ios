@@ -166,6 +166,7 @@
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
+		2E847C571574464E000E3D6C /* MappingModel-nil-v02.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2E847C561574464E000E3D6C /* MappingModel-nil-v02.xcmappingmodel */; };
 		2E87CE62156347C800B38D99 /* Appirater.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E87CE61156347C800B38D99 /* Appirater.m */; };
 		2E89C2E114DBCB2B0052751D /* 15-tags@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */; };
 		2E89C2E214DBCB2B0052751D /* 103-map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */; };
@@ -605,6 +606,7 @@
 		2E821F84136B1F2A00507F66 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
 		2E821F8E136C2DCB00507F66 /* TikTokApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TikTokApi.h; sourceTree = "<group>"; };
 		2E821F8F136C2DCB00507F66 /* TikTokApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TikTokApi.m; sourceTree = "<group>"; };
+		2E847C561574464E000E3D6C /* MappingModel-nil-v02.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "MappingModel-nil-v02.xcmappingmodel"; sourceTree = "<group>"; };
 		2E87CE60156347C800B38D99 /* Appirater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appirater.h; sourceTree = "<group>"; };
 		2E87CE61156347C800B38D99 /* Appirater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Appirater.m; sourceTree = "<group>"; };
 		2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "15-tags@2x.png"; sourceTree = "<group>"; };
@@ -1114,6 +1116,7 @@
 			isa = PBXGroup;
 			children = (
 				2EAFA10A156C3A0900BB9C01 /* DataModel.xcdatamodeld */,
+				2E847C561574464E000E3D6C /* MappingModel-nil-v02.xcmappingmodel */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2192,6 +2195,7 @@
 				2E8C4D39156ACBFF00B5EFA1 /* CitiesViewController.m in Sources */,
 				2EAFA109156C0CD400BB9C01 /* CityAnnotation.m in Sources */,
 				2EAFA10D156C3A0900BB9C01 /* DataModel.xcdatamodeld in Sources */,
+				2E847C571574464E000E3D6C /* MappingModel-nil-v02.xcmappingmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
