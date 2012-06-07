@@ -7,7 +7,7 @@
 //
 
 //------------------------------------------------------------------------------
-// imports 
+// imports
 //------------------------------------------------------------------------------
 
 #import "CouponMapViewController.h"
@@ -30,7 +30,7 @@ static NSString *sCouponPinId = @"couponPinId";
 // enums
 //------------------------------------------------------------------------------
 
-typedef enum _CouponPinViewTag 
+typedef enum _CouponPinViewTag
 {
     kTagGradient = 1,
     kTagIcon     = 2,
@@ -83,12 +83,12 @@ NSString *sCouponCacheName = @"coupon_map";
 #pragma mark - View lifecycle
 //------------------------------------------------------------------------------
 
-- (void) viewDidLoad 
+- (void) viewDidLoad
 {
     [super viewDidLoad];
 
     self.title = @"Map";
-                
+
     [Analytics passCheckpoint:@"Deal Map"];
 
     // initialize variables
@@ -108,21 +108,18 @@ NSString *sCouponCacheName = @"coupon_map";
     // add coupon location to map and center map
     NSArray *coupons = self.fetchedCouponsController.fetchedObjects;
     [self addCouponAnnotations:coupons];
-
-    // create a timer for the first expired coupon
-    [self setupExpirationTimer:coupons];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) viewDidUnload 
+- (void) viewDidUnload
 {
     [super viewDidUnload];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) viewWillAppear:(BOOL)animated 
+- (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
@@ -139,6 +136,10 @@ NSString *sCouponCacheName = @"coupon_map";
         [self removeCouponAnnotation:coupon];
     }
     [deletes removeAllObjects];
+
+    // create a timer for the first expired coupon
+    NSArray *coupons = self.fetchedCouponsController.fetchedObjects;
+    [self setupExpirationTimer:coupons];
 }
 
 //------------------------------------------------------------------------------
@@ -146,10 +147,10 @@ NSString *sCouponCacheName = @"coupon_map";
 - (void) setupToolbarButtons
 {
     // add current location button
-    UIBarButtonItem *currentLocationButton = 
+    UIBarButtonItem *currentLocationButton =
         [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"193-location-arrow-bar.png"]
-                                         style:UIBarButtonItemStyleBordered 
-                                        target:self 
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
                                         action:@selector(centerMapUserLocation)];
 
     // [iOS4] tintColor not available
@@ -178,12 +179,12 @@ NSString *sCouponCacheName = @"coupon_map";
         }
     }
 
-    // release existing timer 
+    // release existing timer
     if (self.timer) [self.timer invalidate];
 
     // calculate seconds to expiration
     NSTimeInterval seconds = [firstExpired.endTime timeIntervalSinceNow];
-    self.timer = [NSTimer timerWithTimeInterval:seconds 
+    self.timer = [NSTimer timerWithTimeInterval:seconds
                                          target:self
                                        selector:@selector(expireCoupon:)
                                        userInfo:firstExpired
@@ -197,18 +198,18 @@ NSString *sCouponCacheName = @"coupon_map";
 #pragma mark - MapViewDelegate
 //------------------------------------------------------------------------------
 
-- (void) mapView:(MKMapView*)mapView didAddAnnotationViews:(NSArray*)views 
+- (void) mapView:(MKMapView*)mapView didAddAnnotationViews:(NSArray*)views
 {
     /*
     // open a single callout
-    id myAnnotation = [mapView.annotations objectAtIndex:0]; 
-    [mapView selectAnnotation:myAnnotation animated:YES]; 
+    id myAnnotation = [mapView.annotations objectAtIndex:0];
+    [mapView selectAnnotation:myAnnotation animated:YES];
     */
 }
 
 //------------------------------------------------------------------------------
 
-- (MKAnnotationView*) mapView:(MKMapView*)mapView 
+- (MKAnnotationView*) mapView:(MKMapView*)mapView
             viewForAnnotation:(id<MKAnnotation>)annotation
 {
     MKAnnotationView *view = nil;
@@ -227,7 +228,7 @@ NSString *sCouponCacheName = @"coupon_map";
 
 //------------------------------------------------------------------------------
 
-- (MKOverlayView*) mapView:(MKMapView*)mapView 
+- (MKOverlayView*) mapView:(MKMapView*)mapView
             viewForOverlay:(id<MKOverlay>)overlay
 {
    return nil;
@@ -267,15 +268,15 @@ NSString *sCouponCacheName = @"coupon_map";
     [NSFetchedResultsController deleteCacheWithName:sCouponCacheName];
 
     // create an entity description object
-    NSEntityDescription *description = [NSEntityDescription 
+    NSEntityDescription *description = [NSEntityDescription
         entityForName:@"Coupon" inManagedObjectContext:context];
 
     // create a predicate
-    NSPredicate *predicate = 
+    NSPredicate *predicate =
          [NSPredicate predicateWithFormat:@"endTime > %@", [NSDate date]];
 
     // create a sort descriptor
-    NSSortDescriptor *sortByEndDate = [[NSSortDescriptor alloc] 
+    NSSortDescriptor *sortByEndDate = [[NSSortDescriptor alloc]
         initWithKey:@"endTime" ascending:NO];
 
     // create a fetch request
@@ -286,11 +287,11 @@ NSString *sCouponCacheName = @"coupon_map";
     request.sortDescriptors = $array(sortByEndDate);
 
     // create a results controller from the request
-    NSFetchedResultsController *fetchedCouponsController = 
-        [[NSFetchedResultsController alloc] initWithFetchRequest:request 
-                                            managedObjectContext:context 
+    NSFetchedResultsController *fetchedCouponsController =
+        [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                            managedObjectContext:context
                                               sectionNameKeyPath:nil
-                                                       cacheName:sCouponCacheName];
+                                                       cacheName:nil];
 
     // save the controller
     self.fetchedCouponsController          = fetchedCouponsController;
@@ -299,7 +300,8 @@ NSString *sCouponCacheName = @"coupon_map";
     // preform the fetch
     NSError *error = nil;
     if (![self.fetchedCouponsController performFetch:&error]) {
-        NSLog(@"Fetching of coupons failed: %@, %@", error, [error userInfo]);
+        NSLog(@"CouponViewController: Fetching of coupons failed: %@, %@",
+            error, [error userInfo]);
         abort();
     }
 
@@ -322,25 +324,26 @@ NSString *sCouponCacheName = @"coupon_map";
 
 //------------------------------------------------------------------------------
 
-- (void) controller:(NSFetchedResultsController*)controller 
-   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo 
-            atIndex:(NSUInteger)sectionIndex 
+- (void) controller:(NSFetchedResultsController*)controller
+   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+            atIndex:(NSUInteger)sectionIndex
       forChangeType:(NSFetchedResultsChangeType)type
 {
 }
 
 //------------------------------------------------------------------------------
 
-- (void) controller:(NSFetchedResultsController*)controller 
-    didChangeObject:(id)object 
-        atIndexPath:(NSIndexPath*)indexPath 
-      forChangeType:(NSFetchedResultsChangeType)type 
-       newIndexPath:(NSIndexPath*)newIndexPath 
+- (void) controller:(NSFetchedResultsController*)controller
+    didChangeObject:(id)object
+        atIndexPath:(NSIndexPath*)indexPath
+      forChangeType:(NSFetchedResultsChangeType)type
+       newIndexPath:(NSIndexPath*)newIndexPath
 {
     switch (type) {
-        case NSFetchedResultsChangeInsert: 
+        case NSFetchedResultsChangeInsert:
             if (self.view.window) {
                 [self addCouponAnnotation:(Coupon*)object];
+                [self setupExpirationTimer:self.fetchedCouponsController.fetchedObjects];
             } else {
                 [[mUpdates objectForKey:@"adds"] addObject:(Coupon*)object];
             }
@@ -357,7 +360,7 @@ NSString *sCouponCacheName = @"coupon_map";
 
 //------------------------------------------------------------------------------
 
-- (void) controllerDidChangeContent:(NSFetchedResultsController*)controller 
+- (void) controllerDidChangeContent:(NSFetchedResultsController*)controller
 {
 }
 
@@ -379,7 +382,7 @@ NSString *sCouponCacheName = @"coupon_map";
 - (void) removeCouponAnnotation:(Coupon*)coupon
 {
     // compile the list of annotations that need to be removed
-    NSMutableArray *annotations = [[NSMutableArray alloc] init];  
+    NSMutableArray *annotations = [[NSMutableArray alloc] init];
     for (CouponAnnotation *annotation in mAnnotations) {
         if (annotation.coupon == coupon) {
             [annotations addObject:annotation];
@@ -388,7 +391,7 @@ NSString *sCouponCacheName = @"coupon_map";
     }
 
     // animate the removal of the pins
-    [UIView animateWithDuration:1.0 
+    [UIView animateWithDuration:1.0
     animations:^{
         // fade the annotations out
         for (CouponAnnotation *annotation in annotations) {
@@ -428,12 +431,15 @@ NSString *sCouponCacheName = @"coupon_map";
 
 - (void) centerMapAroundCoupons:(NSArray*)coupons
 {
-    // keep track of the min max lat/long 
+    // don't try to center around nothing
+    if (coupons.count == 0) return;
+
+    // keep track of the min max lat/long
     CLLocationCoordinate2D max, min;
     min.latitude  =   90.0;
     max.latitude  =  -90.0;
     min.longitude =  180.0;
-    max.longitude = -180.0; 
+    max.longitude = -180.0;
 
     // update lat/long min/max
     for (Coupon *coupon in coupons) {
@@ -455,7 +461,7 @@ NSString *sCouponCacheName = @"coupon_map";
     region.span.longitudeDelta *= 1.05;
     region = [self.mapView regionThatFits:region];
 
-    // center map 
+    // center map
     self.mapView.centerCoordinate = region.center;
 
     // zoom map appropriatly
@@ -487,8 +493,8 @@ NSString *sCouponCacheName = @"coupon_map";
 {
     [Analytics passCheckpoint:@"Deal Map Callout"];
 
-    // check for any available annotation views 
-    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView 
+    // check for any available annotation views
+    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView
         dequeueReusableAnnotationViewWithIdentifier:sCouponPinId];
     if (pinView == nil) {
         pinView = [self setupNewPinViewForAnnotation:annotation];
@@ -501,8 +507,8 @@ NSString *sCouponCacheName = @"coupon_map";
 - (MKPinAnnotationView*) setupNewPinViewForAnnotation:(id<MKAnnotation>)annotation
 {
     // create a new pin view
-    MKPinAnnotationView *pinView = 
-        [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
+    MKPinAnnotationView *pinView =
+        [[[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                          reuseIdentifier:sCouponPinId] autorelease];
 
     // setup configuration
@@ -523,10 +529,10 @@ NSString *sCouponCacheName = @"coupon_map";
     icon.tag          = kTagIcon;
     [gradient addSubview:icon];
 
-    // setup button 
+    // setup button
     UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [button addTarget:self 
-               action:@selector(getCouponDetails) 
+    [button addTarget:self
+               action:@selector(getCouponDetails)
      forControlEvents:UIControlEventTouchUpInside];
 
     // add accessory view
@@ -561,7 +567,7 @@ NSString *sCouponCacheName = @"coupon_map";
 
     // [moiz] this should be cached in some way, causes animation hitch eveytime
     //  it loads...
-    CouponDetailViewController *detailViewController = [[CouponDetailViewController alloc] 
+    CouponDetailViewController *detailViewController = [[CouponDetailViewController alloc]
         initWithNibName:@"CouponDetailViewController" bundle:nil];
 
     // set coupon to view
@@ -576,20 +582,21 @@ NSString *sCouponCacheName = @"coupon_map";
 
 - (void) expireCoupon:(NSTimer*)timer
 {
-    // remove annotation and reset the results controller
-    Coupon *coupon = (Coupon*)timer.userInfo;
-    if (coupon) {
-
-        // if map view showing remove coupon immediately, queue for removal
-        if (self.view.window) {
-            [self removeCouponAnnotation:coupon];
-        } else {
-            [[mUpdates objectForKey:@"deletes"] addObject:coupon];
+    // make sure all expired coupons are in the delete list
+    NSArray *coupons        = self.fetchedCouponsController.fetchedObjects;
+    NSMutableArray *deletes = [mUpdates objectForKey:@"deletes"];
+    for (Coupon *coupon in coupons) {
+        if ([coupon isExpired] ) {
+            if (self.view.window) {
+                [self removeCouponAnnotation:coupon];
+            } else if (![deletes containsObject:coupon]) {
+                [deletes addObject:coupon];
+            }
         }
-
-        // reset the results controller
-        [self refetchCoupons];
     }
+
+    // reset the results controller
+    [self refetchCoupons];
 
     // create a new timer
     [self setupExpirationTimer:self.fetchedCouponsController.fetchedObjects];
@@ -600,20 +607,20 @@ NSString *sCouponCacheName = @"coupon_map";
 - (void) refetchCoupons
 {
     // create a predicate
-    NSPredicate *predicate = 
+    NSPredicate *predicate =
          [NSPredicate predicateWithFormat:@"endTime > %@", [NSDate date]];
 
-     // clear the cache
+    // clear the cache
     [NSFetchedResultsController deleteCacheWithName:sCouponCacheName];
 
     // update the fetch request
-    NSFetchRequest *request = self.fetchedCouponsController.fetchRequest; 
+    NSFetchRequest *request = self.fetchedCouponsController.fetchRequest;
     request.predicate       = predicate;
 
     // update the request in the fetch controller
     NSError *error = nil;
     if (![self.fetchedCouponsController performFetch:&error]) {
-        NSLog(@"CouponViewController: Fetching of coupons failed: %@, %@", 
+        NSLog(@"CouponViewController: Fetching of coupons failed: %@, %@",
             error, [error userInfo]);
     }
 }
@@ -622,20 +629,20 @@ NSString *sCouponCacheName = @"coupon_map";
 #pragma mark - Memory management
 //------------------------------------------------------------------------------
 
-- (void) didReceiveMemoryWarning 
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) dealloc 
+- (void) dealloc
 {
     // its possible not niling out the delegate is causing crashes
     // ref: http://stackoverflow.com/questions/8022609/ios-5-mapkit-crashes-with-overlays-when-zoom-pan
     mMapView.delegate = nil;
 
-    [mTimer release];
+    [mTimer invalidate];
     [mUpdates release];
     [mFetchedCouponsController release];
     [mAnnotations release];
