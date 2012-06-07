@@ -11,6 +11,8 @@
 //------------------------------------------------------------------------------
 
 #import <assert.h>
+#import <dispatch/dispatch.h>
+
 #import "TikTokApi.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
@@ -20,6 +22,12 @@
 #import "JSONKit.h"
 #import "Merchant.h"
 #import "Utilities.h"
+
+//------------------------------------------------------------------------------
+// statics
+//------------------------------------------------------------------------------
+
+static dispatch_queue_t sQueue = nil;
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -79,7 +87,9 @@
     if (self) {
 
         // setup the job queue
-        mQueue = dispatch_queue_create("com.tiktok.tiktok.api", NULL);
+        if (sQueue == nil) {
+            sQueue = dispatch_queue_create("com.tiktok.tiktok.api", NULL);
+        }
 
         // set the default timeout
         self.timeOut = [ASIHTTPRequest defaultTimeOutSeconds];
@@ -92,7 +102,6 @@
 
 - (void) dealloc
 {
-    dispatch_release(mQueue);
     [mManagedObjectContext release];
     [super dealloc];
 }
@@ -271,7 +280,7 @@
 
         // parse the data on another thread
         if (runASync) {
-            dispatch_async(mQueue, ^(void) {
+            dispatch_async(sQueue, ^(void) {
                 parseData();
                 dispatch_async(dispatch_get_main_queue(), cleanup);
             });

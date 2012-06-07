@@ -12,7 +12,6 @@
 
 #import <CoreData/CoreData.h>
 #import <Foundation/Foundation.h>
-#import <dispatch/dispatch.h>
 
 //------------------------------------------------------------------------------
 // forward declarations
@@ -63,7 +62,6 @@ typedef void (^TikTokApiErrorHandler)(ASIHTTPRequest*);
     CGFloat                     mTimeOut;
     TikTokApiCompletionHandler  mCompletionHandler;
     TikTokApiErrorHandler       mErrorHandler;
-    dispatch_queue_t            mQueue;
     NSManagedObjectContext     *mManagedObjectContext;
 }
 
