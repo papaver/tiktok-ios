@@ -195,6 +195,12 @@
 		2E8C4D39156ACBFF00B5EFA1 /* CitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8C4D38156ACBFF00B5EFA1 /* CitiesViewController.m */; };
 		2E8E78CD14E58A4500806A20 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8E78CC14E58A4500806A20 /* libFlurryAnalytics.a */; };
 		2E986F15138DFCEE00A301BA /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationTracker.m */; };
+		2E9D007F15828A04001CC0D4 /* MerchantPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9D007E15828A04001CC0D4 /* MerchantPinViewController.m */; };
+		2E9D008115828A39001CC0D4 /* MerchantPinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008015828A39001CC0D4 /* MerchantPinViewController.xib */; };
+		2E9D008415828EB4001CC0D4 /* TokMerchantPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008215828EB4001CC0D4 /* TokMerchantPin.png */; };
+		2E9D008515828EB4001CC0D4 /* TokMerchantPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008315828EB4001CC0D4 /* TokMerchantPin@2x.png */; };
+		2E9D008C1582CD51001CC0D4 /* DoneDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008A1582CD51001CC0D4 /* DoneDown.png */; };
+		2E9D008D1582CD51001CC0D4 /* DoneUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008B1582CD51001CC0D4 /* DoneUp.png */; };
 		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
 		2EA168FE14BF60BF0099B1F1 /* StringPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FD14BF60BF0099B1F1 /* StringPickerViewController.m */; };
 		2EA1690014BF60D60099B1F1 /* StringPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA168FF14BF60D60099B1F1 /* StringPickerViewController.xib */; };
@@ -639,6 +645,13 @@
 		2E8E78CC14E58A4500806A20 /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		2E986F13138DFCEE00A301BA /* LocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTracker.h; sourceTree = "<group>"; };
 		2E986F14138DFCEE00A301BA /* LocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTracker.m; sourceTree = "<group>"; };
+		2E9D007D15828A04001CC0D4 /* MerchantPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantPinViewController.h; sourceTree = "<group>"; };
+		2E9D007E15828A04001CC0D4 /* MerchantPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantPinViewController.m; sourceTree = "<group>"; };
+		2E9D008015828A39001CC0D4 /* MerchantPinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MerchantPinViewController.xib; sourceTree = "<group>"; };
+		2E9D008215828EB4001CC0D4 /* TokMerchantPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokMerchantPin.png; sourceTree = "<group>"; };
+		2E9D008315828EB4001CC0D4 /* TokMerchantPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokMerchantPin@2x.png"; sourceTree = "<group>"; };
+		2E9D008A1582CD51001CC0D4 /* DoneDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneDown.png; sourceTree = "<group>"; };
+		2E9D008B1582CD51001CC0D4 /* DoneUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneUp.png; sourceTree = "<group>"; };
 		2EA168F914BF4C310099B1F1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		2EA168FA14BF4C310099B1F1 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		2EA168FC14BF60BF0099B1F1 /* StringPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringPickerViewController.h; sourceTree = "<group>"; };
@@ -1133,6 +1146,7 @@
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
 				2EF82A4D1552009400021B79 /* LogViewController.xib */,
+				2E9D008015828A39001CC0D4 /* MerchantPinViewController.xib */,
 				2EE8581314ABABAD008055AD /* MerchantViewController.xib */,
 				2E5565EB1522397800606625 /* PromoController.xib */,
 				2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */,
@@ -1146,6 +1160,10 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E9D008A1582CD51001CC0D4 /* DoneDown.png */,
+				2E9D008B1582CD51001CC0D4 /* DoneUp.png */,
+				2E9D008215828EB4001CC0D4 /* TokMerchantPin.png */,
+				2E9D008315828EB4001CC0D4 /* TokMerchantPin@2x.png */,
 				2EAFA112156C6D3500BB9C01 /* InfoBanner.png */,
 				2EAFA113156C6D3500BB9C01 /* InfoBanner@2x.png */,
 				2EAFA10E156C4E6C00BB9C01 /* InfoSash.png */,
@@ -1692,6 +1710,8 @@
 				2E31269514C8DFFE00477805 /* LocationPickerViewController.m */,
 				2EF82A4A1551FFFE00021B79 /* LogViewController.h */,
 				2EF82A4B1551FFFE00021B79 /* LogViewController.m */,
+				2E9D007D15828A04001CC0D4 /* MerchantPinViewController.h */,
+				2E9D007E15828A04001CC0D4 /* MerchantPinViewController.m */,
 				2EE8581514ABABBB008055AD /* MerchantViewController.h */,
 				2EE8581614ABABBB008055AD /* MerchantViewController.m */,
 				2E5565E81522395700606625 /* PromoController.h */,
@@ -2051,6 +2071,11 @@
 				2EAFA11F156DAE6E00BB9C01 /* SettingsTutorialArrow06@2x.png in Resources */,
 				2EAFA120156DAE6E00BB9C01 /* SettingsTutorialChar06.png in Resources */,
 				2EAFA121156DAE6E00BB9C01 /* SettingsTutorialChar06@2x.png in Resources */,
+				2E9D008115828A39001CC0D4 /* MerchantPinViewController.xib in Resources */,
+				2E9D008415828EB4001CC0D4 /* TokMerchantPin.png in Resources */,
+				2E9D008515828EB4001CC0D4 /* TokMerchantPin@2x.png in Resources */,
+				2E9D008C1582CD51001CC0D4 /* DoneDown.png in Resources */,
+				2E9D008D1582CD51001CC0D4 /* DoneUp.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2196,6 +2221,7 @@
 				2EAFA109156C0CD400BB9C01 /* CityAnnotation.m in Sources */,
 				2EAFA10D156C3A0900BB9C01 /* DataModel.xcdatamodeld in Sources */,
 				2E847C571574464E000E3D6C /* MappingModel-nil-v02.xcmappingmodel in Sources */,
+				2E9D007F15828A04001CC0D4 /* MerchantPinViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -558,7 +558,7 @@
 								<string key="NSFrame">{{0, -120}, {320, 60}}</string>
 								<reference key="NSSuperview" ref="588732454"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="120770760"/>
 								<string key="NSReuseIdentifierKey">_NS:567</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -605,6 +605,7 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="155318535"/>
 								<string key="NSReuseIdentifierKey">_NS:567</string>
+								<int key="IBUITag">21</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
@@ -622,7 +623,6 @@
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">15</int>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
@@ -725,7 +725,7 @@
 								<string key="NSFrame">{{148, 139}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="588732454"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="70630728"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:1030</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">20</int>
@@ -736,7 +736,7 @@
 						<string key="NSFrame">{{0, -60}, {320, 240}}</string>
 						<reference key="NSSuperview" ref="143615997"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="120770760"/>
+						<reference key="NSNextKeyView" ref="70630728"/>
 						<string key="NSReuseIdentifierKey">_NS:196</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -824,6 +824,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">89</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">validateMerchantPin:</string>
+						<reference key="source" ref="155318535"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">113</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1184,7 +1193,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">112</int>
+			<int key="maxID">113</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1201,9 +1210,11 @@
 							<string>shareFacebook:</string>
 							<string>shareMore:</string>
 							<string>shareTwitter:</string>
+							<string>validateMerchantPin:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1220,6 +1231,7 @@
 							<string>shareFacebook:</string>
 							<string>shareMore:</string>
 							<string>shareTwitter:</string>
+							<string>validateMerchantPin:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1241,6 +1253,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">shareTwitter:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">validateMerchantPin:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

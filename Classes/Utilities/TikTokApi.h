@@ -86,6 +86,7 @@ typedef void (^TikTokApiErrorHandler)(ASIHTTPRequest*);
 - (void) syncKarmaPoints;
 - (void) redeemPromotion:(NSString*)promoCode;
 - (void) cities;
+- (void) validateMerchantPin:(NSString*)merchantPin forCoupon:(NSNumber*)couponId;
 
 //------------------------------------------------------------------------------
 

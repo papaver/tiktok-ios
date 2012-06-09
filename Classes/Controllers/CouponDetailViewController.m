@@ -20,6 +20,7 @@
 #import "IconManager.h"
 #import "LocationMapViewController.h"
 #import "Merchant.h"
+#import "MerchantPinViewController.h"
 #import "MerchantViewController.h"
 #import "Settings.h"
 #import "TikTokApi.h"
@@ -53,6 +54,7 @@ enum CouponDetailTag
     kTagBarcodeRedeem      = 18,
     kTagBarcodeRedeemEmpty = 19,
     kTagBarcodeActivity    = 20,
+    kTagBarcodeRedeemed    = 21,
 };
 
 enum ActionButton
@@ -87,6 +89,7 @@ static NSUInteger sObservationContext;
     - (void) setupIcon;
     - (void) setIcon:(UIImage*)image;
     - (void) setupMap;
+    - (void) setupGestureRecognizers;
     - (void) expireCoupon;
     - (void) sellOutCoupon;
     - (void) startTimer;
@@ -124,11 +127,11 @@ static NSUInteger sObservationContext;
 //------------------------------------------------------------------------------
 
 /**
- * The designated initializer.  Override if you create the controller 
- * programmatically and want to perform customization that is not appropriate 
+ * The designated initializer.  Override if you create the controller
+ * programmatically and want to perform customization that is not appropriate
  * for viewDidLoad.
  */
-- (id) initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil 
+- (id) initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -139,14 +142,14 @@ static NSUInteger sObservationContext;
 //------------------------------------------------------------------------------
 
 /**
- * Implement viewDidLoad to do additional setup after loading the view, 
+ * Implement viewDidLoad to do additional setup after loading the view,
  * typically from a nib.
  */
-- (void) viewDidLoad 
+- (void) viewDidLoad
 {
     [super viewDidLoad];
 
-    // set title 
+    // set title
     self.title = @"Deal";
 
     // tag testflight checkpoint
@@ -176,12 +179,7 @@ static NSUInteger sObservationContext;
     barcode.titleLabel.adjustsFontSizeToFitWidth = YES;
 
     // setup gesture recogizer on map
-    MKMapView *map = (MKMapView*)[self.view viewWithTag:kTagMap];
-    UITapGestureRecognizer* mapTap = 
-        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMap)];
-    [map setUserInteractionEnabled:YES];
-    [map addGestureRecognizer:mapTap];
-    [mapTap release];
+    [self setupGestureRecognizers];
 
     // watch for deletions
     Database *database = [Database getInstance];
@@ -193,7 +191,7 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-- (void) viewWillAppear:(BOOL)animated 
+- (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
@@ -235,7 +233,7 @@ static NSUInteger sObservationContext;
 //------------------------------------------------------------------------------
 
 /*
-- (void) viewDidAppear:(BOOL)animated 
+- (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
 }
@@ -243,12 +241,12 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-- (void) viewWillDisappear:(BOOL)animated 
+- (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.navigationController setToolbarHidden:YES animated:YES];
 
-    // stop timer 
+    // stop timer
     [self.timer invalidate];
 
     // cleanup notifications
@@ -260,7 +258,7 @@ static NSUInteger sObservationContext;
 /**
  * Override to allow orientations other than the default portrait orientation.
  * /
-- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // return YES for supported orientations.
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -293,6 +291,27 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 #pragma - Properties
+//------------------------------------------------------------------------------
+
+- (void) setupGestureRecognizers
+{
+    // setup touch for map
+    UIView *map = [self.view viewWithTag:kTagMap];
+    UITapGestureRecognizer* mapTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openMap)];
+    [map setUserInteractionEnabled:YES];
+    [map addGestureRecognizer:mapTap];
+    [mapTap release];
+
+    // setup touch for merchant pin
+    UIView *banner = [self.barcodeView viewWithTag:kTagBarcodeRedeemed];
+    UITapGestureRecognizer* bannerTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(validateMerchantPin:)];
+    [banner setUserInteractionEnabled:YES];
+    [banner addGestureRecognizer:bannerTap];
+    [bannerTap release];
+}
+
 //------------------------------------------------------------------------------
 
 - (void) setCoupon:(Coupon*)coupon
@@ -347,21 +366,21 @@ static NSUInteger sObservationContext;
 {
     // create a flexible spacer
     UIBarButtonItem *flexibleSpaceButton = [[UIBarButtonItem alloc]
-        initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace 
-                             target:nil 
+        initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                             target:nil
                              action:nil];
 
     // create a bar button
-    UIBarButtonItem *barButtonItem = 
+    UIBarButtonItem *barButtonItem =
         [[UIBarButtonItem alloc] initWithCustomView:self.barcodeView];
-     
+
     // set the items in the toolbar
     self.toolbarItems = $array(
-        flexibleSpaceButton, 
+        flexibleSpaceButton,
         barButtonItem,
         flexibleSpaceButton);
 
-    // cleanup 
+    // cleanup
     [flexibleSpaceButton release];
     [barButtonItem release];
 }
@@ -383,7 +402,7 @@ static NSUInteger sObservationContext;
 
     // map
     [self setupMap];
-    
+
     // merchant name
     UILabel *name = (UILabel*)[self.view viewWithTag:kTagCompanyName];
     name.text     = [self.coupon.merchant.name uppercaseString];
@@ -391,7 +410,7 @@ static NSUInteger sObservationContext;
     // merchant address
     UILabel *address = (UILabel*)[self.view viewWithTag:kTagCompanyAddress];
     address.text     = self.coupon.merchant.address;
-    
+
     // color timer
     GradientView *color = (GradientView*)[self.view viewWithTag:kTagColorTimer];
     color.color         = [self.coupon getColor];
@@ -401,8 +420,9 @@ static NSUInteger sObservationContext;
     label.text     = [self.coupon getExpirationTimer];
 
     // barcode code
-    UIButton *code       = (UIButton*)[self.barcodeView viewWithTag:kTagBarcodeCodeView];
-    code.titleLabel.text = self.coupon.barcode;
+    UIButton *code = (UIButton*)[self.barcodeView viewWithTag:kTagBarcodeCodeView];
+    [code setTitle:self.coupon.barcode forState:UIControlStateNormal];
+    [code setTitle:self.coupon.barcode forState:UIControlStateSelected];
 }
 
 //------------------------------------------------------------------------------
@@ -417,7 +437,7 @@ static NSUInteger sObservationContext;
 
     // load image from server if not available
     if (!image) {
-        [iconManager requestImage:self.coupon.iconData 
+        [iconManager requestImage:self.coupon.iconData
             withCompletionHandler:^(UIImage* image, NSError *error) {
                 if (image != nil) {
                     [self setIcon:image];
@@ -432,12 +452,12 @@ static NSUInteger sObservationContext;
 
 - (void) setIcon:(UIImage*)image
 {
-    UIImageView *icon                  
+    UIImageView *icon
         = (UIImageView*)[self.view viewWithTag:kTagIcon];
-    UIActivityIndicatorView *spinner 
+    UIActivityIndicatorView *spinner
         = (UIActivityIndicatorView*)[self.view viewWithTag:kTagIconActivity];
 
-    // update icon 
+    // update icon
     icon.image  = image;
     icon.hidden = image == nil;
 
@@ -453,7 +473,7 @@ static NSUInteger sObservationContext;
 
 - (void) setupMap
 {
-    // center map 
+    // center map
     CLLocationCoordinate2D coordinate;
     coordinate.latitude  = [self.coupon.merchant.latitude doubleValue];
     coordinate.longitude = [self.coupon.merchant.longitude doubleValue];
@@ -463,10 +483,10 @@ static NSUInteger sObservationContext;
     // set zoom
     MKCoordinateRegion viewRegion =
         MKCoordinateRegionMakeWithDistance(coordinate, 100, 100);
-    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];                
-    [map setRegion:adjustedRegion animated:NO]; 
+    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
+    [map setRegion:adjustedRegion animated:NO];
 
-    // add pin 
+    // add pin
     MKPointAnnotation *pin = [[MKPointAnnotation alloc] init];
     pin.coordinate         = coordinate;
     [map addAnnotation:pin];
@@ -512,7 +532,7 @@ static NSUInteger sObservationContext;
 
 - (IBAction) merchantDetails:(id)sender
 {
-    MerchantViewController *controller = [[MerchantViewController alloc] 
+    MerchantViewController *controller = [[MerchantViewController alloc]
         initWithNibName:@"MerchantViewController" bundle:nil];
 
     // set merchant to view
@@ -585,7 +605,7 @@ static NSUInteger sObservationContext;
     iconView.image        = icon;
     [gradientView addSubview:iconView];
 
-    // render the image 
+    // render the image
     UIImage *image = [UIImage imageFromView:gradientView];
 
     // cleanup
@@ -594,14 +614,14 @@ static NSUInteger sObservationContext;
 
     return image;
 }
-    
+
 //------------------------------------------------------------------------------
 
 - (void) openMap
 {
     [Analytics passCheckpoint:@"Deal Map Opened"];
 
-    LocationMapViewController *controller = [[LocationMapViewController alloc] 
+    LocationMapViewController *controller = [[LocationMapViewController alloc]
         initWithNibName:@"LocationMapViewController" bundle:nil];
 
     // set merchant to view
@@ -626,7 +646,7 @@ static NSUInteger sObservationContext;
     for (UIView *view in self.view.subviews) {
         if (view.tag != kTagBackground) {
             view.alpha = 0.6;
-        } 
+        }
     }
 
     // animate banner
@@ -752,6 +772,27 @@ static NSUInteger sObservationContext;
 #pragma mark - Events
 //------------------------------------------------------------------------------
 
+- (IBAction) validateMerchantPin:(id)sender
+{
+    // present merchant pin controller
+    MerchantPinViewController *controller = [[MerchantPinViewController alloc] init];
+    controller.couponId = self.coupon.couponId;
+
+    // [iOS4] fix for newer function
+    if ($has_selector(self, presentViewController:animated:completion:)) {
+        [self presentViewController:controller
+                           animated:YES
+                          completion:nil];
+    } else {
+        [self presentModalViewController:controller animated:YES];
+    }
+
+    // cleanup
+    [controller release];
+}
+
+//------------------------------------------------------------------------------
+
 - (IBAction) shareTwitter:(id)sender
 {
     // [iOS4] disable twitter, to much effort to add backwords compatibilty
@@ -775,7 +816,7 @@ static NSUInteger sObservationContext;
 
 - (IBAction) shareFacebook:(id)sender
 {
-    // post deal if logged on, else request connect first 
+    // post deal if logged on, else request connect first
     FacebookManager *manager = [FacebookManager getInstance];
     if ([manager.facebook isSessionValid]) {
         [self postDealToFacebook];
@@ -803,14 +844,14 @@ static NSUInteger sObservationContext;
     };
 
     // setup action sheet
-    UIActionSheet *actionSheet = 
+    UIActionSheet *actionSheet =
         [[UIActionSheet alloc] initWithTitle:@"Share Deal"
-                                 withHandler:handler 
-                           cancelButtonTitle:@"Cancel" 
+                                 withHandler:handler
+                           cancelButtonTitle:@"Cancel"
                       destructiveButtonTitle:nil
                            otherButtonTitles:@"SMS", @"Email", nil];
 
-    // show from toolbar 
+    // show from toolbar
     [actionSheet showFromToolbar:self.navigationController.toolbar];
 
     // cleanup
@@ -823,7 +864,7 @@ static NSUInteger sObservationContext;
 {
     // only send email if supported by the device
     if ([MFMailComposeViewController canSendMail]) {
-        MFMailComposeViewController *controller = 
+        MFMailComposeViewController *controller =
             [[MFMailComposeViewController alloc] init];
 
         // present the email controller
@@ -837,7 +878,7 @@ static NSUInteger sObservationContext;
                                       @"Sad you missed it? Don't be a square... download the "
                                       @"app and start getting your own deals right now."
                                       @"<br><br>"
-                                      @"<a href='http://www.tiktok.com'>Get your deal on!</a>", 
+                                      @"<a href='http://www.tiktok.com'>Get your deal on!</a>",
                                       formatted, merchant);
         [controller setMessageBody:deal isHTML:YES];
 
@@ -886,7 +927,7 @@ static NSUInteger sObservationContext;
 {
     // only send text if supported by the device
     if ([MFMessageComposeViewController canSendText]) {
-        MFMessageComposeViewController *controller = 
+        MFMessageComposeViewController *controller =
             [[MFMessageComposeViewController alloc] init];
 
         // present sms controller
@@ -918,7 +959,7 @@ static NSUInteger sObservationContext;
         // cleanup
         [controller release];
 
-    // let user know sms is not possible on this device...   
+    // let user know sms is not possible on this device...
     } else {
         NSString *title   = NSLocalizedString(@"DEVICE_SUPPORT", nil);
         NSString *message = NSLocalizedString(@"SMS_NO_SUPPORTED", nil);
@@ -1099,10 +1140,10 @@ static NSUInteger sObservationContext;
 #pragma - Memory Management
 //------------------------------------------------------------------------------
 
-/** 
+/**
  * Releases the view if it doesn't have a superview.
  */
-- (void) didReceiveMemoryWarning 
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
@@ -1112,7 +1153,7 @@ static NSUInteger sObservationContext;
 /**
  * Release any retained subviews of the main view.
  */
-- (void) viewDidUnload 
+- (void) viewDidUnload
 {
     [super viewDidUnload];
 
@@ -1122,7 +1163,7 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-- (void) dealloc 
+- (void) dealloc
 {
     [mTimer invalidate];
     [mBarcodeView release];

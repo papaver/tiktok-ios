@@ -43,6 +43,7 @@
 - (IBAction) merchantDetails:(id)sender;
 - (IBAction) redeemCoupon:(id)sender;
 
+- (IBAction) validateMerchantPin:(id)sender;
 - (IBAction) shareTwitter:(id)sender;
 - (IBAction) shareFacebook:(id)sender;
 - (IBAction) shareMore:(id)sender;

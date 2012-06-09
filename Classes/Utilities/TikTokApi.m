@@ -7,7 +7,7 @@
 //
 
 //------------------------------------------------------------------------------
-// imports 
+// imports
 //------------------------------------------------------------------------------
 
 #import <assert.h>
@@ -141,9 +141,9 @@ static dispatch_queue_t sQueue = nil;
 
 - (void) registerDevice:(NSString*)deviceId
 {
-    // construct the checkin url path 
+    // construct the checkin url path
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/register?uuid=%@", [TikTokApi apiUrlPath], deviceId)] 
+        $string(@"%@/register?uuid=%@", [TikTokApi apiUrlPath], deviceId)]
         autorelease];
 
     // setup the async request
@@ -168,10 +168,10 @@ static dispatch_queue_t sQueue = nil;
 
 - (void) validateRegistration
 {
-    // construct the checkin url path 
+    // construct the checkin url path
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@/registered?uuid=%@", [TikTokApi apiUrlPath], 
-            [Utilities getConsumerId], [Utilities getDeviceId])] 
+        $string(@"%@/consumers/%@/registered?uuid=%@", [TikTokApi apiUrlPath],
+            [Utilities getConsumerId], [Utilities getDeviceId])]
         autorelease];
 
     // setup the async request
@@ -196,9 +196,9 @@ static dispatch_queue_t sQueue = nil;
 
 - (void) registerNotificationToken:(NSString*)token
 {
-    // construct the consumer settings url path 
+    // construct the consumer settings url path
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])]
         autorelease];
 
     // need the token as a string
@@ -229,10 +229,10 @@ static dispatch_queue_t sQueue = nil;
 
 - (void) syncActiveCoupons:(NSDate*)date
 {
-    NSString *syncPath = $string(@"%@/consumers/%@/coupons", 
+    NSString *syncPath = $string(@"%@/consumers/%@/coupons",
         [TikTokApi apiUrlPath], [Utilities getConsumerId]);
 
-    // add last update time 
+    // add last update time
     if (date) {
         syncPath = $string(@"%@/?min_time=%f", syncPath, [date timeIntervalSince1970]);
     }
@@ -297,7 +297,7 @@ static dispatch_queue_t sQueue = nil;
         NSLog(@"TikTokApi: Failed to sync coupons: %@", [request error]);
         if (self.errorHandler) self.errorHandler(request);
     }];
- 
+
     // initiate the request
     [TikTokApi startAsyncRequest:request];
 }
@@ -309,8 +309,8 @@ static dispatch_queue_t sQueue = nil;
     // make sure the update happens on the main thread!
     Database *database = [Database getInstance];
     SEL selector = @selector(mergeChangesFromContextDidSaveNotification:);
-    [database.context performSelectorOnMainThread:selector 
-                                       withObject:notification 
+    [database.context performSelectorOnMainThread:selector
+                                       withObject:notification
                                     waitUntilDone:YES];
 }
 
@@ -318,9 +318,9 @@ static dispatch_queue_t sQueue = nil;
 
 - (void) updateCurrentLocation:(CLLocationCoordinate2D)coordinate async:(bool)async
 {
-    // construct the consumer settings url path 
+    // construct the consumer settings url path
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])]
         autorelease];
 
     // convert to objects
@@ -356,9 +356,9 @@ static dispatch_queue_t sQueue = nil;
 
 - (void) updateSettings:(NSDictionary*)settings
 {
-    // construct the consumer settings url path 
+    // construct the consumer settings url path
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])] 
+        $string(@"%@/consumers/%@", [TikTokApi apiUrlPath], [Utilities getConsumerId])]
         autorelease];
 
     // setup the async request
@@ -424,13 +424,13 @@ static dispatch_queue_t sQueue = nil;
 
 //------------------------------------------------------------------------------
 
-- (void) updateCoupon:(NSNumber*)couponId 
+- (void) updateCoupon:(NSNumber*)couponId
             attribute:(TikTokApiCouponAttribute)attribute
 {
     // attribute table mapping enums to attribute strings
     static struct AttributeMapping {
         TikTokApiCouponAttribute e;
-        NSString *attr; 
+        NSString *attr;
     } sAttributeTable[6] = {
         { kTikTokApiCouponAttributeRedeem     , @"redeem" },
         { kTikTokApiCouponAttributeFacebook   , @"fb"     },
@@ -440,10 +440,10 @@ static dispatch_queue_t sQueue = nil;
         { kTikTokApiCouponAttributeEmail      , @"email"  },
     };
 
-    // construct the coupon attribute url path 
+    // construct the coupon attribute url path
     NSURL *url = [[[NSURL alloc] initWithString:
-        $string(@"%@/consumers/%@/coupons/%@", 
-            [TikTokApi apiUrlPath], [Utilities getConsumerId], couponId)] 
+        $string(@"%@/consumers/%@/coupons/%@",
+            [TikTokApi apiUrlPath], [Utilities getConsumerId], couponId)]
         autorelease];
 
     // have to convert to number object to use with request
@@ -465,7 +465,7 @@ static dispatch_queue_t sQueue = nil;
 
     // set error handler
     [request setFailedBlock:^{
-        NSLog(@"TikTokApi: Failed to push coupon attribute '%@': %@", 
+        NSLog(@"TikTokApi: Failed to push coupon attribute '%@': %@",
             mapping.attr, [request error]);
         if (self.errorHandler) self.errorHandler(request);
     }];
@@ -550,6 +550,38 @@ static dispatch_queue_t sQueue = nil;
     // set error handler
     [request setFailedBlock:^{
         NSLog(@"TikTokApi: Failed to sync cities: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [TikTokApi startAsyncRequest:request];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) validateMerchantPin:(NSString*)merchantPin forCoupon:(NSNumber*)couponId
+{
+    // construct the coupon attribute url path
+    NSURL *url = [[[NSURL alloc] initWithString:
+        $string(@"%@/consumers/%@/coupons/%@",
+            [TikTokApi apiUrlPath], [Utilities getConsumerId], couponId)]
+        autorelease];
+
+    // setup the async request
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
+    [request setRequestMethod:@"PUT"];
+    [request setPostValue:$numi(1) forKey:@"merchant_redeem"];
+    [request setPostValue:merchantPin forKey:@"merchant_pin"];
+    [request setCompletionBlock:^{
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to validate merchant pin '%@': %@",
+            merchantPin, [request error]);
         if (self.errorHandler) self.errorHandler(request);
     }];
 

@@ -50,3 +50,7 @@
 
 "CITIES"                       = "Cities";
 "CITIES_SYNC_FAIL"             = "Failed to sync city data from server.  Try again.";
+
+"MERCHANT_PIN"                 = "Merchant Pin";
+"MERCHANT_PIN_SUCCESS"         = "Deal successfully validated! Thank you for using TikTok!";
+"MERCHANT_PIN_FAIL"            = "Failed to validate merchant pin with the server.  Try again.";
