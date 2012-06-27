@@ -144,7 +144,10 @@
 
 - (NSString*) getCity
 {
-    NSString *city = [[self.address componentsSeparatedByString:@", "] objectAtIndex:1];
+    NSString *city = [[[self.address 
+        componentsSeparatedByString:@", "] 
+        objectAtIndex:1] 
+        stringByReplacingOccurrencesOfString:@" " withString:@""];
     return city;
 }
 
