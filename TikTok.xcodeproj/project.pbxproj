@@ -33,6 +33,8 @@
 		2E06473C14DE00C2008283D5 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E06473514DE00C2008283D5 /* WEPopoverContainerView.m */; };
 		2E06473D14DE00C2008283D5 /* WEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E06473714DE00C2008283D5 /* WEPopoverController.m */; };
 		2E06473E14DE00C2008283D5 /* WETouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E06473A14DE00C2008283D5 /* WETouchableView.m */; };
+		2E0985A215895B33009749A0 /* FacebookDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E0985A015895B33009749A0 /* FacebookDefault.png */; };
+		2E0985A315895B33009749A0 /* FacebookDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E0985A115895B33009749A0 /* FacebookDefault@2x.png */; };
 		2E0B9B2114D721E600DBC86C /* 15-tags.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E0B9B1E14D721E600DBC86C /* 15-tags.png */; };
 		2E0B9B2214D721E600DBC86C /* 103-map.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E0B9B1F14D721E600DBC86C /* 103-map.png */; };
 		2E0B9B2314D721E600DBC86C /* 123-id-card.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E0B9B2014D721E600DBC86C /* 123-id-card.png */; };
@@ -50,6 +52,9 @@
 		2E201E4614B7AC17001E9051 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E201E4514B7AC17001E9051 /* Database.m */; };
 		2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4714BB58EB001E9051 /* RedeemedSash.png */; };
 		2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */; };
+		2E256EF91587EB9F00432597 /* FacebookResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E256EF81587EB9F00432597 /* FacebookResult.m */; };
+		2E256EFB1588020E00432597 /* JsonPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E256EFA1588020E00432597 /* JsonPickerViewController.xib */; };
+		2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E256EFD1588027A00432597 /* JsonPickerViewController.m */; };
 		2E259E4914D26748007481F2 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */; };
 		2E259E4B14D26E84007481F2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E259E4A14D26E84007481F2 /* QuartzCore.framework */; };
 		2E31269714C8DFFE00477805 /* LocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31269514C8DFFE00477805 /* LocationPickerViewController.m */; };
@@ -409,6 +414,8 @@
 		2E06473814DE00C2008283D5 /* WEPopoverParentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverParentView.h; sourceTree = "<group>"; };
 		2E06473914DE00C2008283D5 /* WETouchableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WETouchableView.h; sourceTree = "<group>"; };
 		2E06473A14DE00C2008283D5 /* WETouchableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WETouchableView.m; sourceTree = "<group>"; };
+		2E0985A015895B33009749A0 /* FacebookDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FacebookDefault.png; sourceTree = "<group>"; };
+		2E0985A115895B33009749A0 /* FacebookDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FacebookDefault@2x.png"; sourceTree = "<group>"; };
 		2E0B9B1E14D721E600DBC86C /* 15-tags.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "15-tags.png"; sourceTree = "<group>"; };
 		2E0B9B1F14D721E600DBC86C /* 103-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "103-map.png"; sourceTree = "<group>"; };
 		2E0B9B2014D721E600DBC86C /* 123-id-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card.png"; sourceTree = "<group>"; };
@@ -429,6 +436,11 @@
 		2E201E4514B7AC17001E9051 /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		2E201E4714BB58EB001E9051 /* RedeemedSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemedSash.png; sourceTree = "<group>"; };
 		2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemedSash@2x.png"; sourceTree = "<group>"; };
+		2E256EF71587EB9F00432597 /* FacebookResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookResult.h; sourceTree = "<group>"; };
+		2E256EF81587EB9F00432597 /* FacebookResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookResult.m; sourceTree = "<group>"; };
+		2E256EFA1588020E00432597 /* JsonPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JsonPickerViewController.xib; sourceTree = "<group>"; };
+		2E256EFC1588027A00432597 /* JsonPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonPickerViewController.h; sourceTree = "<group>"; };
+		2E256EFD1588027A00432597 /* JsonPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonPickerViewController.m; sourceTree = "<group>"; };
 		2E259E4714D26748007481F2 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		2E259E4A14D26E84007481F2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1142,6 +1154,7 @@
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
 				2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */,
 				28F335F01007B36200424DE2 /* CouponViewController.xib */,
+				2E256EFA1588020E00432597 /* JsonPickerViewController.xib */,
 				2EFF7BE114EB50F000632211 /* KarmaViewController.xib */,
 				2E1144D013946D7900D72753 /* LocationMapViewController.xib */,
 				2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */,
@@ -1160,6 +1173,8 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E0985A015895B33009749A0 /* FacebookDefault.png */,
+				2E0985A115895B33009749A0 /* FacebookDefault@2x.png */,
 				2E9D008A1582CD51001CC0D4 /* DoneDown.png */,
 				2E9D008B1582CD51001CC0D4 /* DoneUp.png */,
 				2E9D008215828EB4001CC0D4 /* TokMerchantPin.png */,
@@ -1543,6 +1558,8 @@
 				2EAE8A8414E6045C00076EDA /* Debug.h */,
 				2EE5D44714B3D58F00D0539C /* FacebookManager.h */,
 				2EE5D44814B3D58F00D0539C /* FacebookManager.m */,
+				2E256EF71587EB9F00432597 /* FacebookResult.h */,
+				2E256EF81587EB9F00432597 /* FacebookResult.m */,
 				2EFB99F214C6408C00FD69E8 /* GoogleMapsApi.h */,
 				2EFB99F314C6408C00FD69E8 /* GoogleMapsApi.m */,
 				2EE5D44014B388A500D0539C /* IconData.h */,
@@ -1702,6 +1719,8 @@
 				2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */,
 				2EE8581814ABAC35008055AD /* CouponViewController.h */,
 				28C286E00D94DF7D0034E888 /* CouponViewController.m */,
+				2E256EFC1588027A00432597 /* JsonPickerViewController.h */,
+				2E256EFD1588027A00432597 /* JsonPickerViewController.m */,
 				2EFF7BE314EB511E00632211 /* KarmaViewController.h */,
 				2EFF7BE414EB511E00632211 /* KarmaViewController.m */,
 				2E1144CE13946D7900D72753 /* LocationMapViewController.h */,
@@ -2076,6 +2095,9 @@
 				2E9D008515828EB4001CC0D4 /* TokMerchantPin@2x.png in Resources */,
 				2E9D008C1582CD51001CC0D4 /* DoneDown.png in Resources */,
 				2E9D008D1582CD51001CC0D4 /* DoneUp.png in Resources */,
+				2E256EFB1588020E00432597 /* JsonPickerViewController.xib in Resources */,
+				2E0985A215895B33009749A0 /* FacebookDefault.png in Resources */,
+				2E0985A315895B33009749A0 /* FacebookDefault@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2222,6 +2244,8 @@
 				2EAFA10D156C3A0900BB9C01 /* DataModel.xcdatamodeld in Sources */,
 				2E847C571574464E000E3D6C /* MappingModel-nil-v02.xcmappingmodel in Sources */,
 				2E9D007F15828A04001CC0D4 /* MerchantPinViewController.m in Sources */,
+				2E256EF91587EB9F00432597 /* FacebookResult.m in Sources */,
+				2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,11 +7,12 @@
 //
 
 //-----------------------------------------------------------------------------
-// includes 
+// includes
 //-----------------------------------------------------------------------------
 
 #import "FacebookManager.h"
 #import "Constants.h"
+#import "FacebookResult.h"
 #import "TikTokApi.h"
 
 //-----------------------------------------------------------------------------
@@ -53,7 +54,7 @@
 {
     self = [super init];
     if (self) {
-         self.facebook = [[[Facebook alloc] 
+         self.facebook = [[[Facebook alloc]
              initWithAppId:FACEBOOK_API_KEY andDelegate:self] autorelease];
          [self loadFacebookData];
     }
@@ -67,11 +68,11 @@
 - (void) authorizeWithSucessHandler:(FacebookConnectSuccessHandler)handler
 {
     if (![self.facebook isSessionValid]) {
-        mSuccessHandler = [handler copy];
+        mConnectHandler = [handler copy];
 
         // permission to request from user
         NSArray *permissions = [[NSArray alloc] initWithObjects:
-            @"user_likes", 
+            @"user_likes",
             @"user_birthday",
             @"user_checkins",
             @"user_interests",
@@ -84,6 +85,73 @@
         [self.facebook authorize:permissions];
         [permissions release];
     }
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) getFacebookId:(FacebookQuerySuccessHandler)successHandler
+           handleError:(FacebookQueryErrorHandler)errorHandler
+{
+    FacebookResult *result =
+        [[[FacebookResult alloc] initWithFacebook:self.facebook] retain];
+
+    // success handler
+    result.didLoadHandler = ^(FBRequest* request, id data) {
+        if (successHandler != nil) {
+            NSDictionary *dict = (NSDictionary*)data;
+            NSNumber *userId   = (NSNumber*)[dict objectForKey:@"id"];
+            successHandler(userId);
+        }
+        [result release];
+    };
+
+    // error handler
+    result.didFailWithErrorHandler = ^(FBRequest* request, NSError* error) {
+        if (errorHandler != nil) errorHandler(error);
+        [result release];
+    };
+
+    // run query
+    [self.facebook requestWithGraphPath:@"me" andDelegate:result];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) getAppFriends:(FacebookQuerySuccessHandler)successHandler
+           handleError:(FacebookQueryErrorHandler)errorHandler
+{
+    FacebookResult *result =
+        [[[FacebookResult alloc] initWithFacebook:self.facebook] retain];
+
+    // success handler
+    result.didLoadHandler = ^(FBRequest* request, id data) {
+        if (successHandler != nil) successHandler(data);
+        [result release];
+    };
+
+    // error handler
+    result.didFailWithErrorHandler = ^(FBRequest* request, NSError* error) {
+        if (errorHandler != nil) errorHandler(error);
+        [result release];
+    };
+
+    // setup query
+    NSString *fql = $string(
+        @"select name, uid, pic_small "
+        @"from user "
+        @"where is_app_user = 1 and uid in ("
+            @"select uid2 "
+            @"from friend "
+            @"where uid1 = me()) "
+        @"order by concat(first_name,last_name) asc");
+
+    // run query
+    NSMutableDictionary* params =
+        [NSMutableDictionary dictionaryWithObjectsAndKeys:fql, @"query", nil];
+    [self.facebook requestWithMethodName:@"fql.query"
+                               andParams:params
+                           andHttpMethod:@"POST"
+                             andDelegate:result];
 }
 
 //-----------------------------------------------------------------------------
@@ -128,20 +196,42 @@
 }
 
 //-----------------------------------------------------------------------------
+
+- (NSNumber*) getFacebookUserId
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *userId         = [defaults objectForKey:@"FBUserIdKey"];
+    return userId;
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) saveFacebookUserId:(NSNumber*)userId
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:userId forKey:@"FBUserIdKey"];
+    [defaults synchronize];
+
+    // push facebook token to server
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"fb_id"), $array(userId))];
+}
+
+//-----------------------------------------------------------------------------
 #pragma - FacebookDelegate
 //-----------------------------------------------------------------------------
 
-- (void) fbDidLogin 
+- (void) fbDidLogin
 {
     [self saveFacebookData];
 
     // run handler if setup
-    if (mSuccessHandler != nil) {
-        mSuccessHandler();
+    if (mConnectHandler != nil) {
+        mConnectHandler();
 
         // release handler
-        [mSuccessHandler release];
-        mSuccessHandler = nil;
+        [mConnectHandler release];
+        mConnectHandler = nil;
     }
 }
 
@@ -163,7 +253,7 @@
 
 //-----------------------------------------------------------------------------
 
-- (void) fbDidLogout 
+- (void) fbDidLogout
 {
     [self clearFacebookData];
 }
@@ -181,7 +271,7 @@
 
 - (void) dealloc
 {
-    [mSuccessHandler release];
+    [mConnectHandler release];
     [mFacebook release];
     [super dealloc];
 }

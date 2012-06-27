@@ -24,6 +24,8 @@
 //-----------------------------------------------------------------------------
 
 typedef void (^FacebookConnectSuccessHandler)(void);
+typedef void (^FacebookQuerySuccessHandler)(id);
+typedef void (^FacebookQueryErrorHandler)(NSError*);
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -32,7 +34,7 @@ typedef void (^FacebookConnectSuccessHandler)(void);
 @interface FacebookManager : NSObject <FBSessionDelegate>
 {
     Facebook                      *mFacebook;
-    FacebookConnectSuccessHandler  mSuccessHandler;
+    FacebookConnectSuccessHandler  mConnectHandler;
 }
 
 //-----------------------------------------------------------------------------
@@ -50,6 +52,18 @@ typedef void (^FacebookConnectSuccessHandler)(void);
  * Authorize app to connect with facebook.
  */
 - (void) authorizeWithSucessHandler:(FacebookConnectSuccessHandler)handler;
+
+/**
+ * Get facebook id.
+ */
+- (void) getFacebookId:(FacebookQuerySuccessHandler)success
+           handleError:(FacebookQueryErrorHandler)error;
+
+/**
+ * Get facebook friends with app installed.
+ */
+- (void) getAppFriends:(FacebookQuerySuccessHandler)success
+           handleError:(FacebookQueryErrorHandler)error;
 
 //-----------------------------------------------------------------------------
 

@@ -18,11 +18,13 @@
 #import "FacebookManager.h"
 #import "GradientView.h"
 #import "IconManager.h"
+#import "JsonPickerViewController.h"
 #import "LocationMapViewController.h"
 #import "Merchant.h"
 #import "MerchantPinViewController.h"
 #import "MerchantViewController.h"
 #import "Settings.h"
+#import "SVProgressHUD.h"
 #import "TikTokApi.h"
 #import "UIDefaults.h"
 #import "Utilities.h"
@@ -57,10 +59,16 @@ enum CouponDetailTag
     kTagBarcodeRedeemed    = 21,
 };
 
-enum ActionButton
+enum ActionButtonShare
 {
     kActionButtonSMS   = 0,
     kActionButtonEmail = 1,
+};
+
+enum ActionButtonShareDeal
+{
+    kActionButtonFacebook    = 0,
+    kActionButtonAddressBook = 1,
 };
 
 typedef enum _CouponState
@@ -84,6 +92,7 @@ static NSUInteger sObservationContext;
 
 @interface CouponDetailViewController ()
     - (void) addShadows;
+    - (void) setupNavButtons;
     - (void) setupToolbar;
     - (void) setupCouponDetails;
     - (void) setupIcon;
@@ -94,6 +103,9 @@ static NSUInteger sObservationContext;
     - (void) sellOutCoupon;
     - (void) startTimer;
     - (void) updateTimers;
+    - (void) shareDeal:(id)sender;
+    - (void) shareDealFacebook;
+    - (void) shareDealAddressBook;
     - (void) shareSMS;
     - (void) shareEmail;
     - (void) setupTwitter;
@@ -108,6 +120,9 @@ static NSUInteger sObservationContext;
     - (void) removeSoldOutObserver;
     - (void) startRedeemedActivity;
     - (void) endRedeemedActivity:(bool)redeemed;
+    - (void) selectFacebookFriend:(NSArray*)friends;
+    - (void) confirmShareDealWithFriend:(NSDictionary*)friend;
+    - (void) shareDealWithFriend:(NSDictionary*)friend;
 @end
 
 //------------------------------------------------------------------------------
@@ -154,6 +169,11 @@ static NSUInteger sObservationContext;
 
     // tag testflight checkpoint
     [Analytics passCheckpoint:@"Deal"];
+
+    // [moiz] contains share deal workflow
+    /* setup nar bar
+    [self setupNavButtons];
+    */
 
     // setup toolbar
     [self setupToolbar];
@@ -358,6 +378,24 @@ static NSUInteger sObservationContext;
     mapView.layer.shadowColor   = [[UIColor blackColor] CGColor];
     mapView.layer.shadowOffset  = CGSizeMake(2.0f, 2.0f);
     mapView.layer.shadowOpacity = 0.2f;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupNavButtons
+{
+    // share app button
+    UIBarButtonItem *shareButton =
+        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"24-gift-bar.png"]
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(shareDeal:)];
+
+    // add to navbar
+    self.navigationItem.rightBarButtonItem = shareButton;
+
+    // cleanup
+    [shareButton release];
 }
 
 //------------------------------------------------------------------------------
@@ -769,6 +807,82 @@ static NSUInteger sObservationContext;
 }
 
 //------------------------------------------------------------------------------
+
+- (void) selectFacebookFriend:(NSArray*)friends
+{
+    // make sure user has friends :P
+    if (friends.count == 0) {
+        NSString *title   = NSLocalizedString(@"SHARE_DEAL", nil);
+        NSString *message = NSLocalizedString(@"SHARE_DEAL_FB_FRIENDLESS", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+        return;
+    }
+
+    // present facebook friends picker
+    JsonPickerViewController *controller = [[JsonPickerViewController alloc] init];
+    controller.titleKey         = @"name";
+    controller.imageKey         = @"pic_small";
+    controller.jsonData         = friends;
+    controller.selectionHandler = ^(NSDictionary* friend) {
+        [self confirmShareDealWithFriend:friend];
+    };
+
+    // [iOS4] fix for newer function
+    if ($has_selector(self, presentViewController:animated:completion:)) {
+        [self presentViewController:controller
+                           animated:YES
+                         completion:nil];
+    } else {
+        [self presentModalViewController:controller animated:YES];
+    }
+
+    // cleanup
+    [controller release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) confirmShareDealWithFriend:(NSDictionary*)friend
+{
+    NSString *title   = NSLocalizedString(@"SHARE_DEAL", nil);
+    NSString *message = $string(
+        NSLocalizedString(@"SHARE_DEAL_CONFIRM", nil),
+        [friend objectForKey:@"name"]);
+
+    // open up settings to configure twitter account
+    UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self shareDealWithFriend:friend];
+        }
+    };
+
+    // display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                withHandler:handler
+                                          cancelButtonTitle:@"No."
+                                          otherButtonTitles:@"Yes Gift!", nil];
+    [alert show];
+    [alert release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareDealWithFriend:(NSDictionary*)friend
+{
+    [Analytics passCheckpoint:@"Deal Gifted"];
+
+    // delete the coupon from the database?
+    Database *database = [Database getInstance];
+    [database.context deleteObject:self.coupon];
+
+    // close this view
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
+    NSLog(@"Deal shared with friend: %@", friend);
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Events
 //------------------------------------------------------------------------------
 
@@ -782,13 +896,81 @@ static NSUInteger sObservationContext;
     if ($has_selector(self, presentViewController:animated:completion:)) {
         [self presentViewController:controller
                            animated:YES
-                          completion:nil];
+                         completion:nil];
     } else {
         [self presentModalViewController:controller animated:YES];
     }
 
     // cleanup
     [controller release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareDeal:(id)sender
+{
+    // setup action sheet handler
+    UIActionSheetSelectionHandler handler = ^(NSInteger buttonIndex) {
+        switch (buttonIndex) {
+            case kActionButtonFacebook:
+                [self shareDealFacebook];
+                break;
+            case kActionButtonAddressBook:
+                [self shareDealAddressBook];
+                break;
+            default:
+                break;
+        }
+    };
+
+    // setup action sheet
+    UIActionSheet *actionSheet =
+        [[UIActionSheet alloc] initWithTitle:@"Give your TikTok deal to a friend!"
+                                 withHandler:handler
+                           cancelButtonTitle:@"Cancel"
+                      destructiveButtonTitle:nil
+                           otherButtonTitles:@"Facebook", @"Address Book", nil];
+
+    // show from toolbar
+    [actionSheet showFromToolbar:self.navigationController.toolbar];
+
+    // cleanup
+    [actionSheet release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareDealFacebook
+{
+    // put up the hud
+    [SVProgressHUD showWithStatus:@"Finding Friends..."
+                         maskType:SVProgressHUDMaskTypeBlack
+                 networkIndicator:YES];
+
+    // on successful query, display friends picker controller
+    FacebookQuerySuccessHandler successHandler = ^(id result) {
+        [SVProgressHUD dismiss];
+        NSArray *friends = (NSArray*)result;
+        [self selectFacebookFriend:friends];
+    };
+
+    // on failure, alert user of error
+    FacebookQuerySuccessHandler errorHandler = ^(NSError* error) {
+        [SVProgressHUD dismiss];
+        NSString *title   = NSLocalizedString(@"SHARE_DEAL", nil);
+        NSString *message = NSLocalizedString(@"SHARE_DEAL_FB_FAIL", nil);
+        [Utilities displaySimpleAlertWithTitle:title andMessage:message];
+    };
+
+    // run query
+    FacebookManager *manager = [FacebookManager getInstance];
+    [manager getAppFriends:successHandler handleError:errorHandler];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) shareDealAddressBook
+{
 }
 
 //------------------------------------------------------------------------------

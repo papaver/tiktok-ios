@@ -54,3 +54,8 @@
 "MERCHANT_PIN"                 = "Merchant Pin";
 "MERCHANT_PIN_SUCCESS"         = "Deal successfully validated! Thank you for using TikTok!";
 "MERCHANT_PIN_FAIL"            = "Failed to validate merchant pin with the server.  Try again.";
+
+"SHARE_DEAL"                   = "Share Deal";
+"SHARE_DEAL_CONFIRM"           = "Are you sure you want to gift this deal to %@?";
+"SHARE_DEAL_FB_FRIENDLESS"     = "Sorry, no friends found on Facebook with the TikTok app installed. Share the app with your friends first!";
+"SHARE_DEAL_FB_FAIL"           = "Failed to query friends from Facebook.  Try Again.";
