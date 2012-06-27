@@ -783,7 +783,8 @@ static NSString *sCouponCacheName = @"coupon_table";
     IconManager *iconManager = [IconManager getInstance];
     [iconManager requestImage:coupon.iconData
         withCompletionHandler:^(UIImage* image, NSError *error) {
-            if (image) {
+            NSArray *visibleIndices = [self.tableView indexPathsForVisibleRows];
+            if (image && [visibleIndices containsObject:indexPath]) {
                 UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
                 [UIView animateWithDuration:0.2 animations:^{
                     [self setIcon:image forCell:cell];
