@@ -1187,10 +1187,14 @@ static NSUInteger sObservationContext;
     UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];
 
     // setup twitter controller
-    NSString *city      = [[self.coupon.merchant getCity] lowercaseString];
+    Merchant *merchant  = self.coupon.merchant;
+    NSString *city      = [[merchant getCity] lowercaseString];
     NSString *formatted = [self.coupon.title capitalizedString];
+    NSString *twHandle  = (merchant.twitterUrl == nil) ||
+                          [merchant.twitterUrl isEqualToString:@""] ?
+                            merchant.name : merchant.twitterUrl;
     NSString *deal      = $string(@"I just got %@ from %@! @TikTok #FREEisBETTER #%@",
-                                  formatted, self.coupon.merchant.name, city);
+                                  formatted, twHandle, city);
     [twitter setInitialText:deal];
     [twitter addImage:[self imageForIcon:icon.image]];
 

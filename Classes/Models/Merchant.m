@@ -135,6 +135,7 @@
     self.iconUrl     = [data objectForKey:@"icon_url"];
     self.websiteUrl  = [data objectForKey:@"web_url"];
     self.category    = [data objectForKey:@"category"];
+    self.twitterUrl  = [data objectForKey:@"tw_handle"];
     self.lastUpdated = [NSDate dateWithTimeIntervalSince1970:lastUpdated.intValue];
 
     return self;
