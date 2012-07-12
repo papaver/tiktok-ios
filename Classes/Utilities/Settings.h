@@ -25,6 +25,7 @@
 @property(nonatomic, retain) NSString   *name;
 @property(nonatomic, retain) NSString   *email;
 @property(nonatomic, retain) NSString   *twitter;
+@property(nonatomic, retain) NSString   *phone;
 @property(nonatomic, retain) NSString   *gender;
 @property(nonatomic, retain) NSDate     *birthday;
 @property(nonatomic, retain) CLLocation *home;

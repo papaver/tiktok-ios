@@ -35,6 +35,7 @@ enum TableRows
     kRowName     = 0,
     kRowEmail    = 1,
     kRowTwitter  = 2,
+    kRowPhone    = 3,
     kRowHome     = 0,
     kRowWork     = 1,
     kRowGender   = 0,
@@ -46,6 +47,7 @@ enum ViewTags
     kTagNameField         = 1,
     kTagEmailField        = 1,
     kTagTwitterField      = 1,
+    kTagPhoneField        = 1,
     kTagFacebook          = 2,
     kTagTutorialArrow     = 4,
     kTagTutorialText      = 5,
@@ -70,6 +72,7 @@ enum ViewTags
     - (void) setupTutorialStageMisc;
     - (void) setupTutorialStageLocation;
     - (void) setupTutorialStageTwitter;
+    - (void) setupTutorialStagePhone;
     - (void) setupTutorialStageComplete;
     - (UIImage*) tutorialCharacterImageForStage:(TutorialStage)stage;
     - (UIImage*) tutorialArrowImageForStage:(TutorialStage)stage;
@@ -101,6 +104,7 @@ enum ViewTags
 @synthesize nameCell               = mNameCell;
 @synthesize emailCell              = mEmailCell;
 @synthesize twitterCell            = mTwitterCell;
+@synthesize phoneCell              = mPhoneCell;
 @synthesize birthdayCell           = mBirthdayCell;
 @synthesize dateInputView          = mInputView;
 @synthesize dateInputAccessoryView = mInputAccessoryView;
@@ -148,9 +152,11 @@ enum ViewTags
     UITextField *nameField    = (UITextField*)[self.nameCell viewWithTag:kTagNameField];
     UITextField *emailField   = (UITextField*)[self.emailCell viewWithTag:kTagEmailField];
     UITextField *twitterField = (UITextField*)[self.twitterCell viewWithTag:kTagTwitterField];
+    UITextField *phoneField   = (UITextField*)[self.phoneCell viewWithTag:kTagPhoneField];
     nameField.text            = settings.name;
     emailField.text           = settings.email;
     twitterField.text         = settings.twitter;
+    phoneField.text           = settings.phone;
 
     // save birthday cell
     self.birthdayCell = [self getReusableBirthdayCell];
@@ -165,7 +171,7 @@ enum ViewTags
         retain];
 
     // completed version will look a little different
-    NSArray *sectionBasicFinal = $array(@"Name", @"Email", @"Twitter Handle");
+    NSArray *sectionBasicFinal = $array(@"Name", @"Email", @"Twitter Handle", @"Phone #");
     mTableDataFinal = [$dict(
         $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)),
         $array(sectionBasicFinal, sectionDetails, sectionLocation))
@@ -231,6 +237,9 @@ enum ViewTags
             break;
         case kTutorialStageTwitter:
             [self setupTutorialStageTwitter];
+            break;
+        case kTutorialStagePhone:
+            [self setupTutorialStagePhone];
             break;
         case kTutorialStageComplete:
             [self setupTutorialStageComplete];
@@ -376,10 +385,23 @@ enum ViewTags
     [self setupTutorialStage:kTutorialStageTwitter
              characterOrigin:CGPointMake(220.0, 100.0)
                  arrowOrigin:CGPointMake(77.0, 100.0)
-                   textFrame:CGRectMake(90.0, 206.0, 188.0 * 2, 80.0)
+                   textFrame:CGRectMake(90.0, 190.0, 188.0 * 2, 80.0)
                 tutorialText:@"Fill out your twitter\n"
                              @"handle so we can follow\n"
                              @"you on Twitter!"];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) setupTutorialStagePhone
+{
+    [self setupTutorialStage:kTutorialStagePhone
+             characterOrigin:CGPointMake(25.0, 100.0)
+                 arrowOrigin:CGPointMake(120.0, 100.0)
+                   textFrame:CGRectMake(100.0, 180.0, 188.0 * 2, 80.0)
+                tutorialText:@"Fill out your phone #\n"
+                             @"number so your friends\n"
+                             @"can gift you deals!"];
 }
 
 //------------------------------------------------------------------------------
@@ -598,6 +620,17 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
+- (IBAction) savePhone:(id)sender
+{
+    [Analytics passCheckpoint:@"Settings Phone"];
+
+    UITextField *phoneField = (UITextField*)[self.phoneCell viewWithTag:kTagPhoneField];
+    Settings *settings      = [Settings getInstance];
+    settings.phone          = phoneField.text;
+}
+
+//------------------------------------------------------------------------------
+
 - (IBAction) tutorialNext:(id)sender
 {
     // shouldn't really get here if the tutorial is complete...
@@ -653,6 +686,8 @@ enum ViewTags
 {
     if (mTutorialStage == kTutorialStageTwitter) {
         return 1;
+    } else if (mTutorialStage == kTutorialStagePhone) {
+        return 1;
     } else if (mTutorialStage == kTutorialStageComplete) {
         return [mTableDataFinal count];
     } else {
@@ -668,6 +703,8 @@ enum ViewTags
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (mTutorialStage == kTutorialStageTwitter) {
+        return 1;
+    } else if (mTutorialStage == kTutorialStagePhone) {
         return 1;
     } else if (mTutorialStage == kTutorialStageComplete) {
         return [[mTableDataFinal objectForKey:$numi(section)] count];
@@ -696,9 +733,11 @@ enum ViewTags
 {
     UITableViewCell *cell = nil;
 
-    // deal with extra twitter tutorial
+    // deal with twitter/phone tutorial
     if ((mTutorialStage == kTutorialStageTwitter) && (indexPath.section == kSectionBasic)) {
         return [self tableViewForTwitter:tableView cellForRowAtIndexPath:indexPath];
+    } else if ((mTutorialStage == kTutorialStagePhone) && (indexPath.section == kSectionBasic)) {
+        return [self tableViewForPhone:tableView cellForRowAtIndexPath:indexPath];
     }
 
     // grab the title from the table data
@@ -721,6 +760,9 @@ enum ViewTags
                     break;
                 case kRowTwitter:
                     cell = self.twitterCell;
+                    break;
+                case kRowPhone:
+                    cell = self.phoneCell;
                     break;
                 default:
                     break;
@@ -779,6 +821,16 @@ enum ViewTags
                    cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     UITableViewCell *cell = self.twitterCell;
+    cell.hidden           = NO;
+    return cell;
+}
+
+//------------------------------------------------------------------------------
+
+- (UITableViewCell*) tableViewForPhone:(UITableView*)tableView
+                 cellForRowAtIndexPath:(NSIndexPath*)indexPath
+{
+    UITableViewCell *cell = self.phoneCell;
     cell.hidden           = NO;
     return cell;
 }
@@ -938,6 +990,7 @@ enum ViewTags
     // show correctly for tutorial
     header.hidden = (mTutorialStage != kTutorialStageUserInfo) &&
                     (mTutorialStage != kTutorialStageTwitter) &&
+                    (mTutorialStage != kTutorialStagePhone) &&
                     (mTutorialStage != kTutorialStageComplete);
 
     return header;
@@ -1180,6 +1233,8 @@ enum ViewTags
 
 - (void) dealloc
 {
+    [mPhoneCell release];
+    [mTwitterCell release];
     [mBasicHeader release];
     [mNameCell release];
     [mEmailCell release];

@@ -52,6 +52,10 @@
 		2E201E4614B7AC17001E9051 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E201E4514B7AC17001E9051 /* Database.m */; };
 		2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4714BB58EB001E9051 /* RedeemedSash.png */; };
 		2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */; };
+		2E224B7215AF373100CFEB92 /* SettingsTutorialArrow07.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B6E15AF373100CFEB92 /* SettingsTutorialArrow07.png */; };
+		2E224B7315AF373100CFEB92 /* SettingsTutorialArrow07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B6F15AF373100CFEB92 /* SettingsTutorialArrow07@2x.png */; };
+		2E224B7415AF373100CFEB92 /* SettingsTutorialChar07.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B7015AF373100CFEB92 /* SettingsTutorialChar07.png */; };
+		2E224B7515AF373100CFEB92 /* SettingsTutorialChar07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B7115AF373100CFEB92 /* SettingsTutorialChar07@2x.png */; };
 		2E256EF91587EB9F00432597 /* FacebookResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E256EF81587EB9F00432597 /* FacebookResult.m */; };
 		2E256EFB1588020E00432597 /* JsonPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E256EFA1588020E00432597 /* JsonPickerViewController.xib */; };
 		2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E256EFD1588027A00432597 /* JsonPickerViewController.m */; };
@@ -436,6 +440,10 @@
 		2E201E4514B7AC17001E9051 /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		2E201E4714BB58EB001E9051 /* RedeemedSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemedSash.png; sourceTree = "<group>"; };
 		2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemedSash@2x.png"; sourceTree = "<group>"; };
+		2E224B6E15AF373100CFEB92 /* SettingsTutorialArrow07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialArrow07.png; sourceTree = "<group>"; };
+		2E224B6F15AF373100CFEB92 /* SettingsTutorialArrow07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialArrow07@2x.png"; sourceTree = "<group>"; };
+		2E224B7015AF373100CFEB92 /* SettingsTutorialChar07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar07.png; sourceTree = "<group>"; };
+		2E224B7115AF373100CFEB92 /* SettingsTutorialChar07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar07@2x.png"; sourceTree = "<group>"; };
 		2E256EF71587EB9F00432597 /* FacebookResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookResult.h; sourceTree = "<group>"; };
 		2E256EF81587EB9F00432597 /* FacebookResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookResult.m; sourceTree = "<group>"; };
 		2E256EFA1588020E00432597 /* JsonPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JsonPickerViewController.xib; sourceTree = "<group>"; };
@@ -1217,6 +1225,8 @@
 				2E89C2F114DC6BE40052751D /* SettingsTutorialArrow05@2x.png */,
 				2EAFA11A156DAE6E00BB9C01 /* SettingsTutorialArrow06.png */,
 				2EAFA11B156DAE6E00BB9C01 /* SettingsTutorialArrow06@2x.png */,
+				2E224B6E15AF373100CFEB92 /* SettingsTutorialArrow07.png */,
+				2E224B6F15AF373100CFEB92 /* SettingsTutorialArrow07@2x.png */,
 				2E89C2F214DC6BE40052751D /* SettingsTutorialChar01.png */,
 				2E89C2F314DC6BE40052751D /* SettingsTutorialChar01@2x.png */,
 				2E89C2F414DC6BE40052751D /* SettingsTutorialChar02.png */,
@@ -1229,6 +1239,8 @@
 				2E89C2FB14DC6BE40052751D /* SettingsTutorialChar05@2x.png */,
 				2EAFA11C156DAE6E00BB9C01 /* SettingsTutorialChar06.png */,
 				2EAFA11D156DAE6E00BB9C01 /* SettingsTutorialChar06@2x.png */,
+				2E224B7015AF373100CFEB92 /* SettingsTutorialChar07.png */,
+				2E224B7115AF373100CFEB92 /* SettingsTutorialChar07@2x.png */,
 				2E6FC60E14D9C93400DA36E9 /* fbConnect.png */,
 				2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */,
 				2E6FC61014D9C93400DA36E9 /* fbLogout.png */,
@@ -2098,6 +2110,10 @@
 				2E256EFB1588020E00432597 /* JsonPickerViewController.xib in Resources */,
 				2E0985A215895B33009749A0 /* FacebookDefault.png in Resources */,
 				2E0985A315895B33009749A0 /* FacebookDefault@2x.png in Resources */,
+				2E224B7215AF373100CFEB92 /* SettingsTutorialArrow07.png in Resources */,
+				2E224B7315AF373100CFEB92 /* SettingsTutorialArrow07@2x.png in Resources */,
+				2E224B7415AF373100CFEB92 /* SettingsTutorialChar07.png in Resources */,
+				2E224B7515AF373100CFEB92 /* SettingsTutorialChar07@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

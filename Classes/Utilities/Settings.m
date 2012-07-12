@@ -20,6 +20,7 @@
 #define KEY_NAME       @"TTS_name"
 #define KEY_EMAIL      @"TTS_email"
 #define KEY_TWITTER    @"TTS_twitter"
+#define KEY_PHONE      @"TTS_phone"
 #define KEY_GENDER     @"TTS_gender"
 #define KEY_BIRTHDAY   @"TTS_birthday"
 #define KEY_HOME       @"TTS_home"
@@ -138,6 +139,7 @@
     [settings clearValueForKey:KEY_NAME];
     [settings clearValueForKey:KEY_EMAIL];
     [settings clearValueForKey:KEY_TWITTER];
+    [settings clearValueForKey:KEY_PHONE];
     [settings clearValueForKey:KEY_GENDER];
     [settings clearValueForKey:KEY_BIRTHDAY];
     [settings clearValueForKey:KEY_HOME];
@@ -196,6 +198,22 @@
     [self saveValue:twitter forKey:KEY_TWITTER];
     TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
     [api updateSettings:$dict($array(@"twh"), $array(twitter))];
+}
+
+//-----------------------------------------------------------------------------
+
+- (NSString*) phone
+{
+    return [self loadValueForKey:KEY_PHONE];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setPhone:(NSString*)phone
+{
+    [self saveValue:phone forKey:KEY_PHONE];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(@"phone"), $array(phone))];
 }
 
 //-----------------------------------------------------------------------------

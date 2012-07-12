@@ -30,7 +30,8 @@ typedef enum _TutorialStage
     kTutorialStageMisc     = 4,
     kTutorialStageLocation = 5,
     kTutorialStageTwitter  = 6,
-    kTutorialStageComplete = 7,
+    kTutorialStagePhone    = 7,
+    kTutorialStageComplete = 8,
 } TutorialStage;
 
 //------------------------------------------------------------------------------
@@ -45,6 +46,7 @@ typedef enum _TutorialStage
     UITableViewCell    *mNameCell;
     UITableViewCell    *mEmailCell;
     UITableViewCell    *mTwitterCell;
+    UITableViewCell    *mPhoneCell;
     InputTableViewCell *mBirthdayCell;
     UIView             *mDateInputView;
     UIToolbar          *mDateInputAccessoryView;
@@ -60,6 +62,7 @@ typedef enum _TutorialStage
 @property (nonatomic, retain) IBOutlet UITableViewCell    *nameCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell    *emailCell;
 @property (nonatomic, retain) IBOutlet UITableViewCell    *twitterCell;
+@property (nonatomic, retain) IBOutlet UITableViewCell    *phoneCell;
 @property (nonatomic, retain)          InputTableViewCell *birthdayCell;
 @property (nonatomic, retain) IBOutlet UIDatePicker       *dateInputView;
 @property (nonatomic, retain) IBOutlet UIToolbar          *dateInputAccessoryView;
@@ -70,6 +73,7 @@ typedef enum _TutorialStage
 - (IBAction) saveName:(id)sender;
 - (IBAction) saveEmail:(id)sender;
 - (IBAction) saveTwitter:(id)sender;
+- (IBAction) savePhone:(id)sender;
 
 - (IBAction) toolbarDatePickerCancel:(id)sender;
 - (IBAction) toolbarDatePickerSave:(id)sender;
