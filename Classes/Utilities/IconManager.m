@@ -115,12 +115,10 @@ withCompletionHandler:(void (^)(UIImage* image, NSError *error))handler
     // setup fail block
     [request setFailedBlock:^{
         IconRequest *iconRequest = [mImageRequests objectForKey:imageName];
+        [mImageRequests removeObjectForKey:imageName];
         for (void (^imageHandler)(UIImage*, NSError*) in iconRequest.handlers) {
             imageHandler(nil, [request error]);
         }
-
-        // cleanup
-        [mImageRequests removeObjectForKey:imageName];
     }];
 
     // start up request

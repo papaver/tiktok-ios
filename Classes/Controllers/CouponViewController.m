@@ -800,6 +800,9 @@ static NSString *sCouponCacheName = @"coupon_table";
                 }];
             } else if (error) {
                 NSLog(@"CouponViewController: Failed to load image: %@", error);
+                if ([visibleIndices containsObject:indexPath]) {
+                    [self requestImageForCoupon:coupon atIndexPath:indexPath];
+                }
             }
         }];
 }
