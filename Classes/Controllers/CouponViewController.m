@@ -87,6 +87,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     - (void) loadImagesForOnscreenRows;
     - (void) reloadTableViewDataSource;
     - (void) doneLoadingTableViewData;
+    - (void) reloadFetchedResults;
     - (void) updateFilterByReedmeedOnly:(bool)redeemedOnly activeOnly:(bool)activeOnly;
     - (void) filterDealsRedeemed:(id)sender;
     - (void) filterDealsActive:(id)sender;
@@ -143,6 +144,14 @@ static NSString *sCouponCacheName = @"coupon_table";
     // setup the refresh header
     [self setupRefreshHeader];
 
+    // add app backgrounded notification
+    [[NSNotificationCenter defaultCenter]
+        addObserver:self
+           selector:@selector(reloadFetchedResults)
+               name:UIApplicationDidEnterBackgroundNotification
+             object:nil];
+
+    // initialize fields
     mReloading = false;
 }
 
@@ -1023,6 +1032,17 @@ static NSString *sCouponCacheName = @"coupon_table";
 {
     mReloading = NO;
     [mRefreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) reloadFetchedResults
+{
+    // [moiz] should all of the image requests be cancelled?
+
+    // force reload of results
+    self.fetchedCouponsController = nil;
+    [self.tableView reloadData];
 }
 
 //------------------------------------------------------------------------------
