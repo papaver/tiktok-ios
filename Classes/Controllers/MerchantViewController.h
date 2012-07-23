@@ -11,34 +11,39 @@
 //------------------------------------------------------------------------------
 
 #import <UIKit/UIKit.h>
+#import "UILabelExt.h"
+#import "UITableViewHeader.h"
 
 //------------------------------------------------------------------------------
 // forward declarations
 //------------------------------------------------------------------------------
 
 @class Coupon;
-@class Location;
 
 //------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface MerchantViewController : UIViewController <UIAlertViewDelegate>
+@interface MerchantViewController : UIViewController <UITableViewDelegate,
+                                                      UITableViewDataSource,
+                                                      UITableViewHeaderDelegate,
+                                                      UILabelExtDelegate>
 {
-    Coupon   *mCoupon;
-    Location *mLocation;
+    Coupon          *mCoupon;
+    NSArray         *mLocations;
+    UITableView     *mTableView;
+    UITableViewCell *mCellView;
+    UIView          *mHeaderView;
+    bool             mTableExpanded;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) Coupon   *coupon;
-@property (nonatomic, retain) Location *location;
-
-//------------------------------------------------------------------------------
-
-- (IBAction) clickAddress:(id)sender;
-- (IBAction) clickPhone:(id)sender;
-- (IBAction) clickWebsite:(id)sender;
+@property (nonatomic, retain)          Coupon          *coupon;
+@property (nonatomic, retain)          NSArray         *locations;
+@property (nonatomic, retain) IBOutlet UITableView     *tableView;
+@property (nonatomic, retain) IBOutlet UITableViewCell *cellView;
+@property (nonatomic, retain) IBOutlet UIView          *headerView;
 
 //------------------------------------------------------------------------------
 

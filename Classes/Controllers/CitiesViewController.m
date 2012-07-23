@@ -424,18 +424,51 @@ enum TableSection
 #pragma mark - TableView Delegate
 //------------------------------------------------------------------------------
 
-- (NSString*) tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section
+- (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section
 {
+    return 44.0;
+}
+
+//------------------------------------------------------------------------------
+
+- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section
+{
+    // create the parent view that will hold header Label
+    CGRect headerFrame = CGRectMake(0.0, 0.0, 320.0, 44.0);
+    UIView *header     = [[UIView alloc] initWithFrame:headerFrame];
+
+    // create the background
+    UIImage *image          = [UIImage imageNamed:@"TableHeaderBackground.png"];
+    UIImageView *background = [[UIImageView alloc] initWithImage:image];
+
+    // create the label
+    CGRect labelFrame     = CGRectMake(10.0, 0.0, 300.0, 34.0);
+    UILabel *label        = [[UILabel alloc] initWithFrame:labelFrame];
+    label.font            = [UIFont boldSystemFontOfSize:20];
+    label.textColor       = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+
+    // add the appropriate text
     switch (section) {
         case kSectionLive:
-            return @"Live";
+            label.text = @"Live";
+            break;
         case kSectionBeta:
-            return @"Beta";
+            label.text = @"Beta";
+            break;
         case kSectionSoon:
-            return @"Coming Soon";
+            label.text = @"Coming Soon";
+            break;
         default:
-            return nil;
+            label.text = @"";
+            break;
     }
+
+    // add subviews to header
+    [header addSubview:background];
+    [header addSubview:label];
+
+    return header;
 }
 
 //------------------------------------------------------------------------------

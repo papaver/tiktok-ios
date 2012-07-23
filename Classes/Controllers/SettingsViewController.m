@@ -44,15 +44,13 @@ enum TableRows
 
 enum ViewTags
 {
-    kTagNameField         = 1,
-    kTagEmailField        = 1,
-    kTagTwitterField      = 1,
-    kTagPhoneField        = 1,
-    kTagFacebook          = 2,
-    kTagTutorialArrow     = 4,
-    kTagTutorialText      = 5,
-    kTagTutorialTapMe     = 6,
-    kTagTutorialCharacter = 7,
+    kTagNameField          = 1,
+    kTagEmailField         = 1,
+    kTagTwitterField       = 1,
+    kTagPhoneField         = 1,
+    kTagFacebook           = 2,
+    kTagTutorialCharacter  = 7,
+    kTagTutorialBackground = 8,
 };
 
 //------------------------------------------------------------------------------
@@ -63,10 +61,7 @@ enum ViewTags
     - (void) setupTutorialForStage:(TutorialStage)stage;
     - (void) setupTutorialStageStart;
     - (void) setupTutorialStage:(TutorialStage)stage
-                characterOrigin:(CGPoint)characterOrigin
-                    arrowOrigin:(CGPoint)arrowOrigin
-                      textFrame:(CGRect)textFrame
-                   tutorialText:(NSString*)tutorialText;
+                characterOrigin:(CGPoint)characterOrigin;
     - (void) setupTutorialStageFacebook;
     - (void) setupTutorialStageUserInfo;
     - (void) setupTutorialStageMisc;
@@ -74,9 +69,7 @@ enum ViewTags
     - (void) setupTutorialStageTwitter;
     - (void) setupTutorialStagePhone;
     - (void) setupTutorialStageComplete;
-    - (UIImage*) tutorialCharacterImageForStage:(TutorialStage)stage;
-    - (UIImage*) tutorialArrowImageForStage:(TutorialStage)stage;
-    - (void) repositionTapMe:(UIButton*)character;
+    - (UIImage*) tutorialBackgroundImageForStage:(TutorialStage)stage;
     - (void) addTutorialBarButton;
     - (void) restartTutorial;
     - (void) setupFacebookConnect;
@@ -138,14 +131,6 @@ enum ViewTags
 
     // [iOS4] fix for black corners
     self.tableView.backgroundColor = [UIColor clearColor];
-
-    // [iOS4] fix for missing font bradley hand bold
-    UILabel *text  = (UILabel*)[self.view viewWithTag:kTagTutorialText];
-    UILabel *tapme = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
-    if (text.font == nil) {
-        text.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
-        tapme.font = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
-    }
 
     // load available data
     Settings *settings        = [Settings getInstance];
@@ -252,79 +237,45 @@ enum ViewTags
 - (void) setupTutorialStageStart
 {
     // grab all the tutorial elements
-    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
-    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
-    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+    UIButton *character     = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UIImageView *background = (UIImageView*)[self.view viewWithTag:kTagTutorialBackground];
 
     // hide the unused elements
     character.hidden = NO;
-    arrow.hidden     = YES;
-    text.hidden      = YES;
 
-    // load the image
-    UIImage *characterImage = [self tutorialCharacterImageForStage:kTutorialStageStart];
-    [character setImage:characterImage forState:UIControlStateNormal];
+    // update the background
+    UIImage *backgroundImage = [self tutorialBackgroundImageForStage:kTutorialStageStart];
+    background.image         = backgroundImage;
 
     // position tik in the middle of the screen
     CGRect frame      = self.view.frame;
-    frame.origin.x    = (frame.size.width / 2.0) - (characterImage.size.width / 2.0);
-    frame.origin.y    = (367.0 / 2.0) - (characterImage.size.height / 2.0);
-    frame.size.width  = characterImage.size.width;
-    frame.size.height = characterImage.size.height;
+    frame.origin.x    = (frame.size.width / 2.0) - (character.frame.size.width / 2.0);
+    frame.origin.y    = (367.0 / 2.0) - (character.frame.size.height / 2.0);
+    frame.size.width  = character.frame.size.width;
+    frame.size.height = character.frame.size.height;
     character.frame   = frame;
-
-    // reposition tapme under the character
-    [self repositionTapMe:character];
 }
 
 //------------------------------------------------------------------------------
 
 - (void) setupTutorialStage:(TutorialStage)stage
             characterOrigin:(CGPoint)characterOrigin
-                arrowOrigin:(CGPoint)arrowOrigin
-                  textFrame:(CGRect)textFrame
-               tutorialText:(NSString*)tutorialText
 {
-    CGRect frame;
-
     // grab all the tutorial elements
-    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
-    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
-    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+    UIButton *character     = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UIImageView *background = (UIImageView*)[self.view viewWithTag:kTagTutorialBackground];
 
-    // load the character image
-    UIImage *characterImage = [self tutorialCharacterImageForStage:stage];
-    [character setImage:characterImage forState:UIControlStateNormal];
+    // update the background
+    UIImage *backgroundImage = [self tutorialBackgroundImageForStage:stage];
+    background.image         = backgroundImage;
 
-    // load the arrow image
-    UIImage *arrowImage = [self tutorialArrowImageForStage:stage];
-    arrow.image         = arrowImage;
-    arrow.hidden        = NO;
-
-    // add the text
-    text.text          = tutorialText;
-    text.hidden        = NO;
-    text.numberOfLines = 4;
-
-    // position tik
+    // position button
+    CGRect frame;
     frame.origin.x    = characterOrigin.x;
     frame.origin.y    = characterOrigin.y;
-    frame.size.width  = characterImage.size.width;
-    frame.size.height = characterImage.size.height;
+    frame.size.width  = character.frame.size.width;
+    frame.size.height = character.frame.size.height;
     character.frame   = frame;
-
-    // position arrow
-    frame.origin.x    = arrowOrigin.x;
-    frame.origin.y    = arrowOrigin.y;
-    frame.size.width  = arrowImage.size.width;
-    frame.size.height = arrowImage.size.height;
-    arrow.frame       = frame;
-
-    // position text
-    text.frame = textFrame;
-
-    // reposition tapme under the character
-    [self repositionTapMe:character];
 }
 
 //------------------------------------------------------------------------------
@@ -332,13 +283,7 @@ enum ViewTags
 - (void) setupTutorialStageFacebook
 {
     [self setupTutorialStage:kTutorialStageFacebook
-             characterOrigin:CGPointMake(51.0, 23.0)
-                 arrowOrigin:CGPointMake(120.0, 20.0)
-                   textFrame:CGRectMake(41.0, 145.0, 179.0 * 2, 94.0)
-                tutorialText:@"Connect to Facebook,\n"
-                             @"allow us to customize\n"
-                             @"your deals and cater to\n"
-                             @"YOU!"];
+             characterOrigin:CGPointMake(119.0, 240.0)];
 }
 
 //------------------------------------------------------------------------------
@@ -346,12 +291,7 @@ enum ViewTags
 - (void) setupTutorialStageUserInfo
 {
     [self setupTutorialStage:kTutorialStageUserInfo
-             characterOrigin:CGPointMake(220.0, 145.0)
-                 arrowOrigin:CGPointMake(77.0, 145.0)
-                   textFrame:CGRectMake(90.0, 241.0, 188.0 * 2, 80.0)
-                tutorialText:@"Fill out your name and\n"
-                             @"email if you feel like it,\n"
-                             @"or just stay anonymous."];
+             characterOrigin:CGPointMake(220.0, 235.0)];
 }
 
 //------------------------------------------------------------------------------
@@ -359,11 +299,7 @@ enum ViewTags
 - (void) setupTutorialStageMisc
 {
     [self setupTutorialStage:kTutorialStageMisc
-             characterOrigin:CGPointMake(198.0, 67.0)
-                 arrowOrigin:CGPointMake(53.0, 69.0)
-                   textFrame:CGRectMake(70.0, 8.0, 196.0 * 2, 60.0)
-                tutorialText:@"Let us send you special\n"
-                             @"deals on your birthday!"];
+             characterOrigin:CGPointMake(15.0, 54.0)];
 }
 
 //------------------------------------------------------------------------------
@@ -371,11 +307,7 @@ enum ViewTags
 - (void) setupTutorialStageLocation
 {
     [self setupTutorialStage:kTutorialStageLocation
-             characterOrigin:CGPointMake(203.0, 174.0)
-                 arrowOrigin:CGPointMake(60.0, 182.0)
-                   textFrame:CGRectMake(110.0, 120.0, 166.0 * 2, 60.0)
-                tutorialText:@"We want to send you\n"
-                             @"convenient deals!"];
+             characterOrigin:CGPointMake(220.0, 140.0)];
 }
 
 //------------------------------------------------------------------------------
@@ -383,12 +315,7 @@ enum ViewTags
 - (void) setupTutorialStageTwitter
 {
     [self setupTutorialStage:kTutorialStageTwitter
-             characterOrigin:CGPointMake(220.0, 100.0)
-                 arrowOrigin:CGPointMake(77.0, 100.0)
-                   textFrame:CGRectMake(90.0, 190.0, 188.0 * 2, 80.0)
-                tutorialText:@"Fill out your twitter\n"
-                             @"handle so we can follow\n"
-                             @"you on Twitter!"];
+             characterOrigin:CGPointMake(215.0, 240.0)];
 }
 
 //------------------------------------------------------------------------------
@@ -396,12 +323,7 @@ enum ViewTags
 - (void) setupTutorialStagePhone
 {
     [self setupTutorialStage:kTutorialStagePhone
-             characterOrigin:CGPointMake(25.0, 100.0)
-                 arrowOrigin:CGPointMake(120.0, 100.0)
-                   textFrame:CGRectMake(100.0, 180.0, 188.0 * 2, 80.0)
-                tutorialText:@"Fill out your phone #\n"
-                             @"number so your friends\n"
-                             @"can gift you deals!"];
+             characterOrigin:CGPointMake(25.0, 235.0)];
 }
 
 //------------------------------------------------------------------------------
@@ -411,15 +333,14 @@ enum ViewTags
     [Analytics passCheckpoint:@"Settings Tutorial Complete"];
 
     // grab all the tutorial elements
-    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
-    UILabel *tapme      = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
-    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
-    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+    UIButton *character     = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UIImageView *background = (UIImageView*)[self.view viewWithTag:kTagTutorialBackground];
 
-    arrow.hidden     = YES;
-    tapme.hidden     = YES;
     character.hidden = YES;
-    text.hidden      = YES;
+
+    // update the background
+    UIImage *backgroundImage = [UIImage imageNamed:@"CouponDetailBackgroundTexture.png"];
+    background.image         = backgroundImage;
 
     // add tutorial button to nav bar
     [self addTutorialBarButton];
@@ -427,33 +348,11 @@ enum ViewTags
 
 //------------------------------------------------------------------------------
 
-- (UIImage*) tutorialCharacterImageForStage:(TutorialStage)stage
+- (UIImage*) tutorialBackgroundImageForStage:(TutorialStage)stage
 {
-    NSString *imageName = $string(@"SettingsTutorialChar%02d.png", (NSUInteger)stage);
+    NSString *imageName = $string(@"TutorialBackground%02d.png", (NSUInteger)stage);
     UIImage *image      = [UIImage imageNamed:imageName];
     return image;
-}
-
-//------------------------------------------------------------------------------
-
-- (UIImage*) tutorialArrowImageForStage:(TutorialStage)stage
-{
-    NSString *imageName = $string(@"SettingsTutorialArrow%02d.png", (NSUInteger)stage);
-    UIImage *image      = [UIImage imageNamed:imageName];
-    return image;
-}
-
-//------------------------------------------------------------------------------
-
-- (void) repositionTapMe:(UIButton*)character
-{
-    UILabel *tapme = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
-    CGRect frame     = tapme.frame;
-    frame.origin.x   = character.frame.origin.x + 5;
-    frame.origin.y   = character.frame.origin.y + character.frame.size.height - 5;
-    frame.size.width = character.frame.size.width;
-    tapme.frame      = frame;
-    tapme.hidden     = NO;
 }
 
 //------------------------------------------------------------------------------
@@ -574,15 +473,11 @@ enum ViewTags
 
 - (void) setTutorialAlpha:(CGFloat)alpha
 {
-    UIImageView *arrow  = (UIImageView*)[self.view viewWithTag:kTagTutorialArrow];
-    UILabel *tapme      = (UILabel*)[self.view viewWithTag:kTagTutorialTapMe];
-    UIButton *character = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
-    UILabel *text       = (UILabel*)[self.view viewWithTag:kTagTutorialText];
+    UIButton *character     = (UIButton*)[self.view viewWithTag:kTagTutorialCharacter];
+    UIImageView *background = (UIImageView*)[self.view viewWithTag:kTagTutorialBackground];
 
-    arrow.alpha     = alpha;
-    tapme.alpha     = alpha;
-    character.alpha = alpha;
-    text.alpha      = alpha;
+    character.alpha  = alpha;
+    background.alpha = alpha;
 }
 
 //------------------------------------------------------------------------------

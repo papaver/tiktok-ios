@@ -38,17 +38,19 @@
 //------------------------------------------------------------------------------
 
 enum CouponTag {
-    kTagIcon           =  1,
-    kTagTitle          =  2,
-    kTagTextTime       =  3,
-    kTagTextTimer      =  4,
-    kTagColorTimer     =  5,
-    kTagIconActivity   =  6,
-    kTagSash           =  7,
-    kTagCompanyName    =  8,
-    kTagBackground     =  9,
-    kTagActiveFilter   = 10,
-    kTagRedeemedFilter = 11,
+    kTagIcon            =  1,
+    kTagTitle           =  2,
+    kTagTextTime        =  3,
+    kTagTextTimer       =  4,
+    kTagColorTimer      =  5,
+    kTagIconActivity    =  6,
+    kTagSash            =  7,
+    kTagCompanyName     =  8,
+    kTagBackground      =  9,
+    kTagActiveFilter    = 10,
+    kTagRedeemedFilter  = 11,
+    kTagNoDeals         = 12,
+    kTagWhiteBackground = 13,
 };
 
 enum ActionButton
@@ -78,9 +80,10 @@ static NSString *sCouponCacheName = @"coupon_table";
     - (WEPopoverContainerViewProperties*) popoverViewProperties;
     - (void) updateExpiration:(NSTimer*)timer;
     - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
-    - (void) configureExpiredCell:(UIView*)cell;
-    - (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon;
-    - (void) updateActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon;
+    - (void) configureExpiredCell:(UITableViewCell*)cell;
+    - (void) configureActiveCell:(UITableViewCell*)cell withCoupon:(Coupon*)coupon;
+    - (void) updateActiveCell:(UITableViewCell*)cell withCoupon:(Coupon*)coupon;
+    - (void) configureNoDealsImage;
     - (void) setIcon:(UIImage*)image forCell:(UIView*)cell;
     - (void) setupIconForCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath withCoupon:(Coupon*)coupon;
     - (void) requestImageForCoupon:(Coupon*)coupon atIndexPath:(NSIndexPath*)indexPath;
@@ -171,7 +174,7 @@ static NSString *sCouponCacheName = @"coupon_table";
         EGORefreshTableHeaderView *headerView =
             [[EGORefreshTableHeaderView alloc] initWithFrame:frame
                                               arrowImageName:@"Tik.png"
-                                                   textColor:[UIColor brownColor]];
+                                                   textColor:[UIColor blackColor]];
         headerView.delegate = self;
 
         // add a background image
@@ -485,7 +488,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     if (cell == nil) {
         NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:self.cellView];
         cell = [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];
-        cell.selectionStyle  = UITableViewCellSelectionStyleBlue;
+        cell.selectionStyle  = UITableViewCellSelectionStyleGray;
 
         // [iOS4] UIImage can't be archived/unarchived, set images manually
         UIImageView *background = (UIImageView*)[cell backgroundView];
@@ -642,7 +645,23 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) configureExpiredCell:(UIView*)cell
+- (void) configureNoDealsImage
+{
+    bool showNoDeals = self.fetchedCouponsController.fetchedObjects.count == 0;
+
+    // udpate the state of alert if required
+    UIView *noDeals = [self.view viewWithTag:kTagNoDeals];
+    if (noDeals.hidden != !showNoDeals) {
+        [UIView animateWithDuration:0.25 animations:^{
+            noDeals.hidden = !showNoDeals;
+            noDeals.alpha  = showNoDeals ? 1.0 : 0.0;
+        }];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) configureExpiredCell:(UITableViewCell*)cell
 {
     const static CGFloat expiredAlpha = 0.4;
     static NSString *offerText        = @"Offer is no longer available.";
@@ -651,7 +670,6 @@ static NSString *sCouponCacheName = @"coupon_table";
     // expire text
     UILabel *textTime  = (UILabel*)[cell viewWithTag:kTagTextTime];
     textTime.text      = offerText;
-    textTime.textColor = [UIColor redColor];
 
     // expire timer
     UILabel *textTimer  = (UILabel*)[cell viewWithTag:kTagTextTimer];
@@ -662,8 +680,8 @@ static NSString *sCouponCacheName = @"coupon_table";
     color.color         = [UIDefaults getTokColor];
 
     // update the cell opacity
-    for (UIView *view in cell.subviews) {
-        if (view.tag != kTagBackground) {
+    for (UIView *view in cell.contentView.subviews) {
+        if (view.tag != kTagWhiteBackground) {
             view.alpha = expiredAlpha;
         }
     }
@@ -671,13 +689,11 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) configureActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon
+- (void) configureActiveCell:(UITableViewCell*)cell withCoupon:(Coupon*)coupon
 {
     // fix the opacity
-    for (UIView *view in cell.subviews) {
-        if (view.tag != kTagBackground) {
-            view.alpha = 1.0;
-        }
+    for (UIView *view in cell.contentView.subviews) {
+        view.alpha = 1.0;
     }
 
     // expire time
@@ -691,7 +707,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) updateActiveCell:(UIView*)cell withCoupon:(Coupon*)coupon
+- (void) updateActiveCell:(UITableViewCell*)cell withCoupon:(Coupon*)coupon
 {
     // color timer
     GradientView *color = (GradientView*)[cell viewWithTag:kTagColorTimer];
@@ -883,6 +899,8 @@ static NSString *sCouponCacheName = @"coupon_table";
     [sortByEndDate release];
     [fetchedCouponsController release];
 
+    [self configureNoDealsImage];
+
     return mFetchedCouponsController;
 }
 
@@ -942,6 +960,8 @@ static NSString *sCouponCacheName = @"coupon_table";
                                   withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
+
+    [self configureNoDealsImage];
 }
 
 //------------------------------------------------------------------------------

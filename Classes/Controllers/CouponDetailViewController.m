@@ -59,6 +59,7 @@ enum CouponDetailTag
     kTagBarcodeRedeemEmpty = 19,
     kTagBarcodeActivity    = 20,
     kTagBarcodeRedeemed    = 21,
+    kTagWhiteBackground    = 22,
 };
 
 enum ActionButtonShare
@@ -197,7 +198,7 @@ static NSUInteger sObservationContext;
 
     // correct font on barcode
     UIButton *barcode       = (UIButton*)[self.barcodeView viewWithTag:kTagBarcodeCodeView];
-    barcode.titleLabel.font = [UIFont fontWithName:@"UnitedSansReg-Bold" size:17];
+    barcode.titleLabel.font = [UIFont fontWithName:@"UnitedSansReg-Bold" size:28];
     barcode.titleLabel.adjustsFontSizeToFitWidth = YES;
 
     // setup gesture recogizer on map
@@ -455,7 +456,8 @@ static NSUInteger sObservationContext;
     // merchant address
     UILabel *address = (UILabel*)[self.view viewWithTag:kTagCompanyAddress];
     address.text     = self.coupon.locations.count == 1 ?
-        location.address : @"MULTIPLE LOCATIONS";
+        location.address :
+        $string(@"Available at %d Locations.", self.coupon.locations.count);
 
     // color timer
     GradientView *color = (GradientView*)[self.view viewWithTag:kTagColorTimer];
@@ -582,7 +584,8 @@ static NSUInteger sObservationContext;
         initWithNibName:@"MerchantViewController" bundle:nil];
 
     // set merchant to view
-    controller.coupon = self.coupon;
+    controller.coupon    = self.coupon;
+    controller.locations = [self.coupon.locations allObjects];
 
     // pass the selected object to the new view controller.
     [self.navigationController pushViewController:controller animated:YES];
@@ -689,8 +692,10 @@ static NSUInteger sObservationContext;
     label.text     = @"TIME'S UP!";
 
     // update the opacity for all the coupons
-    for (UIView *view in self.view.subviews) {
-        if (view.tag != kTagBackground) {
+    [[self.view viewWithTag:kTagTitle] setAlpha:0.6];
+    UIView *contentView = [self.view viewWithTag:kTagContentView];
+    for (UIView *view in contentView.subviews) {
+        if (view.tag != kTagWhiteBackground) {
             view.alpha = 0.6;
         }
     }

@@ -14,7 +14,7 @@
 #import "UILabelExt.h"
 
 //------------------------------------------------------------------------------
-// interface definition 
+// interface definition
 //------------------------------------------------------------------------------
 
 @interface UILabelExt ()
@@ -22,14 +22,15 @@
 @end
 
 //------------------------------------------------------------------------------
-// interface implementation 
+// interface implementation
 //------------------------------------------------------------------------------
 
-@implementation UILabelExt 
+@implementation UILabelExt
 
 //------------------------------------------------------------------------------
 
-@synthesize highlightColor  = mHighlightColor;
+@synthesize highlightColor = mHighlightColor;
+@synthesize delegate       = mDelegate;
 
 //------------------------------------------------------------------------------
 #pragma - Helper Functions
@@ -37,7 +38,16 @@
 
 - (void) initialize
 {
+    // default highlight color
     self.highlightColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.3];
+
+    // setup tap gesture recognizer
+    UITapGestureRecognizer *tapGesture =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped)];
+    [self addGestureRecognizer:tapGesture];
+
+    // allow interaction
+    self.userInteractionEnabled = YES;
 }
 
 //------------------------------------------------------------------------------
@@ -105,6 +115,7 @@
 
 - (void) touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
+    [super touchesBegan:touches withEvent:event];
     [self highlightEnable:true];
 }
 
@@ -112,6 +123,7 @@
 
 - (void) touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
+    [super touchesEnded:touches withEvent:event];
     [self highlightEnable:false];
 }
 
@@ -119,7 +131,17 @@
 
 - (void) touchesCancelled:(NSSet*)touches withEvent:(UIEvent*)event
 {
+    [super touchesCancelled:touches withEvent:event];
     [self highlightEnable:false];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) tapped
+{
+    if ($has_selector(self.delegate, tappedLabelView:)) {
+        [self.delegate tappedLabelView:self];
+    }
 }
 
 //------------------------------------------------------------------------------

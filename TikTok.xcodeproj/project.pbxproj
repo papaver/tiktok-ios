@@ -80,8 +80,41 @@
 		2E3190F614E48DBA00D7470E /* ArrowMoreSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */; };
 		2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E32143D14C0B6E500647116 /* MessageUI.framework */; };
 		2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E32143F14C0BAE000647116 /* iPhoneShake.png */; };
+		2E391EA415BDEAE0002DB9B9 /* PromoBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E391EA215BDEAE0002DB9B9 /* PromoBackground.png */; };
+		2E391EA515BDEAE0002DB9B9 /* PromoBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E391EA315BDEAE0002DB9B9 /* PromoBackground@2x.png */; };
+		2E391EA815BDED49002DB9B9 /* MerchantPinBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E391EA615BDED49002DB9B9 /* MerchantPinBackground.png */; };
+		2E391EA915BDED49002DB9B9 /* MerchantPinBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E391EA715BDED49002DB9B9 /* MerchantPinBackground@2x.png */; };
+		2E391EAC15BDF645002DB9B9 /* TableHeaderBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E391EAA15BDF645002DB9B9 /* TableHeaderBackground.png */; };
+		2E391EAD15BDF645002DB9B9 /* TableHeaderBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E391EAB15BDF645002DB9B9 /* TableHeaderBackground@2x.png */; };
 		2E3BFC2114EDD61700E77147 /* LineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E3BFC2014EDD61700E77147 /* LineChartView.m */; };
 		2E41C74D14D0D2B60098C91C /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */; };
+		2E521C6B15C08D8E00F153E0 /* RedeemBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C6915C08D8E00F153E0 /* RedeemBackground.png */; };
+		2E521C6C15C08D8E00F153E0 /* RedeemBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C6A15C08D8E00F153E0 /* RedeemBackground@2x.png */; };
+		2E521C7115C09BB200F153E0 /* KarmaBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C6F15C09BB200F153E0 /* KarmaBackground.png */; };
+		2E521C7215C09BB200F153E0 /* KarmaBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7015C09BB200F153E0 /* KarmaBackground@2x.png */; };
+		2E521C7A15C0AC8200F153E0 /* TutorialBackground01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7315C0AC8200F153E0 /* TutorialBackground01.png */; };
+		2E521C7B15C0AC8200F153E0 /* TutorialBackground02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7415C0AC8200F153E0 /* TutorialBackground02.png */; };
+		2E521C7C15C0AC8200F153E0 /* TutorialBackground03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7515C0AC8200F153E0 /* TutorialBackground03.png */; };
+		2E521C7D15C0AC8200F153E0 /* TutorialBackground04.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7615C0AC8200F153E0 /* TutorialBackground04.png */; };
+		2E521C7E15C0AC8200F153E0 /* TutorialBackground05.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7715C0AC8200F153E0 /* TutorialBackground05.png */; };
+		2E521C7F15C0AC8200F153E0 /* TutorialBackground06.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7815C0AC8200F153E0 /* TutorialBackground06.png */; };
+		2E521C8015C0AC8200F153E0 /* TutorialBackground07.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C7915C0AC8200F153E0 /* TutorialBackground07.png */; };
+		2E521C8815C1073B00F153E0 /* TutorialBackground01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8115C1073B00F153E0 /* TutorialBackground01@2x.png */; };
+		2E521C8915C1073B00F153E0 /* TutorialBackground02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8215C1073B00F153E0 /* TutorialBackground02@2x.png */; };
+		2E521C8A15C1073B00F153E0 /* TutorialBackground03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8315C1073B00F153E0 /* TutorialBackground03@2x.png */; };
+		2E521C8B15C1073B00F153E0 /* TutorialBackground04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8415C1073B00F153E0 /* TutorialBackground04@2x.png */; };
+		2E521C8C15C1073B00F153E0 /* TutorialBackground05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8515C1073B00F153E0 /* TutorialBackground05@2x.png */; };
+		2E521C8D15C1073B00F153E0 /* TutorialBackground06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8615C1073B00F153E0 /* TutorialBackground06@2x.png */; };
+		2E521C8E15C1073B00F153E0 /* TutorialBackground07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8715C1073B00F153E0 /* TutorialBackground07@2x.png */; };
+		2E521C9115C1E2AF00F153E0 /* MerchantBackgroundTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C8F15C1E2AF00F153E0 /* MerchantBackgroundTitle.png */; };
+		2E521C9215C1E2AF00F153E0 /* MerchantBackgroundTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9015C1E2AF00F153E0 /* MerchantBackgroundTitle@2x.png */; };
+		2E521C9515C1ED5A00F153E0 /* MerchantLocationCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9315C1ED5A00F153E0 /* MerchantLocationCellBackground.png */; };
+		2E521C9615C1ED5A00F153E0 /* MerchantLocationCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9415C1ED5A00F153E0 /* MerchantLocationCellBackground@2x.png */; };
+		2E521C9915C1F43D00F153E0 /* ArrowExpand.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9715C1F43D00F153E0 /* ArrowExpand.png */; };
+		2E521C9A15C1F43D00F153E0 /* ArrowExpand@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9815C1F43D00F153E0 /* ArrowExpand@2x.png */; };
+		2E521C9D15C222CF00F153E0 /* UITableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E521C9C15C222CF00F153E0 /* UITableViewHeader.m */; };
+		2E521CA015C240C900F153E0 /* ArrowCollapse.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9E15C240C900F153E0 /* ArrowCollapse.png */; };
+		2E521CA115C240C900F153E0 /* ArrowCollapse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9F15C240C900F153E0 /* ArrowCollapse@2x.png */; };
 		2E5565EA1522395700606625 /* PromoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5565E91522395700606625 /* PromoController.m */; };
 		2E5565EC1522397800606625 /* PromoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565EB1522397800606625 /* PromoController.xib */; };
 		2E5565EE15223CE100606625 /* TokPromo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565ED15223CE100606625 /* TokPromo.png */; };
@@ -292,6 +325,8 @@
 		2EE0D88514F3380E0093D59B /* UIImage+FromView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE0D88414F3380E0093D59B /* UIImage+FromView.m */; };
 		2EE0D88E14F357A60093D59B /* RedeemBarItemButtonEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */; };
 		2EE0D88F14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0D88D14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png */; };
+		2EE218C215C07421004E5ED0 /* TikNoDeals.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE218C015C07421004E5ED0 /* TikNoDeals.png */; };
+		2EE218C315C07421004E5ED0 /* TikNoDeals@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE218C115C07421004E5ED0 /* TikNoDeals@2x.png */; };
 		2EE4563A14BF9BA500EDD04B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE4563914BF9BA500EDD04B /* Icon.png */; };
 		2EE5D41F14AD356700D0539C /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5D41E14AD356700D0539C /* GradientView.m */; };
 		2EE5D42214AE38E500D0539C /* NeutraDisp-BoldAlt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2EE5D42114AE38E500D0539C /* NeutraDisp-BoldAlt.otf */; };
@@ -473,10 +508,44 @@
 		2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowMoreSelected@2x.png"; sourceTree = "<group>"; };
 		2E32143D14C0B6E500647116 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2E32143F14C0BAE000647116 /* iPhoneShake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneShake.png; sourceTree = "<group>"; };
+		2E391EA215BDEAE0002DB9B9 /* PromoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PromoBackground.png; sourceTree = "<group>"; };
+		2E391EA315BDEAE0002DB9B9 /* PromoBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PromoBackground@2x.png"; sourceTree = "<group>"; };
+		2E391EA615BDED49002DB9B9 /* MerchantPinBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MerchantPinBackground.png; sourceTree = "<group>"; };
+		2E391EA715BDED49002DB9B9 /* MerchantPinBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MerchantPinBackground@2x.png"; sourceTree = "<group>"; };
+		2E391EAA15BDF645002DB9B9 /* TableHeaderBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TableHeaderBackground.png; sourceTree = "<group>"; };
+		2E391EAB15BDF645002DB9B9 /* TableHeaderBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TableHeaderBackground@2x.png"; sourceTree = "<group>"; };
 		2E3BFC1F14EDD61700E77147 /* LineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineChartView.h; sourceTree = "<group>"; };
 		2E3BFC2014EDD61700E77147 /* LineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChartView.m; sourceTree = "<group>"; };
 		2E41C74B14D0D2B60098C91C /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTableViewCell.h; sourceTree = "<group>"; };
 		2E41C74C14D0D2B60098C91C /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTableViewCell.m; sourceTree = "<group>"; };
+		2E521C6915C08D8E00F153E0 /* RedeemBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemBackground.png; sourceTree = "<group>"; };
+		2E521C6A15C08D8E00F153E0 /* RedeemBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemBackground@2x.png"; sourceTree = "<group>"; };
+		2E521C6F15C09BB200F153E0 /* KarmaBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KarmaBackground.png; sourceTree = "<group>"; };
+		2E521C7015C09BB200F153E0 /* KarmaBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KarmaBackground@2x.png"; sourceTree = "<group>"; };
+		2E521C7315C0AC8200F153E0 /* TutorialBackground01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBackground01.png; sourceTree = "<group>"; };
+		2E521C7415C0AC8200F153E0 /* TutorialBackground02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBackground02.png; sourceTree = "<group>"; };
+		2E521C7515C0AC8200F153E0 /* TutorialBackground03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBackground03.png; sourceTree = "<group>"; };
+		2E521C7615C0AC8200F153E0 /* TutorialBackground04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBackground04.png; sourceTree = "<group>"; };
+		2E521C7715C0AC8200F153E0 /* TutorialBackground05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBackground05.png; sourceTree = "<group>"; };
+		2E521C7815C0AC8200F153E0 /* TutorialBackground06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBackground06.png; sourceTree = "<group>"; };
+		2E521C7915C0AC8200F153E0 /* TutorialBackground07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TutorialBackground07.png; sourceTree = "<group>"; };
+		2E521C8115C1073B00F153E0 /* TutorialBackground01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialBackground01@2x.png"; sourceTree = "<group>"; };
+		2E521C8215C1073B00F153E0 /* TutorialBackground02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialBackground02@2x.png"; sourceTree = "<group>"; };
+		2E521C8315C1073B00F153E0 /* TutorialBackground03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialBackground03@2x.png"; sourceTree = "<group>"; };
+		2E521C8415C1073B00F153E0 /* TutorialBackground04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialBackground04@2x.png"; sourceTree = "<group>"; };
+		2E521C8515C1073B00F153E0 /* TutorialBackground05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialBackground05@2x.png"; sourceTree = "<group>"; };
+		2E521C8615C1073B00F153E0 /* TutorialBackground06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialBackground06@2x.png"; sourceTree = "<group>"; };
+		2E521C8715C1073B00F153E0 /* TutorialBackground07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TutorialBackground07@2x.png"; sourceTree = "<group>"; };
+		2E521C8F15C1E2AF00F153E0 /* MerchantBackgroundTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MerchantBackgroundTitle.png; sourceTree = "<group>"; };
+		2E521C9015C1E2AF00F153E0 /* MerchantBackgroundTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MerchantBackgroundTitle@2x.png"; sourceTree = "<group>"; };
+		2E521C9315C1ED5A00F153E0 /* MerchantLocationCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MerchantLocationCellBackground.png; sourceTree = "<group>"; };
+		2E521C9415C1ED5A00F153E0 /* MerchantLocationCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MerchantLocationCellBackground@2x.png"; sourceTree = "<group>"; };
+		2E521C9715C1F43D00F153E0 /* ArrowExpand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowExpand.png; sourceTree = "<group>"; };
+		2E521C9815C1F43D00F153E0 /* ArrowExpand@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowExpand@2x.png"; sourceTree = "<group>"; };
+		2E521C9B15C222CF00F153E0 /* UITableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewHeader.h; sourceTree = "<group>"; };
+		2E521C9C15C222CF00F153E0 /* UITableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewHeader.m; sourceTree = "<group>"; };
+		2E521C9E15C240C900F153E0 /* ArrowCollapse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowCollapse.png; sourceTree = "<group>"; };
+		2E521C9F15C240C900F153E0 /* ArrowCollapse@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowCollapse@2x.png"; sourceTree = "<group>"; };
 		2E5565E81522395700606625 /* PromoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoController.h; sourceTree = "<group>"; };
 		2E5565E91522395700606625 /* PromoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoController.m; sourceTree = "<group>"; };
 		2E5565EB1522397800606625 /* PromoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromoController.xib; sourceTree = "<group>"; };
@@ -799,6 +868,8 @@
 		2EE0D88414F3380E0093D59B /* UIImage+FromView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FromView.m"; sourceTree = "<group>"; };
 		2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemBarItemButtonEmpty.png; sourceTree = "<group>"; };
 		2EE0D88D14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemBarItemButtonEmpty@2x.png"; sourceTree = "<group>"; };
+		2EE218C015C07421004E5ED0 /* TikNoDeals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikNoDeals.png; sourceTree = "<group>"; };
+		2EE218C115C07421004E5ED0 /* TikNoDeals@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TikNoDeals@2x.png"; sourceTree = "<group>"; };
 		2EE4563914BF9BA500EDD04B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		2EE5D41D14AD356700D0539C /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
 		2EE5D41E14AD356700D0539C /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
@@ -1182,6 +1253,40 @@
 		2E29AF211399E38100FB6AE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E521C9E15C240C900F153E0 /* ArrowCollapse.png */,
+				2E521C9F15C240C900F153E0 /* ArrowCollapse@2x.png */,
+				2E521C9715C1F43D00F153E0 /* ArrowExpand.png */,
+				2E521C9815C1F43D00F153E0 /* ArrowExpand@2x.png */,
+				2E521C9315C1ED5A00F153E0 /* MerchantLocationCellBackground.png */,
+				2E521C9415C1ED5A00F153E0 /* MerchantLocationCellBackground@2x.png */,
+				2E521C8F15C1E2AF00F153E0 /* MerchantBackgroundTitle.png */,
+				2E521C9015C1E2AF00F153E0 /* MerchantBackgroundTitle@2x.png */,
+				2E521C8115C1073B00F153E0 /* TutorialBackground01@2x.png */,
+				2E521C8215C1073B00F153E0 /* TutorialBackground02@2x.png */,
+				2E521C8315C1073B00F153E0 /* TutorialBackground03@2x.png */,
+				2E521C8415C1073B00F153E0 /* TutorialBackground04@2x.png */,
+				2E521C8515C1073B00F153E0 /* TutorialBackground05@2x.png */,
+				2E521C8615C1073B00F153E0 /* TutorialBackground06@2x.png */,
+				2E521C8715C1073B00F153E0 /* TutorialBackground07@2x.png */,
+				2E521C7315C0AC8200F153E0 /* TutorialBackground01.png */,
+				2E521C7415C0AC8200F153E0 /* TutorialBackground02.png */,
+				2E521C7515C0AC8200F153E0 /* TutorialBackground03.png */,
+				2E521C7615C0AC8200F153E0 /* TutorialBackground04.png */,
+				2E521C7715C0AC8200F153E0 /* TutorialBackground05.png */,
+				2E521C7815C0AC8200F153E0 /* TutorialBackground06.png */,
+				2E521C7915C0AC8200F153E0 /* TutorialBackground07.png */,
+				2E521C6F15C09BB200F153E0 /* KarmaBackground.png */,
+				2E521C7015C09BB200F153E0 /* KarmaBackground@2x.png */,
+				2E521C6915C08D8E00F153E0 /* RedeemBackground.png */,
+				2E521C6A15C08D8E00F153E0 /* RedeemBackground@2x.png */,
+				2EE218C015C07421004E5ED0 /* TikNoDeals.png */,
+				2EE218C115C07421004E5ED0 /* TikNoDeals@2x.png */,
+				2E391EAA15BDF645002DB9B9 /* TableHeaderBackground.png */,
+				2E391EAB15BDF645002DB9B9 /* TableHeaderBackground@2x.png */,
+				2E391EA615BDED49002DB9B9 /* MerchantPinBackground.png */,
+				2E391EA715BDED49002DB9B9 /* MerchantPinBackground@2x.png */,
+				2E391EA215BDEAE0002DB9B9 /* PromoBackground.png */,
+				2E391EA315BDEAE0002DB9B9 /* PromoBackground@2x.png */,
 				2E0985A015895B33009749A0 /* FacebookDefault.png */,
 				2E0985A115895B33009749A0 /* FacebookDefault@2x.png */,
 				2E9D008A1582CD51001CC0D4 /* DoneDown.png */,
@@ -1302,6 +1407,7 @@
 				2EB87EDF149FED8300F01C26 /* CouponTableBackground@2x.png */,
 				2EF0EBF0149D869D00A68993 /* Default.png */,
 				2EB87ED1149FA97C00F01C26 /* Default@2x.png */,
+				2EF0EBE6149D863500A68993 /* InitalLoadingSplash.png */,
 				2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */,
 				2EB87EC2149FA96700F01C26 /* LoadingPage.png */,
 				2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */,
@@ -1319,7 +1425,6 @@
 				2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */,
 				2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */,
 				2EF0EBE5149D863500A68993 /* CellIconTextPositioning.png */,
-				2EF0EBE6149D863500A68993 /* InitalLoadingSplash.png */,
 				2EF0EBE7149D863500A68993 /* SplashPage.png */,
 				2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */,
 				2EB87EDC149FEB1D00F01C26 /* TopNavBarLogo@2x.png */,
@@ -1351,6 +1456,8 @@
 				2E7DBE1C14A25DC1002F6187 /* TikTokPhysicsView.m */,
 				2E6314FD14BE3885001B1D78 /* UILabelExt.h */,
 				2E6314FE14BE3885001B1D78 /* UILabelExt.m */,
+				2E521C9B15C222CF00F153E0 /* UITableViewHeader.h */,
+				2E521C9C15C222CF00F153E0 /* UITableViewHeader.m */,
 				2EEC685714BD094D006AC9F7 /* UIToolbarSized.h */,
 				2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */,
 			);
@@ -2115,6 +2222,40 @@
 				2E224B7315AF373100CFEB92 /* SettingsTutorialArrow07@2x.png in Resources */,
 				2E224B7415AF373100CFEB92 /* SettingsTutorialChar07.png in Resources */,
 				2E224B7515AF373100CFEB92 /* SettingsTutorialChar07@2x.png in Resources */,
+				2E391EA415BDEAE0002DB9B9 /* PromoBackground.png in Resources */,
+				2E391EA515BDEAE0002DB9B9 /* PromoBackground@2x.png in Resources */,
+				2E391EA815BDED49002DB9B9 /* MerchantPinBackground.png in Resources */,
+				2E391EA915BDED49002DB9B9 /* MerchantPinBackground@2x.png in Resources */,
+				2E391EAC15BDF645002DB9B9 /* TableHeaderBackground.png in Resources */,
+				2E391EAD15BDF645002DB9B9 /* TableHeaderBackground@2x.png in Resources */,
+				2EE218C215C07421004E5ED0 /* TikNoDeals.png in Resources */,
+				2EE218C315C07421004E5ED0 /* TikNoDeals@2x.png in Resources */,
+				2E521C6B15C08D8E00F153E0 /* RedeemBackground.png in Resources */,
+				2E521C6C15C08D8E00F153E0 /* RedeemBackground@2x.png in Resources */,
+				2E521C7115C09BB200F153E0 /* KarmaBackground.png in Resources */,
+				2E521C7215C09BB200F153E0 /* KarmaBackground@2x.png in Resources */,
+				2E521C7A15C0AC8200F153E0 /* TutorialBackground01.png in Resources */,
+				2E521C7B15C0AC8200F153E0 /* TutorialBackground02.png in Resources */,
+				2E521C7C15C0AC8200F153E0 /* TutorialBackground03.png in Resources */,
+				2E521C7D15C0AC8200F153E0 /* TutorialBackground04.png in Resources */,
+				2E521C7E15C0AC8200F153E0 /* TutorialBackground05.png in Resources */,
+				2E521C7F15C0AC8200F153E0 /* TutorialBackground06.png in Resources */,
+				2E521C8015C0AC8200F153E0 /* TutorialBackground07.png in Resources */,
+				2E521C8815C1073B00F153E0 /* TutorialBackground01@2x.png in Resources */,
+				2E521C8915C1073B00F153E0 /* TutorialBackground02@2x.png in Resources */,
+				2E521C8A15C1073B00F153E0 /* TutorialBackground03@2x.png in Resources */,
+				2E521C8B15C1073B00F153E0 /* TutorialBackground04@2x.png in Resources */,
+				2E521C8C15C1073B00F153E0 /* TutorialBackground05@2x.png in Resources */,
+				2E521C8D15C1073B00F153E0 /* TutorialBackground06@2x.png in Resources */,
+				2E521C8E15C1073B00F153E0 /* TutorialBackground07@2x.png in Resources */,
+				2E521C9115C1E2AF00F153E0 /* MerchantBackgroundTitle.png in Resources */,
+				2E521C9215C1E2AF00F153E0 /* MerchantBackgroundTitle@2x.png in Resources */,
+				2E521C9515C1ED5A00F153E0 /* MerchantLocationCellBackground.png in Resources */,
+				2E521C9615C1ED5A00F153E0 /* MerchantLocationCellBackground@2x.png in Resources */,
+				2E521C9915C1F43D00F153E0 /* ArrowExpand.png in Resources */,
+				2E521C9A15C1F43D00F153E0 /* ArrowExpand@2x.png in Resources */,
+				2E521CA015C240C900F153E0 /* ArrowCollapse.png in Resources */,
+				2E521CA115C240C900F153E0 /* ArrowCollapse@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2263,6 +2404,7 @@
 				2E9D007F15828A04001CC0D4 /* MerchantPinViewController.m in Sources */,
 				2E256EF91587EB9F00432597 /* FacebookResult.m in Sources */,
 				2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */,
+				2E521C9D15C222CF00F153E0 /* UITableViewHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

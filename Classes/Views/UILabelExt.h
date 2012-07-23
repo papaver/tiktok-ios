@@ -14,18 +14,38 @@
 #import <UIKit/UIKit.h>
 
 //------------------------------------------------------------------------------
+// forward declarations
+//------------------------------------------------------------------------------
+
+@protocol UILabelExtDelegate;
+
+//------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
 @interface UILabelExt : UILabel
 {
-    UIColor *mHighlightColor;
+    UIColor                *mHighlightColor;
+    id<UILabelExtDelegate>  mDelegate;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) UIColor *highlightColor;
+@property (nonatomic, retain)          UIColor                *highlightColor;
+@property (nonatomic, weak)   IBOutlet id<UILabelExtDelegate>  delegate;
 
 //------------------------------------------------------------------------------
+
+@end
+
+//------------------------------------------------------------------------------
+// protocol definition
+//------------------------------------------------------------------------------
+
+@protocol UILabelExtDelegate <NSObject>
+
+@optional
+
+- (void) tappedLabelView:(UILabelExt*)labelView;
 
 @end
