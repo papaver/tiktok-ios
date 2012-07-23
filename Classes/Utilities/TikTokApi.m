@@ -64,9 +64,9 @@ static dispatch_queue_t sQueue = nil;
 + (NSString*) apiUrlPath
 {
     if (TIKTOKAPI_STAGING) {
-        return @"https://furious-window-5155.herokuapp.com";
+        return @"https://furious-window-5155.herokuapp.com/api/v2";
     } else {
-        return @"https://www.tiktok.com";
+        return @"https://www.tiktok.com/api/v2";
     }
 }
 
@@ -601,7 +601,7 @@ static dispatch_queue_t sQueue = nil;
         NSDictionary *results = [response objectForKey:kTikTokApiKeyResults];
 
         // parse the new coupons
-        NSDictionary *coupons = [results objectForKey:@"coupons"];
+        NSArray *coupons = [results objectForKey:@"coupons"];
         for (NSDictionary *couponData in coupons) {
             [self parseCoupon:couponData withContext:context];
         }

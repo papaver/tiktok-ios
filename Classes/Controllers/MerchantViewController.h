@@ -16,7 +16,8 @@
 // forward declarations
 //------------------------------------------------------------------------------
 
-@class Merchant;
+@class Coupon;
+@class Location;
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -24,12 +25,14 @@
 
 @interface MerchantViewController : UIViewController <UIAlertViewDelegate>
 {
-    Merchant *mMerchant;
+    Coupon   *mCoupon;
+    Location *mLocation;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) Merchant *merchant;
+@property (nonatomic, retain) Coupon   *coupon;
+@property (nonatomic, retain) Location *location;
 
 //------------------------------------------------------------------------------
 

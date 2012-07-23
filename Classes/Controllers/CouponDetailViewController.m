@@ -19,7 +19,9 @@
 #import "GradientView.h"
 #import "IconManager.h"
 #import "JsonPickerViewController.h"
+#import "Location.h"
 #import "LocationMapViewController.h"
+#import "LocationTracker.h"
 #import "Merchant.h"
 #import "MerchantPinViewController.h"
 #import "MerchantViewController.h"
@@ -97,7 +99,7 @@ static NSUInteger sObservationContext;
     - (void) setupCouponDetails;
     - (void) setupIcon;
     - (void) setIcon:(UIImage*)image;
-    - (void) setupMap;
+    - (void) setupMap:(Location*)location;
     - (void) setupGestureRecognizers;
     - (void) expireCoupon;
     - (void) sellOutCoupon;
@@ -427,6 +429,11 @@ static NSUInteger sObservationContext;
 
 - (void) setupCouponDetails
 {
+    // get closest location
+    CLLocation* currentLocation = [LocationTracker currentLocation];
+    Location* location =
+        [self.coupon getClosestLocationToCoordinate:currentLocation.coordinate];
+
     // title
     UITextView *title = (UITextView*)[self.view viewWithTag:kTagTitle];
     title.text        = [self.coupon getTitleWithFormatting];
@@ -439,7 +446,7 @@ static NSUInteger sObservationContext;
     [self setupIcon];
 
     // map
-    [self setupMap];
+    [self setupMap:location];
 
     // merchant name
     UILabel *name = (UILabel*)[self.view viewWithTag:kTagCompanyName];
@@ -447,7 +454,8 @@ static NSUInteger sObservationContext;
 
     // merchant address
     UILabel *address = (UILabel*)[self.view viewWithTag:kTagCompanyAddress];
-    address.text     = self.coupon.merchant.address;
+    address.text     = self.coupon.locations.count == 1 ?
+        location.address : @"MULTIPLE LOCATIONS";
 
     // color timer
     GradientView *color = (GradientView*)[self.view viewWithTag:kTagColorTimer];
@@ -509,12 +517,12 @@ static NSUInteger sObservationContext;
 
 //------------------------------------------------------------------------------
 
-- (void) setupMap
+- (void) setupMap:(Location*)location
 {
     // center map
     CLLocationCoordinate2D coordinate;
-    coordinate.latitude  = [self.coupon.merchant.latitude doubleValue];
-    coordinate.longitude = [self.coupon.merchant.longitude doubleValue];
+    coordinate.latitude  = [location.latitude doubleValue];
+    coordinate.longitude = [location.longitude doubleValue];
     MKMapView *map       = (MKMapView*)[self.view viewWithTag:kTagMap];
     map.centerCoordinate = coordinate;
 
@@ -574,7 +582,7 @@ static NSUInteger sObservationContext;
         initWithNibName:@"MerchantViewController" bundle:nil];
 
     // set merchant to view
-    controller.merchant = self.coupon.merchant;
+    controller.coupon = self.coupon;
 
     // pass the selected object to the new view controller.
     [self.navigationController pushViewController:controller animated:YES];
@@ -1186,9 +1194,14 @@ static NSUInteger sObservationContext;
     // grab icon from view
     UIImageView *icon = (UIImageView*)[self.view viewWithTag:kTagIcon];
 
+    // get closest location to user
+    CLLocation* currentLocation = [LocationTracker currentLocation];
+    Location* location =
+        [self.coupon getClosestLocationToCoordinate:currentLocation.coordinate];
+
     // setup twitter controller
     Merchant *merchant  = self.coupon.merchant;
-    NSString *city      = [[merchant getCity] lowercaseString];
+    NSString *city      = [[location getCity] lowercaseString];
     NSString *formatted = [self.coupon.title capitalizedString];
     NSString *twHandle  = (merchant.twitterUrl == nil) ||
                           [merchant.twitterUrl isEqualToString:@""] ?

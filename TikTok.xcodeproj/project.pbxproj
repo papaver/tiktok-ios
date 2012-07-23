@@ -865,6 +865,7 @@
 		2EEA758C14D8C1E300D0D92A /* CouponMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponMapViewController.h; sourceTree = "<group>"; };
 		2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponMapViewController.m; sourceTree = "<group>"; };
 		2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponMapViewController.xib; sourceTree = "<group>"; };
+		2EEAB6D815B7478C003DA4D9 /* DataModel-v03.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel-v03.xcdatamodel"; sourceTree = "<group>"; };
 		2EEC09C71523B2E100E6812E /* 24-gift-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "24-gift-bar.png"; sourceTree = "<group>"; };
 		2EEC09C81523B2E100E6812E /* 24-gift-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "24-gift-bar@2x.png"; sourceTree = "<group>"; };
 		2EEC09C91523B2E100E6812E /* 112-group-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group-bar.png"; sourceTree = "<group>"; };
@@ -2447,10 +2448,11 @@
 		2EAFA10A156C3A0900BB9C01 /* DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				2EEAB6D815B7478C003DA4D9 /* DataModel-v03.xcdatamodel */,
 				2EAFA10B156C3A0900BB9C01 /* DataModel-v02.xcdatamodel */,
 				2EAFA10C156C3A0900BB9C01 /* DataModel.xcdatamodel */,
 			);
-			currentVersion = 2EAFA10B156C3A0900BB9C01 /* DataModel-v02.xcdatamodel */;
+			currentVersion = 2EEAB6D815B7478C003DA4D9 /* DataModel-v03.xcdatamodel */;
 			path = DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

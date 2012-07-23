@@ -48,6 +48,7 @@ typedef enum _TrackingMode
 //------------------------------------------------------------------------------
 
 + (bool) isInitialized;
++ (CLLocation*) currentLocation;
 + (void) startLocationTracking;
 + (void) stopLocationTracking;
 + (void) foregroundLocationTracking;

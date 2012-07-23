@@ -11,8 +11,11 @@
 //------------------------------------------------------------------------------
 
 #import "MerchantViewController.h"
+#import "Coupon.h"
 #import "GradientView.h"
 #import "IconManager.h"
+#import "Location.h"
+#import "LocationTracker.h"
 #import "Merchant.h"
 #import "WebViewController.h"
 #import "UIDefaults.h"
@@ -54,7 +57,8 @@ enum MerchantTags
 
 //------------------------------------------------------------------------------
 
-@synthesize merchant = mMerchant;
+@synthesize coupon   = mCoupon;
+@synthesize location = mLocation;
 
 //------------------------------------------------------------------------------
 #pragma - View Lifecycle
@@ -85,6 +89,11 @@ enum MerchantTags
         website.font = [UIFont fontWithName:@"HelveticaNeueMeduim" size:15];
         details.font = [UIFont fontWithName:@"HelveticaNeueLight" size:14];
     }
+
+    // cache closest location
+    CLLocation* currentLocation = [LocationTracker currentLocation];
+    self.location = [self.coupon
+        getClosestLocationToCoordinate:currentLocation.coordinate];
 }
 
 //------------------------------------------------------------------------------
@@ -158,18 +167,20 @@ enum MerchantTags
 
 - (void) setupMerchantDetails
 {
+    Merchant *merchant = self.coupon.merchant;
+
     // category
     UILabel *category = (UILabel*)[self.view viewWithTag:kTagCategory];
-    category.text     = self.merchant.category;
+    category.text     = merchant.category;
     
     // name
     UILabel *name = (UILabel*)[self.view viewWithTag:kTagName];
-    name.text     = [self.merchant.name uppercaseString];
+    name.text     = [merchant.name uppercaseString];
 
     // address
     UILabel *address   = (UILabel*)[self.view viewWithTag:kTagAddress]; 
-    NSRange firstComma = [self.merchant.address rangeOfString:@", "];
-    address.text     = [self.merchant.address 
+    NSRange firstComma = [self.location.address rangeOfString:@", "];
+    address.text     = [self.location.address
         stringByReplacingOccurrencesOfString:@", " 
                                   withString:@",\n" 
                                      options:NSCaseInsensitiveSearch 
@@ -177,17 +188,17 @@ enum MerchantTags
 
     // phone number
     UILabel *phone = (UILabel*)[self.view viewWithTag:kTagPhone]; 
-    phone.text     = self.merchant.phone;
+    phone.text     = self.location.phone;
 
     // website
     UILabel *website = (UILabel*)[self.view viewWithTag:kTagWebsite]; 
-    website.text     = [self.merchant.websiteUrl
+    website.text     = [merchant.websiteUrl
         stringByReplacingOccurrencesOfString:@"http://" 
                                   withString:@""];
 
     // details
     UITextView *details = (UITextView*)[self.view viewWithTag:kTagDetails];
-    details.text        = self.merchant.details;
+    details.text        = merchant.details;
 
     // gradient 
     GradientView *color = (GradientView*)[self.view viewWithTag:kTagGradient];
@@ -202,14 +213,14 @@ enum MerchantTags
 - (void) setupIcon
 {
     IconManager *iconManager = [IconManager getInstance];
-    __block UIImage *image   = [iconManager getImage:self.merchant.iconData];
+    __block UIImage *image   = [iconManager getImage:self.coupon.merchant.iconData];
 
     // set merchant icon
     [self setIcon:image];
 
     // load image from server if not available
     if (!image) {
-        [iconManager requestImage:self.merchant.iconData 
+        [iconManager requestImage:self.coupon.merchant.iconData
             withCompletionHandler:^(UIImage* image, NSError *error) {
                 if (image != nil) {
                     [self setIcon:image];
@@ -251,7 +262,7 @@ enum MerchantTags
 
     // setup a webview controller
     WebViewController *controller = [[WebViewController alloc] init];
-    controller.title              = self.merchant.name;
+    controller.title              = self.coupon.merchant.name;
     controller.url                = url;
 
     // present the webview
@@ -267,7 +278,7 @@ enum MerchantTags
 {
     [Analytics passCheckpoint:@"Merchant Address"];
 
-    NSString *address = [self.merchant.address
+    NSString *address = [self.location.address
         stringByReplacingOccurrencesOfString:@" " 
                                   withString:@"%20"];
     NSString *mapPath = $string(@"http://maps.google.com/maps?q=%@", address);
@@ -282,8 +293,8 @@ enum MerchantTags
     [Analytics passCheckpoint:@"Merchant Phone"];
 
     // construct message for verify phone call
-    NSString *title   = $string(@"Calling %@", self.merchant.name);
-    NSString *message = $string(@"Make call to %@?", self.merchant.phone);
+    NSString *title   = $string(@"Calling %@", self.coupon.merchant.name);
+    NSString *message = $string(@"Make call to %@?", self.location.phone);
 
     // display alert window
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
@@ -300,7 +311,7 @@ enum MerchantTags
 - (void) alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        NSURL *phoneUrl = [NSURL URLWithString:$string(@"tel:%@", self.merchant.phone)];
+        NSURL *phoneUrl = [NSURL URLWithString:$string(@"tel:%@", self.location.phone)];
         [[UIApplication sharedApplication] openURL:phoneUrl];
     }
 }
@@ -309,7 +320,7 @@ enum MerchantTags
 
 - (IBAction) clickWebsite:(id)sender
 {
-    [self presentWebsite:self.merchant.websiteUrl];
+    [self presentWebsite:self.coupon.merchant.websiteUrl];
 }
 
 //------------------------------------------------------------------------------
@@ -338,7 +349,8 @@ enum MerchantTags
 
 - (void) dealloc 
 {
-    [mMerchant release];
+    [mCoupon release];
+    [mLocation release];
     [super dealloc];
 }
 

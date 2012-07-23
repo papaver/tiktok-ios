@@ -32,10 +32,6 @@
 
 @property (nonatomic, retain)   NSNumber *merchantId;
 @property (nonatomic, retain)   NSString *name;
-@property (nonatomic, retain)   NSString *address;
-@property (nonatomic, retain)   NSNumber *latitude;
-@property (nonatomic, retain)   NSNumber *longitude;
-@property (nonatomic, retain)   NSString *phone;
 @property (nonatomic, retain)   NSString *category;
 @property (nonatomic, retain)   NSString *details;
 @property (nonatomic, retain)   NSNumber *iconId;
@@ -66,11 +62,6 @@
  * Initialize the merchant object with the given json data.
  */
 - (Merchant*) initWithJsonDictionary:(NSDictionary*)data;
-
-/**
- * Get city merchant resides in.
- */
-- (NSString*) getCity;
 
 //------------------------------------------------------------------------------
 

@@ -18,37 +18,42 @@
 // forward declarations
 //------------------------------------------------------------------------------
 
-@class Merchant;
+@class Coupon;
 
 //------------------------------------------------------------------------------
 // interface definition
 //------------------------------------------------------------------------------
 
-@interface Location : NSManagedObject <MKAnnotation>
+@interface Location : NSManagedObject //<MKAnnotation>
 {
 }
 
 //------------------------------------------------------------------------------
 
+@property (nonatomic, retain) NSNumber *locationId;
 @property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *address;
 @property (nonatomic, retain) NSNumber *latitude;
 @property (nonatomic, retain) NSNumber *longitude;
-@property (nonatomic, retain) NSNumber *radius;
-@property (nonatomic, retain) NSSet    *merchants;
+@property (nonatomic, retain) NSString *phone;
+@property (nonatomic, retain) NSDate   *lastUpdated;
+@property (nonatomic, retain) NSSet    *coupons;
+
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
 //------------------------------------------------------------------------------
 
 /**
- * Query the context for a location by name.  
+ * Query the context for a location by id.
  */
-+ (Location*) getLocationByName:(NSString*)name 
-                    fromContext:(NSManagedObjectContext*)context;
++ (Location*) getLocationById:(NSNumber*)locationId
+                  fromContext:(NSManagedObjectContext*)context;
 
 /**
- * Query the context for a location by json data.  If the location does not 
+ * Query the context for a location by json data.  If the location does not
  * exist, it will be added to the context and saved into the store.
  */
-+ (Location*) getOrCreateLocationWithJsonData:(NSDictionary*)data 
++ (Location*) getOrCreateLocationWithJsonData:(NSDictionary*)data
                                   fromContext:(NSManagedObjectContext*)context;
 
 /**
@@ -57,10 +62,15 @@
 - (Location*) initWithJsonDictionary:(NSDictionary*)data;
 
 /**
- * MKAnnotation Accessors
+ * Get city location resides in.
  */
+- (NSString*) getCity;
+
+/**
+ * MKAnnotation Accessors
 - (NSString*) title;
 - (CLLocationCoordinate2D) coordinate;
+ */
 
 //------------------------------------------------------------------------------
 
@@ -71,9 +81,9 @@
 //------------------------------------------------------------------------------
 
 @interface Location (CoreDataGeneratedAccessors)
-- (void) addMerchantsObject:(Merchant*)merchant;
-- (void) removeMerchantsObject:(Merchant*)merchant;
-- (void) addMerchants:(NSSet*)merchants;
-- (void) removeMerchants:(NSSet*)merchants;
+- (void) addCouponObject:(Coupon*)coupon;
+- (void) removeCouponObject:(Coupon*)coupon;
+- (void) addCoupons:(NSSet*)coupons;
+- (void) removeCoupons:(NSSet*)coupons;
 @end
 

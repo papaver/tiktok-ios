@@ -17,8 +17,9 @@
 // forward declarations
 //------------------------------------------------------------------------------
 
-@class Merchant;
+@class Location;
 @class IconData;
+@class Merchant;
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -43,6 +44,7 @@
 @property (nonatomic, assign)   NSNumber *wasRedeemed;
 @property (nonatomic, assign)   NSNumber *isSoldOut;
 @property (nonatomic, assign)   NSNumber *isRedeemable;
+@property (nonatomic, retain)   NSSet    *locations;
 
 //------------------------------------------------------------------------------
 
@@ -94,6 +96,22 @@
  */
 - (NSString*) getDetailsWithTerms;
 
+/**
+ * Returns the closest location to the given coordinates.
+ */
+- (Location*) getClosestLocationToCoordinate:(CLLocationCoordinate2D)coordinate;
+
 //------------------------------------------------------------------------------
 
+@end
+
+//------------------------------------------------------------------------------
+// CoreData Accessors
+//------------------------------------------------------------------------------
+
+@interface Coupon (CoreDataGeneratedAccessors)
+- (void) addLocationObject:(Location*)location;
+- (void) removeLocationObject:(Location*)location;
+- (void) addLoctaions:(NSSet*)locations;
+- (void) removeLocations:(NSSet*)locations;
 @end

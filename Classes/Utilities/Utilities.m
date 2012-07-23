@@ -239,6 +239,29 @@
 
 //-----------------------------------------------------------------------------
 
++ (CGFloat) distanceFromLocation:(CLLocationCoordinate2D)fromLocation
+                      toLocation:(CLLocationCoordinate2D)toLocation
+{
+    #define d2r (M_PI / 180.0)
+
+    CGFloat lat1  = fromLocation.latitude;
+    CGFloat long1 = fromLocation.longitude;
+    CGFloat lat2  = toLocation.latitude;
+    CGFloat long2 = toLocation.longitude;
+
+    CGFloat dlong = (long2 - long1) * d2r;
+    CGFloat dlat  = (lat2 - lat1) * d2r;
+    CGFloat a     = pow(sin(dlat/2.0), 2) + cos(lat1*d2r) * cos(lat2*d2r) * pow(sin(dlong/2.0), 2);
+    CGFloat c     = 2 * atan2(sqrt(a), sqrt(1-a));
+    CGFloat d     = 6367 * c;
+
+    return d;
+
+    #undef d2r
+}
+
+//-----------------------------------------------------------------------------
+
 + (void) printHierarchyForView:(UIView*)view
 {
     [Utilities printHierarchyForView:view withHeader:@""];

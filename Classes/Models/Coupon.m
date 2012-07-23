@@ -12,8 +12,10 @@
 
 #import "Coupon.h"
 #import "IconData.h"
+#import "Location.h"
 #import "Merchant.h"
 #import "UIDefaults.h"
+#import "Utilities.h"
 
 //------------------------------------------------------------------------------
 // defines
@@ -43,6 +45,7 @@
 @dynamic barcode;
 @dynamic isRedeemable;
 @dynamic merchant;
+@dynamic locations;
 
 //------------------------------------------------------------------------------
 #pragma mark - Static methods
@@ -101,12 +104,28 @@
         return nil;
     }
 
+    // create location data from json
+    NSMutableSet *locations = [[[NSMutableSet alloc] init] autorelease];
+    for (NSDictionary *locationData in [data objectForKey:@"locations"]) {
+        Location *location =
+            [Location getOrCreateLocationWithJsonData:locationData
+                                          fromContext:context];
+        [locations addObject:location];
+    }
+
+    // skip out if we can't retrive a location from the context
+    if (locations.count == 0) {
+        NSLog(@"failed to parse locations.");
+        return nil;
+    }
+
     // create a new coupon object
     coupon = [[NSEntityDescription
         insertNewObjectForEntityForName:@"Coupon"
                  inManagedObjectContext:context]
                 initWithJsonDictionary:data];
-    coupon.merchant = merchant;
+    coupon.merchant  = merchant;
+    coupon.locations = locations;
 
     // save the object to store
     NSError *error = nil;
@@ -267,6 +286,74 @@
     return [[details
         stringByReplacingOccurrencesOfString:@"Entree" withString:@"Entrée"]
         stringByReplacingOccurrencesOfString:@"entree" withString:@"entrée"];
+}
+
+//------------------------------------------------------------------------------
+
+- (Location*) getClosestLocationToCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    // shortcut for single locations
+    if (self.locations.count == 1) {
+        return [self.locations anyObject];
+    }
+
+    // loop through all of the locations and save the closest
+    CGFloat minDistance   = DBL_MAX;
+    Location* minLocation = nil;
+    for (Location* location in self.locations) {
+        CGFloat distance = [Utilities distanceFromLocation:coordinate
+                                                toLocation:location.coordinate];
+        if (distance < minDistance) {
+            minDistance = distance;
+            minLocation = location;
+        }
+    }
+
+    return minLocation;
+}
+
+//------------------------------------------------------------------------------
+
+@end
+
+//------------------------------------------------------------------------------
+// CoreDataGeneratedAccessors
+//------------------------------------------------------------------------------
+
+@implementation Coupon (CoreDataGeneratedAccessors)
+
+//------------------------------------------------------------------------------
+
+- (void) addLocationObject:(Location*)location
+{
+    NSMutableSet *locations = [self mutableSetValueForKey:@"locations"];
+    [locations addObject:location];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) removeLocationObject:(Location*)location
+{
+    NSMutableSet *locations = [self mutableSetValueForKey:@"locations"];
+    [locations removeObject:location];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) addLoctaions:(NSSet*)locations
+{
+    for (Location *location in locations) {
+        [self addLocationObject:location];
+    }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) removeLocations:(NSSet*)locations
+{
+    for (Location *location in locations) {
+        [self removeLocationObject:location];
+    }
 }
 
 //------------------------------------------------------------------------------

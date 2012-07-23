@@ -16,6 +16,7 @@
 #import "CouponDetailViewController.h"
 #import "Database.h"
 #import "IconManager.h"
+#import "Location.h"
 #import "GradientView.h"
 #import "Merchant.h"
 #import "Utilities.h"
@@ -371,10 +372,13 @@ NSString *sCouponCacheName = @"coupon_map";
 
 - (void) addCouponAnnotation:(Coupon*)coupon
 {
-    CouponAnnotation *annotation = [[CouponAnnotation alloc] initWithCoupon:coupon];
-    [self.mapView addAnnotation:annotation];
-    [mAnnotations addObject:annotation];
-    [annotation release];
+    for (Location *location in coupon.locations) {
+        CouponAnnotation *annotation = [[CouponAnnotation alloc]
+            initWithCoupon:coupon andLocation:location];
+        [self.mapView addAnnotation:annotation];
+        [mAnnotations addObject:annotation];
+        [annotation release];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -386,7 +390,6 @@ NSString *sCouponCacheName = @"coupon_map";
     for (CouponAnnotation *annotation in mAnnotations) {
         if (annotation.coupon == coupon) {
             [annotations addObject:annotation];
-            break;
         }
     }
 
@@ -443,10 +446,12 @@ NSString *sCouponCacheName = @"coupon_map";
 
     // update lat/long min/max
     for (Coupon *coupon in coupons) {
-        min.latitude  = MIN(min.latitude,  coupon.merchant.latitude.doubleValue);
-        max.latitude  = MAX(max.latitude,  coupon.merchant.latitude.doubleValue);
-        min.longitude = MIN(min.longitude, coupon.merchant.longitude.doubleValue);
-        max.longitude = MAX(max.longitude, coupon.merchant.longitude.doubleValue);
+        for (Location *location in coupon.locations) {
+            min.latitude  = MIN(min.latitude,  location.latitude.doubleValue);
+            max.latitude  = MAX(max.latitude,  location.latitude.doubleValue);
+            min.longitude = MIN(min.longitude, location.longitude.doubleValue);
+            max.longitude = MAX(max.longitude, location.longitude.doubleValue);
+        }
     }
 
     // create a region from the min/max coordinates

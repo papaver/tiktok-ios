@@ -11,7 +11,6 @@
 //------------------------------------------------------------------------------
 
 #import "Location.h"
-#import "Merchant.h"
 
 //------------------------------------------------------------------------------
 // interface implementation
@@ -21,19 +20,31 @@
 
 //------------------------------------------------------------------------------
 
+@dynamic locationId;
 @dynamic name;
+@dynamic address;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic radius;
-@dynamic merchants;
+@dynamic phone;
+@dynamic lastUpdated;
+@dynamic coupons;
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Static methods
+#pragma mark - properties
 //------------------------------------------------------------------------------
 
-+ (Location*) getLocationByName:(NSString*)name 
-                    fromContext:(NSManagedObjectContext*)context
+- (CLLocationCoordinate2D) coordinate
+{
+    return CLLocationCoordinate2DMake(
+        [self.latitude doubleValue], [self.longitude doubleValue]);
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Static methods
+//------------------------------------------------------------------------------
+
++ (Location*) getLocationById:(NSNumber*)locationId
+                  fromContext:(NSManagedObjectContext*)context
 {
     // grab the location description
     NSEntityDescription *description = [NSEntityDescription
@@ -44,7 +55,7 @@
     [request setEntity:description];
 
     // setup the request to lookup the specific location by name
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationId == %@", locationId];
     [request setPredicate:predicate];
 
     // return the location about if it already exists in the context
@@ -62,24 +73,32 @@
 
 //------------------------------------------------------------------------------
 
-+ (Location*) getOrCreateLocationWithJsonData:(NSDictionary*)data 
++ (Location*) getOrCreateLocationWithJsonData:(NSDictionary*)data
                                   fromContext:(NSManagedObjectContext*)context
 {
     // check if location already exists in the store
-    NSString *name     = [data objectForKey:@"name"];
-    Location *location = [Location getLocationByName:name fromContext:context];
+    NSNumber *locationId = [data objectForKey:@"id"];
+    Location *location   = [Location getLocationById:locationId fromContext:context];
     if (location != nil) {
+
+        // update location data if required
+        NSNumber *lastUpdatedSeconds = [data objectForKey:@"last_update"];
+        NSDate *lastUpdated = [NSDate dateWithTimeIntervalSince1970:lastUpdatedSeconds.intValue];
+        if ([location.lastUpdated compare:lastUpdated] == NSOrderedAscending) {
+            [location initWithJsonDictionary:data];
+        }
+
         return location;
     }
 
     // create a new location object
-    location = (Location*)[NSEntityDescription 
-        insertNewObjectForEntityForName:@"Location" 
+    location = (Location*)[NSEntityDescription
+        insertNewObjectForEntityForName:@"Location"
                  inManagedObjectContext:context];
     [location initWithJsonDictionary:data];
 
     // -- debug --
-    NSLog(@"new location created: %@", location.name);
+    NSLog(@"new location created: %@ -> %@", location.name, location.address);
 
     // save the object to store
     NSError *error = nil;
@@ -94,17 +113,33 @@
 
 - (Location*) initWithJsonDictionary:(NSDictionary*)data
 {
-    self.name      = [data objectForKey:@"name"];
-    self.latitude  = [data objectForKey:@"latitude"];
-    self.longitude = [data objectForKey:@"longitude"];
-    self.radius    = [data objectForKey:@"radius"];
+    NSNumber *lastUpdated = [data objectForKey:@"last_update"];
+
+    self.locationId  = [data objectForKey:@"id"];
+    self.name        = [data objectForKey:@"name"];
+    self.address     = [data objectForKey:@"full_address"];
+    self.latitude    = [data objectForKey:@"latitude"];
+    self.longitude   = [data objectForKey:@"longitude"];
+    self.phone       = [data objectForKey:@"phone_number"];
+    self.lastUpdated = [NSDate dateWithTimeIntervalSince1970:lastUpdated.intValue];
 
     return self;
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark MKAnnotation
+
+- (NSString*) getCity
+{
+    NSString *city = [[[self.address
+        componentsSeparatedByString:@", "]
+        objectAtIndex:1]
+        stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return city;
+}
+
+/*
+//------------------------------------------------------------------------------
+#pragma mark - MKAnnotation
 //------------------------------------------------------------------------------
 
 - (CLLocationCoordinate2D) coordinate
@@ -122,5 +157,6 @@
 }
 
 //------------------------------------------------------------------------------
+*/
 
 @end

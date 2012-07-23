@@ -90,6 +90,11 @@
 
 //-----------------------------------------------------------------------------
 
++ (CGFloat) distanceFromLocation:(CLLocationCoordinate2D)location1
+                      toLocation:(CLLocationCoordinate2D)location2;
+
+//-----------------------------------------------------------------------------
+
 /**
  * Prints out the view hierarchy for the main application window with the 
  * associated frames for all the views.

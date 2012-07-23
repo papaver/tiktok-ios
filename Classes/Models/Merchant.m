@@ -11,7 +11,6 @@
 //------------------------------------------------------------------------------
 
 #import "Merchant.h"
-#import "Coupon.h"
 #import "IconData.h"
 
 //------------------------------------------------------------------------------
@@ -24,10 +23,6 @@
 
 @dynamic merchantId;
 @dynamic name;
-@dynamic address;
-@dynamic latitude;
-@dynamic longitude;
-@dynamic phone;
 @dynamic category;
 @dynamic details;
 @dynamic iconId;
@@ -39,8 +34,7 @@
 @dynamic coupons;
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark Static methods
+#pragma mark - Static methods
 //------------------------------------------------------------------------------
 
 + (Merchant*) getMerchantById:(NSNumber*)merchantId
@@ -116,8 +110,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark -
-#pragma mark methods
+#pragma mark - methods
 //------------------------------------------------------------------------------
 
 - (Merchant*) initWithJsonDictionary:(NSDictionary*)data
@@ -126,10 +119,6 @@
 
     self.merchantId  = [data objectForKey:@"id"];
     self.name        = [data objectForKey:@"name"];
-    self.address     = [data objectForKey:@"full_address"];
-    self.latitude    = [data objectForKey:@"latitude"];
-    self.longitude   = [data objectForKey:@"longitude"];
-    self.phone       = [data objectForKey:@"phone_number"];
     self.details     = [data objectForKey:@"description"];
     self.iconId      = [data objectForKey:@"icon_uid"];
     self.iconUrl     = [data objectForKey:@"icon_url"];
@@ -139,17 +128,6 @@
     self.lastUpdated = [NSDate dateWithTimeIntervalSince1970:lastUpdated.intValue];
 
     return self;
-}
-
-//------------------------------------------------------------------------------
-
-- (NSString*) getCity
-{
-    NSString *city = [[[self.address 
-        componentsSeparatedByString:@", "] 
-        objectAtIndex:1] 
-        stringByReplacingOccurrencesOfString:@" " withString:@""];
-    return city;
 }
 
 //------------------------------------------------------------------------------

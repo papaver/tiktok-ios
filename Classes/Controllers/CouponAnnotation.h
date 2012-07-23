@@ -18,6 +18,7 @@
 //------------------------------------------------------------------------------
 
 @class Coupon;
+@class Location;
 
 //------------------------------------------------------------------------------
 // interface definition
@@ -25,16 +26,18 @@
 
 @interface CouponAnnotation : NSObject <MKAnnotation>
 {
-    Coupon *mCoupon;
+    Coupon   *mCoupon;
+    Location *mLocation;
 }
 
 //------------------------------------------------------------------------------
 
-@property (nonatomic, retain) Coupon *coupon;
+@property (nonatomic, retain) Coupon   *coupon;
+@property (nonatomic, retain) Location *location;
 
 //------------------------------------------------------------------------------
 
-- (id) initWithCoupon:(Coupon*)coupon;
+- (id) initWithCoupon:(Coupon*)coupon andLocation:(Location*)location;
 
 /**
  * MKAnnotation Accessors

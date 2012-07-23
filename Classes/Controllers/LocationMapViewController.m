@@ -7,13 +7,15 @@
 //
 
 //------------------------------------------------------------------------------
-// imports 
+// imports
 //------------------------------------------------------------------------------
 
 #import "LocationMapViewController.h"
 #import "Coupon.h"
 #import "CouponAnnotation.h"
 #import "IconManager.h"
+#import "Location.h"
+#import "LocationTracker.h"
 #import "Merchant.h"
 #import "GoogleMapsApi.h"
 #import "GradientView.h"
@@ -30,13 +32,13 @@
 
 @interface LocationMapViewController ()
     - (void) addCouponAnnotations;
-    - (void) addRouteToCoupon;
+    - (void) addRouteToCoupon:(Location*)location;
     - (void) addRouteOverlay:(NSDictionary*)routeData;
-    - (void) getDirections;
+    - (void) getDirections:(id)sender;
     - (MKPinAnnotationView*) getCouponPinViewForAnnotation:(id<MKAnnotation>)annotation;
     - (MKPolyline*) polylineFromPoints:(NSArray*)points;
     - (MKCoordinateRegion) regionFromPoints:(NSArray*)points;
-    - (void) openMapApp;
+    - (void) openMapApp:(Location*)location;
 @end
 
 //------------------------------------------------------------------------------
@@ -54,7 +56,7 @@
 #pragma mark - View lifecycle
 //------------------------------------------------------------------------------
 
-- (void) viewDidLoad 
+- (void) viewDidLoad
 {
     [super viewDidLoad];
 
@@ -67,7 +69,7 @@
 
 //------------------------------------------------------------------------------
 
-- (void) viewDidUnload 
+- (void) viewDidUnload
 {
     [super viewDidUnload];
 }
@@ -76,18 +78,18 @@
 #pragma mark - MapViewDelegate
 //------------------------------------------------------------------------------
 
-- (void) mapView:(MKMapView*)mapView didAddAnnotationViews:(NSArray*)views 
+- (void) mapView:(MKMapView*)mapView didAddAnnotationViews:(NSArray*)views
 {
     // [moiz] should open the deal location
 
     // open a single callout
-    id myAnnotation = [mapView.annotations objectAtIndex:0]; 
-    [mapView selectAnnotation:myAnnotation animated:YES]; 
+    id myAnnotation = [mapView.annotations objectAtIndex:0];
+    [mapView selectAnnotation:myAnnotation animated:YES];
 }
 
 //------------------------------------------------------------------------------
 
-- (MKAnnotationView*) mapView:(MKMapView*)mapView 
+- (MKAnnotationView*) mapView:(MKMapView*)mapView
             viewForAnnotation:(id<MKAnnotation>)annotation
 {
     MKAnnotationView *view = nil;
@@ -108,7 +110,7 @@
 
 //------------------------------------------------------------------------------
 
-- (MKOverlayView*) mapView:(MKMapView*)mapView 
+- (MKOverlayView*) mapView:(MKMapView*)mapView
             viewForOverlay:(id<MKOverlay>)overlay
 {
     MKOverlayView *view = nil;
@@ -131,28 +133,42 @@
 
 - (void) addCouponAnnotations
 {
-    // add coupon annotations
-    CouponAnnotation *annotation = [[CouponAnnotation alloc] initWithCoupon:self.coupon];
-    [self.mapView addAnnotation:annotation];
+    // get closest location
+    CLLocation* currentLocation = [LocationTracker currentLocation];
+    Location* closestLocation =
+        [self.coupon getClosestLocationToCoordinate:currentLocation.coordinate];
 
-    // center map to annotation
-    self.mapView.centerCoordinate = annotation.coordinate;
+    // add closest location first
+    CouponAnnotation *closestAnnotation = [[CouponAnnotation alloc]
+        initWithCoupon:self.coupon andLocation:closestLocation];
+    [self.mapView addAnnotation:closestAnnotation];
+
+    // add the rest of the locations
+    for (Location *location in self.coupon.locations) {
+        if (location == closestLocation) continue;
+        CouponAnnotation *annotation = [[CouponAnnotation alloc]
+            initWithCoupon:self.coupon andLocation:location];
+        [self.mapView addAnnotation:annotation];
+    }
+
+    // center map to closest annotation
+    self.mapView.centerCoordinate = closestAnnotation.coordinate;
 
     // zoom map appropriatly
     MKCoordinateRegion viewRegion =
-        MKCoordinateRegionMakeWithDistance(annotation.coordinate, 900, 900);
-    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];                
-    [self.mapView setRegion:adjustedRegion animated:NO]; 
-    
+        MKCoordinateRegionMakeWithDistance(closestAnnotation.coordinate, 900, 900);
+    MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
+    [self.mapView setRegion:adjustedRegion animated:NO];
+
     // [moiz] hmmm... looks like we need to keep a reference to the annotaion
     //  around this might be true for overlays as well i imagine
     // cleanup
-    //[annotation release];
+    //[closestAnnotation release];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) addRouteToCoupon
+- (void) addRouteToCoupon:(Location*)location
 {
     // source : user location
     CLLocationCoordinate2D currentLocation = self.mapView.userLocation.coordinate;
@@ -160,9 +176,8 @@
                                          currentLocation.longitude);
 
     // desintation : coupon location
-    Merchant *merchant = self.coupon.merchant;
-    NSString *destination = $string(@"%f,%f", merchant.latitude.doubleValue,
-                                              merchant.longitude.doubleValue);
+    NSString *destination = $string(@"%f,%f", location.latitude.doubleValue,
+                                              location.longitude.doubleValue);
 
     // query the location using google maps
     GoogleMapsApi *api = [[GoogleMapsApi alloc] init];
@@ -212,12 +227,12 @@
     }
 
     // create the polyline
-    MKPolyline *polyline = [MKPolyline polylineWithPoints:pointsArray 
+    MKPolyline *polyline = [MKPolyline polylineWithPoints:pointsArray
                                                     count:points.count];
-    
+
     // cleanup
     free(pointsArray);
-    
+
     return polyline;
 }
 
@@ -229,9 +244,9 @@
     min.latitude  =   90.0;
     max.latitude  =  -90.0;
     min.longitude =  180.0;
-    max.longitude = -180.0; 
+    max.longitude = -180.0;
 
-    // find the min/max coordinates 
+    // find the min/max coordinates
     for (CLLocation *location in points) {
         min.latitude  = MIN(min.latitude,  location.coordinate.latitude);
         max.latitude  = MAX(max.latitude,  location.coordinate.latitude);
@@ -260,12 +275,12 @@
         kTagIcon     = 1,
     };
 
-    // check for any available annotation views 
-    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView 
+    // check for any available annotation views
+    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[self.mapView
         dequeueReusableAnnotationViewWithIdentifier:sCouponPinId];
     if (pinView == nil) {
-        pinView = 
-            [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
+        pinView =
+            [[[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                              reuseIdentifier:sCouponPinId] autorelease];
 
         // setup configuration
@@ -286,10 +301,10 @@
         icon.tag                 = kTagIcon;
         [gradient addSubview:icon];
 
-        // setup button 
+        // setup button
         UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        [button addTarget:self 
-                   action:@selector(getDirections) 
+        [button addTarget:self
+                   action:@selector(getDirections:)
          forControlEvents:UIControlEventTouchUpInside];
 
         // add accessory view
@@ -306,15 +321,24 @@
 
 //------------------------------------------------------------------------------
 
-- (void) getDirections
+- (void) getDirections:(id)sender
 {
+    // get pin annotation
+    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[[sender superview] superview];
+    if (pinView == nil) return;
+
+    // get location from annotation
+    if (![pinView.annotation isKindOfClass:[CouponAnnotation class]]) return;
+    CouponAnnotation *annotation = pinView.annotation;
+    Location *location           = annotation.location;
+
     NSString *title   = self.coupon.merchant.name;
-    NSString *message = self.coupon.merchant.address;
+    NSString *message = location.address;
 
     // open up settings to configure twitter account
     UIAlertViewSelectionHandler handler = ^(NSInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [self openMapApp];
+            [self openMapApp:location];
         }
     };
 
@@ -330,18 +354,17 @@
 
 //------------------------------------------------------------------------------
 
-- (void) openMapApp
+- (void) openMapApp:(Location*)location
 {
     // use current location
     NSString *source = @"Current Location";
 
     // grab merchant location
-    Merchant *merchant = self.coupon.merchant;
-    NSString *destination = $string(@"%f,%f", merchant.latitude.doubleValue,
-                                              merchant.longitude.doubleValue);
+    NSString *destination = $string(@"%f,%f", location.latitude.doubleValue,
+                                              location.longitude.doubleValue);
 
     // generate url
-    NSURL *url = [GoogleMapsApi urlForDirectionsFromSource:source 
+    NSURL *url = [GoogleMapsApi urlForDirectionsFromSource:source
                                              toDestination:destination];
 
     // open map app
@@ -353,14 +376,14 @@
 #pragma mark - Memory management
 //------------------------------------------------------------------------------
 
-- (void) didReceiveMemoryWarning 
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
 
 //------------------------------------------------------------------------------
 
-- (void) dealloc 
+- (void) dealloc
 {
     // its possible not niling out the delegate is causing crashes
     // ref: http://stackoverflow.com/questions/8022609/ios-5-mapkit-crashes-with-overlays-when-zoom-pan

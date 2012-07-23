@@ -12,6 +12,7 @@
 
 #import "CouponAnnotation.h"
 #import "Coupon.h"
+#import "Location.h"
 #import "Merchant.h"
 
 //------------------------------------------------------------------------------
@@ -22,17 +23,19 @@
 
 //------------------------------------------------------------------------------
 
-@synthesize coupon = mCoupon;
+@synthesize coupon   = mCoupon;
+@synthesize location = mLocation;
 
 //------------------------------------------------------------------------------
 #pragma mark - Initilization
 //------------------------------------------------------------------------------
 
-- (id) initWithCoupon:(Coupon*)coupon
+- (id) initWithCoupon:(Coupon*)coupon andLocation:(Location*)location
 {
     self = [super init];
     if (self) {
-        self.coupon = coupon;
+        self.coupon   = coupon;
+        self.location = location;
     }
     return self;
 }
@@ -43,7 +46,7 @@
 
 - (NSString*) title
 {
-    return self.coupon.merchant.name;
+    return $string(@"%@ - %@", self.coupon.merchant.name, self.location.address);
 }
 
 //------------------------------------------------------------------------------
@@ -57,9 +60,7 @@
 
 - (CLLocationCoordinate2D) coordinate
 {
-    CLLocationDegrees latitude  = self.coupon.merchant.latitude.doubleValue;
-    CLLocationDegrees longitude = self.coupon.merchant.longitude.doubleValue;
-    return CLLocationCoordinate2DMake(latitude, longitude);
+    return self.location.coordinate;
 }
 
 //------------------------------------------------------------------------------
@@ -68,6 +69,7 @@
 
 - (void) dealloc
 {
+    [mLocation release];
     [mCoupon release];
     [super dealloc];
 }

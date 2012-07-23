@@ -65,6 +65,14 @@ static LocationTracker *sLocationTracker;
 
 //------------------------------------------------------------------------------
 
++ (CLLocation*) currentLocation
+{
+    if (sLocationTracker != nil) return sLocationTracker.location;
+    return [[[CLLocation alloc] initWithLatitude:0.0 longitude:0.0] autorelease];
+}
+
+//------------------------------------------------------------------------------
+
 + (void) startLocationTracking
 {
     // allocate a new location tacker if required
