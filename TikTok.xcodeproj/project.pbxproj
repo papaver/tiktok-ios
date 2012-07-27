@@ -44,18 +44,12 @@
 		2E1144E31394709700D72753 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1144E21394709700D72753 /* MapKit.framework */; };
 		2E1158B814BBEEEB00659367 /* ShareMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158B614BBEEEA00659367 /* ShareMore.png */; };
 		2E1158B914BBEEEB00659367 /* ShareMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158B714BBEEEB00659367 /* ShareMore@2x.png */; };
-		2E1158BC14BBF56200659367 /* Arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158BA14BBF56200659367 /* Arrow.png */; };
-		2E1158BD14BBF56200659367 /* Arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1158BB14BBF56200659367 /* Arrow@2x.png */; };
 		2E1F721E13619BD700F947E3 /* CouponDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */; };
 		2E1F722F13619C2800F947E3 /* CouponDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */; };
 		2E201E4314B67FF0001E9051 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4214B67FF0001E9051 /* Localizable.strings */; };
 		2E201E4614B7AC17001E9051 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E201E4514B7AC17001E9051 /* Database.m */; };
 		2E201E4914BB58EB001E9051 /* RedeemedSash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4714BB58EB001E9051 /* RedeemedSash.png */; };
 		2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */; };
-		2E224B7215AF373100CFEB92 /* SettingsTutorialArrow07.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B6E15AF373100CFEB92 /* SettingsTutorialArrow07.png */; };
-		2E224B7315AF373100CFEB92 /* SettingsTutorialArrow07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B6F15AF373100CFEB92 /* SettingsTutorialArrow07@2x.png */; };
-		2E224B7415AF373100CFEB92 /* SettingsTutorialChar07.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B7015AF373100CFEB92 /* SettingsTutorialChar07.png */; };
-		2E224B7515AF373100CFEB92 /* SettingsTutorialChar07@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E224B7115AF373100CFEB92 /* SettingsTutorialChar07@2x.png */; };
 		2E256EF91587EB9F00432597 /* FacebookResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E256EF81587EB9F00432597 /* FacebookResult.m */; };
 		2E256EFB1588020E00432597 /* JsonPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E256EFA1588020E00432597 /* JsonPickerViewController.xib */; };
 		2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E256EFD1588027A00432597 /* JsonPickerViewController.m */; };
@@ -76,8 +70,6 @@
 		2E3190EE14E453F500D7470E /* UnitedSansReg-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */; };
 		2E3190F114E48B1500D7470E /* ArrowMore.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190EF14E48B1500D7470E /* ArrowMore.png */; };
 		2E3190F214E48B1500D7470E /* ArrowMore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190F014E48B1500D7470E /* ArrowMore@2x.png */; };
-		2E3190F514E48DBA00D7470E /* ArrowMoreSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190F314E48DB900D7470E /* ArrowMoreSelected.png */; };
-		2E3190F614E48DBA00D7470E /* ArrowMoreSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */; };
 		2E32143E14C0B6E500647116 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E32143D14C0B6E500647116 /* MessageUI.framework */; };
 		2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E32143F14C0BAE000647116 /* iPhoneShake.png */; };
 		2E391EA415BDEAE0002DB9B9 /* PromoBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E391EA215BDEAE0002DB9B9 /* PromoBackground.png */; };
@@ -117,18 +109,10 @@
 		2E521CA115C240C900F153E0 /* ArrowCollapse@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E521C9F15C240C900F153E0 /* ArrowCollapse@2x.png */; };
 		2E5565EA1522395700606625 /* PromoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5565E91522395700606625 /* PromoController.m */; };
 		2E5565EC1522397800606625 /* PromoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565EB1522397800606625 /* PromoController.xib */; };
-		2E5565EE15223CE100606625 /* TokPromo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565ED15223CE100606625 /* TokPromo.png */; };
-		2E5565F015223CEC00606625 /* TokPromo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565EF15223CEC00606625 /* TokPromo@2x.png */; };
 		2E5565F91522A2F300606625 /* 108-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565F71522A2F300606625 /* 108-badge.png */; };
 		2E5565FA1522A2F300606625 /* 108-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5565F81522A2F300606625 /* 108-badge@2x.png */; };
 		2E5FB77E14EF21F200F597DD /* HelveticaNeueLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FB77C14EF21F200F597DD /* HelveticaNeueLight.ttf */; };
 		2E5FB77F14EF21F200F597DD /* HelveticaNeueMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FB77D14EF21F200F597DD /* HelveticaNeueMedium.ttf */; };
-		2E5FEADB14A1106400B516FE /* Icon01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD514A1106300B516FE /* Icon01.png */; };
-		2E5FEADC14A1106400B516FE /* Icon01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD614A1106300B516FE /* Icon01@2x.png */; };
-		2E5FEADD14A1106400B516FE /* Icon02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD714A1106300B516FE /* Icon02.png */; };
-		2E5FEADE14A1106400B516FE /* Icon02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD814A1106400B516FE /* Icon02@2x.png */; };
-		2E5FEADF14A1106400B516FE /* Icon03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEAD914A1106400B516FE /* Icon03.png */; };
-		2E5FEAE014A1106400B516FE /* Icon03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5FEADA14A1106400B516FE /* Icon03@2x.png */; };
 		2E5FEAE714A14B6500B516FE /* UIDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEAE614A14B6500B516FE /* UIDefaults.m */; };
 		2E5FEAEB14A1AD2700B516FE /* CouponTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEAEA14A1AD2700B516FE /* CouponTableViewCell.m */; };
 		2E5FEAEE14A1B03300B516FE /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5FEAED14A1B03300B516FE /* UIColor-Expanded.m */; };
@@ -184,8 +168,6 @@
 		2E66244414D33E5400FB6E68 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E66244214D33E5400FB6E68 /* WebViewController.xib */; };
 		2E6A9EE114BE5F5000AA4B7B /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */; };
 		2E6A9EE214BE5F5000AA4B7B /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */; };
-		2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */; };
-		2E6A9EE614BE7BCA00AA4B7B /* ConnectFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */; };
 		2E6CCF4B14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6CCF4A14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m */; };
 		2E6CCF4E14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6CCF4D14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.m */; };
 		2E6E081313936496008788C2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E6E081213936496008788C2 /* CoreLocation.framework */; };
@@ -203,8 +185,6 @@
 		2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2014A263E2002F6187 /* TokShaken.png */; };
 		2E7DBE2514A263E2002F6187 /* TokShaken@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */; };
 		2E7DBE2814A3AF2B002F6187 /* IconManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DBE2714A3AF2B002F6187 /* IconManager.m */; };
-		2E802E5A14BCFCF500F741B6 /* ArrowHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */; };
-		2E802E5B14BCFCF500F741B6 /* ArrowHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */; };
 		2E821F82136B1F1500507F66 /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F81136B1F1500507F66 /* Merchant.m */; };
 		2E821F85136B1F2A00507F66 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F84136B1F2A00507F66 /* Coupon.m */; };
 		2E821F90136C2DCB00507F66 /* TikTokApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E821F8F136C2DCB00507F66 /* TikTokApi.m */; };
@@ -213,24 +193,6 @@
 		2E89C2E114DBCB2B0052751D /* 15-tags@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */; };
 		2E89C2E214DBCB2B0052751D /* 103-map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */; };
 		2E89C2E314DBCB2B0052751D /* 123-id-card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2E014DBCB2B0052751D /* 123-id-card@2x.png */; };
-		2E89C2FC14DC6BE40052751D /* SettingsTutorialArrow02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2EA14DC6BE40052751D /* SettingsTutorialArrow02.png */; };
-		2E89C2FD14DC6BE40052751D /* SettingsTutorialArrow02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2EB14DC6BE40052751D /* SettingsTutorialArrow02@2x.png */; };
-		2E89C2FE14DC6BE40052751D /* SettingsTutorialArrow03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2EC14DC6BE40052751D /* SettingsTutorialArrow03.png */; };
-		2E89C2FF14DC6BE40052751D /* SettingsTutorialArrow03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2ED14DC6BE40052751D /* SettingsTutorialArrow03@2x.png */; };
-		2E89C30014DC6BE40052751D /* SettingsTutorialArrow04.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2EE14DC6BE40052751D /* SettingsTutorialArrow04.png */; };
-		2E89C30114DC6BE40052751D /* SettingsTutorialArrow04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2EF14DC6BE40052751D /* SettingsTutorialArrow04@2x.png */; };
-		2E89C30214DC6BE40052751D /* SettingsTutorialArrow05.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F014DC6BE40052751D /* SettingsTutorialArrow05.png */; };
-		2E89C30314DC6BE40052751D /* SettingsTutorialArrow05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F114DC6BE40052751D /* SettingsTutorialArrow05@2x.png */; };
-		2E89C30414DC6BE40052751D /* SettingsTutorialChar01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F214DC6BE40052751D /* SettingsTutorialChar01.png */; };
-		2E89C30514DC6BE40052751D /* SettingsTutorialChar01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F314DC6BE40052751D /* SettingsTutorialChar01@2x.png */; };
-		2E89C30614DC6BE40052751D /* SettingsTutorialChar02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F414DC6BE40052751D /* SettingsTutorialChar02.png */; };
-		2E89C30714DC6BE40052751D /* SettingsTutorialChar02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F514DC6BE40052751D /* SettingsTutorialChar02@2x.png */; };
-		2E89C30814DC6BE40052751D /* SettingsTutorialChar03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F614DC6BE40052751D /* SettingsTutorialChar03.png */; };
-		2E89C30914DC6BE40052751D /* SettingsTutorialChar03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F714DC6BE40052751D /* SettingsTutorialChar03@2x.png */; };
-		2E89C30A14DC6BE40052751D /* SettingsTutorialChar04.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F814DC6BE40052751D /* SettingsTutorialChar04.png */; };
-		2E89C30B14DC6BE40052751D /* SettingsTutorialChar04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2F914DC6BE40052751D /* SettingsTutorialChar04@2x.png */; };
-		2E89C30C14DC6BE40052751D /* SettingsTutorialChar05.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2FA14DC6BE40052751D /* SettingsTutorialChar05.png */; };
-		2E89C30D14DC6BE40052751D /* SettingsTutorialChar05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E89C2FB14DC6BE40052751D /* SettingsTutorialChar05@2x.png */; };
 		2E8C4D33156ACAE300B5EFA1 /* 178-city.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8C4D31156ACAE300B5EFA1 /* 178-city.png */; };
 		2E8C4D34156ACAE300B5EFA1 /* 178-city@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8C4D32156ACAE300B5EFA1 /* 178-city@2x.png */; };
 		2E8C4D36156ACB6D00B5EFA1 /* CitiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E8C4D35156ACB6D00B5EFA1 /* CitiesViewController.xib */; };
@@ -239,8 +201,6 @@
 		2E986F15138DFCEE00A301BA /* LocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E986F14138DFCEE00A301BA /* LocationTracker.m */; };
 		2E9D007F15828A04001CC0D4 /* MerchantPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9D007E15828A04001CC0D4 /* MerchantPinViewController.m */; };
 		2E9D008115828A39001CC0D4 /* MerchantPinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008015828A39001CC0D4 /* MerchantPinViewController.xib */; };
-		2E9D008415828EB4001CC0D4 /* TokMerchantPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008215828EB4001CC0D4 /* TokMerchantPin.png */; };
-		2E9D008515828EB4001CC0D4 /* TokMerchantPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008315828EB4001CC0D4 /* TokMerchantPin@2x.png */; };
 		2E9D008C1582CD51001CC0D4 /* DoneDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008A1582CD51001CC0D4 /* DoneDown.png */; };
 		2E9D008D1582CD51001CC0D4 /* DoneUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E9D008B1582CD51001CC0D4 /* DoneUp.png */; };
 		2EA168FB14BF4C310099B1F1 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA168FA14BF4C310099B1F1 /* Settings.m */; };
@@ -260,15 +220,9 @@
 		2EAFA111156C4E6C00BB9C01 /* InfoSash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAFA10F156C4E6C00BB9C01 /* InfoSash@2x.png */; };
 		2EAFA114156C6D3500BB9C01 /* InfoBanner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAFA112156C6D3500BB9C01 /* InfoBanner.png */; };
 		2EAFA115156C6D3500BB9C01 /* InfoBanner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAFA113156C6D3500BB9C01 /* InfoBanner@2x.png */; };
-		2EAFA11E156DAE6E00BB9C01 /* SettingsTutorialArrow06.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAFA11A156DAE6E00BB9C01 /* SettingsTutorialArrow06.png */; };
-		2EAFA11F156DAE6E00BB9C01 /* SettingsTutorialArrow06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAFA11B156DAE6E00BB9C01 /* SettingsTutorialArrow06@2x.png */; };
-		2EAFA120156DAE6E00BB9C01 /* SettingsTutorialChar06.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAFA11C156DAE6E00BB9C01 /* SettingsTutorialChar06.png */; };
-		2EAFA121156DAE6E00BB9C01 /* SettingsTutorialChar06@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EAFA11D156DAE6E00BB9C01 /* SettingsTutorialChar06@2x.png */; };
 		2EB7525A14E06B8B009FC332 /* 193-location-arrow-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB7525814E06B8B009FC332 /* 193-location-arrow-bar.png */; };
 		2EB7525B14E06B8B009FC332 /* 193-location-arrow-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB7525914E06B8B009FC332 /* 193-location-arrow-bar@2x.png */; };
 		2EB87EC9149FA96700F01C26 /* InitalLoadingSplash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */; };
-		2EB87ECA149FA96700F01C26 /* LoadingPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC2149FA96700F01C26 /* LoadingPage.png */; };
-		2EB87ECB149FA96700F01C26 /* LoadingPage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */; };
 		2EB87ECC149FA96700F01C26 /* SplashProgressBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC4149FA96700F01C26 /* SplashProgressBar.png */; };
 		2EB87ECD149FA96700F01C26 /* SplashProgressBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC5149FA96700F01C26 /* SplashProgressBar@2x.png */; };
 		2EB87ECE149FA96700F01C26 /* Tik@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EC6149FA96700F01C26 /* Tik@2x.png */; };
@@ -282,14 +236,9 @@
 		2EB87EE0149FED8300F01C26 /* CouponTableBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EDE149FED8300F01C26 /* CouponTableBackground.png */; };
 		2EB87EE1149FED8300F01C26 /* CouponTableBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EDF149FED8300F01C26 /* CouponTableBackground@2x.png */; };
 		2EB87EE4149FEED600F01C26 /* CellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */; };
-		2EB87EE5149FEED600F01C26 /* CellIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */; };
 		2EBAC7941399D9BE001FD98D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBAC7931399D9BE001FD98D /* CoreData.framework */; };
 		2EBD78061567370600EB3E8D /* Appirater+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD78051567370600EB3E8D /* Appirater+Extensions.m */; };
 		2EBD780915674B8100EB3E8D /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD780815674B8100EB3E8D /* FBFrictionlessRequestSettings.m */; };
-		2EC5A54514E4C4290059762C /* TikPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54414E4C4290059762C /* TikPin.png */; };
-		2EC5A54714E4C70A0059762C /* TikPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54614E4C70A0059762C /* TikPin@2x.png */; };
-		2EC5A54A14E4CA740059762C /* TokPin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54814E4CA740059762C /* TokPin.png */; };
-		2EC5A54B14E4CA740059762C /* TokPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC5A54914E4CA740059762C /* TokPin@2x.png */; };
 		2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */; };
 		2EC6725A148FF6EF00AC5CDF /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67259148FF6EF00AC5CDF /* Utilities.m */; };
 		2EC67278148FFEAD00AC5CDF /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EC67260148FFEAD00AC5CDF /* NSObject+SBJson.m */; };
@@ -348,32 +297,14 @@
 		2EE857E214AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857DE14AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png */; };
 		2EE857EB14AA59D4008055AD /* ShareFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E314AA59D4008055AD /* ShareFacebook.png */; };
 		2EE857EC14AA59D4008055AD /* ShareFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E414AA59D4008055AD /* ShareFacebook@2x.png */; };
-		2EE857ED14AA59D4008055AD /* ShareGooglePlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E514AA59D4008055AD /* ShareGooglePlus.png */; };
-		2EE857EE14AA59D4008055AD /* ShareGooglePlus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E614AA59D4008055AD /* ShareGooglePlus@2x.png */; };
-		2EE857EF14AA59D4008055AD /* ShareSMS.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E714AA59D4008055AD /* ShareSMS.png */; };
-		2EE857F014AA59D4008055AD /* ShareSMS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E814AA59D4008055AD /* ShareSMS@2x.png */; };
 		2EE857F114AA59D4008055AD /* ShareTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857E914AA59D4008055AD /* ShareTwitter.png */; };
 		2EE857F214AA59D4008055AD /* ShareTwitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857EA14AA59D4008055AD /* ShareTwitter@2x.png */; };
 		2EE857F514AA611B008055AD /* CouponTimerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F314AA611B008055AD /* CouponTimerBackground.png */; };
 		2EE857F614AA611B008055AD /* CouponTimerBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F414AA611B008055AD /* CouponTimerBackground@2x.png */; };
-		2EE857FB14AA668F008055AD /* CompanyInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F714AA668F008055AD /* CompanyInfo.png */; };
-		2EE857FC14AA668F008055AD /* CompanyInfo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F814AA668F008055AD /* CompanyInfo@2x.png */; };
-		2EE857FD14AA668F008055AD /* ViewOtherDeals.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857F914AA668F008055AD /* ViewOtherDeals.png */; };
-		2EE857FE14AA668F008055AD /* ViewOtherDeals@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857FA14AA668F008055AD /* ViewOtherDeals@2x.png */; };
 		2EE8580114AA8B50008055AD /* RedeemBarItemButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */; };
 		2EE8580214AA8B50008055AD /* RedeemBarItemButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */; };
-		2EE8580B14ABAA08008055AD /* ButtonFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580314ABAA08008055AD /* ButtonFacebook.png */; };
-		2EE8580C14ABAA08008055AD /* ButtonFacebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580414ABAA08008055AD /* ButtonFacebook@2x.png */; };
-		2EE8580D14ABAA08008055AD /* ButtonTwitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580514ABAA08008055AD /* ButtonTwitter.png */; };
-		2EE8580E14ABAA08008055AD /* ButtonTwitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580614ABAA08008055AD /* ButtonTwitter@2x.png */; };
-		2EE8580F14ABAA08008055AD /* ButtonWebsite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580714ABAA08008055AD /* ButtonWebsite.png */; };
-		2EE8581014ABAA08008055AD /* ButtonWebsite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580814ABAA08008055AD /* ButtonWebsite@2x.png */; };
-		2EE8581114ABAA08008055AD /* CompanyBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580914ABAA08008055AD /* CompanyBackground.png */; };
-		2EE8581214ABAA08008055AD /* CompanyBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8580A14ABAA08008055AD /* CompanyBackground@2x.png */; };
 		2EE8581414ABABAD008055AD /* MerchantViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581314ABABAD008055AD /* MerchantViewController.xib */; };
 		2EE8581714ABABBB008055AD /* MerchantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE8581614ABABBB008055AD /* MerchantViewController.m */; };
-		2EE8581B14ABF2F8008055AD /* Barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581914ABF2F8008055AD /* Barcode.png */; };
-		2EE8581C14ABF2F8008055AD /* Barcode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE8581A14ABF2F8008055AD /* Barcode@2x.png */; };
 		2EEA758E14D8C1E300D0D92A /* CouponMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */; };
 		2EEA759214D8C58800D0D92A /* CouponMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */; };
 		2EEC09CD1523B2E100E6812E /* 24-gift-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09C71523B2E100E6812E /* 24-gift-bar.png */; };
@@ -384,11 +315,7 @@
 		2EEC09D21523B2E100E6812E /* 281-crown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC09CC1523B2E100E6812E /* 281-crown@2x.png */; };
 		2EEC685914BD094D006AC9F7 /* UIToolbarSized.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */; };
 		2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE2149D863500A68993 /* CellBackground.png */; };
-		2EF0EBEA149D863500A68993 /* CellBackgroundTextPositioning.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */; };
-		2EF0EBEB149D863500A68993 /* CellIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE4149D863500A68993 /* CellIcon.png */; };
-		2EF0EBEC149D863500A68993 /* CellIconTextPositioning.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE5149D863500A68993 /* CellIconTextPositioning.png */; };
 		2EF0EBED149D863500A68993 /* InitalLoadingSplash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE6149D863500A68993 /* InitalLoadingSplash.png */; };
-		2EF0EBEE149D863500A68993 /* SplashPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE7149D863500A68993 /* SplashPage.png */; };
 		2EF0EBEF149D863500A68993 /* TopNavBarLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */; };
 		2EF0EBF1149D869D00A68993 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0EBF0149D869D00A68993 /* Default.png */; };
 		2EF82A491551F7EA00021B79 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF82A481551F7EA00021B79 /* Logger.m */; };
@@ -413,8 +340,6 @@
 		2EFF7BF314EB531100632211 /* 210-twitterbird@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BEB14EB531100632211 /* 210-twitterbird@2x.png */; };
 		2EFF7BF414EB531100632211 /* 286-speechbubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BEC14EB531100632211 /* 286-speechbubble.png */; };
 		2EFF7BF514EB531100632211 /* 286-speechbubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BED14EB531100632211 /* 286-speechbubble@2x.png */; };
-		2EFF7BF814EB591B00632211 /* TokKarma.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BF614EB591A00632211 /* TokKarma.png */; };
-		2EFF7BF914EB591B00632211 /* TokKarma@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFF7BF714EB591A00632211 /* TokKarma@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -465,8 +390,6 @@
 		2E1144E21394709700D72753 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2E1158B614BBEEEA00659367 /* ShareMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareMore.png; sourceTree = "<group>"; };
 		2E1158B714BBEEEB00659367 /* ShareMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareMore@2x.png"; sourceTree = "<group>"; };
-		2E1158BA14BBF56200659367 /* Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Arrow.png; sourceTree = "<group>"; };
-		2E1158BB14BBF56200659367 /* Arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow@2x.png"; sourceTree = "<group>"; };
 		2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CouponDetailViewController.xib; sourceTree = "<group>"; };
 		2E1F722D13619C2800F947E3 /* CouponDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDetailViewController.h; sourceTree = "<group>"; };
 		2E1F722E13619C2800F947E3 /* CouponDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDetailViewController.m; sourceTree = "<group>"; };
@@ -475,10 +398,6 @@
 		2E201E4514B7AC17001E9051 /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		2E201E4714BB58EB001E9051 /* RedeemedSash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemedSash.png; sourceTree = "<group>"; };
 		2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemedSash@2x.png"; sourceTree = "<group>"; };
-		2E224B6E15AF373100CFEB92 /* SettingsTutorialArrow07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialArrow07.png; sourceTree = "<group>"; };
-		2E224B6F15AF373100CFEB92 /* SettingsTutorialArrow07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialArrow07@2x.png"; sourceTree = "<group>"; };
-		2E224B7015AF373100CFEB92 /* SettingsTutorialChar07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar07.png; sourceTree = "<group>"; };
-		2E224B7115AF373100CFEB92 /* SettingsTutorialChar07@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar07@2x.png"; sourceTree = "<group>"; };
 		2E256EF71587EB9F00432597 /* FacebookResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookResult.h; sourceTree = "<group>"; };
 		2E256EF81587EB9F00432597 /* FacebookResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookResult.m; sourceTree = "<group>"; };
 		2E256EFA1588020E00432597 /* JsonPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JsonPickerViewController.xib; sourceTree = "<group>"; };
@@ -504,8 +423,6 @@
 		2E3190ED14E453F500D7470E /* UnitedSansReg-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UnitedSansReg-Bold.otf"; sourceTree = "<group>"; };
 		2E3190EF14E48B1500D7470E /* ArrowMore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowMore.png; sourceTree = "<group>"; };
 		2E3190F014E48B1500D7470E /* ArrowMore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowMore@2x.png"; sourceTree = "<group>"; };
-		2E3190F314E48DB900D7470E /* ArrowMoreSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowMoreSelected.png; sourceTree = "<group>"; };
-		2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowMoreSelected@2x.png"; sourceTree = "<group>"; };
 		2E32143D14C0B6E500647116 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		2E32143F14C0BAE000647116 /* iPhoneShake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneShake.png; sourceTree = "<group>"; };
 		2E391EA215BDEAE0002DB9B9 /* PromoBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PromoBackground.png; sourceTree = "<group>"; };
@@ -549,18 +466,10 @@
 		2E5565E81522395700606625 /* PromoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoController.h; sourceTree = "<group>"; };
 		2E5565E91522395700606625 /* PromoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoController.m; sourceTree = "<group>"; };
 		2E5565EB1522397800606625 /* PromoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PromoController.xib; sourceTree = "<group>"; };
-		2E5565ED15223CE100606625 /* TokPromo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokPromo.png; sourceTree = "<group>"; };
-		2E5565EF15223CEC00606625 /* TokPromo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokPromo@2x.png"; sourceTree = "<group>"; };
 		2E5565F71522A2F300606625 /* 108-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge.png"; sourceTree = "<group>"; };
 		2E5565F81522A2F300606625 /* 108-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "108-badge@2x.png"; sourceTree = "<group>"; };
 		2E5FB77C14EF21F200F597DD /* HelveticaNeueLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueLight.ttf; sourceTree = "<group>"; };
 		2E5FB77D14EF21F200F597DD /* HelveticaNeueMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeueMedium.ttf; sourceTree = "<group>"; };
-		2E5FEAD514A1106300B516FE /* Icon01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon01.png; sourceTree = "<group>"; };
-		2E5FEAD614A1106300B516FE /* Icon01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon01@2x.png"; sourceTree = "<group>"; };
-		2E5FEAD714A1106300B516FE /* Icon02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon02.png; sourceTree = "<group>"; };
-		2E5FEAD814A1106400B516FE /* Icon02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon02@2x.png"; sourceTree = "<group>"; };
-		2E5FEAD914A1106400B516FE /* Icon03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon03.png; sourceTree = "<group>"; };
-		2E5FEADA14A1106400B516FE /* Icon03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon03@2x.png"; sourceTree = "<group>"; };
 		2E5FEAE514A14B6500B516FE /* UIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDefaults.h; sourceTree = "<group>"; };
 		2E5FEAE614A14B6500B516FE /* UIDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDefaults.m; sourceTree = "<group>"; };
 		2E5FEAE914A1AD2700B516FE /* CouponTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponTableViewCell.h; sourceTree = "<group>"; };
@@ -670,8 +579,6 @@
 		2E6A9EDE14BE5F5000AA4B7B /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		2E6A9EDF14BE5F5000AA4B7B /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		2E6A9EE014BE5F5000AA4B7B /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
-		2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ConnectFacebook.png; sourceTree = "<group>"; };
-		2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ConnectFacebook@2x.png"; sourceTree = "<group>"; };
 		2E6CCF4914C5E7A3006836F0 /* MFMailComposeViewController+Handlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+Handlers.h"; sourceTree = "<group>"; };
 		2E6CCF4A14C5E7A3006836F0 /* MFMailComposeViewController+Handlers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MFMailComposeViewController+Handlers.m"; sourceTree = "<group>"; };
 		2E6CCF4C14C5EDC1006836F0 /* MFMessageComposeViewController+Handlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMessageComposeViewController+Handlers.h"; sourceTree = "<group>"; };
@@ -693,8 +600,6 @@
 		2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokShaken@2x.png"; sourceTree = "<group>"; };
 		2E7DBE2614A3AF2B002F6187 /* IconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconManager.h; sourceTree = "<group>"; };
 		2E7DBE2714A3AF2B002F6187 /* IconManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconManager.m; sourceTree = "<group>"; };
-		2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ArrowHighlight.png; sourceTree = "<group>"; };
-		2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ArrowHighlight@2x.png"; sourceTree = "<group>"; };
 		2E821F80136B1F1500507F66 /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
 		2E821F81136B1F1500507F66 /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		2E821F83136B1F2A00507F66 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
@@ -707,24 +612,6 @@
 		2E89C2DE14DBCB2B0052751D /* 15-tags@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "15-tags@2x.png"; sourceTree = "<group>"; };
 		2E89C2DF14DBCB2B0052751D /* 103-map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "103-map@2x.png"; sourceTree = "<group>"; };
 		2E89C2E014DBCB2B0052751D /* 123-id-card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card@2x.png"; sourceTree = "<group>"; };
-		2E89C2EA14DC6BE40052751D /* SettingsTutorialArrow02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialArrow02.png; sourceTree = "<group>"; };
-		2E89C2EB14DC6BE40052751D /* SettingsTutorialArrow02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialArrow02@2x.png"; sourceTree = "<group>"; };
-		2E89C2EC14DC6BE40052751D /* SettingsTutorialArrow03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialArrow03.png; sourceTree = "<group>"; };
-		2E89C2ED14DC6BE40052751D /* SettingsTutorialArrow03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialArrow03@2x.png"; sourceTree = "<group>"; };
-		2E89C2EE14DC6BE40052751D /* SettingsTutorialArrow04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialArrow04.png; sourceTree = "<group>"; };
-		2E89C2EF14DC6BE40052751D /* SettingsTutorialArrow04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialArrow04@2x.png"; sourceTree = "<group>"; };
-		2E89C2F014DC6BE40052751D /* SettingsTutorialArrow05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialArrow05.png; sourceTree = "<group>"; };
-		2E89C2F114DC6BE40052751D /* SettingsTutorialArrow05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialArrow05@2x.png"; sourceTree = "<group>"; };
-		2E89C2F214DC6BE40052751D /* SettingsTutorialChar01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar01.png; sourceTree = "<group>"; };
-		2E89C2F314DC6BE40052751D /* SettingsTutorialChar01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar01@2x.png"; sourceTree = "<group>"; };
-		2E89C2F414DC6BE40052751D /* SettingsTutorialChar02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar02.png; sourceTree = "<group>"; };
-		2E89C2F514DC6BE40052751D /* SettingsTutorialChar02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar02@2x.png"; sourceTree = "<group>"; };
-		2E89C2F614DC6BE40052751D /* SettingsTutorialChar03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar03.png; sourceTree = "<group>"; };
-		2E89C2F714DC6BE40052751D /* SettingsTutorialChar03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar03@2x.png"; sourceTree = "<group>"; };
-		2E89C2F814DC6BE40052751D /* SettingsTutorialChar04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar04.png; sourceTree = "<group>"; };
-		2E89C2F914DC6BE40052751D /* SettingsTutorialChar04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar04@2x.png"; sourceTree = "<group>"; };
-		2E89C2FA14DC6BE40052751D /* SettingsTutorialChar05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar05.png; sourceTree = "<group>"; };
-		2E89C2FB14DC6BE40052751D /* SettingsTutorialChar05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar05@2x.png"; sourceTree = "<group>"; };
 		2E8C4D31156ACAE300B5EFA1 /* 178-city.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "178-city.png"; sourceTree = "<group>"; };
 		2E8C4D32156ACAE300B5EFA1 /* 178-city@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "178-city@2x.png"; sourceTree = "<group>"; };
 		2E8C4D35156ACB6D00B5EFA1 /* CitiesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CitiesViewController.xib; sourceTree = "<group>"; };
@@ -737,8 +624,6 @@
 		2E9D007D15828A04001CC0D4 /* MerchantPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantPinViewController.h; sourceTree = "<group>"; };
 		2E9D007E15828A04001CC0D4 /* MerchantPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantPinViewController.m; sourceTree = "<group>"; };
 		2E9D008015828A39001CC0D4 /* MerchantPinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MerchantPinViewController.xib; sourceTree = "<group>"; };
-		2E9D008215828EB4001CC0D4 /* TokMerchantPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokMerchantPin.png; sourceTree = "<group>"; };
-		2E9D008315828EB4001CC0D4 /* TokMerchantPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokMerchantPin@2x.png"; sourceTree = "<group>"; };
 		2E9D008A1582CD51001CC0D4 /* DoneDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneDown.png; sourceTree = "<group>"; };
 		2E9D008B1582CD51001CC0D4 /* DoneUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneUp.png; sourceTree = "<group>"; };
 		2EA168F914BF4C310099B1F1 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
@@ -766,15 +651,9 @@
 		2EAFA10F156C4E6C00BB9C01 /* InfoSash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InfoSash@2x.png"; sourceTree = "<group>"; };
 		2EAFA112156C6D3500BB9C01 /* InfoBanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InfoBanner.png; sourceTree = "<group>"; };
 		2EAFA113156C6D3500BB9C01 /* InfoBanner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InfoBanner@2x.png"; sourceTree = "<group>"; };
-		2EAFA11A156DAE6E00BB9C01 /* SettingsTutorialArrow06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialArrow06.png; sourceTree = "<group>"; };
-		2EAFA11B156DAE6E00BB9C01 /* SettingsTutorialArrow06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialArrow06@2x.png"; sourceTree = "<group>"; };
-		2EAFA11C156DAE6E00BB9C01 /* SettingsTutorialChar06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsTutorialChar06.png; sourceTree = "<group>"; };
-		2EAFA11D156DAE6E00BB9C01 /* SettingsTutorialChar06@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsTutorialChar06@2x.png"; sourceTree = "<group>"; };
 		2EB7525814E06B8B009FC332 /* 193-location-arrow-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow-bar.png"; sourceTree = "<group>"; };
 		2EB7525914E06B8B009FC332 /* 193-location-arrow-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow-bar@2x.png"; sourceTree = "<group>"; };
 		2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InitalLoadingSplash@2x.png"; sourceTree = "<group>"; };
-		2EB87EC2149FA96700F01C26 /* LoadingPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LoadingPage.png; sourceTree = "<group>"; };
-		2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LoadingPage@2x.png"; sourceTree = "<group>"; };
 		2EB87EC4149FA96700F01C26 /* SplashProgressBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashProgressBar.png; sourceTree = "<group>"; };
 		2EB87EC5149FA96700F01C26 /* SplashProgressBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SplashProgressBar@2x.png"; sourceTree = "<group>"; };
 		2EB87EC6149FA96700F01C26 /* Tik@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tik@2x.png"; sourceTree = "<group>"; };
@@ -789,7 +668,6 @@
 		2EB87EDE149FED8300F01C26 /* CouponTableBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CouponTableBackground.png; sourceTree = "<group>"; };
 		2EB87EDF149FED8300F01C26 /* CouponTableBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponTableBackground@2x.png"; sourceTree = "<group>"; };
 		2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CellBackground@2x.png"; sourceTree = "<group>"; };
-		2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CellIcon@2x.png"; sourceTree = "<group>"; };
 		2EB87EE814A0029700F01C26 /* TikTok.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TikTok.entitlements; sourceTree = "<group>"; };
 		2EBAC7931399D9BE001FD98D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2EBD7803156734EB00EB3E8D /* AppiraterConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppiraterConfig.h; sourceTree = "<group>"; };
@@ -797,10 +675,6 @@
 		2EBD78051567370600EB3E8D /* Appirater+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Appirater+Extensions.m"; sourceTree = "<group>"; };
 		2EBD780715674B8100EB3E8D /* FBFrictionlessRequestSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBFrictionlessRequestSettings.h; sourceTree = "<group>"; };
 		2EBD780815674B8100EB3E8D /* FBFrictionlessRequestSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBFrictionlessRequestSettings.m; sourceTree = "<group>"; };
-		2EC5A54414E4C4290059762C /* TikPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TikPin.png; sourceTree = "<group>"; };
-		2EC5A54614E4C70A0059762C /* TikPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TikPin@2x.png"; sourceTree = "<group>"; };
-		2EC5A54814E4CA740059762C /* TokPin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokPin.png; sourceTree = "<group>"; };
-		2EC5A54914E4CA740059762C /* TokPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokPin@2x.png"; sourceTree = "<group>"; };
 		2EC6724A148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = VancouverDowntownWalk.gpx; sourceTree = "<group>"; };
 		2EC6724C148ED6F500AC5CDF /* TikTok-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TikTok-Info.plist"; sourceTree = "<group>"; };
 		2EC67258148FF6EF00AC5CDF /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
@@ -905,34 +779,16 @@
 		2EE857DE14AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponDetailBackgroundTitle@2x.png"; sourceTree = "<group>"; };
 		2EE857E314AA59D4008055AD /* ShareFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareFacebook.png; sourceTree = "<group>"; };
 		2EE857E414AA59D4008055AD /* ShareFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareFacebook@2x.png"; sourceTree = "<group>"; };
-		2EE857E514AA59D4008055AD /* ShareGooglePlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareGooglePlus.png; sourceTree = "<group>"; };
-		2EE857E614AA59D4008055AD /* ShareGooglePlus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareGooglePlus@2x.png"; sourceTree = "<group>"; };
-		2EE857E714AA59D4008055AD /* ShareSMS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareSMS.png; sourceTree = "<group>"; };
-		2EE857E814AA59D4008055AD /* ShareSMS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareSMS@2x.png"; sourceTree = "<group>"; };
 		2EE857E914AA59D4008055AD /* ShareTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareTwitter.png; sourceTree = "<group>"; };
 		2EE857EA14AA59D4008055AD /* ShareTwitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShareTwitter@2x.png"; sourceTree = "<group>"; };
 		2EE857F314AA611B008055AD /* CouponTimerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CouponTimerBackground.png; sourceTree = "<group>"; };
 		2EE857F414AA611B008055AD /* CouponTimerBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CouponTimerBackground@2x.png"; sourceTree = "<group>"; };
-		2EE857F714AA668F008055AD /* CompanyInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompanyInfo.png; sourceTree = "<group>"; };
-		2EE857F814AA668F008055AD /* CompanyInfo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CompanyInfo@2x.png"; sourceTree = "<group>"; };
-		2EE857F914AA668F008055AD /* ViewOtherDeals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ViewOtherDeals.png; sourceTree = "<group>"; };
-		2EE857FA14AA668F008055AD /* ViewOtherDeals@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ViewOtherDeals@2x.png"; sourceTree = "<group>"; };
 		2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemBarItemButton.png; sourceTree = "<group>"; };
 		2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RedeemBarItemButton@2x.png"; sourceTree = "<group>"; };
-		2EE8580314ABAA08008055AD /* ButtonFacebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonFacebook.png; sourceTree = "<group>"; };
-		2EE8580414ABAA08008055AD /* ButtonFacebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonFacebook@2x.png"; sourceTree = "<group>"; };
-		2EE8580514ABAA08008055AD /* ButtonTwitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonTwitter.png; sourceTree = "<group>"; };
-		2EE8580614ABAA08008055AD /* ButtonTwitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonTwitter@2x.png"; sourceTree = "<group>"; };
-		2EE8580714ABAA08008055AD /* ButtonWebsite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonWebsite.png; sourceTree = "<group>"; };
-		2EE8580814ABAA08008055AD /* ButtonWebsite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ButtonWebsite@2x.png"; sourceTree = "<group>"; };
-		2EE8580914ABAA08008055AD /* CompanyBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompanyBackground.png; sourceTree = "<group>"; };
-		2EE8580A14ABAA08008055AD /* CompanyBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CompanyBackground@2x.png"; sourceTree = "<group>"; };
 		2EE8581314ABABAD008055AD /* MerchantViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MerchantViewController.xib; sourceTree = "<group>"; };
 		2EE8581514ABABBB008055AD /* MerchantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MerchantViewController.h; sourceTree = "<group>"; };
 		2EE8581614ABABBB008055AD /* MerchantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MerchantViewController.m; sourceTree = "<group>"; };
 		2EE8581814ABAC35008055AD /* CouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponViewController.h; sourceTree = "<group>"; };
-		2EE8581914ABF2F8008055AD /* Barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Barcode.png; sourceTree = "<group>"; };
-		2EE8581A14ABF2F8008055AD /* Barcode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Barcode@2x.png"; sourceTree = "<group>"; };
 		2EEA758C14D8C1E300D0D92A /* CouponMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponMapViewController.h; sourceTree = "<group>"; };
 		2EEA758D14D8C1E300D0D92A /* CouponMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponMapViewController.m; sourceTree = "<group>"; };
 		2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponMapViewController.xib; sourceTree = "<group>"; };
@@ -946,11 +802,7 @@
 		2EEC685714BD094D006AC9F7 /* UIToolbarSized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIToolbarSized.h; sourceTree = "<group>"; };
 		2EEC685814BD094D006AC9F7 /* UIToolbarSized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIToolbarSized.m; sourceTree = "<group>"; };
 		2EF0EBE2149D863500A68993 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackground.png; sourceTree = "<group>"; };
-		2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellBackgroundTextPositioning.png; sourceTree = "<group>"; };
-		2EF0EBE4149D863500A68993 /* CellIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellIcon.png; sourceTree = "<group>"; };
-		2EF0EBE5149D863500A68993 /* CellIconTextPositioning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellIconTextPositioning.png; sourceTree = "<group>"; };
 		2EF0EBE6149D863500A68993 /* InitalLoadingSplash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InitalLoadingSplash.png; sourceTree = "<group>"; };
-		2EF0EBE7149D863500A68993 /* SplashPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashPage.png; sourceTree = "<group>"; };
 		2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TopNavBarLogo.png; sourceTree = "<group>"; };
 		2EF0EBF0149D869D00A68993 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		2EF82A471551F7EA00021B79 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
@@ -981,8 +833,6 @@
 		2EFF7BEB14EB531100632211 /* 210-twitterbird@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "210-twitterbird@2x.png"; sourceTree = "<group>"; };
 		2EFF7BEC14EB531100632211 /* 286-speechbubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "286-speechbubble.png"; sourceTree = "<group>"; };
 		2EFF7BED14EB531100632211 /* 286-speechbubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "286-speechbubble@2x.png"; sourceTree = "<group>"; };
-		2EFF7BF614EB591A00632211 /* TokKarma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TokKarma.png; sourceTree = "<group>"; };
-		2EFF7BF714EB591A00632211 /* TokKarma@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TokKarma@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1257,177 +1107,102 @@
 				2E521C9F15C240C900F153E0 /* ArrowCollapse@2x.png */,
 				2E521C9715C1F43D00F153E0 /* ArrowExpand.png */,
 				2E521C9815C1F43D00F153E0 /* ArrowExpand@2x.png */,
-				2E521C9315C1ED5A00F153E0 /* MerchantLocationCellBackground.png */,
-				2E521C9415C1ED5A00F153E0 /* MerchantLocationCellBackground@2x.png */,
-				2E521C8F15C1E2AF00F153E0 /* MerchantBackgroundTitle.png */,
-				2E521C9015C1E2AF00F153E0 /* MerchantBackgroundTitle@2x.png */,
-				2E521C8115C1073B00F153E0 /* TutorialBackground01@2x.png */,
-				2E521C8215C1073B00F153E0 /* TutorialBackground02@2x.png */,
-				2E521C8315C1073B00F153E0 /* TutorialBackground03@2x.png */,
-				2E521C8415C1073B00F153E0 /* TutorialBackground04@2x.png */,
-				2E521C8515C1073B00F153E0 /* TutorialBackground05@2x.png */,
-				2E521C8615C1073B00F153E0 /* TutorialBackground06@2x.png */,
-				2E521C8715C1073B00F153E0 /* TutorialBackground07@2x.png */,
-				2E521C7315C0AC8200F153E0 /* TutorialBackground01.png */,
-				2E521C7415C0AC8200F153E0 /* TutorialBackground02.png */,
-				2E521C7515C0AC8200F153E0 /* TutorialBackground03.png */,
-				2E521C7615C0AC8200F153E0 /* TutorialBackground04.png */,
-				2E521C7715C0AC8200F153E0 /* TutorialBackground05.png */,
-				2E521C7815C0AC8200F153E0 /* TutorialBackground06.png */,
-				2E521C7915C0AC8200F153E0 /* TutorialBackground07.png */,
-				2E521C6F15C09BB200F153E0 /* KarmaBackground.png */,
-				2E521C7015C09BB200F153E0 /* KarmaBackground@2x.png */,
-				2E521C6915C08D8E00F153E0 /* RedeemBackground.png */,
-				2E521C6A15C08D8E00F153E0 /* RedeemBackground@2x.png */,
-				2EE218C015C07421004E5ED0 /* TikNoDeals.png */,
-				2EE218C115C07421004E5ED0 /* TikNoDeals@2x.png */,
-				2E391EAA15BDF645002DB9B9 /* TableHeaderBackground.png */,
-				2E391EAB15BDF645002DB9B9 /* TableHeaderBackground@2x.png */,
-				2E391EA615BDED49002DB9B9 /* MerchantPinBackground.png */,
-				2E391EA715BDED49002DB9B9 /* MerchantPinBackground@2x.png */,
-				2E391EA215BDEAE0002DB9B9 /* PromoBackground.png */,
-				2E391EA315BDEAE0002DB9B9 /* PromoBackground@2x.png */,
-				2E0985A015895B33009749A0 /* FacebookDefault.png */,
-				2E0985A115895B33009749A0 /* FacebookDefault@2x.png */,
-				2E9D008A1582CD51001CC0D4 /* DoneDown.png */,
-				2E9D008B1582CD51001CC0D4 /* DoneUp.png */,
-				2E9D008215828EB4001CC0D4 /* TokMerchantPin.png */,
-				2E9D008315828EB4001CC0D4 /* TokMerchantPin@2x.png */,
-				2EAFA112156C6D3500BB9C01 /* InfoBanner.png */,
-				2EAFA113156C6D3500BB9C01 /* InfoBanner@2x.png */,
-				2EAFA10E156C4E6C00BB9C01 /* InfoSash.png */,
-				2EAFA10F156C4E6C00BB9C01 /* InfoSash@2x.png */,
-				2E5565ED15223CE100606625 /* TokPromo.png */,
-				2E5565EF15223CEC00606625 /* TokPromo@2x.png */,
-				2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */,
-				2EE0D88D14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png */,
-				2EFEDEAE14F1DDFC00BCE0CC /* DealSoldOutBanner.png */,
-				2EFEDEAF14F1DDFC00BCE0CC /* DealSoldOutBanner@2x.png */,
-				2EFF7BF614EB591A00632211 /* TokKarma.png */,
-				2EFF7BF714EB591A00632211 /* TokKarma@2x.png */,
-				2EFF7BD914EB467000632211 /* SoldOutSash.png */,
-				2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */,
-				2EC5A54414E4C4290059762C /* TikPin.png */,
-				2EC5A54614E4C70A0059762C /* TikPin@2x.png */,
-				2EC5A54814E4CA740059762C /* TokPin.png */,
-				2EC5A54914E4CA740059762C /* TokPin@2x.png */,
-				2E3190F314E48DB900D7470E /* ArrowMoreSelected.png */,
-				2E3190F414E48DBA00D7470E /* ArrowMoreSelected@2x.png */,
 				2E3190EF14E48B1500D7470E /* ArrowMore.png */,
 				2E3190F014E48B1500D7470E /* ArrowMore@2x.png */,
-				2E3190E914E4535500D7470E /* DealBarcodeButton.png */,
-				2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */,
-				2E3190E114E44F7A00D7470E /* DealActiveBanner.png */,
-				2E3190E214E44F7A00D7470E /* DealActiveBanner@2x.png */,
-				2E3190E314E44F7A00D7470E /* DealExpiredBanner.png */,
-				2E3190E414E44F7A00D7470E /* DealExpiredBanner@2x.png */,
-				2E89C2EA14DC6BE40052751D /* SettingsTutorialArrow02.png */,
-				2E89C2EB14DC6BE40052751D /* SettingsTutorialArrow02@2x.png */,
-				2E89C2EC14DC6BE40052751D /* SettingsTutorialArrow03.png */,
-				2E89C2ED14DC6BE40052751D /* SettingsTutorialArrow03@2x.png */,
-				2E89C2EE14DC6BE40052751D /* SettingsTutorialArrow04.png */,
-				2E89C2EF14DC6BE40052751D /* SettingsTutorialArrow04@2x.png */,
-				2E89C2F014DC6BE40052751D /* SettingsTutorialArrow05.png */,
-				2E89C2F114DC6BE40052751D /* SettingsTutorialArrow05@2x.png */,
-				2EAFA11A156DAE6E00BB9C01 /* SettingsTutorialArrow06.png */,
-				2EAFA11B156DAE6E00BB9C01 /* SettingsTutorialArrow06@2x.png */,
-				2E224B6E15AF373100CFEB92 /* SettingsTutorialArrow07.png */,
-				2E224B6F15AF373100CFEB92 /* SettingsTutorialArrow07@2x.png */,
-				2E89C2F214DC6BE40052751D /* SettingsTutorialChar01.png */,
-				2E89C2F314DC6BE40052751D /* SettingsTutorialChar01@2x.png */,
-				2E89C2F414DC6BE40052751D /* SettingsTutorialChar02.png */,
-				2E89C2F514DC6BE40052751D /* SettingsTutorialChar02@2x.png */,
-				2E89C2F614DC6BE40052751D /* SettingsTutorialChar03.png */,
-				2E89C2F714DC6BE40052751D /* SettingsTutorialChar03@2x.png */,
-				2E89C2F814DC6BE40052751D /* SettingsTutorialChar04.png */,
-				2E89C2F914DC6BE40052751D /* SettingsTutorialChar04@2x.png */,
-				2E89C2FA14DC6BE40052751D /* SettingsTutorialChar05.png */,
-				2E89C2FB14DC6BE40052751D /* SettingsTutorialChar05@2x.png */,
-				2EAFA11C156DAE6E00BB9C01 /* SettingsTutorialChar06.png */,
-				2EAFA11D156DAE6E00BB9C01 /* SettingsTutorialChar06@2x.png */,
-				2E224B7015AF373100CFEB92 /* SettingsTutorialChar07.png */,
-				2E224B7115AF373100CFEB92 /* SettingsTutorialChar07@2x.png */,
-				2E6FC60E14D9C93400DA36E9 /* fbConnect.png */,
-				2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */,
-				2E6FC61014D9C93400DA36E9 /* fbLogout.png */,
-				2E6FC61114D9C93400DA36E9 /* fbLogout@2x.png */,
-				2E31269E14CA402500477805 /* UserLocation.png */,
-				2E3126A014CA427600477805 /* UserLocation@2x.png */,
-				2E31269914C8F78000477805 /* MapSelectionMask.png */,
-				2E32143F14C0BAE000647116 /* iPhoneShake.png */,
-				2E6A9EE314BE7BCA00AA4B7B /* ConnectFacebook.png */,
-				2E6A9EE414BE7BCA00AA4B7B /* ConnectFacebook@2x.png */,
-				2E802E5814BCFCF500F741B6 /* ArrowHighlight.png */,
-				2E802E5914BCFCF500F741B6 /* ArrowHighlight@2x.png */,
-				2E1158BA14BBF56200659367 /* Arrow.png */,
-				2E1158BB14BBF56200659367 /* Arrow@2x.png */,
-				2E1158B614BBEEEA00659367 /* ShareMore.png */,
-				2E1158B714BBEEEB00659367 /* ShareMore@2x.png */,
-				2EE8581914ABF2F8008055AD /* Barcode.png */,
-				2EE8581A14ABF2F8008055AD /* Barcode@2x.png */,
-				2EE8580314ABAA08008055AD /* ButtonFacebook.png */,
-				2EE8580414ABAA08008055AD /* ButtonFacebook@2x.png */,
-				2EE8580514ABAA08008055AD /* ButtonTwitter.png */,
-				2EE8580614ABAA08008055AD /* ButtonTwitter@2x.png */,
-				2EE8580714ABAA08008055AD /* ButtonWebsite.png */,
-				2EE8580814ABAA08008055AD /* ButtonWebsite@2x.png */,
-				2EE8580914ABAA08008055AD /* CompanyBackground.png */,
-				2EE8580A14ABAA08008055AD /* CompanyBackground@2x.png */,
-				2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */,
-				2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */,
-				2E201E4714BB58EB001E9051 /* RedeemedSash.png */,
-				2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */,
-				2EE857F714AA668F008055AD /* CompanyInfo.png */,
-				2EE857F814AA668F008055AD /* CompanyInfo@2x.png */,
-				2EE857F914AA668F008055AD /* ViewOtherDeals.png */,
-				2EE857FA14AA668F008055AD /* ViewOtherDeals@2x.png */,
-				2EE857F314AA611B008055AD /* CouponTimerBackground.png */,
-				2EE857F414AA611B008055AD /* CouponTimerBackground@2x.png */,
-				2EE857E314AA59D4008055AD /* ShareFacebook.png */,
-				2EE857E414AA59D4008055AD /* ShareFacebook@2x.png */,
-				2EE857E514AA59D4008055AD /* ShareGooglePlus.png */,
-				2EE857E614AA59D4008055AD /* ShareGooglePlus@2x.png */,
-				2EE857E714AA59D4008055AD /* ShareSMS.png */,
-				2EE857E814AA59D4008055AD /* ShareSMS@2x.png */,
-				2EE857E914AA59D4008055AD /* ShareTwitter.png */,
-				2EE857EA14AA59D4008055AD /* ShareTwitter@2x.png */,
+				2EF0EBE2149D863500A68993 /* CellBackground.png */,
+				2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */,
 				2EE857DB14AA4FF0008055AD /* CouponDetailBackgroundTexture.png */,
 				2EE857DC14AA4FF0008055AD /* CouponDetailBackgroundTexture@2x.png */,
 				2EE857DD14AA4FF0008055AD /* CouponDetailBackgroundTitle.png */,
 				2EE857DE14AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png */,
-				2E5FEAD514A1106300B516FE /* Icon01.png */,
-				2E5FEAD614A1106300B516FE /* Icon01@2x.png */,
-				2E5FEAD714A1106300B516FE /* Icon02.png */,
-				2E5FEAD814A1106400B516FE /* Icon02@2x.png */,
-				2E5FEAD914A1106400B516FE /* Icon03.png */,
-				2E5FEADA14A1106400B516FE /* Icon03@2x.png */,
-				2EF0EBE4149D863500A68993 /* CellIcon.png */,
-				2EB87EE3149FEED600F01C26 /* CellIcon@2x.png */,
 				2EB87EDE149FED8300F01C26 /* CouponTableBackground.png */,
 				2EB87EDF149FED8300F01C26 /* CouponTableBackground@2x.png */,
+				2EE857F314AA611B008055AD /* CouponTimerBackground.png */,
+				2EE857F414AA611B008055AD /* CouponTimerBackground@2x.png */,
 				2EF0EBF0149D869D00A68993 /* Default.png */,
 				2EB87ED1149FA97C00F01C26 /* Default@2x.png */,
+				2E3190E114E44F7A00D7470E /* DealActiveBanner.png */,
+				2E3190E214E44F7A00D7470E /* DealActiveBanner@2x.png */,
+				2E3190E914E4535500D7470E /* DealBarcodeButton.png */,
+				2E3190EA14E4535500D7470E /* DealBarcodeButton@2x.png */,
+				2E3190E314E44F7A00D7470E /* DealExpiredBanner.png */,
+				2E3190E414E44F7A00D7470E /* DealExpiredBanner@2x.png */,
+				2EFEDEAE14F1DDFC00BCE0CC /* DealSoldOutBanner.png */,
+				2EFEDEAF14F1DDFC00BCE0CC /* DealSoldOutBanner@2x.png */,
+				2E9D008A1582CD51001CC0D4 /* DoneDown.png */,
+				2E9D008B1582CD51001CC0D4 /* DoneUp.png */,
+				2E0985A015895B33009749A0 /* FacebookDefault.png */,
+				2E0985A115895B33009749A0 /* FacebookDefault@2x.png */,
+				2E6FC60E14D9C93400DA36E9 /* fbConnect.png */,
+				2E6FC60F14D9C93400DA36E9 /* fbConnect@2x.png */,
+				2E6FC61014D9C93400DA36E9 /* fbLogout.png */,
+				2E6FC61114D9C93400DA36E9 /* fbLogout@2x.png */,
+				2EAFA112156C6D3500BB9C01 /* InfoBanner.png */,
+				2EAFA113156C6D3500BB9C01 /* InfoBanner@2x.png */,
+				2EAFA10E156C4E6C00BB9C01 /* InfoSash.png */,
+				2EAFA10F156C4E6C00BB9C01 /* InfoSash@2x.png */,
 				2EF0EBE6149D863500A68993 /* InitalLoadingSplash.png */,
 				2EB87EC1149FA96700F01C26 /* InitalLoadingSplash@2x.png */,
-				2EB87EC2149FA96700F01C26 /* LoadingPage.png */,
-				2EB87EC3149FA96700F01C26 /* LoadingPage@2x.png */,
+				2E32143F14C0BAE000647116 /* iPhoneShake.png */,
+				2E521C6F15C09BB200F153E0 /* KarmaBackground.png */,
+				2E521C7015C09BB200F153E0 /* KarmaBackground@2x.png */,
+				2E31269914C8F78000477805 /* MapSelectionMask.png */,
+				2E521C9315C1ED5A00F153E0 /* MerchantLocationCellBackground.png */,
+				2E521C9415C1ED5A00F153E0 /* MerchantLocationCellBackground@2x.png */,
+				2E521C8F15C1E2AF00F153E0 /* MerchantBackgroundTitle.png */,
+				2E521C9015C1E2AF00F153E0 /* MerchantBackgroundTitle@2x.png */,
+				2E391EA615BDED49002DB9B9 /* MerchantPinBackground.png */,
+				2E391EA715BDED49002DB9B9 /* MerchantPinBackground@2x.png */,
+				2E391EA215BDEAE0002DB9B9 /* PromoBackground.png */,
+				2E391EA315BDEAE0002DB9B9 /* PromoBackground@2x.png */,
+				2E521C6915C08D8E00F153E0 /* RedeemBackground.png */,
+				2E521C6A15C08D8E00F153E0 /* RedeemBackground@2x.png */,
+				2EE857FF14AA8B50008055AD /* RedeemBarItemButton.png */,
+				2EE8580014AA8B50008055AD /* RedeemBarItemButton@2x.png */,
+				2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */,
+				2EE0D88D14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png */,
+				2E201E4714BB58EB001E9051 /* RedeemedSash.png */,
+				2E201E4814BB58EB001E9051 /* RedeemedSash@2x.png */,
+				2EE857E314AA59D4008055AD /* ShareFacebook.png */,
+				2EE857E414AA59D4008055AD /* ShareFacebook@2x.png */,
+				2E1158B614BBEEEA00659367 /* ShareMore.png */,
+				2E1158B714BBEEEB00659367 /* ShareMore@2x.png */,
+				2EE857E914AA59D4008055AD /* ShareTwitter.png */,
+				2EE857EA14AA59D4008055AD /* ShareTwitter@2x.png */,
+				2EFF7BD914EB467000632211 /* SoldOutSash.png */,
+				2EFF7BDA14EB467000632211 /* SoldOutSash@2x.png */,
 				2EB87EC4149FA96700F01C26 /* SplashProgressBar.png */,
 				2EB87EC5149FA96700F01C26 /* SplashProgressBar@2x.png */,
+				2E391EAA15BDF645002DB9B9 /* TableHeaderBackground.png */,
+				2E391EAB15BDF645002DB9B9 /* TableHeaderBackground@2x.png */,
 				2EB87ED3149FAA2200F01C26 /* Tik.png */,
 				2EB87EC6149FA96700F01C26 /* Tik@2x.png */,
+				2EE218C015C07421004E5ED0 /* TikNoDeals.png */,
+				2EE218C115C07421004E5ED0 /* TikNoDeals@2x.png */,
 				2E7DBE1E14A263E2002F6187 /* TikShaken.png */,
 				2E7DBE1F14A263E2002F6187 /* TikShaken@2x.png */,
 				2EB87EC7149FA96700F01C26 /* Tok.png */,
 				2EB87EC8149FA96700F01C26 /* Tok@2x.png */,
 				2E7DBE2014A263E2002F6187 /* TokShaken.png */,
 				2E7DBE2114A263E2002F6187 /* TokShaken@2x.png */,
-				2EF0EBE2149D863500A68993 /* CellBackground.png */,
-				2EB87EE2149FEED600F01C26 /* CellBackground@2x.png */,
-				2EF0EBE3149D863500A68993 /* CellBackgroundTextPositioning.png */,
-				2EF0EBE5149D863500A68993 /* CellIconTextPositioning.png */,
-				2EF0EBE7149D863500A68993 /* SplashPage.png */,
 				2EF0EBE8149D863500A68993 /* TopNavBarLogo.png */,
 				2EB87EDC149FEB1D00F01C26 /* TopNavBarLogo@2x.png */,
+				2E521C7315C0AC8200F153E0 /* TutorialBackground01.png */,
+				2E521C8115C1073B00F153E0 /* TutorialBackground01@2x.png */,
+				2E521C7415C0AC8200F153E0 /* TutorialBackground02.png */,
+				2E521C8215C1073B00F153E0 /* TutorialBackground02@2x.png */,
+				2E521C7515C0AC8200F153E0 /* TutorialBackground03.png */,
+				2E521C8315C1073B00F153E0 /* TutorialBackground03@2x.png */,
+				2E521C7615C0AC8200F153E0 /* TutorialBackground04.png */,
+				2E521C8415C1073B00F153E0 /* TutorialBackground04@2x.png */,
+				2E521C7715C0AC8200F153E0 /* TutorialBackground05.png */,
+				2E521C8515C1073B00F153E0 /* TutorialBackground05@2x.png */,
+				2E521C7815C0AC8200F153E0 /* TutorialBackground06.png */,
+				2E521C8615C1073B00F153E0 /* TutorialBackground06@2x.png */,
+				2E521C7915C0AC8200F153E0 /* TutorialBackground07.png */,
+				2E521C8715C1073B00F153E0 /* TutorialBackground07@2x.png */,
+				2E31269E14CA402500477805 /* UserLocation.png */,
+				2E3126A014CA427600477805 /* UserLocation@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -2009,16 +1784,10 @@
 				2E1144D213946D7900D72753 /* LocationMapViewController.xib in Resources */,
 				2EC6724B148ECE9F00AC5CDF /* VancouverDowntownWalk.gpx in Resources */,
 				2EF0EBE9149D863500A68993 /* CellBackground.png in Resources */,
-				2EF0EBEA149D863500A68993 /* CellBackgroundTextPositioning.png in Resources */,
-				2EF0EBEB149D863500A68993 /* CellIcon.png in Resources */,
-				2EF0EBEC149D863500A68993 /* CellIconTextPositioning.png in Resources */,
 				2EF0EBED149D863500A68993 /* InitalLoadingSplash.png in Resources */,
-				2EF0EBEE149D863500A68993 /* SplashPage.png in Resources */,
 				2EF0EBEF149D863500A68993 /* TopNavBarLogo.png in Resources */,
 				2EF0EBF1149D869D00A68993 /* Default.png in Resources */,
 				2EB87EC9149FA96700F01C26 /* InitalLoadingSplash@2x.png in Resources */,
-				2EB87ECA149FA96700F01C26 /* LoadingPage.png in Resources */,
-				2EB87ECB149FA96700F01C26 /* LoadingPage@2x.png in Resources */,
 				2EB87ECC149FA96700F01C26 /* SplashProgressBar.png in Resources */,
 				2EB87ECD149FA96700F01C26 /* SplashProgressBar@2x.png in Resources */,
 				2EB87ECE149FA96700F01C26 /* Tik@2x.png in Resources */,
@@ -2031,13 +1800,6 @@
 				2EB87EE0149FED8300F01C26 /* CouponTableBackground.png in Resources */,
 				2EB87EE1149FED8300F01C26 /* CouponTableBackground@2x.png in Resources */,
 				2EB87EE4149FEED600F01C26 /* CellBackground@2x.png in Resources */,
-				2EB87EE5149FEED600F01C26 /* CellIcon@2x.png in Resources */,
-				2E5FEADB14A1106400B516FE /* Icon01.png in Resources */,
-				2E5FEADC14A1106400B516FE /* Icon01@2x.png in Resources */,
-				2E5FEADD14A1106400B516FE /* Icon02.png in Resources */,
-				2E5FEADE14A1106400B516FE /* Icon02@2x.png in Resources */,
-				2E5FEADF14A1106400B516FE /* Icon03.png in Resources */,
-				2E5FEAE014A1106400B516FE /* Icon03@2x.png in Resources */,
 				2E7DBE2214A263E2002F6187 /* TikShaken.png in Resources */,
 				2E7DBE2314A263E2002F6187 /* TikShaken@2x.png in Resources */,
 				2E7DBE2414A263E2002F6187 /* TokShaken.png in Resources */,
@@ -2048,31 +1810,13 @@
 				2EE857E214AA4FF0008055AD /* CouponDetailBackgroundTitle@2x.png in Resources */,
 				2EE857EB14AA59D4008055AD /* ShareFacebook.png in Resources */,
 				2EE857EC14AA59D4008055AD /* ShareFacebook@2x.png in Resources */,
-				2EE857ED14AA59D4008055AD /* ShareGooglePlus.png in Resources */,
-				2EE857EE14AA59D4008055AD /* ShareGooglePlus@2x.png in Resources */,
-				2EE857EF14AA59D4008055AD /* ShareSMS.png in Resources */,
-				2EE857F014AA59D4008055AD /* ShareSMS@2x.png in Resources */,
 				2EE857F114AA59D4008055AD /* ShareTwitter.png in Resources */,
 				2EE857F214AA59D4008055AD /* ShareTwitter@2x.png in Resources */,
 				2EE857F514AA611B008055AD /* CouponTimerBackground.png in Resources */,
 				2EE857F614AA611B008055AD /* CouponTimerBackground@2x.png in Resources */,
-				2EE857FB14AA668F008055AD /* CompanyInfo.png in Resources */,
-				2EE857FC14AA668F008055AD /* CompanyInfo@2x.png in Resources */,
-				2EE857FD14AA668F008055AD /* ViewOtherDeals.png in Resources */,
-				2EE857FE14AA668F008055AD /* ViewOtherDeals@2x.png in Resources */,
 				2EE8580114AA8B50008055AD /* RedeemBarItemButton.png in Resources */,
 				2EE8580214AA8B50008055AD /* RedeemBarItemButton@2x.png in Resources */,
-				2EE8580B14ABAA08008055AD /* ButtonFacebook.png in Resources */,
-				2EE8580C14ABAA08008055AD /* ButtonFacebook@2x.png in Resources */,
-				2EE8580D14ABAA08008055AD /* ButtonTwitter.png in Resources */,
-				2EE8580E14ABAA08008055AD /* ButtonTwitter@2x.png in Resources */,
-				2EE8580F14ABAA08008055AD /* ButtonWebsite.png in Resources */,
-				2EE8581014ABAA08008055AD /* ButtonWebsite@2x.png in Resources */,
-				2EE8581114ABAA08008055AD /* CompanyBackground.png in Resources */,
-				2EE8581214ABAA08008055AD /* CompanyBackground@2x.png in Resources */,
 				2EE8581414ABABAD008055AD /* MerchantViewController.xib in Resources */,
-				2EE8581B14ABF2F8008055AD /* Barcode.png in Resources */,
-				2EE8581C14ABF2F8008055AD /* Barcode@2x.png in Resources */,
 				2EE5D42214AE38E500D0539C /* NeutraDisp-BoldAlt.otf in Resources */,
 				2EE5D43414B25D5200D0539C /* FBDialog.bundle in Resources */,
 				2E201E4314B67FF0001E9051 /* Localizable.strings in Resources */,
@@ -2080,13 +1824,7 @@
 				2E201E4A14BB58EB001E9051 /* RedeemedSash@2x.png in Resources */,
 				2E1158B814BBEEEB00659367 /* ShareMore.png in Resources */,
 				2E1158B914BBEEEB00659367 /* ShareMore@2x.png in Resources */,
-				2E1158BC14BBF56200659367 /* Arrow.png in Resources */,
-				2E1158BD14BBF56200659367 /* Arrow@2x.png in Resources */,
-				2E802E5A14BCFCF500F741B6 /* ArrowHighlight.png in Resources */,
-				2E802E5B14BCFCF500F741B6 /* ArrowHighlight@2x.png in Resources */,
 				2E6A9EE214BE5F5000AA4B7B /* SettingsViewController.xib in Resources */,
-				2E6A9EE514BE7BCA00AA4B7B /* ConnectFacebook.png in Resources */,
-				2E6A9EE614BE7BCA00AA4B7B /* ConnectFacebook@2x.png in Resources */,
 				2EA1690014BF60D60099B1F1 /* StringPickerViewController.xib in Resources */,
 				2EE4563A14BF9BA500EDD04B /* Icon.png in Resources */,
 				2E32144014C0BAE000647116 /* iPhoneShake.png in Resources */,
@@ -2107,24 +1845,6 @@
 				2E89C2E114DBCB2B0052751D /* 15-tags@2x.png in Resources */,
 				2E89C2E214DBCB2B0052751D /* 103-map@2x.png in Resources */,
 				2E89C2E314DBCB2B0052751D /* 123-id-card@2x.png in Resources */,
-				2E89C2FC14DC6BE40052751D /* SettingsTutorialArrow02.png in Resources */,
-				2E89C2FD14DC6BE40052751D /* SettingsTutorialArrow02@2x.png in Resources */,
-				2E89C2FE14DC6BE40052751D /* SettingsTutorialArrow03.png in Resources */,
-				2E89C2FF14DC6BE40052751D /* SettingsTutorialArrow03@2x.png in Resources */,
-				2E89C30014DC6BE40052751D /* SettingsTutorialArrow04.png in Resources */,
-				2E89C30114DC6BE40052751D /* SettingsTutorialArrow04@2x.png in Resources */,
-				2E89C30214DC6BE40052751D /* SettingsTutorialArrow05.png in Resources */,
-				2E89C30314DC6BE40052751D /* SettingsTutorialArrow05@2x.png in Resources */,
-				2E89C30414DC6BE40052751D /* SettingsTutorialChar01.png in Resources */,
-				2E89C30514DC6BE40052751D /* SettingsTutorialChar01@2x.png in Resources */,
-				2E89C30614DC6BE40052751D /* SettingsTutorialChar02.png in Resources */,
-				2E89C30714DC6BE40052751D /* SettingsTutorialChar02@2x.png in Resources */,
-				2E89C30814DC6BE40052751D /* SettingsTutorialChar03.png in Resources */,
-				2E89C30914DC6BE40052751D /* SettingsTutorialChar03@2x.png in Resources */,
-				2E89C30A14DC6BE40052751D /* SettingsTutorialChar04.png in Resources */,
-				2E89C30B14DC6BE40052751D /* SettingsTutorialChar04@2x.png in Resources */,
-				2E89C30C14DC6BE40052751D /* SettingsTutorialChar05.png in Resources */,
-				2E89C30D14DC6BE40052751D /* SettingsTutorialChar05@2x.png in Resources */,
 				2E01EE8514DCD35D00B0E21A /* AppIcon.png in Resources */,
 				2E0CD0B014DCD3870035E73E /* AppIcon@2x.png in Resources */,
 				2E06472114DE007B008283D5 /* popoverArrowDown.png in Resources */,
@@ -2153,12 +1873,6 @@
 				2E3190EE14E453F500D7470E /* UnitedSansReg-Bold.otf in Resources */,
 				2E3190F114E48B1500D7470E /* ArrowMore.png in Resources */,
 				2E3190F214E48B1500D7470E /* ArrowMore@2x.png in Resources */,
-				2E3190F514E48DBA00D7470E /* ArrowMoreSelected.png in Resources */,
-				2E3190F614E48DBA00D7470E /* ArrowMoreSelected@2x.png in Resources */,
-				2EC5A54514E4C4290059762C /* TikPin.png in Resources */,
-				2EC5A54714E4C70A0059762C /* TikPin@2x.png in Resources */,
-				2EC5A54A14E4CA740059762C /* TokPin.png in Resources */,
-				2EC5A54B14E4CA740059762C /* TokPin@2x.png in Resources */,
 				2EFF7BDB14EB467000632211 /* SoldOutSash.png in Resources */,
 				2EFF7BDC14EB467000632211 /* SoldOutSash@2x.png in Resources */,
 				2EFF7BDF14EB4E1200632211 /* 17-bar-chart.png in Resources */,
@@ -2172,8 +1886,6 @@
 				2EFF7BF314EB531100632211 /* 210-twitterbird@2x.png in Resources */,
 				2EFF7BF414EB531100632211 /* 286-speechbubble.png in Resources */,
 				2EFF7BF514EB531100632211 /* 286-speechbubble@2x.png in Resources */,
-				2EFF7BF814EB591B00632211 /* TokKarma.png in Resources */,
-				2EFF7BF914EB591B00632211 /* TokKarma@2x.png in Resources */,
 				2E79792914EEEB9F0007D8C9 /* BradleyHandITCTTBold.ttf in Resources */,
 				2E5FB77E14EF21F200F597DD /* HelveticaNeueLight.ttf in Resources */,
 				2E5FB77F14EF21F200F597DD /* HelveticaNeueMedium.ttf in Resources */,
@@ -2184,8 +1896,6 @@
 				2EE0D88E14F357A60093D59B /* RedeemBarItemButtonEmpty.png in Resources */,
 				2EE0D88F14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png in Resources */,
 				2E5565EC1522397800606625 /* PromoController.xib in Resources */,
-				2E5565EE15223CE100606625 /* TokPromo.png in Resources */,
-				2E5565F015223CEC00606625 /* TokPromo@2x.png in Resources */,
 				2E5565F91522A2F300606625 /* 108-badge.png in Resources */,
 				2E5565FA1522A2F300606625 /* 108-badge@2x.png in Resources */,
 				2EEC09CD1523B2E100E6812E /* 24-gift-bar.png in Resources */,
@@ -2206,22 +1916,12 @@
 				2EAFA111156C4E6C00BB9C01 /* InfoSash@2x.png in Resources */,
 				2EAFA114156C6D3500BB9C01 /* InfoBanner.png in Resources */,
 				2EAFA115156C6D3500BB9C01 /* InfoBanner@2x.png in Resources */,
-				2EAFA11E156DAE6E00BB9C01 /* SettingsTutorialArrow06.png in Resources */,
-				2EAFA11F156DAE6E00BB9C01 /* SettingsTutorialArrow06@2x.png in Resources */,
-				2EAFA120156DAE6E00BB9C01 /* SettingsTutorialChar06.png in Resources */,
-				2EAFA121156DAE6E00BB9C01 /* SettingsTutorialChar06@2x.png in Resources */,
 				2E9D008115828A39001CC0D4 /* MerchantPinViewController.xib in Resources */,
-				2E9D008415828EB4001CC0D4 /* TokMerchantPin.png in Resources */,
-				2E9D008515828EB4001CC0D4 /* TokMerchantPin@2x.png in Resources */,
 				2E9D008C1582CD51001CC0D4 /* DoneDown.png in Resources */,
 				2E9D008D1582CD51001CC0D4 /* DoneUp.png in Resources */,
 				2E256EFB1588020E00432597 /* JsonPickerViewController.xib in Resources */,
 				2E0985A215895B33009749A0 /* FacebookDefault.png in Resources */,
 				2E0985A315895B33009749A0 /* FacebookDefault@2x.png in Resources */,
-				2E224B7215AF373100CFEB92 /* SettingsTutorialArrow07.png in Resources */,
-				2E224B7315AF373100CFEB92 /* SettingsTutorialArrow07@2x.png in Resources */,
-				2E224B7415AF373100CFEB92 /* SettingsTutorialChar07.png in Resources */,
-				2E224B7515AF373100CFEB92 /* SettingsTutorialChar07@2x.png in Resources */,
 				2E391EA415BDEAE0002DB9B9 /* PromoBackground.png in Resources */,
 				2E391EA515BDEAE0002DB9B9 /* PromoBackground@2x.png in Resources */,
 				2E391EA815BDED49002DB9B9 /* MerchantPinBackground.png in Resources */,
