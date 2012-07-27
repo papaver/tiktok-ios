@@ -11,12 +11,20 @@
 //-----------------------------------------------------------------------------
 
 #import "Database.h"
+#import "Settings.h"
+
+//-----------------------------------------------------------------------------
+// defines
+//-----------------------------------------------------------------------------
+
+#define kCurrentDatabaseVersion @"v03"
 
 //-----------------------------------------------------------------------------
 // interface definition
 //-----------------------------------------------------------------------------
 
 @interface Database ()
+    - (void) purgeDatabase:(NSPersistentStoreCoordinator*)coordinator;
     + (NSURL*) applicationDocumentsDirectory;
     + (NSURL*) getStorageUrl;
 @end
@@ -42,12 +50,31 @@
 
 + (void) purgeDatabase
 {
+    Database *database = [Database getInstance];
+    [database purgeDatabase:database.coordinator];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) purgeDatabase:(NSPersistentStoreCoordinator*)coordinator
+{
+    NSError *error    = nil;
     NSURL *storageUrl = [Database getStorageUrl];
 
-    NSError *error = nil;
+    // grab the persistant store
+    NSPersistentStore *store = [coordinator persistentStoreForURL:storageUrl];
+    if (store != nil) {
+        [coordinator removePersistentStore:store error:&error];
+        if (error != nil) {
+            NSLog(@"Database: failed to remove store '%@': %@", storageUrl, error);
+            error = nil;
+        }
+    }
+
+    // remove db from filesystem
     [[NSFileManager defaultManager] removeItemAtURL:storageUrl error:&error];
     if (error != nil) {
-        NSLog(@"Database: failed to purge database '%@': %@", storageUrl, error);
+        NSLog(@"Database: failed to database file '%@': %@", storageUrl, error);
     }
 }
 
@@ -102,8 +129,39 @@
     // lazy allocation
     if (mPersistantStoreCoordinator != nil) return mPersistantStoreCoordinator;
 
+    NSError *error = nil;
+
     // construct path to storage on disk
     NSURL *storageUrl = [Database getStorageUrl];
+
+    // allocate a persistant store coordinator, with the model
+    mPersistantStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
+        initWithManagedObjectModel:self.model];
+
+    // grab the meta data from the current database
+    NSDictionary *metaData =
+        [NSPersistentStoreCoordinator 
+            metadataForPersistentStoreOfType:NSSQLiteStoreType
+                                         URL:storageUrl
+                                       error:&error];
+
+    // if there is no meta data purge the db
+    if (metaData == nil) {
+        [self purgeDatabase:mPersistantStoreCoordinator];
+
+    // check the version of the database
+    } else {
+
+        // grab the dataabse version
+        NSArray *versions = [metaData objectForKey:@"NSStoreModelVersionIdentifiers"];
+        NSString *version = [versions objectAtIndex:0];
+
+        // if its not equal to the most current db, purge it
+        if (![version isEqualToString:kCurrentDatabaseVersion]) {
+            NSLog(@"Database: purging database %@", version);
+            [self purgeDatabase:mPersistantStoreCoordinator];
+        }
+    }
 
     // options to allow auto migration
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -111,10 +169,7 @@
         [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
         nil];
 
-    // allocate a persistant store coordinator, attached to the storage db
-    NSError *error = nil;
-    mPersistantStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
-        initWithManagedObjectModel:self.model];
+    // attempt to add a store to the coordinator
     bool result = [mPersistantStoreCoordinator
         addPersistentStoreWithType:NSSQLiteStoreType
                      configuration:nil
@@ -156,7 +211,7 @@
 
         // log the error and purge the database
         NSLog(@"PersistentStoreCoordinator error: %@, %@", error, [error userInfo]);
-        [Database purgeDatabase];
+        [self purgeDatabase:mPersistantStoreCoordinator];
         mPersistantStoreCoordinator = nil;
         return self.coordinator;
     }

@@ -98,7 +98,7 @@
     [location initWithJsonDictionary:data];
 
     // -- debug --
-    NSLog(@"new location created: %@ -> %@", location.name, location.address);
+    //NSLog(@"new location created: %@ -> %@", location.name, location.address);
 
     // save the object to store
     NSError *error = nil;
