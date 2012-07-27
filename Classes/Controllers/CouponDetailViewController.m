@@ -196,10 +196,11 @@ static NSUInteger sObservationContext;
     UILabel *timer = (UILabel*)[self.view viewWithTag:kTagTextTimer];
     timer.font     = [UIFont fontWithName:@"NeutraDisp-BoldAlt" size:20];
 
-    // correct font on barcode
+    // correct font and selectablility on barcode
     UIButton *barcode       = (UIButton*)[self.barcodeView viewWithTag:kTagBarcodeCodeView];
     barcode.titleLabel.font = [UIFont fontWithName:@"UnitedSansReg-Bold" size:28];
     barcode.titleLabel.adjustsFontSizeToFitWidth = YES;
+    barcode.userInteractionEnabled = self.coupon.merchant.usesPin.boolValue;
 
     // setup gesture recogizer on map
     [self setupGestureRecognizers];
@@ -327,12 +328,14 @@ static NSUInteger sObservationContext;
     [mapTap release];
 
     // setup touch for merchant pin
-    UIView *banner = [self.barcodeView viewWithTag:kTagBarcodeRedeemed];
-    UITapGestureRecognizer* bannerTap =
-        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(validateMerchantPin:)];
-    [banner setUserInteractionEnabled:YES];
-    [banner addGestureRecognizer:bannerTap];
-    [bannerTap release];
+    if (self.coupon.merchant.usesPin.boolValue) {
+        UIView *banner = [self.barcodeView viewWithTag:kTagBarcodeRedeemed];
+        UITapGestureRecognizer* bannerTap =
+            [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(validateMerchantPin:)];
+        [banner setUserInteractionEnabled:YES];
+        [banner addGestureRecognizer:bannerTap];
+        [bannerTap release];
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -901,6 +904,9 @@ static NSUInteger sObservationContext;
 
 - (IBAction) validateMerchantPin:(id)sender
 {
+    // nothing to do if merchant doesn't use pin validation
+    if (!self.coupon.merchant.usesPin.boolValue) return;
+
     // present merchant pin controller
     MerchantPinViewController *controller = [[MerchantPinViewController alloc] init];
     controller.couponId = self.coupon.couponId;

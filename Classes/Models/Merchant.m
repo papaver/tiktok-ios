@@ -30,6 +30,7 @@
 @dynamic twitterUrl;
 @dynamic facebookUrl;
 @dynamic websiteUrl;
+@dynamic usesPin;
 @dynamic lastUpdated;
 @dynamic coupons;
 
@@ -125,6 +126,7 @@
     self.websiteUrl  = [data objectForKey:@"web_url"];
     self.category    = [data objectForKey:@"category"];
     self.twitterUrl  = [data objectForKey:@"tw_handle"];
+    self.usesPin     = [data objectForKey:@"use_merchant_redeem"];
     self.lastUpdated = [NSDate dateWithTimeIntervalSince1970:lastUpdated.intValue];
 
     return self;

@@ -40,6 +40,7 @@
 @property (nonatomic, retain)   NSString *twitterUrl;
 @property (nonatomic, retain)   NSString *facebookUrl;
 @property (nonatomic, retain)   NSString *websiteUrl;
+@property (nonatomic, assign)   NSNumber *usesPin;
 @property (nonatomic, retain)   NSDate   *lastUpdated;
 @property (nonatomic, retain)   NSSet    *coupons;
 
