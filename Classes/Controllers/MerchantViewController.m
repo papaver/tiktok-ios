@@ -54,6 +54,7 @@ enum MerchantTags
     - (void) configureScrollView;
     - (void) configureDetails;
     - (NSString*) getFormattedAddressForLocation:(Location*)location;
+    - (void) clearLabel:(UILabelExt*)label;
     - (void) presentWebsite:(NSString*)url;
     - (void) clickAddress:(NSString*)address;
     - (void) clickPhone:(NSString*)number;
@@ -173,19 +174,19 @@ enum MerchantTags
     // phone number
     UILabelExt *phone = (UILabelExt*)[self.view viewWithTag:kTagPhone];
     if (multipleLocations) {
-        phone.text           = @"";
-        phone.highlightColor = [UIColor clearColor];
-        phone.delegate       = nil;
+        [self clearLabel:phone];
     } else {
-        phone.text = location.phone;
+        if ([location.phone isEqualToString:@""]) {
+            [self clearLabel:phone];
+        } else {
+            phone.text = location.phone;
+        }
     }
 
     // website
     UILabelExt *website = (UILabelExt*)[self.view viewWithTag:kTagWebsite];
     if ([merchant.websiteUrl isEqualToString:@""]) {
-        website.text           = @"";
-        website.highlightColor = [UIColor clearColor];
-        website.delegate       = nil;
+        [self clearLabel:website];
     } else {
         website.text = [merchant.websiteUrl
             stringByReplacingOccurrencesOfString:@"http://"
@@ -337,6 +338,15 @@ enum MerchantTags
 }
 
 //------------------------------------------------------------------------------
+
+- (void) clearLabel:(UILabelExt*)label
+{
+    label.text           = @"";
+    label.delegate       = nil;
+    label.highlightColor = [UIColor clearColor];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - UITable view header
 //------------------------------------------------------------------------------
 
@@ -436,9 +446,9 @@ enum MerchantTags
     Location *location = [self.locations objectAtIndex:indexPath.row];
 
     // grab cell views
-    UILabel *name    = (UILabel*)[cell viewWithTag:kTagName];
-    UILabel *address = (UILabel*)[cell viewWithTag:kTagAddress];
-    UILabel *phone   = (UILabel*)[cell viewWithTag:kTagPhone];
+    UILabel *name     = (UILabel*)[cell viewWithTag:kTagName];
+    UILabel *address  = (UILabel*)[cell viewWithTag:kTagAddress];
+    UILabelExt *phone = (UILabelExt*)[cell viewWithTag:kTagPhone];
 
     // use merchant name if location name not given
     NSString *locationName = [location.name isEqualToString:@""] ?
@@ -447,7 +457,13 @@ enum MerchantTags
     // update cell info
     name.text    = locationName;
     address.text = [self getFormattedAddressForLocation:location];
-    phone.text   = location.phone;
+
+    // phone may not exist
+    if ([location.phone isEqualToString:@""]) {
+        [self clearLabel:phone];
+    } else {
+        phone.text = location.phone;
+    }
 }
 
 //------------------------------------------------------------------------------
