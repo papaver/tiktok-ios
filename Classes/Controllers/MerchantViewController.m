@@ -427,10 +427,14 @@ enum MerchantTags
         }
 
         // setup delegates
-        UILabelExt *phone = (UILabelExt*)[cell viewWithTag:kTagPhone];
-        phone.delegate    = self;
         address.delegate  = self;
     }
+
+    // reset always as it can be cleared
+    UILabelExt *address  = (UILabelExt*)[cell viewWithTag:kTagAddress];
+    UILabelExt *phone    = (UILabelExt*)[cell viewWithTag:kTagPhone];
+    phone.delegate       = self;
+    phone.highlightColor = address.highlightColor;
 
     // configure the cell
     [self configureCell:cell atIndexPath:indexPath];
