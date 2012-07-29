@@ -80,11 +80,6 @@
 
 - (void) mapView:(MKMapView*)mapView didAddAnnotationViews:(NSArray*)views
 {
-    // [moiz] should open the deal location
-
-    // open a single callout
-    id myAnnotation = [mapView.annotations objectAtIndex:0];
-    [mapView selectAnnotation:myAnnotation animated:YES];
 }
 
 //------------------------------------------------------------------------------
@@ -142,6 +137,7 @@
     CouponAnnotation *closestAnnotation = [[CouponAnnotation alloc]
         initWithCoupon:self.coupon andLocation:closestLocation];
     [self.mapView addAnnotation:closestAnnotation];
+    [self.mapView selectAnnotation:closestAnnotation animated:YES];
 
     // add the rest of the locations
     for (Location *location in self.coupon.locations) {
