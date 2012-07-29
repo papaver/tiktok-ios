@@ -27,6 +27,7 @@
     - (void) purgeDatabase:(NSPersistentStoreCoordinator*)coordinator;
     + (NSURL*) applicationDocumentsDirectory;
     + (NSURL*) getStorageUrl;
+    + (NSString*) getDatabaseVersion;
 @end
 
 //-----------------------------------------------------------------------------
@@ -72,9 +73,12 @@
     }
 
     // remove db from filesystem
-    [[NSFileManager defaultManager] removeItemAtURL:storageUrl error:&error];
-    if (error != nil) {
-        NSLog(@"Database: failed to database file '%@': %@", storageUrl, error);
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:[storageUrl absoluteString]]) {
+        [fileManager removeItemAtURL:storageUrl error:&error];
+        if (error != nil) {
+            NSLog(@"Database: failed database file deletion '%@': %@", storageUrl, error);
+        }
     }
 }
 
@@ -127,40 +131,25 @@
 - (NSPersistentStoreCoordinator*) coordinator
 {
     // lazy allocation
-    if (mPersistantStoreCoordinator != nil) return mPersistantStoreCoordinator;
+    if ((mPersistantStoreCoordinator != nil) &&
+        (mPersistantStoreCoordinator.persistentStores.count > 0)) {
+        return mPersistantStoreCoordinator;
+    }
 
-    NSError *error = nil;
-
-    // construct path to storage on disk
+    NSError *error    = nil;
     NSURL *storageUrl = [Database getStorageUrl];
 
     // allocate a persistant store coordinator, with the model
-    mPersistantStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
-        initWithManagedObjectModel:self.model];
+    if (mPersistantStoreCoordinator == nil) {
+        mPersistantStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
+            initWithManagedObjectModel:self.model];
+    }
 
-    // grab the meta data from the current database
-    NSDictionary *metaData =
-        [NSPersistentStoreCoordinator 
-            metadataForPersistentStoreOfType:NSSQLiteStoreType
-                                         URL:storageUrl
-                                       error:&error];
-
-    // if there is no meta data purge the db
-    if (metaData == nil) {
+    // if the version not equal to the most current model, purge it
+    NSString *version = [Database getDatabaseVersion];
+    if (![version isEqualToString:kCurrentDatabaseVersion]) {
+        NSLog(@"Database: purging database %@", version);
         [self purgeDatabase:mPersistantStoreCoordinator];
-
-    // check the version of the database
-    } else {
-
-        // grab the dataabse version
-        NSArray *versions = [metaData objectForKey:@"NSStoreModelVersionIdentifiers"];
-        NSString *version = [versions objectAtIndex:0];
-
-        // if its not equal to the most current db, purge it
-        if (![version isEqualToString:kCurrentDatabaseVersion]) {
-            NSLog(@"Database: purging database %@", version);
-            [self purgeDatabase:mPersistantStoreCoordinator];
-        }
     }
 
     // options to allow auto migration
@@ -179,37 +168,6 @@
 
     // make sure the persistant store was setup properly
     if (!result) {
-
-        /*
-         * Typical reasons for an error here include:
-         *  - The persistant store is not accessible.
-         *  - The schema for the persistant store is incompatible with the
-         *    current managed object model.
-         *
-         * If the persistant store is no accessible, there is typically
-         * something wrong with the file path.  Often the file URL is pointing
-         * into the applications resource directory instead of the writable
-         * directoy.
-         *
-         * If you encounter schema incompatibility errors during development,
-         * you can reduce thier frequency by:
-         *
-         *   - Simply deleting the existing store:
-         *       [[NSFileManager defaultManager] removeItemAtURL:storeURL
-         *                                                 error:nil];
-         *
-         *   - Performing automatic lightweight migration by passing the
-         *     following directory as the options parameter:
-         *       [NSDictionary dictionaryWithObjectsAndKeys:
-         *           [NSNumber numberWithBool:YES], NSMigratePersistantStoresAutomaticallyOption,
-         *           [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-         *           nil];
-         *
-         * Lightweight migration will only work for a limited set of schema
-         * changes.
-         */
-
-        // log the error and purge the database
         NSLog(@"PersistentStoreCoordinator error: %@, %@", error, [error userInfo]);
         [self purgeDatabase:mPersistantStoreCoordinator];
         mPersistantStoreCoordinator = nil;
@@ -220,7 +178,7 @@
 }
 
 //------------------------------------------------------------------------------
-#pragma mark - Filesystem
+#pragma mark - Helper functions
 //------------------------------------------------------------------------------
 
 + (NSURL*) applicationDocumentsDirectory
@@ -238,6 +196,32 @@
     NSURL *storageUrl = [[self applicationDocumentsDirectory]
         URLByAppendingPathComponent:@"TikTok.sqlite"];
     return storageUrl;
+}
+
+//------------------------------------------------------------------------------
+
++ (NSString*) getDatabaseVersion
+{
+    NSError *error    = nil;
+    NSURL *storageUrl = [Database getStorageUrl];
+
+    // grab the meta data from the database
+    NSDictionary *metaData =
+        [NSPersistentStoreCoordinator
+            metadataForPersistentStoreOfType:NSSQLiteStoreType
+                                         URL:storageUrl
+                                       error:&error];
+
+    // grab version from metadata
+    NSString *version = @"";
+    if (metaData != nil) {
+        NSArray *versions = [metaData objectForKey:@"NSStoreModelVersionIdentifiers"];
+        if ((versions != nil) && (versions.count > 0)) {
+            version = [versions objectAtIndex:0];
+        }
+    }
+
+    return version;
 }
 
 //------------------------------------------------------------------------------
