@@ -10,6 +10,8 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string>Icon.png</string>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>AppIcon.png</string>
@@ -36,21 +38,12 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.1.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb142431149201814</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
-	<string>1.1.4</string>
+	<string>2.0.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.0.0</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>UIAppFonts</key>
@@ -61,11 +54,18 @@
 		<string>NeutraDisp-BoldAlt.otf</string>
 		<string>UnitedSansReg-Bold.otf</string>
 	</array>
-	<key>UIPrerenderedIcon</key>
-	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb142431149201814</string>
+			</array>
+		</dict>
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackOpaque</string>
