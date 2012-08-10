@@ -73,13 +73,14 @@
     }
 
     // remove db from filesystem
+    NSString *storagePath = [storageUrl path];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    //if ([fileManager fileExistsAtPath:[storageUrl absoluteString]]) {
-        [fileManager removeItemAtURL:storageUrl error:&error];
+    if ([fileManager fileExistsAtPath:storagePath]) {
+        [fileManager removeItemAtPath:storagePath error:&error];
         if (error != nil) {
             NSLog(@"Database: failed database file deletion '%@': %@", storageUrl, error);
         }
-    //}
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -152,20 +153,18 @@
         [self purgeDatabase:mPersistantStoreCoordinator];
     }
 
-    /*
     // options to allow auto migration
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
         [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
         nil];
-     */
 
     // attempt to add a store to the coordinator
     bool result = [mPersistantStoreCoordinator
         addPersistentStoreWithType:NSSQLiteStoreType
                      configuration:nil
                                URL:storageUrl
-                           options:nil
+                           options:options
                              error:&error];
 
     // make sure the persistant store was setup properly
