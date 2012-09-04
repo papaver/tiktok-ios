@@ -34,6 +34,7 @@ enum ViewTag
 
 @interface MerchantPinViewController ()
     - (void) setupToolbar;
+    - (void) setupDoneButton;
     - (void) validate;
 @end
 
@@ -76,14 +77,11 @@ enum ViewTag
         copy.font  = [UIFont fontWithName:@"BradleyHandITCTTBold" size:18];
     }
 
-    // add keyboard show notification
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-
     // setup icon in toolbar
     [self setupToolbar];
+
+    // setup done button
+    [self setupDoneButton];
 }
 
 //------------------------------------------------------------------------------
@@ -91,6 +89,26 @@ enum ViewTag
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
+    // add keyboard show notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+
+    // add keyboard hide notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 //------------------------------------------------------------------------------
@@ -110,6 +128,13 @@ enum ViewTag
 - (void) keyboardDidShow:(NSNotification*)notification
 {
     [self addButtonToKeyboard];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) keyboardDidHide:(NSNotification*)notification
+{
+    [self removeButtonFromKeyboard];
 }
 
 //------------------------------------------------------------------------------
@@ -140,28 +165,40 @@ enum ViewTag
 
 //------------------------------------------------------------------------------
 
-- (void) addButtonToKeyboard
+- (void) setupDoneButton
 {
     // setup custom button
     UIImage *upButton    = [UIImage imageNamed:@"DoneUp.png"];
     UIImage *downButton  = [UIImage imageNamed:@"DoneDown.png"];
-    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    doneButton.frame = CGRectMake(0, 163, 106, 53);
-    doneButton.adjustsImageWhenHighlighted = NO;
-    [doneButton setImage:upButton forState:UIControlStateNormal];
-    [doneButton setImage:downButton forState:UIControlStateHighlighted];
-    [doneButton addTarget:self
-                   action:@selector(validate)
-         forControlEvents:UIControlEventTouchUpInside];
+    mDoneButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    mDoneButton.frame = CGRectMake(0, 163, 106, 53);
+    mDoneButton.adjustsImageWhenHighlighted = NO;
+    [mDoneButton setImage:upButton forState:UIControlStateNormal];
+    [mDoneButton setImage:downButton forState:UIControlStateHighlighted];
+    [mDoneButton addTarget:self
+                    action:@selector(validate)
+          forControlEvents:UIControlEventTouchUpInside];
+}
 
+//------------------------------------------------------------------------------
+
+- (void) addButtonToKeyboard
+{
     // locate keyboard view
     UIWindow* window = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
     for (UIView *keyboard in window.subviews) {
        if ([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES) {
-            [keyboard addSubview:doneButton];
+            [keyboard addSubview:mDoneButton];
             break;
        }
     }
+}
+
+//------------------------------------------------------------------------------
+
+- (void) removeButtonFromKeyboard
+{
+    [mDoneButton removeFromSuperview];
 }
 
 //------------------------------------------------------------------------------
@@ -258,13 +295,14 @@ enum ViewTag
  */
 - (void) viewDidUnload
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewDidUnload];
 }
 
 //------------------------------------------------------------------------------
 
 - (void) dealloc
 {
+    [mDoneButton release];
     [mCouponId release];
     [super dealloc];
 }

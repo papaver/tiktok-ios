@@ -19,6 +19,7 @@
 @interface MerchantPinViewController : UIViewController// <UITextFieldDelegate>
 {
     NSNumber *mCouponId;
+    UIButton *mDoneButton;
 }
 
 //------------------------------------------------------------------------------
