@@ -123,6 +123,62 @@
 }
 
 //------------------------------------------------------------------------------
+
++ (NSString*) parseLocality:(NSDictionary*)geoData
+{
+    static NSArray *keys = nil;
+    if (keys == nil) {
+        keys = [$array(@"subpremise", @"premise", @"neighborhood",
+            @"sublocality", @"locality", @"colloquial_area",
+            @"administrative_area_level_3") retain];
+    }
+
+    // make sure search results exist
+    NSString *status = [geoData objectForKey:@"status"];
+    if (!status || [status isEqualToString:@"ZERO_RESULTS"]) {
+        return @"Unknown";
+    }
+
+    // grab the results from the json data
+    NSArray *results = [geoData objectForKey:@"results"];
+
+    // loop through all of the results and get as many fits as possbile
+    NSMutableDictionary *localities = [[NSMutableDictionary alloc] init];
+    for (NSDictionary *address in results) {
+        NSArray *components = [address objectForKey:@"address_components"];
+        for (NSDictionary *component in components) {
+            for (NSString *key in keys) {
+
+                // skip if the key was already found
+                if ([localities objectForKey:key]) continue;
+
+                // add key if it matches the type
+                NSArray *types = [component objectForKey:@"types"];
+                if ([types containsObject:key]) {
+                    NSString *name = [component objectForKey:@"short_name"];
+                    [localities setObject:name forKey:key];
+                }
+            }
+        }
+    }
+
+    // go through the list and find the smallest locality
+    NSString *locality = nil;
+    for (NSString *key in keys) {
+        NSString *value = [localities objectForKey:key];
+        if (value) {
+            locality = value;
+            break;
+        }
+    }
+
+    // cleanup
+    [localities release];
+
+    return locality ? locality : @"Unknown";
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Object
 //------------------------------------------------------------------------------
 

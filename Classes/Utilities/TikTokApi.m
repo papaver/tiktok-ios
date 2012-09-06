@@ -424,6 +424,34 @@ static dispatch_queue_t sQueue = nil;
 
 //------------------------------------------------------------------------------
 
+- (void) syncSettings
+{
+    NSString *syncPath = $string(@"%@/consumers/%@/settings",
+        [TikTokApi apiUrlPath], [Utilities getConsumerId]);
+
+    // construct url
+    NSURL *url = [[[NSURL alloc] initWithString:syncPath] autorelease];
+
+    // setup the async request
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request setTimeOutSeconds:self.timeOut];
+    [request setCompletionBlock:^{
+        NSDictionary *response = [[request responseData] objectFromJSONData];
+        if (self.completionHandler) self.completionHandler(response);
+    }];
+
+    // set error handler
+    [request setFailedBlock:^{
+        NSLog(@"TikTokApi: Failed to sync user settings: %@", [request error]);
+        if (self.errorHandler) self.errorHandler(request);
+    }];
+
+    // initiate the request
+    [TikTokApi startAsyncRequest:request];
+}
+
+//------------------------------------------------------------------------------
+
 - (void) updateCoupon:(NSNumber*)couponId
             attribute:(TikTokApiCouponAttribute)attribute
 {

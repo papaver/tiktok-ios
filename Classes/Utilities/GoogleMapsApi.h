@@ -51,6 +51,11 @@ typedef void (^GoogleApiErrorHandler)(NSError*);
                         toDestination:(NSString*)destination;
 
 /**
+ * Parses the reverse geodata for a best pick for the locality.
+ */
++ (NSString*) parseLocality:(NSDictionary*)geoData;
+
+/**
  * Returns a dictionary containing geocoding information about the givin address.
  */
 - (void) getGeocodingForAddress:(NSString*)address;

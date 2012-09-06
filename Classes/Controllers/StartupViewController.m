@@ -43,6 +43,7 @@ enum StartupTag
     - (void) validateRegistration;
     - (void) registerNotifications;
     - (void) syncCoupons;
+    - (void) syncSettings;
     - (void) progressBar:(NSTimer*)timer;
     - (void) waitForInternetConnection;
 @end
@@ -183,6 +184,9 @@ enum StartupTag
 
     // add location tracking operation
     [self setupLocationTracking];
+
+    // sync settings
+    [self syncSettings];
 
     // sync coupons
     [self syncCoupons];
@@ -330,6 +334,38 @@ enum StartupTag
 
     // set flag
     mLocations = true;
+}
+
+//------------------------------------------------------------------------------
+
+- (void) syncSettings
+{
+    Settings *settings       = [Settings getInstance];
+    NSNumber *syncedSettings = settings.syncedSettings;
+
+    // only sync settings with the server once, this should only happen
+    // whenever the app is reset
+    if ((syncedSettings != nil) && syncedSettings.boolValue) return;
+
+    NSLog(@"StartupController: Syncing settings from server...");
+
+    // configure api and completion handler
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    api.completionHandler = ^(NSDictionary *response) {
+
+        // verify sync succeeded
+        NSString *status = [response objectForKey:kTikTokApiKeyStatus];
+        if ([status isEqualToString:kTikTokApiStatusOkay]) {
+
+            // sync up any missing settings
+            NSDictionary *results  = [response objectForKey:kTikTokApiKeyResults];
+            [Settings syncSettings:results];
+            [settings setSyncedSettings:$numb(1)];
+        }
+    };
+
+    // sync settings
+    [api syncSettings];
 }
 
 //------------------------------------------------------------------------------

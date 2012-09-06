@@ -12,6 +12,13 @@
 
 #import <Foundation/Foundation.h>
 
+//------------------------------------------------------------------------------
+// defines
+//------------------------------------------------------------------------------
+
+#define kSettingsGenderMale   @"Male"
+#define kSettingsGenderFemale @"Female"
+
 //-----------------------------------------------------------------------------
 // interface definition
 //-----------------------------------------------------------------------------
@@ -34,6 +41,7 @@
 @property(nonatomic, retain) NSString   *workLocality;
 @property(nonatomic, retain) NSDate     *lastUpdate;
 @property(nonatomic, retain) NSNumber   *tutorialIndex;
+@property(nonatomic, retain) NSNumber   *syncedSettings;
 
 //-----------------------------------------------------------------------------
 
@@ -41,6 +49,11 @@
  * Gets the global instance of the settings object.
  */
 + (Settings*) getInstance;
+
+/**
+ * Syncs up settings with the server.
+ */
++ (void) syncSettings:(NSDictionary*)data;
 
 /**
  * Purges all of the settings saved in the cache.
