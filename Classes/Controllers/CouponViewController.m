@@ -80,7 +80,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     - (WEPopoverContainerViewProperties*) popoverViewProperties;
     - (void) updateExpiration:(NSTimer*)timer;
     - (void) configureCell:(UIView*)cell atIndexPath:(NSIndexPath*)indexPath;
-    - (void) configureExpiredCell:(UITableViewCell*)cell;
+    - (void) configureExpiredCell:(UITableViewCell*)cell coupon:(Coupon*)coupon;
     - (void) configureActiveCell:(UITableViewCell*)cell withCoupon:(Coupon*)coupon;
     - (void) updateActiveCell:(UITableViewCell*)cell withCoupon:(Coupon*)coupon;
     - (void) configureNoDealsImage;
@@ -600,7 +600,7 @@ static NSString *sCouponCacheName = @"coupon_table";
 
     // update the cell to reflect the state of the coupon
     if ([coupon isExpired]) {
-        [self configureExpiredCell:cell];
+        [self configureExpiredCell:cell coupon:coupon];
     } else {
         [self configureActiveCell:cell withCoupon:coupon];
 
@@ -636,7 +636,7 @@ static NSString *sCouponCacheName = @"coupon_table";
     if ([coupon isExpired]) {
         [timer invalidate];
         [UIView animateWithDuration:0.25 animations:^{
-            [self configureExpiredCell:cell];
+            [self configureExpiredCell:cell coupon:coupon];
         }];
     } else {
         [self updateActiveCell:cell withCoupon:coupon];
@@ -661,15 +661,14 @@ static NSString *sCouponCacheName = @"coupon_table";
 
 //------------------------------------------------------------------------------
 
-- (void) configureExpiredCell:(UITableViewCell*)cell
+- (void) configureExpiredCell:(UITableViewCell*)cell coupon:(Coupon*)coupon
 {
     const static CGFloat expiredAlpha = 0.4;
-    static NSString *offerText        = @"Offer is no longer available.";
     static NSString *timerText        = @"TIME'S UP!";
 
     // expire text
     UILabel *textTime  = (UILabel*)[cell viewWithTag:kTagTextTime];
-    textTime.text      = offerText;
+    textTime.text      = $string(@"Offer expired at %@", [coupon getExpirationTime]);
 
     // expire timer
     UILabel *textTimer  = (UILabel*)[cell viewWithTag:kTagTextTimer];
