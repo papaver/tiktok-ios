@@ -53,6 +53,8 @@
 		2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E256EFD1588027A00432597 /* JsonPickerViewController.m */; };
 		2E259E4914D26748007481F2 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */; };
 		2E259E4B14D26E84007481F2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E259E4A14D26E84007481F2 /* QuartzCore.framework */; };
+		2E2618F3161D438C002C699C /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E2618F2161D438C002C699C /* CategoryViewController.xib */; };
+		2E2618F6161D43AD002C699C /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2618F5161D43AD002C699C /* CategoryViewController.m */; };
 		2E31269714C8DFFE00477805 /* LocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31269514C8DFFE00477805 /* LocationPickerViewController.m */; };
 		2E31269814C8DFFE00477805 /* LocationPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */; };
 		2E31269A14C8F78000477805 /* MapSelectionMask.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E31269914C8F78000477805 /* MapSelectionMask.png */; };
@@ -410,6 +412,9 @@
 		2E259E4714D26748007481F2 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		2E259E4814D26748007481F2 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		2E259E4A14D26E84007481F2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2E2618F2161D438C002C699C /* CategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
+		2E2618F4161D43AD002C699C /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
+		2E2618F5161D43AD002C699C /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		2E31269414C8DFFE00477805 /* LocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPickerViewController.h; sourceTree = "<group>"; };
 		2E31269514C8DFFE00477805 /* LocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPickerViewController.m; sourceTree = "<group>"; };
 		2E31269614C8DFFE00477805 /* LocationPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationPickerViewController.xib; sourceTree = "<group>"; };
@@ -1090,6 +1095,7 @@
 			isa = PBXGroup;
 			children = (
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
+				2E2618F2161D438C002C699C /* CategoryViewController.xib */,
 				2E8C4D35156ACB6D00B5EFA1 /* CitiesViewController.xib */,
 				2E1F721D13619BD700F947E3 /* CouponDetailViewController.xib */,
 				2EEA759114D8C58800D0D92A /* CouponMapViewController.xib */,
@@ -1612,6 +1618,8 @@
 		2EC672B41490026E00AC5CDF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2E2618F4161D43AD002C699C /* CategoryViewController.h */,
+				2E2618F5161D43AD002C699C /* CategoryViewController.m */,
 				2EAFA107156C0CD400BB9C01 /* CityAnnotation.h */,
 				2EAFA108156C0CD400BB9C01 /* CityAnnotation.m */,
 				2E8C4D37156ACBFF00B5EFA1 /* CitiesViewController.h */,
@@ -1988,6 +1996,7 @@
 				2EF0E11C15C6DF74008CDF27 /* iTunesArtwork.png in Resources */,
 				2EF0E12015C6E16F008CDF27 /* AppIcon.png in Resources */,
 				2EF0E12115C6E16F008CDF27 /* AppIcon@2x.png in Resources */,
+				2E2618F3161D438C002C699C /* CategoryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2137,6 +2146,7 @@
 				2E256EF91587EB9F00432597 /* FacebookResult.m in Sources */,
 				2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */,
 				2E521C9D15C222CF00F153E0 /* UITableViewHeader.m in Sources */,
+				2E2618F6161D43AD002C699C /* CategoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

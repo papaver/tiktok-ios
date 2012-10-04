@@ -28,18 +28,20 @@
 #define KEY_HOMELOC        @"TTS_homeLocality"
 #define KEY_WORK           @"TTS_work"
 #define KEY_WORKLOC        @"TTS_workLocality"
+#define KEY_CATEGORIES     @"TTS_categories"
 #define KEY_LASTUPDATE     @"TTS_lastUpdate"
 #define KEY_TUTORIAL       @"TTS_tutorial"
 #define KEY_SYNCEDSETTINGS @"TTS_syncedSettings"
 
-#define API_KEY_NAME     @"name"
-#define API_KEY_EMAIL    @"email"
-#define API_KEY_TWITTER  @"twh"
-#define API_KEY_PHONE    @"phone"
-#define API_KEY_GENDER   @"sex"
-#define API_KEY_BIRTHDAY @"birthday"
-#define API_KEY_HOME     @"home"
-#define API_KEY_WORK     @"work"
+#define API_KEY_NAME       @"name"
+#define API_KEY_EMAIL      @"email"
+#define API_KEY_TWITTER    @"twh"
+#define API_KEY_PHONE      @"phone"
+#define API_KEY_GENDER     @"sex"
+#define API_KEY_BIRTHDAY   @"birthday"
+#define API_KEY_HOME       @"home"
+#define API_KEY_WORK       @"work"
+#define API_KEY_CATEGORIES @"categories"
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -196,6 +198,7 @@
     [settings clearValueForKey:KEY_HOMELOC];
     [settings clearValueForKey:KEY_WORK];
     [settings clearValueForKey:KEY_WORKLOC];
+    [settings clearValueForKey:KEY_CATEGORIES];
     [settings clearValueForKey:KEY_LASTUPDATE];
     [settings clearValueForKey:KEY_TUTORIAL];
     [settings clearValueForKey:KEY_SYNCEDSETTINGS];
@@ -389,6 +392,22 @@
 
 //-----------------------------------------------------------------------------
 
+- (NSString*) categories
+{
+    return [self loadValueForKey:KEY_CATEGORIES];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setCategories:(NSString*)categories
+{
+    [self saveValue:categories forKey:KEY_CATEGORIES];
+    TikTokApi *api = [[[TikTokApi alloc] init] autorelease];
+    [api updateSettings:$dict($array(API_KEY_CATEGORIES), $array(categories))];
+}
+
+//-----------------------------------------------------------------------------
+
 - (NSDate*) lastUpdate
 {
     return [self loadValueForKey:KEY_LASTUPDATE];
@@ -438,11 +457,12 @@
     // helper struct to loop over the simple settings
     struct SettingsMapping {
         NSString *settingsKey, *apiKey;
-    } sKeyMappings[4] = {
-        { KEY_NAME,    API_KEY_NAME    },
-        { KEY_EMAIL,   API_KEY_EMAIL   },
-        { KEY_TWITTER, API_KEY_TWITTER },
-        { KEY_PHONE,   API_KEY_PHONE   }
+    } sKeyMappings[5] = {
+        { KEY_NAME,       API_KEY_NAME       },
+        { KEY_EMAIL,      API_KEY_EMAIL      },
+        { KEY_TWITTER,    API_KEY_TWITTER    },
+        { KEY_PHONE,      API_KEY_PHONE      },
+        { KEY_CATEGORIES, API_KEY_CATEGORIES }
     };
 
     // update any empty settings

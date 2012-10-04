@@ -11,6 +11,7 @@
 //------------------------------------------------------------------------------
 
 #import "SettingsViewController.h"
+#import "CategoryViewController.h"
 #import "FacebookManager.h"
 #import "GoogleMapsApi.h"
 #import "InputTableViewCell.h"
@@ -28,6 +29,7 @@ enum TableSections
     kSectionBasic    = 0,
     kSectionDetails  = 1,
     kSectionLocation = 2,
+    kSectionCategory = 3,
 };
 
 enum TableRows
@@ -40,6 +42,7 @@ enum TableRows
     kRowWork     = 1,
     kRowGender   = 0,
     kRowBirthday = 1,
+    kRowCategory = 0,
 };
 
 enum ViewTags
@@ -82,6 +85,7 @@ enum ViewTags
     - (void) updateBirthdayAtIndexPath:(NSIndexPath*)indexPath;
     - (void) updateWorkLocationAtIndexPath:(NSIndexPath*)indexPath;
     - (void) updateHomeLocationAtIndexPath:(NSIndexPath*)indexPath;
+    - (void) updateCategoryAtIndexPath:(NSIndexPath*)indexPath;
 @end
 
 //------------------------------------------------------------------------------
@@ -149,16 +153,17 @@ enum ViewTags
     NSArray *sectionBasic    = $array(@"Name", @"Email");
     NSArray *sectionDetails  = $array(@"Gender", @"Birthday");
     NSArray *sectionLocation = $array(@"Home Location", @"Work Location");
+    NSArray *sectionCategory = $array(@"Deal Preferences");
     mTableData = [$dict(
-        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)),
-        $array(sectionBasic, sectionDetails, sectionLocation))
+        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation), $numi(kSectionCategory)),
+        $array(sectionBasic, sectionDetails, sectionLocation, sectionCategory))
         retain];
 
     // completed version will look a little different
     NSArray *sectionBasicFinal = $array(@"Name", @"Email", @"Twitter Handle", @"Phone #");
     mTableDataFinal = [$dict(
-        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation)),
-        $array(sectionBasicFinal, sectionDetails, sectionLocation))
+        $array($numi(kSectionBasic), $numi(kSectionDetails), $numi(kSectionLocation), $numi(kSectionCategory)),
+        $array(sectionBasicFinal, sectionDetails, sectionLocation, sectionCategory))
         retain];
 
     // add facebook connect to navbar
@@ -702,6 +707,20 @@ enum ViewTags
             break;
         }
 
+        case kSectionCategory: {
+            if (indexPath.row == kRowCategory) {
+                cell                      = [self getReusableCell];
+                cell.accessoryType        = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.text       = title;
+                cell.detailTextLabel.text = @"";
+            }
+
+            // show correctly for tutorial
+            cell.hidden = mTutorialStage != kTutorialStageComplete;
+
+            break;
+        }
+
         default:
             break;
     }
@@ -849,6 +868,17 @@ enum ViewTags
                 break;
             case kRowWork:
                 [self updateWorkLocationAtIndexPath:indexPath];
+                break;
+            default:
+                break;
+        }
+
+    // category section
+    } else if (indexPath.section == kSectionCategory) {
+
+        switch (indexPath.row) {
+            case kRowCategory:
+                [self updateCategoryAtIndexPath:indexPath];
                 break;
             default:
                 break;
@@ -1016,6 +1046,40 @@ enum ViewTags
     };
 
     // display the home location picker
+    [self.navigationController pushViewController:controller animated:YES];
+
+    // cleanup
+    [controller release];
+}
+
+//------------------------------------------------------------------------------
+
+- (void) updateCategoryAtIndexPath:(NSIndexPath*)indexPath
+{
+    [Analytics passCheckpoint:@"Settings Category"];
+
+    // create a string picker controller
+    CategoryViewController *controller = [[CategoryViewController alloc]
+        initWithNibName:@"CategoryViewController" bundle:nil];
+
+    // setup controller to pick gender
+    controller.title            = @"Deal Preferences";
+    controller.data             = kSettingsCategories;
+
+    // set the current selection
+    Settings *settings    = [Settings getInstance];
+    NSString *categories  = settings.categories;
+    NSArray *categoryList = categories == nil ? kSettingsCategories :
+        [categories componentsSeparatedByString:@","];
+    controller.currentSelection = [[[NSMutableArray alloc]
+        initWithArray:categoryList] autorelease];
+
+    // save the data on completion
+    controller.selectionHandler = ^(NSArray* selection) {
+        settings.categories = [selection componentsJoinedByString:@","];
+    };
+
+    // display category picker controller
     [self.navigationController pushViewController:controller animated:YES];
 
     // cleanup

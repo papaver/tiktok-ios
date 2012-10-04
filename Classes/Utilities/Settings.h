@@ -18,6 +18,29 @@
 
 #define kSettingsGenderMale   @"Male"
 #define kSettingsGenderFemale @"Female"
+#define kSettingsCategories   $array(  \
+    @"Attractions",                    \
+    @"Automotive + Hardware",          \
+    @"Bakery",                         \
+    @"Bussiness + Office",             \
+    @"Cafe",                           \
+    @"Clothing",                       \
+    @"Concerts + Music",               \
+    @"Education",                      \
+    @"Electronics",                    \
+    @"Fast Food",                      \
+    @"Film",                           \
+    @"Fitness",                        \
+    @"Grocery",                        \
+    @"Health + Beauty",                \
+    @"Home + Garden",                  \
+    @"Nightlife",                      \
+    @"Pets",                           \
+    @"Restaurant",                     \
+    @"Sporting Events",                \
+    @"Sporting Goods",                 \
+    @"Theatre",                        \
+    @"Transport")
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -39,6 +62,7 @@
 @property(nonatomic, retain) NSString   *homeLocality;
 @property(nonatomic, retain) CLLocation *work;
 @property(nonatomic, retain) NSString   *workLocality;
+@property(nonatomic, retain) NSString   *categories;
 @property(nonatomic, retain) NSDate     *lastUpdate;
 @property(nonatomic, retain) NSNumber   *tutorialIndex;
 @property(nonatomic, retain) NSNumber   *syncedSettings;
