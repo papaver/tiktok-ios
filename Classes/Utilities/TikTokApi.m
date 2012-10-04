@@ -429,11 +429,15 @@ static dispatch_queue_t sQueue = nil;
     NSString *syncPath = $string(@"%@/consumers/%@/settings",
         [TikTokApi apiUrlPath], [Utilities getConsumerId]);
 
+    // grab device id
+    NSString *deviceId = [Utilities getDeviceId];
+
     // construct url
     NSURL *url = [[[NSURL alloc] initWithString:syncPath] autorelease];
 
     // setup the async request
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request addRequestHeader:@"Authorization" value:$string(@"Token token=%@", deviceId)];
     [request setTimeOutSeconds:self.timeOut];
     [request setCompletionBlock:^{
         NSDictionary *response = [[request responseData] objectFromJSONData];
