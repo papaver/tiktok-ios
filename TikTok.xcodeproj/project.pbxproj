@@ -271,6 +271,7 @@
 		2ECAD06D14C4B03A00706EF3 /* UIAlertView+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD06C14C4B03A00706EF3 /* UIAlertView+Handlers.m */; };
 		2ECAD06F14C4BB5D00706EF3 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ECAD06E14C4BB5D00706EF3 /* Twitter.framework */; };
 		2ECAD07214C4F87F00706EF3 /* UIActionSheet+Handlers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECAD07114C4F87F00706EF3 /* UIActionSheet+Handlers.m */; };
+		2ED746A316227C34001C4ADF /* SoftNagManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ED746A216227C34001C4ADF /* SoftNagManager.m */; };
 		2EE0D88514F3380E0093D59B /* UIImage+FromView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE0D88414F3380E0093D59B /* UIImage+FromView.m */; };
 		2EE0D88E14F357A60093D59B /* RedeemBarItemButtonEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */; };
 		2EE0D88F14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0D88D14F357A60093D59B /* RedeemBarItemButtonEmpty@2x.png */; };
@@ -747,6 +748,8 @@
 		2ECAD06E14C4BB5D00706EF3 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		2ECAD07014C4F87F00706EF3 /* UIActionSheet+Handlers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Handlers.h"; sourceTree = "<group>"; };
 		2ECAD07114C4F87F00706EF3 /* UIActionSheet+Handlers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Handlers.m"; sourceTree = "<group>"; };
+		2ED746A116227C34001C4ADF /* SoftNagManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoftNagManager.h; sourceTree = "<group>"; };
+		2ED746A216227C34001C4ADF /* SoftNagManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoftNagManager.m; sourceTree = "<group>"; };
 		2EE0D88314F3380E0093D59B /* UIImage+FromView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FromView.h"; sourceTree = "<group>"; };
 		2EE0D88414F3380E0093D59B /* UIImage+FromView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FromView.m"; sourceTree = "<group>"; };
 		2EE0D88C14F357A60093D59B /* RedeemBarItemButtonEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedeemBarItemButtonEmpty.png; sourceTree = "<group>"; };
@@ -1491,6 +1494,8 @@
 				2EA2286914CDEEF500466166 /* NetworkConnectivity.m */,
 				2EA168F914BF4C310099B1F1 /* Settings.h */,
 				2EA168FA14BF4C310099B1F1 /* Settings.m */,
+				2ED746A116227C34001C4ADF /* SoftNagManager.h */,
+				2ED746A216227C34001C4ADF /* SoftNagManager.m */,
 				2E821F8E136C2DCB00507F66 /* TikTokApi.h */,
 				2E821F8F136C2DCB00507F66 /* TikTokApi.m */,
 				2E5FEAE514A14B6500B516FE /* UIDefaults.h */,
@@ -2147,6 +2152,7 @@
 				2E256EFE1588027A00432597 /* JsonPickerViewController.m in Sources */,
 				2E521C9D15C222CF00F153E0 /* UITableViewHeader.m in Sources */,
 				2E2618F6161D43AD002C699C /* CategoryViewController.m in Sources */,
+				2ED746A316227C34001C4ADF /* SoftNagManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

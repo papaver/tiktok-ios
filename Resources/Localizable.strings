@@ -59,3 +59,27 @@
 "SHARE_DEAL_CONFIRM"           = "Are you sure you want to gift this deal to %@?";
 "SHARE_DEAL_FB_FRIENDLESS"     = "Sorry, no friends found on Facebook with the TikTok app installed. Share the app with your friends first!";
 "SHARE_DEAL_FB_FAIL"           = "Failed to query friends from Facebook.  Try Again.";
+
+"Accommodation"                = "Whether I'm on the road or just dreaming about new places to visit I love getting offers for places to stay at a discount.";
+"Attractions"                  = "When there is a special attraction in my city I definitely want to know about it!";
+"Automotive + Hardware"        = "I drive a car and like to find cheap ways to keep it running.";
+"Bakery"                       = "Yummmm... click yes if the words muffin, croissant, fresh bread and cookies make your mouth water!";
+"Bussiness + Office"           = "Click yes if you are a student or someone who works in an office.";
+"Cafe"                         = "I enjoy the odd java jolt or cup of tea with a friend at a local café.";
+"Clothing"                     = "There's nothing I love more than shopping other than shopping for things on sale.";
+"Concerts + Music"             = "Music makes my body rock! Send me offers for music and concerts.";
+"Education"                    = "I love learning and experiencing new things.";
+"Electronics"                  = "Tap yes if the thought of offers on computers, TVs and other things with fancy screens and flashy lights excites you.";
+"Fast Food"                    = "I'm often on the go so if I can get fast food at a discount it would be Tiktastic!";
+"Film"                         = "A night at the movies for free would have me lined up for popcorn in a heartbeat.";
+"Fitness"                      = "I love breaking a sweat and switching up my fitness routine.";
+"Grocery"                      = "My cupboards are always brimming with food because I like to eat in. Help me fill my cupboards with free food!";
+"Health + Beauty"              = "Beauty may only be skin deep but I still like taking care of myself.";
+"Home + Garden"                = "I like keeping my home and garden fresh with new finds from local businesses.";
+"Nightlife"                    = "On the weekend you can find me out on the town!";
+"Pets"                         = "Tap yes if anyone living with you makes these sounds, \"woof, meow or tweet tweet.\"";
+"Restaurant"                   = "I enjoy going out for meals and would try a new place in the neighbourhood if they were offering a discount.";
+"Sporting Events"              = "If you cheer for a sports team tap yes.";
+"Sporting Goods"               = "Shoot a puck, whiz down a mountain on skis, golf, kick a ball? If you like to get active click yes!";
+"Theatre"                      = "From a small local theatre to the lights of Broadway tap yes if you enjoy a show on the stage now and again.";
+"Transport"                    = "Planes, trains & automobiles oh my. Send me offers to get me from point A to point B.";

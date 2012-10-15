@@ -19,6 +19,7 @@
 #define kSettingsGenderMale   @"Male"
 #define kSettingsGenderFemale @"Female"
 #define kSettingsCategories   $array(  \
+    @"Accommodation",                  \
     @"Attractions",                    \
     @"Automotive + Hardware",          \
     @"Bakery",                         \
@@ -41,6 +42,8 @@
     @"Sporting Goods",                 \
     @"Theatre",                        \
     @"Transport")
+
+#define kStopNagging @"stopNagging"
 
 //-----------------------------------------------------------------------------
 // interface definition
@@ -66,6 +69,8 @@
 @property(nonatomic, retain) NSDate     *lastUpdate;
 @property(nonatomic, retain) NSNumber   *tutorialIndex;
 @property(nonatomic, retain) NSNumber   *syncedSettings;
+@property(nonatomic, retain) NSString   *softNags;
+@property(nonatomic, retain) NSDate     *lastNag;
 
 //-----------------------------------------------------------------------------
 

@@ -1069,8 +1069,12 @@ enum ViewTags
     // set the current selection
     Settings *settings    = [Settings getInstance];
     NSString *categories  = settings.categories;
-    NSArray *categoryList = categories == nil ? kSettingsCategories :
-        [categories componentsSeparatedByString:@","];
+    if (categories == nil) {
+        categories = [kSettingsCategories componentsJoinedByString:@","];
+    }
+
+    // update current selection
+    NSArray *categoryList = [categories componentsSeparatedByString:@","];
     controller.currentSelection = [[[NSMutableArray alloc]
         initWithArray:categoryList] autorelease];
 

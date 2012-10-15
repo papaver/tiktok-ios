@@ -19,6 +19,7 @@
 #import "TikTokApi.h"
 #import "StartupViewController.h"
 #import "Settings.h"
+#import "SoftNagManager.h"
 #import "Utilities.h"
 
 //------------------------------------------------------------------------------
@@ -74,7 +75,12 @@
 
     // set startup completion handler to show navigation controller
     self.startupController.completionHandler = ^{
+
+        // display main navigation controller
         self.window.rootViewController = self.navigationController;
+
+        // alert soft nag manager of app launch
+        [SoftNagManager appLaunched];
     };
 
     // handle any notification sent to the app on startup
@@ -146,6 +152,9 @@
 
     // alert appirater of app foreground
     [Appirater appEnteredForeground:YES];
+
+    // alert soft nag manager of app foreground
+    [SoftNagManager appEnteredForeground];
 
     // sync coupons
     Settings *settings = [Settings getInstance];

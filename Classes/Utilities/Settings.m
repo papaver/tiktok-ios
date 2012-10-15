@@ -32,6 +32,8 @@
 #define KEY_LASTUPDATE     @"TTS_lastUpdate"
 #define KEY_TUTORIAL       @"TTS_tutorial"
 #define KEY_SYNCEDSETTINGS @"TTS_syncedSettings"
+#define KEY_SOFTNAG        @"TTS_softNag"
+#define KEY_LASTNAG        @"TTS_lastNag"
 
 #define API_KEY_NAME       @"name"
 #define API_KEY_EMAIL      @"email"
@@ -202,6 +204,8 @@
     [settings clearValueForKey:KEY_LASTUPDATE];
     [settings clearValueForKey:KEY_TUTORIAL];
     [settings clearValueForKey:KEY_SYNCEDSETTINGS];
+    [settings clearValueForKey:KEY_SOFTNAG];
+    [settings clearValueForKey:KEY_LASTNAG];
 }
 
 //-----------------------------------------------------------------------------
@@ -449,6 +453,38 @@
 }
 
 //-----------------------------------------------------------------------------
+
+- (NSString*) softNags
+{
+    return [self loadValueForKey:KEY_SOFTNAG];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setSoftNags:(NSString*)softNags
+{
+    if ([softNags isEqualToString:@""]) {
+        [self saveValue:kStopNagging forKey:KEY_SOFTNAG];
+    } else {
+        [self saveValue:softNags forKey:KEY_SOFTNAG];
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+- (NSDate*) lastNag
+{
+    return [self loadValueForKey:KEY_LASTNAG];
+}
+
+//-----------------------------------------------------------------------------
+
+- (void) setLastNag:(NSDate*)lastNag
+{
+    [self saveValue:lastNag forKey:KEY_LASTNAG];
+}
+
+//-----------------------------------------------------------------------------
 #pragma - Sync
 //-----------------------------------------------------------------------------
 
@@ -466,7 +502,7 @@
     };
 
     // update any empty settings
-    for (NSUInteger index = 0; index < 4; ++index) {
+    for (NSUInteger index = 0; index < 5; ++index) {
         NSString *key   = sKeyMappings[index].settingsKey;
         NSString *value = [settings objectForKey:sKeyMappings[index].apiKey];
         if (![self hasSetting:key] && ![value isEqualToString:@""]) {
